@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旭川仕様DIY単管物置：詳細設計図</title>
+    <style>
+        :root {
+            --primary-color: #333; /* マットブラック */
+            --accent-color: #d9534f; /* 注意色 */
+            --bg-color: #f9f9f9;
+            --paper-color: #fff;
+        }
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--paper-color);
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 40px;
+        }
+        h3 {
+            border-left: 5px solid var(--primary-color);
+            padding-left: 10px;
+            margin-top: 30px;
+        }
+        .blueprint-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .blueprint-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        svg {
+            background-color: #fff;
+            border: 1px solid #eee;
+            max-width: 100%;
+            height: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .check-box {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border: 1px solid #333;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .step {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 2px solid #ccc;
+        }
+        .step-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        /* 印刷用調整 */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; padding: 0; width: 100%; }
+            h2 { color: black; border: 1px solid black; background: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>旭川仕様・最強DIY物置 設計図</h1>
+    <p style="text-align: center;"><strong>用途：</strong>冬はスノーダンプ収納（雪滑落式） / 夏は日よけパーゴラ<br><strong>特徴：</strong>マットブラック塗装、筋交い強化、安全キャップ仕様</p>
+
+    <h2>1. 構造図面（筋交い強化版）</h2>
+    <div class="blueprint-container">
+        
+        <div class="blueprint-box">
+            <h3>【正面図】間口 1.5m</h3>
+            <svg width="350" height="400" viewBox="0 0 350 400">
+                <defs>
+                    <pattern id="diagonalHatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                        <line x1="0" y1="0" x2="0" y2="10" style="stroke:#ccc; stroke-width:1" />
+                    </pattern>
+                </defs>
+                <line x1="10" y1="380" x2="340" y2="380" stroke="#555" stroke-width="2"/>
+                
+                <rect x="50" y="50" width="10" height="330" fill="#222" /> <rect x="290" y="50" width="10" height="330" fill="#222" /> <rect x="50" y="50" width="250" height="10" fill="#222" /> <rect x="50" y="350" width="250" height="8" fill="#222" /> <rect x="40" y="40" width="270" height="10" fill="#8B4513" />
+
+                <line x1="60" y1="60" x2="290" y2="350" stroke="#d9534f" stroke-width="4" opacity="0.8" stroke-dasharray="5,5" />
+                <text x="175" y="200" text-anchor="middle" fill="#d9534f" font-size="12" font-weight="bold">※筋交い(2.5m)は背面側に設置</text>
+
+                <line x1="50" y1="390" x2="290" y2="390" stroke="#222" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+                <text x="175" y="405" text-anchor="middle" font-size="12">1500mm</text>
+                
+                <text x="310" y="200" font-size="12">高さ 2000mm</text>
+            </svg>
+        </div>
+
+        <div class="blueprint-box">
+            <h3>【側面図】奥行 1.5m</h3>
+            <svg width="350" height="400" viewBox="0 0 350 400">
+                <line x1="10" y1="380" x2="340" y2="380" stroke="#555" stroke-width="2"/>
+                
+                <rect x="220" y="50" width="10" height="330" fill="#222" /> <rect x="80" y="130" width="10" height="250" fill="#222" /> <line x1="50" y1="140" x2="250" y2="40" stroke="#222" stroke-width="10" stroke-linecap="round" />
+                <rect x="50" y="30" width="200" height="5" fill="#aaa" transform="rotate(-26.5 150 90)" /> <rect x="80" y="350" width="150" height="8" fill="#222" /> <rect x="80" y="150" width="150" height="8" fill="#222" /> <line x1="90" y1="350" x2="220" y2="150" stroke="#d9534f" stroke-width="4" opacity="0.8" stroke-dasharray="5,5" />
+                
+                <path d="M 60 140 Q 40 180 30 250" stroke="#87CEEB" stroke-width="2" fill="none" stroke-dasharray="4"/>
+                <text x="40" y="280" font-size="12" fill="#0066cc">雪滑落エリア</text>
+                <text x="40" y="300" font-size="10" fill="#555">※後ろは空ける</text>
+
+                 <path d="M 150 160 C 150 170 140 170 140 160 C 140 155 150 155 150 160" stroke="#ffd700" stroke-width="2" fill="none"/>
+                 <text x="160" y="175" font-size="10" fill="#b8860b">夏用フック位置</text>
+            </svg>
+        </div>
+    </div>
+
+    <h2>2. 資材購入リスト (黒塗装・強化版)</h2>
+    <div class="note">
+        <strong>重要：</strong> 塗装を行う場合は、組立前に「脱脂→プライマー（ミッチャクロン）→塗装」を行う必要があります。
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>確認</th>
+                <th>品名</th>
+                <th>仕様・サイズ</th>
+                <th>数量</th>
+                <th>用途・備考</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="5" style="background-color:#e9ecef;"><strong>【A. 単管パイプ (φ48.6mm)】</strong></td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>単管パイプ</td>
+                <td>2.5m</td>
+                <td>3本</td>
+                <td>筋交い用（背面1、左右2）<br><span style="color:red;">※強度確保に必須</span></td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>単管パイプ</td>
+                <td>2.0m</td>
+                <td>4本</td>
+                <td>前柱(2)、屋根土台(2)</td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>単管パイプ</td>
+                <td>1.5m</td>
+                <td>8本</td>
+                <td>後柱(2)、横つなぎ(4)、奥行(2)</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="background-color:#e9ecef;"><strong>【B. 金具・キャップ】</strong></td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>直交クランプ</td>
+                <td>-</td>
+                <td>16個</td>
+                <td>直角固定用</td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>自在クランプ</td>
+                <td>-</td>
+                <td>10個</td>
+                <td>筋交い・屋根傾斜用</td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>垂木クランプ</td>
+                <td>直交型（固定）</td>
+                <td>6個</td>
+                <td>屋根木材固定用</td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>単管キャップ</td>
+                <td><strong>樹脂製・黒</strong></td>
+                <td>18個</td>
+                <td><strong>安全対策（必須）</strong><br>全てのパイプ端に装着</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="background-color:#e9ecef;"><strong>【C. 屋根材・夏用】</strong></td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>ポリカ波板</td>
+                <td>6尺 (1820mm)<br><strong>熱線カット</strong></td>
+                <td>3枚</td>
+                <td>色：ブロンズマット推奨<br>夏場の温度上昇を防ぐ</td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>垂木 (木材)</td>
+                <td>45mm角 × 1820mm</td>
+                <td>3本</td>
+                <td>屋根下地（防腐剤入り推奨）</td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>波板用傘釘</td>
+                <td>ポリカ製</td>
+                <td>1箱</td>
+                <td>波板と同系色を選ぶ</td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>S字フック</td>
+                <td>パイプ径に合うもの</td>
+                <td>4個</td>
+                <td>夏場のサンシェード吊り下げ用</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="background-color:#e9ecef;"><strong>【D. 塗装・基礎】</strong></td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>プライマー</td>
+                <td>ミッチャクロン</td>
+                <td>1~2本</td>
+                <td>塗料の密着剤（スプレー）</td>
+            </tr>
+            <tr>
+                <td><span class="check-box"></span></td>
+                <td>上塗り塗料</td>
+                <td>つや消し黒</td>
+                <td>3~4本</td>
+                <td>スプレー または 刷毛塗り</td>
+            </tr>
+             <tr>
+                <td><span class="check-box"></span></td>
+                <td>基礎石</td>
+                <td>ピンコロ等</td>
+                <td>4個</td>
+                <td>12cm~15cm角程度のもの</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. 制作ステップ (Nomura様邸仕様)</h2>
+
+    <div class="step">
+        <div class="step-title">Step 1：下準備と塗装（晴れた日に！）</div>
+        <p>ここが「おしゃれさ」の分かれ目です。</p>
+        <ol>
+            <li><strong>洗浄：</strong> 新品のパイプには油がついています。パーツクリーナー等で拭き取ります。</li>
+            <li><strong>下塗り：</strong> 「ミッチャクロン」を全体に薄くスプレーし、20分ほど乾かします。</li>
+            <li><strong>塗装：</strong> 「つや消し黒」を塗ります。クランプも一緒に並べて塗ると楽です。完全に乾くまで待ちます。</li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Step 2：基礎の設置</div>
+        <p>設置場所（雪が後ろに落ちても良い場所）を決めます。</p>
+        <ul>
+            <li>1.5m × 1.5m の四隅に基礎石を置きます。</li>
+            <li>水平器を使い、石の高さを揃えます（土を掘って調整）。</li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Step 3：骨組みの組立</div>
+        <p>2人作業推奨ですが、工夫すれば1人でも可能です。</p>
+        <ol>
+            <li>地面で<strong>「前枠（2m柱＋1.5m横）」</strong>と<strong>「後枠（1.5m柱＋1.5m横）」</strong>を作ります。</li>
+            <li>枠を立てて、奥行きパイプで繋ぎます。</li>
+            <li><strong>重要：</strong> ここで<strong>「筋交い（2.5m）」</strong>を背面と側面に斜めに取り付けます。これでグラつきが消えます。</li>
+            <li>最後に全てのボルトを本締めします。</li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Step 4：屋根の取り付け</div>
+        <ol>
+            <li>屋根の土台パイプ（斜めの部分）に「垂木クランプ」を付けます。</li>
+            <li>木材（垂木）を横向きに固定します。</li>
+            <li>「熱線カット波板」を載せ、ドリルで下穴を開けてから傘釘を打ちます（山の方に打ちます）。</li>
+        </ol>
+    </div>
+
+    <div class="step">
+        <div class="step-title">Step 5：仕上げと安全対策</div>
+        <ul>
+            <li>全てのパイプの端に<strong>「黒キャップ」</strong>を嵌め込みます。</li>
+            <li>基礎部分が動かないよう、重石を載せるか、アンカーで固定します。</li>
+            <li>夏用フックをパイプにかけて完成です！</li>
+        </ul>
+    </div>
+
+    <div class="note" style="text-align: center;">
+        これで、旭川の雪にも負けない、かつ夏は涼しい<br>
+        <strong>「インダストリアルデザイン物置」</strong>の完成です。<br>
+        安全に作業してください！
+    </div>
+
+</div>
+
+</body>
+</html>
