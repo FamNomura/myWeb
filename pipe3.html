@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>単管物置：組立施工マニュアル</title>
+    <style>
+        :root {
+            --primary: #2c3e50; /* メイン黒/紺 */
+            --accent: #e67e22; /* アクセントオレンジ */
+            --success: #27ae60; /* 完了緑 */
+            --bg: #f0f2f5;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Meiryo, sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            margin: 0;
+            padding: 10px;
+            padding-bottom: 50px;
+            line-height: 1.6;
+        }
+        h1 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            text-align: center;
+            margin: 15px 0 25px 0;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.1rem;
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .intro-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .step-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid #ccc;
+            transition: all 0.2s ease;
+        }
+        .step-card.active {
+            border-left-color: var(--accent);
+        }
+        .step-card.done {
+            border-left-color: var(--success);
+            opacity: 0.7;
+        }
+        .step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .step-title {
+            font-weight: bold;
+            font-size: 1.05rem;
+        }
+        .step-details {
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .step-details ul, .step-details ol {
+            padding-left: 20px;
+            margin: 5px 0;
+        }
+        .step-details li {
+            margin-bottom: 5px;
+        }
+        .pro-tip {
+            background-color: #e8f4f8;
+            color: #2980b9;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            border-left: 3px solid #3498db;
+        }
+        .warning {
+            color: #c0392b;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        /* Checkbox Customization */
+        .check-container {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 1rem;
+            user-select: none;
+            margin-top: 10px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .check-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .check-container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+        .check-container input:checked ~ .checkmark {
+            background-color: var(--success);
+            border-color: var(--success);
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .check-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .check-container .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+        .tool-item {
+            background: #fff;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+    </style>
+    <script>
+        function toggleStep(checkbox, cardId) {
+            const card = document.getElementById(cardId);
+            if (checkbox.checked) {
+                card.classList.add('done');
+                card.classList.remove('active');
+            } else {
+                card.classList.remove('done');
+                card.classList.add('active');
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1>旭川仕様 単管物置<br>施工マニュアル</h1>
+
+    <div class="intro-box">
+        <strong>👷 安全第一です！</strong><br>
+        必ず軍手を着用し、可能であれば2人で作業してください。ネジやボルトは「仮締め」→「本締め」の順で行うのが鉄則です。
+    </div>
+
+    <h2>🛠 0. 必要な道具 (持参チェック)</h2>
+    <div class="tools-grid">
+        <div class="tool-item">ラチェットレンチ<br>(17mm)</div>
+        <div class="tool-item">プラスドライバー<br>(インパクト推奨)</div>
+        <div class="tool-item">メジャー・巻尺</div>
+        <div class="tool-item">水平器<br>(スマホアプリ可)</div>
+        <div class="tool-item">軍手・保護メガネ</div>
+        <div class="tool-item">脚立・踏み台</div>
+    </div>
+
+    <h2>🎨 1. 塗装 (組立の前日推奨)</h2>
+    
+    <div class="step-card active" id="step1-1">
+        <div class="step-header">
+            <span class="step-title">1-1. 脱脂（だっし）</span>
+        </div>
+        <div class="step-details">
+            新品の単管パイプは油でベトベトしています。これを取らないと塗装がすぐ剥がれます。
+            <ul>
+                <li>パーツクリーナーや中性洗剤でパイプとクランプを拭く。</li>
+                <li>水分を完全に乾かす。</li>
+            </ul>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step1-1')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="step-card active" id="step1-2">
+        <div class="step-header">
+            <span class="step-title">1-2. 下塗り (プライマー)</span>
+        </div>
+        <div class="step-details">
+            「ミッチャクロン」をスプレーします。
+            <ul>
+                <li>全体に薄く吹き付ける（厚塗りは不要）。</li>
+                <li>20〜30分乾燥させる。</li>
+            </ul>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step1-2')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="step-card active" id="step1-3">
+        <div class="step-header">
+            <span class="step-title">1-3. 上塗り (黒塗装)</span>
+        </div>
+        <div class="step-details">
+            「つや消し黒」を塗装します。
+            <ul>
+                <li>パイプを回しながら全体を塗る。</li>
+                <li>クランプのボルト部分もしっかり塗る。</li>
+            </ul>
+            <div class="pro-tip">💡 クランプは段ボールに並べて一気にスプレーすると楽です。</div>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step1-3')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <h2>🏗 2. 基礎・整地</h2>
+
+    <div class="step-card active" id="step2-1">
+        <div class="step-header">
+            <span class="step-title">2-1. 位置決めと整地</span>
+        </div>
+        <div class="step-details">
+            設置場所（約1.5m×1.5m）を決めます。
+            <ul>
+                <li>雪が屋根の後ろに落ちるスペースがあるか確認。</li>
+                <li>地面を平らにならす。</li>
+            </ul>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step2-1')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="step-card active" id="step2-2">
+        <div class="step-header">
+            <span class="step-title">2-2. 基礎石の設置</span>
+        </div>
+        <div class="step-details">
+            4つの角に基礎石（ピンコロ）を置きます。
+            <ul>
+                <li>幅1.5m、奥行1.5mの間隔で配置。</li>
+                <li>板などを渡し、水平器で水平を確認する。<br>（ここがズレると後で苦労します！）</li>
+            </ul>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step2-2')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <h2>🔧 3. 骨組み (鳥居組み工法)</h2>
+
+    <div class="step-card active" id="step3-1">
+        <div class="step-header">
+            <span class="step-title">3-1. 前枠を作る (地面で作業)</span>
+        </div>
+        <div class="step-details">
+            まだ立てません。地面に寝かせて作ります。
+            <ul>
+                <li><strong>2.0mパイプ</strong> 2本（柱）</li>
+                <li><strong>1.5mパイプ</strong> 2本（梁・足元）</li>
+                <li>直交クランプで「口」の字型に組む。</li>
+                <li>上の梁は上端から5cm、下のパイプは下端から10cmの位置。</li>
+            </ul>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step3-1')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="step-card active" id="step3-2">
+        <div class="step-header">
+            <span class="step-title">3-2. 後枠を作る (地面で作業)</span>
+        </div>
+        <div class="step-details">
+            同様に後ろの低い壁を作ります。
+            <ul>
+                <li><strong>1.5mパイプ</strong> 2本（柱）</li>
+                <li><strong>1.5mパイプ</strong> 2本（梁・足元）</li>
+                <li>直交クランプで組む。</li>
+            </ul>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step3-2')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="step-card active" id="step3-3">
+        <div class="step-header">
+            <span class="step-title">3-3. 起こして連結 (一番大変！)</span>
+        </div>
+        <div class="step-details">
+            ここからは慎重に。
+            <ol>
+                <li>「前枠」と「後枠」を基礎石の上に立てる（誰かに支えてもらう）。</li>
+                <li><strong>1.5mパイプ</strong>（奥行用）を足元付近につなぎ、自立させる。</li>
+                <li>屋根部分（上部）の奥行き用パイプとして、<strong>2.0mパイプ</strong>を取り付ける。</li>
+            </ol>
+            <div class="warning">⚠️ 屋根用パイプは、後ろ側に30cmほど突き出させてください（雪落とし用）。自在クランプを使用します。</div>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step3-3')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="step-card active" id="step3-4">
+        <div class="step-header">
+            <span class="step-title">3-4. 筋交い (最強の補強)</span>
+        </div>
+        <div class="step-details">
+            グラグラを止めます。
+            <ul>
+                <li><strong>2.5mパイプ</strong>を、背面と側面に「斜め」に取り付ける。</li>
+                <li>自在クランプを使用。</li>
+                <li>この時点で、全てのボルトをガチガチに本締めする。</li>
+            </ul>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step3-4')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <h2>🏠 4. 屋根張り</h2>
+
+    <div class="step-card active" id="step4-1">
+        <div class="step-header">
+            <span class="step-title">4-1. 垂木 (木材) の固定</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>屋根のパイプ（斜めになっているパイプ）に「垂木クランプ」を付ける（左右と真ん中）。</li>
+                <li>垂木（45mm角材）を横向きに流し、ビスでクランプに固定する。</li>
+            </ul>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step4-1')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="step-card active" id="step4-2">
+        <div class="step-header">
+            <span class="step-title">4-2. 波板の貼り付け</span>
+        </div>
+        <div class="step-details">
+            熱線カット波板を貼ります。
+            <ul>
+                <li>波板の「ツルツルした面（対候面）」を必ず空に向ける（シールを確認！）。</li>
+                <li><strong>「山」の部分</strong>にドリルで穴を開け、傘釘を打つ。</li>
+                <li>波板の重ね合わせは「2.5山」以上重ねる。</li>
+            </ul>
+            <div class="pro-tip">💡 重ね目は「風下」になるようにすると、強風で剥がれにくいです。</div>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step4-2')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <h2>✨ 5. 仕上げ・安全対策</h2>
+
+    <div class="step-card active" id="step5-1">
+        <div class="step-header">
+            <span class="step-title">5-1. キャップ装着・補修</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>パイプの端っこ全てに「黒キャップ」を嵌める。</li>
+                <li>塗装が剥げた部分や、銀色のボルトの頭に、スプレーをキャップに出して筆塗り（タッチアップ）する。</li>
+            </ul>
+        </div>
+        <label class="check-container">完了
+            <input type="checkbox" onclick="toggleStep(this, 'step5-1')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="step-card active" id="step5-2">
+        <div class="step-header">
+            <span class="step-title">5-2. 完了！</span>
+        </div>
+        <div class="step-details">
+            お疲れ様でした！スノーダンプを収納してください。<br>
+            夏場は屋根下のパイプにS字フックをかけ、シェードを吊るせば完成です。
+        </div>
+        <label class="check-container">完成！
+            <input type="checkbox" onclick="toggleStep(this, 'step5-2')">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+</body>
+</html>
