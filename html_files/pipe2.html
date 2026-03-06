@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旭川仕様DIY単管物置：完全設計図</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50; /* マットブラック/ダークネイビー */
+            --accent-color: #e74c3c; /* 注意色 */
+            --bg-color: #f4f7f6;
+            --paper-color: #fff;
+            --header-bg: #34495e;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--paper-color);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+        h1 {
+            font-size: 1.5rem;
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.2rem;
+            background-color: var(--header-bg);
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        /* 3D Viewer Styles */
+        #canvas-container {
+            width: 100%;
+            height: 350px;
+            background-color: #eef;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .viewer-hint {
+            font-size: 0.8rem;
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Table Styles (Card View on Mobile) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+        @media screen and (max-width: 600px) {
+            thead { display: none; } /* ヘッダーを隠す */
+            tr {
+                display: block;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                background: #fff;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+            td {
+                display: block;
+                text-align: right;
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%; /* ラベル用のスペース */
+            }
+            td:last-child { border-bottom: none; }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                text-align: left;
+                font-weight: bold;
+                color: #555;
+            }
+            .total-row {
+                background-color: #f9f9f9;
+                font-weight: bold;
+                font-size: 1.1em;
+            }
+        }
+        @media screen and (min-width: 601px) {
+            th, td {
+                border: 1px solid #ddd;
+                padding: 12px;
+                text-align: left;
+            }
+            th { background-color: #f2f2f2; }
+        }
+
+        .check-box {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #555;
+            border-radius: 3px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        .price { color: #e67e22; font-weight: bold; }
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>旭川仕様・最強DIY物置<br><span style="font-size:0.7em; color:#555;">〜スノーダンプ＆夏の日除け〜</span></h1>
+
+    <h2>1. 完成イメージ 3D (操作可能)</h2>
+    <div id="canvas-container"></div>
+    <div class="viewer-hint">👆 指でくるくる回せます / ピンチで拡大縮小</div>
+    <div class="note">
+        <strong>ポイント：</strong> 背面（低い方）に雪が滑り落ちる設計です。黒塗装＋キャップで安全かつモダンな外観にします。
+    </div>
+
+    <h2>2. 資材購入リスト & 概算予算</h2>
+    <p style="font-size:0.9rem;">※価格は一般的なホームセンター（DCM等）の標準的な価格（税込）を目安にしています。地域や時期により変動します。</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th width="10%">Check</th>
+                <th>品名・推奨商品</th>
+                <th width="15%">数量</th>
+                <th width="25%">単価目安</th>
+                <th>合計目安</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="background-color: #edf2f7;"><td colspan="5" data-label="カテゴリ"><strong>【単管パイプ φ48.6mm】</strong></td></tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">単管パイプ <strong>2.5m</strong><br><span style="font-size:0.8em; color:#666;">筋交い用 (重要)</span></td>
+                <td data-label="数量">3本</td>
+                <td data-label="単価" class="price">¥1,800</td>
+                <td data-label="小計">¥5,400</td>
+            </tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">単管パイプ <strong>2.0m</strong><br><span style="font-size:0.8em; color:#666;">前柱・屋根下地</span></td>
+                <td data-label="数量">4本</td>
+                <td data-label="単価" class="price">¥1,400</td>
+                <td data-label="小計">¥5,600</td>
+            </tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">単管パイプ <strong>1.5m</strong><br><span style="font-size:0.8em; color:#666;">後柱・横つなぎ</span></td>
+                <td data-label="数量">8本</td>
+                <td data-label="単価" class="price">¥1,100</td>
+                <td data-label="小計">¥8,800</td>
+            </tr>
+
+            <tr style="background-color: #edf2f7;"><td colspan="5" data-label="カテゴリ"><strong>【クランプ・金具】</strong></td></tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">直交クランプ<br><span style="font-size:0.8em; color:#666;">固定用</span></td>
+                <td data-label="数量">16個</td>
+                <td data-label="単価" class="price">¥220</td>
+                <td data-label="小計">¥3,520</td>
+            </tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">自在クランプ<br><span style="font-size:0.8em; color:#666;">筋交い・屋根用</span></td>
+                <td data-label="数量">10個</td>
+                <td data-label="単価" class="price">¥220</td>
+                <td data-label="小計">¥2,200</td>
+            </tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">垂木クランプ (直交/固定)<br><span style="font-size:0.8em; color:#666;">木材固定用</span></td>
+                <td data-label="数量">6個</td>
+                <td data-label="単価" class="price">¥250</td>
+                <td data-label="小計">¥1,500</td>
+            </tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名"><strong>単管キャップ (黒・樹脂)</strong><br><span style="font-size:0.8em; color:#666;">安全対策用</span></td>
+                <td data-label="数量">18個</td>
+                <td data-label="単価" class="price">¥100</td>
+                <td data-label="小計">¥1,800</td>
+            </tr>
+
+            <tr style="background-color: #edf2f7;"><td colspan="5" data-label="カテゴリ"><strong>【屋根・夏用資材】</strong></td></tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">ポリカ波板 6尺(1820mm)<br><strong>熱線カット</strong> (ブロンズ等)</td>
+                <td data-label="数量">3枚</td>
+                <td data-label="単価" class="price">¥1,800</td>
+                <td data-label="小計">¥5,400</td>
+            </tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">垂木 (防腐注入材)<br>45mm角 × 1820mm</td>
+                <td data-label="数量">3本</td>
+                <td data-label="単価" class="price">¥500</td>
+                <td data-label="小計">¥1,500</td>
+            </tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">波板用傘釘 (ポリカ連結)<br><span style="font-size:0.8em; color:#666;">1箱 (50本入程度)</span></td>
+                <td data-label="数量">1箱</td>
+                <td data-label="単価" class="price">¥800</td>
+                <td data-label="小計">¥800</td>
+            </tr>
+
+            <tr style="background-color: #edf2f7;"><td colspan="5" data-label="カテゴリ"><strong>【塗装・基礎】</strong></td></tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">ミッチャクロン マルチ<br><span style="font-size:0.8em; color:#666;">スプレー (下塗り必須)</span></td>
+                <td data-label="数量">2本</td>
+                <td data-label="単価" class="price">¥1,500</td>
+                <td data-label="小計">¥3,000</td>
+            </tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">アサヒペン 高耐久ラッカー<br><span style="font-size:0.8em; color:#666;">つや消し黒</span></td>
+                <td data-label="数量">3本</td>
+                <td data-label="単価" class="price">¥900</td>
+                <td data-label="小計">¥2,700</td>
+            </tr>
+            <tr>
+                <td data-label="確認"><span class="check-box"></span></td>
+                <td data-label="品名">コンクリート束石<br><span style="font-size:0.8em; color:#666;">ピンコロ (15cm角等)</span></td>
+                <td data-label="数量">4個</td>
+                <td data-label="単価" class="price">¥500</td>
+                <td data-label="小計">¥2,000</td>
+            </tr>
+            
+            <tr class="total-row" style="background-color: #34495e; color: white;">
+                <td colspan="4" data-label="合計" style="text-align: right; padding-right: 20px;">概算合計 (税込)</td>
+                <td data-label="金額" style="color: #f1c40f;">約 ¥44,220</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <strong>予算調整のヒント：</strong><br>
+        塗装を省けば <strong>約6,000円</strong> 節約できます。<br>
+        熱線カット波板を普通のポリカにすれば <strong>約1,000円</strong> 節約できますが、夏場の快適性が下がります。
+    </div>
+</div>
+
+<script>
+    // --- 3D Viewer Script ---
+    function init3D() {
+        const container = document.getElementById('canvas-container');
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf4f7f6);
+
+        const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100);
+        camera.position.set(3.5, 2.5, 4.5);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(width, height);
+        container.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        
+        // Grid
+        const gridHelper = new THREE.GridHelper(5, 10, 0xcccccc, 0xe0e0e0);
+        scene.add(gridHelper);
+
+        // Materials
+        const matStructure = new THREE.LineBasicMaterial({ color: 0x2c3e50, linewidth: 2 }); // Dark Blue/Black
+        const matBrace = new THREE.LineBasicMaterial({ color: 0xe74c3c, linewidth: 2 }); // Red (Bracing)
+        const matRoof = new THREE.LineBasicMaterial({ color: 0xd35400, linewidth: 2 }); // Brown (Wood)
+
+        // Helper to create line from points
+        function createLine(p1, p2, material) {
+            const points = [new THREE.Vector3(...p1), new THREE.Vector3(...p2)];
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            return new THREE.Line(geometry, material);
+        }
+
+        // Dimensions
+        const w = 0.75; // Half width (Total 1.5)
+        const d = 0.75; // Half depth (Total 1.5)
+        const hF = 2.0; // Front Height
+        const hB = 1.5; // Back Height
+
+        // --- Main Frame ---
+        // Posts
+        scene.add(createLine([-w, 0, d], [-w, hF, d], matStructure)); // Front L
+        scene.add(createLine([w, 0, d], [w, hF, d], matStructure));   // Front R
+        scene.add(createLine([-w, 0, -d], [-w, hB, -d], matStructure)); // Back L
+        scene.add(createLine([w, 0, -d], [w, hB, -d], matStructure));   // Back R
+
+        // Beams
+        scene.add(createLine([-w, hF, d], [w, hF, d], matStructure)); // Top Front
+        scene.add(createLine([-w, hB, -d], [w, hB, -d], matStructure)); // Top Back
+        scene.add(createLine([-w, 0.2, d], [w, 0.2, d], matStructure)); // Bottom Front
+        scene.add(createLine([-w, 0.2, -d], [w, 0.2, -d], matStructure)); // Bottom Back
+        
+        // Side Beams
+        scene.add(createLine([-w, hF, d], [-w, hB, -d], matStructure)); // Top L Side
+        scene.add(createLine([w, hF, d], [w, hB, -d], matStructure));   // Top R Side
+        scene.add(createLine([-w, 0.2, d], [-w, 0.2, -d], matStructure)); // Bottom L Side
+        scene.add(createLine([w, 0.2, d], [w, 0.2, -d], matStructure));   // Bottom R Side
+
+        // --- Bracing (Sujikai) - Highlighted in Red ---
+        scene.add(createLine([-w, 0.2, -d], [w, hB, -d], matBrace)); // Back Cross
+        scene.add(createLine([-w, 0.2, d], [-w, hB, -d], matBrace)); // Left Side Cross
+        scene.add(createLine([w, 0.2, d], [w, hB, -d], matBrace));   // Right Side Cross
+
+        // --- Roof Taruki (Wood) ---
+        // Overhangs
+        const ohF = 0.1; 
+        const ohB = 0.3;
+        // Slope calc
+        const slope = (hF - hB) / (2*d);
+        const yF = hF + slope*ohF + 0.05;
+        const yB = hB - slope*ohB + 0.05;
+        const zF = d + ohF;
+        const zB = -d - ohB;
+
+        scene.add(createLine([-w, yF, zF], [-w, yB, zB], matRoof)); // L
+        scene.add(createLine([w, yF, zF], [w, yB, zB], matRoof));   // R
+        scene.add(createLine([0, yF, zF], [0, yB, zB], matRoof));   // Center
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize Handler
+        window.addEventListener('resize', () => {
+            const w = container.clientWidth;
+            const h = container.clientHeight;
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w, h);
+        });
+    }
+
+    // Initialize once loaded
+    window.addEventListener('load', init3D);
+</script>
+
+</body>
+</html>
