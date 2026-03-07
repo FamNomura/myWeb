@@ -321,14 +321,17 @@ tfoot tr td { font-weight: bold; background-color: #f1f5f9; border-top: 2px soli
         const assetsData = [];
         const isBalanced = true;
         // templates/script.js
-// 修正箇所：総勘定元帳の明細行に「取引ID」と「証憑」ボタンのデータを追加し、colspanを調整
+// 修正箇所：未登録の勘定科目を検知・警告する安全装置（バリデーション機能）を追加
 
 const assetAccounts = ["現金", "普通預金", "売掛金", "棚卸資産", "前払金", "固定資産", "敷金・保証金", "事業主貸"];
 const liabilityAccounts = ["買掛金", "未払金", "預り金", "借入金"];
 const capitalAccounts = ["元入金", "事業主借"];
 const revenueAccounts = ["売上高", "雑収入"];
-const expenseAccounts = ["仕入高", "租税公課", "荷造運賃", "水道光熱費", "旅費交通費", "通信費", "広告宣伝費", "接待交際費", "損害保険料", "修繕費", "消耗品費", "減価償却費", "地代家賃", "支払手数料", "外注費", "給料賃金", "専従者給与", "雑費", "会議費"];
+const expenseAccounts = ["仕入高", "租税公課", "荷造運賃", "水道光熱費", "旅費交通費", "通信費", "広告宣伝費", "接待交際費", "損害保険料", "修繕費", "消耗品費", "減価償却費", "地代家賃", "支払手数料", "外注費", "給料賃金", "専従者給与", "雑費", "会議費", "研修費"];
 const debitNormalAccounts = [...assetAccounts, ...expenseAccounts];
+
+// 修正箇所：未登録科目チェック用の全科目リストを作成
+const allValidAccounts = [...assetAccounts, ...liabilityAccounts, ...capitalAccounts, ...revenueAccounts, ...expenseAccounts];
 
 let currentSortCol = 'date';
 let currentSortDir = 1;
@@ -389,7 +392,21 @@ function runAudits() {
     let receivables = {};
     let payables = {};
     
+    // 修正箇所：未登録科目を収集するオブジェクトを追加
+    let unregisteredAccounts = {};
+
     rawData.forEach(row => {
+        // --- 1. 未登録科目のチェック処理（追加） ---
+        const checkUnregistered = (acc, tid) => {
+            if (acc && acc.trim() !== '' && !allValidAccounts.includes(acc)) {
+                if (!unregisteredAccounts[acc]) unregisteredAccounts[acc] = new Set();
+                unregisteredAccounts[acc].add(tid);
+            }
+        };
+        checkUnregistered(row.debit_account, row.transaction_id);
+        checkUnregistered(row.credit_account, row.transaction_id);
+
+        // --- 2. 売掛金・買掛金のチェック処理（既存） ---
         let p = row.partner || '取引先未入力';
         if (!receivables[p]) receivables[p] = { amount: 0, ids: new Set() };
         if (!payables[p]) payables[p] = { amount: 0, ids: new Set() };
@@ -409,6 +426,12 @@ function runAudits() {
         if (['買掛金', '未払金'].includes(row.debit_account)) {
             payables[p].amount -= row.debit_amount;
         }
+    });
+
+    // 修正箇所：未登録科目に関する致命的アラートの生成（追加）
+    Object.keys(unregisteredAccounts).forEach(acc => {
+        let idList = Array.from(unregisteredAccounts[acc]).join(', ');
+        alertsHTML += `<div class="biz-alert" style="background-color: #fadbd8; border-left-color: #c0392b;"><div><strong style="color:#c0392b;">🚨 未登録の勘定科目を検知（集計漏れの原因）:</strong> 「<strong>${escapeHTML(acc)}</strong>」はシステムに登録されていません。（関連取引ID: <strong>${escapeHTML(idList)}</strong>）<br><strong>解決策：</strong><code>script.js</code> の冒頭にある科目リスト（assetAccounts 等）のいずれかに、この科目を追記してください。</div></div>`;
     });
 
     Object.keys(receivables).forEach(p => {
@@ -673,7 +696,6 @@ function renderGeneralLedgerDetail() {
     let targetLines = [];
     let sortedForGL = [...rawData].sort((a,b) => new Date(a.date) - new Date(b.date));
 
-    // 修正箇所：取引ID（transaction_id）と証憑ファイル（receipt_file）を抽出データに追加
     sortedForGL.forEach(row => {
         const checkSide = (mainAcc, subAcc, oppMain, oppSub, amt, isDebit) => {
             if (!mainAcc) return;
@@ -738,10 +760,8 @@ function renderGeneralLedgerDetail() {
         let memoHTML = line.memo && line.memo.trim() !== '' ? `<span class="memo">${escapeHTML(line.memo)}</span>` : '';
         let targetDisp = `<strong>${escapeHTML(line.targetMain)}</strong>` + (line.targetSub ? ` <span style="font-size:0.85em;color:#7f8c8d;">[${escapeHTML(line.targetSub)}]</span>` : '');
 
-        // 修正箇所：証憑ボタンの生成
         let receiptBtn = line.receipt_file && line.receipt_file.trim() !== '' ? `<a href="./receipts/${escapeHTML(line.receipt_file)}" target="_blank" class="btn-receipt">🧾 画像</a>` : '';
 
-        // 修正箇所：取引ID、証憑ボタンをHTMLに追加
         rowsHTML += `<tr>
             <td>${escapeHTML(line.transaction_id)}</td>
             <td>${escapeHTML(line.date)}</td>
@@ -761,7 +781,6 @@ function renderGeneralLedgerDetail() {
     const footer = document.getElementById('general-ledger-footer');
     if (rowsHTML !== '') {
         let footerBalanceHTML = canCalculateBalance ? formatC(currentBalance) : '<span style="font-size:12px; color:#7f8c8d; font-weight:normal;">(期間差引)</span><br>' + formatC(sumDebit - sumCredit);
-        // 修正箇所：列が増えたため、colspanを 5 -> 6 に変更
         footer.innerHTML = `<tr>
             <td colspan="6" style="text-align: right;">表示中の合計 (${targetLines.length}件)</td>
             <td class="amount-cell">${formatC(sumDebit)}</td>
