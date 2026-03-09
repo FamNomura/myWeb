@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぴたっとナース 協力企業向けチラシ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#e0f2fe', // sky-100
+                            DEFAULT: '#0284c7', // sky-600
+                            dark: '#0369a1', // sky-700
+                        },
+                        partner: {
+                            light: '#dcfce7', // green-100
+                            DEFAULT: '#16a34a', // green-600
+                            dark: '#15803d', // green-700
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .a4-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        @media print {
+            body { background-color: white; padding: 0; }
+            .a4-wrapper { box-shadow: none; max-width: 100%; width: 100%; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="py-8 px-4 md:px-8">
+
+    <!-- 印刷ボタン (Web表示用) -->
+    <div class="max-w-3xl mx-auto mb-4 text-right no-print">
+        <button onclick="window.print()" class="bg-gray-800 text-white px-4 py-2 rounded shadow hover:bg-gray-700 transition">
+            <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+            印刷・PDF保存
+        </button>
+    </div>
+
+    <div class="a4-wrapper overflow-hidden relative border-t-8 border-partner">
+
+        <div class="p-8 md:p-12 relative">
+            
+            <!-- 宛名とバッジ -->
+            <div class="flex justify-between items-start mb-6">
+                <p class="inline-block bg-gray-800 text-white px-4 py-1.5 rounded text-sm font-bold tracking-wider">
+                    旭川市内のシニア向けサービス事業者様へ
+                </p>
+                <div class="text-xs font-bold text-yellow-800 bg-yellow-100 border border-yellow-400 px-3 py-1.5 rounded shadow-sm text-center">
+                    令和〇年度 道北ビジコン<br><span class="text-red-600 text-sm">最優秀賞 受賞事業</span>
+                </div>
+            </div>
+
+            <!-- ヘッダー -->
+            <header class="mb-10">
+                <h1 class="text-3xl md:text-4xl font-black text-gray-800 leading-tight mb-4">
+                    御社の大切なお客様の「困った」を、<br>
+                    <span class="text-partner">私たちと一緒に解決しませんか？</span>
+                </h1>
+                <p class="text-lg text-gray-600 font-medium border-l-4 border-partner pl-4 leading-relaxed">
+                    シニア世代の「通院・外出の壁」を取り除き、<br>御社の顧客満足度向上に貢献する新しいパートナーシップのご提案です。
+                </p>
+            </header>
+
+            <!-- 課題提起 -->
+            <div class="bg-gray-50 p-6 rounded-xl mb-10 border border-gray-200">
+                <h2 class="text-xl font-bold text-center mb-4 text-gray-800">お客様との会話で、こんなお悩みを聞くことはありませんか？</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-3">
+                        <svg class="w-6 h-6 text-gray-400 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        <p class="text-sm text-gray-700 leading-relaxed">「最近足腰が痛くて、病院に行くだけでも一苦労なのよ…」</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex items-start gap-3">
+                        <svg class="w-6 h-6 text-gray-400 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        <p class="text-sm text-gray-700 leading-relaxed">「子供は札幌で働いているから、なかなか頼めなくて…」</p>
+                    </div>
+                </div>
+                <p class="text-center text-sm text-gray-500 mt-4">
+                    本業のサービス外のことで、力になってあげたいけれど対応できない。<br>そんな時は、私たちにお任せください！
+                </p>
+            </div>
+
+            <!-- サービス紹介 -->
+            <div class="flex flex-col md:flex-row items-center gap-6 mb-10">
+                <div class="w-full md:w-1/3 shrink-0">
+                    <div class="aspect-square bg-gray-200 rounded-full overflow-hidden border-4 border-brand-light flex items-center justify-center text-brand font-bold text-sm text-center">
+                        
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <p class="text-brand font-bold text-sm mb-1">自費訪問看護・外出エスコートサービス</p>
+                    <h3 class="text-2xl font-black text-gray-800 mb-3">ぴたっとナース</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                        ぴたっとナースは、臨床経験12年の正看護師がご家族の代わりに「もう一人の家族」として寄り添う、旭川発の新しい外出エスコートサービスです。
+                    </p>
+                    <ul class="text-sm text-gray-700 space-y-2 font-medium bg-brand-light/30 p-4 rounded-lg">
+                        <li class="flex items-center"><svg class="w-4 h-4 text-brand mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>ドアツードアで病院・お買い物などへ同伴</li>
+                        <li class="flex items-center"><svg class="w-4 h-4 text-brand mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>医師の説明を翻訳し、遠方のご家族へLINE報告</li>
+                        <li class="flex items-center"><svg class="w-4 h-4 text-brand mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>介護保険の枠にとらわれない柔軟な対応</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Win-Winの提携メリット -->
+            <div class="mb-10">
+                <h2 class="text-2xl font-bold text-center mb-8">御社と提携させていただく <span class="text-partner border-b-2 border-partner">3つのメリット</span></h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- メリット1 -->
+                    <div class="bg-white border-2 border-partner-light rounded-xl p-5 shadow-sm relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-partner text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">1</div>
+                        <h4 class="font-bold text-gray-800 text-center mt-3 mb-2">顧客満足度の向上</h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">「困った時に良いサービスを教えてくれた」と、御社への信頼感がさらに高まります。お客様の生活の質（QOL）向上に貢献できます。</p>
+                    </div>
+                    <!-- メリット2 -->
+                    <div class="bg-white border-2 border-partner-light rounded-xl p-5 shadow-sm relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-partner text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</div>
+                        <h4 class="font-bold text-gray-800 text-center mt-3 mb-2">本業への集中</h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">スタッフ様がお客様から「病院への付き添い」などを相談された際、専門外の業務を抱え込まず、安心してお任せいただく窓口になります。</p>
+                    </div>
+                    <!-- メリット3 (修正箇所) -->
+                    <div class="bg-white border-2 border-partner-light rounded-xl p-5 shadow-sm relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-partner text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</div>
+                        <h4 class="font-bold text-gray-800 text-center mt-3 mb-2">新規顧客の獲得<br><span class="text-[10px] text-partner">（相互送客）</span></h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">当社のお客様が抱える「食事・運動・生活」の悩みをヒアリングし、解決策として御社のサービスを看護師の立場から積極的に推薦いたします。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 連携イメージ具体例 (大幅修正箇所：相互送客の強調) -->
+            <div class="bg-partner-light/30 p-6 rounded-xl mb-10 border border-partner-light">
+                <h3 class="font-bold text-partner-dark mb-6 text-center text-lg">相互送客（Win-Win）の具体的なイメージ</h3>
+                
+                <div class="space-y-6">
+                    <!-- 御社 → 当社 -->
+                    <div>
+                        <p class="font-bold text-gray-700 mb-3 flex items-center gap-2">
+                            <span class="bg-gray-700 text-white text-[10px] px-2 py-1 rounded">御社から当社へ</span>
+                            本業への集中・顧客満足度の向上
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded shadow-sm border-l-4 border-orange-400">
+                                <p class="text-xs font-bold text-gray-800 mb-1">■ 配食サービス様の場合</p>
+                                <p class="text-sm text-gray-600">お弁当配達時に「病院に行けていない」と聞いた際、当社をご紹介いただき、受診のきっかけ作りをサポートします。</p>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow-sm border-l-4 border-blue-400">
+                                <p class="text-xs font-bold text-gray-800 mb-1">■ シニア向けジム様の場合</p>
+                                <p class="text-sm text-gray-600">「膝の痛みで通院が不安」という方に当社が同行。適切な治療を受けていただくことで、ジムへの継続的な通所（退会防止）に繋げます。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 当社 → 御社 -->
+                    <div class="bg-white border-2 border-partner rounded-lg p-5 shadow-md relative mt-4">
+                        <div class="absolute -top-3 left-6 bg-partner text-white px-3 py-1 rounded-full text-xs font-bold shadow">
+                            私たちが「強力な営業マン」になります！
+                        </div>
+                        <p class="font-bold text-partner-dark mb-2 mt-2 flex items-center gap-2">
+                            <span class="bg-partner text-white text-[10px] px-2 py-1 rounded">当社から御社へ</span>
+                            御社の新規顧客獲得への貢献
+                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            私たちは、片道数十分の車内やご自宅で、お客様とじっくり会話をします。その中で<span class="font-bold text-partner-dark">「毎日の食事が大変」「運動したいけど良い場所がない」「補聴器が合わない」</span>といった日々の困りごとをよく相談されます。<br>
+                            そんな時、提携させていただいている<span class="font-bold border-b-2 border-yellow-500">御社のサービスを、看護師の立場から自信を持って推薦・お繋ぎいたします。</span>医療従事者からの勧めは、お客様やご遠方のご家族にとって大きな安心材料となり、高い紹介効果が期待できます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- プロフィールと連絡先 -->
+            <div class="border-t border-gray-300 pt-8 flex flex-col md:flex-row gap-8 items-center justify-between">
+                <div class="flex items-center gap-4 flex-1">
+                    <div class="w-20 h-20 bg-gray-200 rounded-full shrink-0 flex items-center justify-center text-[10px] text-gray-500 text-center">
+                        [野村代表<br>写真]
+                    </div>
+                    <div>
+                        <p class="text-xs text-brand font-bold mb-1">代表 / 正看護師（臨床経験12年）</p>
+                        <p class="text-xl font-black text-gray-800 mb-1">野村 由佳子</p>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            地域で高齢者を支える皆様と手を取り合い、より良い旭川を作っていきたいと願っています。パンフレットの設置だけでも大歓迎です。
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 text-white p-5 rounded-xl text-center w-full md:w-auto shrink-0">
+                    <p class="text-sm font-bold text-partner-light mb-2">まずは一度、情報交換をさせてください！</p>
+                    <div class="text-2xl font-black mb-1">050-XXXX-XXXX</div>
+                    <p class="text-[10px] text-gray-400 mb-2">info@xxxx.com</p>
+                    <div class="bg-white text-gray-800 text-xs py-1.5 px-3 rounded font-bold inline-flex items-center gap-1">
+                        <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.03 2 11c0 2.76 1.45 5.23 3.73 6.84.28.2.36.56.22.86l-.8 1.9c-.14.33.18.66.5.55l2.25-.8c.24-.09.5-.1.74-.03C9.72 20.83 10.84 21 12 21c5.52 21 10-4.03 10-9s-4.48-9-10-9z"/></svg>
+                        LINE・Zoomでの面談も可能です
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
