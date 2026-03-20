@@ -40,21 +40,27 @@
     header h1 { margin: 0; font-size: 1.5rem; }
     header a { color: white; text-decoration: none; }
     
-    .search-container { position: relative; margin-top: 0.5rem; }
+    /* 【変更】検索コンテナがスマホで柔軟に広がるよう調整 */
+    .search-container { position: relative; margin-top: 0.5rem; width: 100%; max-width: 300px; }
+    
+    /* 【変更】固定幅(300px)を廃止し、親要素に対して100%広がるように変更 */
     .search-input {
         padding: 0.5rem 1rem;
         border-radius: 9999px;
         border: none;
-        width: 300px;
+        width: 100%;
         font-size: 0.9rem;
     }
+    
+    /* 【変更】検索結果もスマホ幅に追従するよう調整 */
     .search-results {
         position: absolute;
         top: 100%;
+        left: 0;
         right: 0;
         background: white;
         color: var(--text-color);
-        width: 350px;
+        width: 100%;
         max-height: 400px;
         overflow-y: auto;
         border-radius: 0.5rem;
@@ -109,6 +115,43 @@
     .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
     
     footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+
+    /* 【追加】スマートフォン閲覧用のレスポンシブデザイン（幅768px以下の場合に適用） */
+    @media (max-width: 768px) {
+        header {
+            flex-direction: column; /* 横並びを縦積みに変更 */
+            align-items: flex-start;
+            padding: 1rem;
+        }
+        .search-container {
+            max-width: 100%; /* スマホでは検索バーを画面幅いっぱいに */
+            margin-top: 1rem;
+        }
+        main { margin: 1rem auto; }
+        .card { padding: 1rem; } /* カードの余白を狭く */
+        
+        .file-row {
+            flex-direction: column; /* ファイル名と日付を縦積みに変更 */
+            align-items: flex-start;
+            padding: 0.75rem 1rem;
+        }
+        .file-row-link { width: 100%; margin-bottom: 0.5rem; }
+        .file-name { margin-right: 0; white-space: normal; /* 長いファイル名の折り返しを許可 */ }
+        .file-date {
+            width: auto;
+            text-align: left; /* 日付を左寄せに変更 */
+            margin-left: 0;
+            font-size: 0.8rem;
+        }
+        
+        /* スマホ閲覧時、テーブルが画面外にはみ出さないよう横スクロールを強制 */
+        .document-content table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch; /* iOSでの滑らかなスクロール */
+        }
+    }
 </style>
 
 </head>
