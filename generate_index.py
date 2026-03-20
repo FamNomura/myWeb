@@ -137,8 +137,8 @@ def main():
         print(f"Created directory: {HTML_DIR}")
 
     file_info_list = []
-    # html_filesディレクトリ内の全HTMLファイルを再帰的に検索
-    for filepath in HTML_DIR.rglob('*.html'):
+    # 【変更箇所】rglob（再帰的検索）からglob（直下のみ検索）に変更し、配下のフォルダに入ったファイルを無視するように修正しました。
+    for filepath in HTML_DIR.glob('*.html'):
         info = get_file_info(filepath)
         file_info_list.append(info)
 
