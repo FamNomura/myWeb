@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>001_ぴたっとナース サービス利用規約 - ぴたっとナース　ドキュメント一覧</title>
+    
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f3f4f6;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header a { color: white; text-decoration: none; }
+    
+    .search-container { position: relative; margin-top: 0.5rem; }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        border: none;
+        width: 300px;
+        font-size: 0.9rem;
+    }
+    .search-results {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        color: var(--text-color);
+        width: 350px;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        display: none;
+        border: 1px solid var(--border-color);
+    }
+    .search-result-item { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); display: block; text-decoration: none; color: inherit; }
+    .search-result-item:hover { background-color: var(--bg-color); }
+    .search-result-title { font-weight: bold; font-size: 0.95rem; color: var(--primary-color); margin-bottom: 0.2rem; }
+    .search-result-excerpt { font-size: 0.8rem; color: var(--text-muted); }
+
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    h1, h2, h3, h4 { color: #111827; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .document-content h1 { border-bottom: 2px solid var(--border-color); padding-bottom: 0.3em; margin-top: 0;}
+    .document-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+    .document-content img { max-width: 100%; height: auto; }
+    .document-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; }
+    .document-content th, .document-content td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+    .document-content th { background-color: var(--bg-color); }
+    .document-content pre { background-color: #1f2937; color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .document-content code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #d946ef; }
+    .document-content pre code { background-color: transparent; color: inherit; padding: 0; }
+    .document-content a { color: var(--primary-color); text-decoration: underline; }
+    .document-content a:hover { color: var(--primary-hover); }
+    
+    .category-section { margin-bottom: 2rem; background: var(--card-bg); border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+    .category-title { font-size: 1.25rem; background: #e5e7eb; padding: 1rem 1.5rem; margin: 0; }
+    
+    .file-list { display: flex; flex-direction: column; }
+    .file-row { display: flex; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+    .file-row:hover { background-color: #f9fafb; }
+    .file-row:last-child { border-bottom: none; }
+    .file-row-link { flex-grow: 1; text-decoration: none; color: inherit; display: flex; align-items: center; min-width: 0; }
+    .file-name { font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 1rem; }
+    .file-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; margin-left: auto; width: 150px; text-align: right; }
+    
+    .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.75em; font-weight: bold; border-radius: 0.25rem; margin-right: 1rem; white-space: nowrap; }
+    .badge-html { background-color: #dbeafe; color: #1e40af; }
+    .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html">ぴたっとナース　ドキュメント一覧</a></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="このページ内を検索してハイライト...">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb"><a href="../index.html">トップ</a> &gt; 02_ドキュメント</div>
+        <div class="card document-content">
+            <h1>001_ぴたっとナース サービス利用規約</h1>
+<h3><strong>ぴたっとナース サービス利用規約</strong></h3>
+<h4><strong>第1条（目的と適用範囲）</strong></h4>
+<p>本規約は、ぴたっとナース（以下「当事業所」）が提供する自費の訪問看護・外出エスコートサービス（以下「本サービス」）の利用条件を定めるものです。利用者および契約者（ご家族等）は、本規約に同意した上で本サービスを利用するものとします。</p>
+<ul>
+<li><strong>【解説】</strong>：この書類が「ぴたっとナース」の公式なルールブックであることを宣言する、法務上の必須項目です。</li>
+</ul>
+<h4><strong>第2条（サービスの内容と制限）★最重要項目</strong></h4>
+<ol>
+<li>本サービスは、通院・買い物等の外出同行、医療通訳、見守り、健康相談等の生活支援を目的とします。  </li>
+<li>当事業所のスタッフは看護師資格を有しておりますが、本サービスは公的医療保険・介護保険外のサービスであり、<strong>医師の指示に基づく「医療行為（注射、点滴、処方薬の変更指示など）」は一切行いません。</strong>  </li>
+<li>サービス提供中に利用者の体調が急変した場合、当事業所は速やかに救急搬送の手配、およびあらかじめ指定された緊急連絡先への連絡など応急処置を行いますが、医療的な結果についての責任は負いかねます。  </li>
+<li><strong>【解説】</strong>：野村さんを守る最大の盾です。お客様の「看護師さんだから医療的なこともお任せできる」という過度な期待をコントロールし、万が一の急変時にも「救急搬送の手配まではするが、医療的な最終責任は負わない」と線を引きます。</li>
+</ol>
+<h4><strong>第3条（利用料金と支払方法）</strong></h4>
+<p>本サービスの利用料金は、別途定める料金表に基づくものとします。お支払い方法および時期については以下の通りとします。</p>
+<p><strong>💡【選択肢1：お支払い方法とタイミング】</strong></p>
+<p>ターゲットである「遠方に住む子世代」が支払いやすい方法、かつ野村さんの事務負担が少ないものを選んでください。（※ハイブリッドも可能です）</p>
+<ul>
+<li><strong>A案（完全前払い制）：</strong> 月額料金を、前月の末日までに銀行振込またはクレジットカードで支払う。（※未回収リスクがゼロで一番安全です）  </li>
+<li><strong>B案（後払い・月末締め）：</strong> 当月分の利用料や追加オプション費用をまとめて計算し、翌月10日までに請求、翌月末日までに支払う。（※お客様は利用しやすいですが、野村さんの回収・入金確認の手間が発生します）  </li>
+<li><strong>C案（月額は前払い、追加オプションは翌月請求）：</strong> ベースの月額料金は前払いとし、規定時間を超えた分の延長料金やオプション代のみ、翌月に別途請求する。（※実務上、最もバランスが良いハイブリッド案です）</li>
+</ul>
+<h4><strong>第4条（実費の負担）</strong></h4>
+<p>サービス提供に伴い発生する以下の費用は、サービス利用料金には含まれず、全額利用者（または契約者）の負担とします。</p>
+<p>(1) 外出同行にかかる交通費（タクシー代、バス・電車代など）、駐車場代、有料道路通行料</p>
+<p>(2) 外出先での利用者の飲食代、施設入場料、買い物代金など</p>
+<p>(3) その他、利用者の個人的な要望により発生した実費費用</p>
+<ul>
+<li><strong>【解説】</strong>：「どこまでが月額プランに含まれるのか」を明確にします。同乗するタクシー代や、付き添いで入る施設の入場料でお財布トラブルになるのを防ぎます。</li>
+</ul>
+<h4><strong>第5条（キャンセルポリシー）</strong></h4>
+<p>利用者の都合によりサービスをキャンセルする場合、以下のキャンセル料を申し受けます。ただし、利用者の急な体調不良等、やむを得ない事由があると当事業所が判断した場合はこの限りではありません。</p>
+<p><strong>💡【選択肢2：キャンセル料の規定】</strong></p>
+<p>高齢のお客様なので「当日の朝、熱が出た」などの急なキャンセルは必ず発生します。野村さんのスケジュール（＝売上）を守りつつ、お客様にも納得感のあるラインを選んでください。</p>
+<ul>
+<li><strong>A案（標準的・少し厳しめ）：</strong> 前日の17時までにご連絡があれば無料。それ以降または当日のキャンセルは、予定していた利用料金（または1回分の消化）の100%とする。  </li>
+<li><strong>B案（少し緩め）：</strong> 前日までは無料。当日のサービス開始前までの連絡は50％（または0.5回分の消化）、無断キャンセル（出発後）は100％とする。  </li>
+<li><strong>C案（段階的）：</strong> 2日前までは無料、前日は50%、当日は100%。</li>
+</ul>
+<h4><strong>第6条（禁止事項）</strong></h4>
+<p>利用者は、本サービスの利用にあたり、以下の行為をしてはならないものとします。</p>
+<p>(1) 当事業所のスタッフに対する暴力、暴言、セクシャルハラスメント等の迷惑行為</p>
+<p>(2) 本規約で定めたサービス提供範囲を超える過度な要求（医療行為の強要など）</p>
+<p>(3) 当事業所のスタッフに対する宗教活動、政治活動、営利活動の勧誘</p>
+<p>(4) その他、サービスの円滑な提供を妨げる一切の行為</p>
+<ul>
+<li><strong>【解説】</strong>：いわゆる「カスハラ（カスタマーハラスメント）」対策です。女性一人で訪問・エスコートを行う事業ですので、毅然とした態度を示すためにも絶対に必要です。</li>
+</ul>
+<h4><strong>第7条（免責事項）</strong></h4>
+<ol>
+<li>当事業所は、サービスの提供にあたり善良なる管理者の注意義務をもって業務を行いますが、移動中の交通事故、突発的で予測不可能な転倒・転落、持病の悪化など、当事業所の故意または重大な過失によらない損害については、その責任を負いかねます。  </li>
+<li>医療機関における医師からの説明内容（医療通訳）の伝達については正確を期しますが、最終的な治療方針の決定は利用者およびご家族の責任において行うものとします。  </li>
+<li><strong>【解説】</strong>：エスコート中にご本人がつまずいて転倒してしまった場合や、「野村さんがそう言ったからこの治療を選んだのに！」といった、避けられない事故や言いがかりに対する防波堤です。</li>
+</ol>
+<h4><strong>第8条（契約の解除）</strong></h4>
+<p>利用者が本規約に違反した場合、または当事業所が利用者との信頼関係を維持できないと判断した場合、当事業所は事前の催告なしに本サービスの提供を中止し、利用契約を解除することができるものとします。</p>
+<ul>
+<li><strong>【解説】</strong>：第6条の禁止事項を破った場合などに、「明日からもう行きません」と野村さん側から強制的にストップをかけられる強力な権利です。</li>
+</ul>
+<h4><strong>第9条（個人情報の保護）</strong></h4>
+<p>当事業所は、本サービスの提供を通じて知り得た利用者およびご家族の個人情報や医療情報を、法令に基づく場合を除き、第三者に漏洩または開示しません。</p>
+<ul>
+<li><strong>【解説】</strong>：医療情報という極めて機微な（センシティブな）情報を扱うため、「秘密は絶対に守ります」という宣言です。ご家族の安心感に直結します。</li>
+</ul>
+<h4><strong>第10条（反社会的勢力の排除）</strong></h4>
+<p>利用者および契約者は、現在および将来にわたって、暴力団等の反社会的勢力に該当しないことを確約するものとします。</p>
+<ul>
+<li><strong>【解説】</strong>：企業法務として必須の項目です。万が一そういった方と契約してしまった場合に、無条件ですぐに契約解除するためのものです。</li>
+</ul>
+<h4><strong>第11条（管轄裁判所）</strong></h4>
+<p>本規約に関する一切の紛争については、当事業所の所在地を管轄する地方裁判所（旭川地方裁判所）を第一審の専属的合意管轄裁判所とします。</p>
+<ul>
+<li><strong>【解説】</strong>：万が一裁判トラブルになった場合、「旭川の裁判所で行う」と指定しておく項目です。東京の遠方家族から「東京の裁判所で」と言われると、野村さんの負担が大きすぎるため、それを防ぎます。</li>
+</ul>
+<hr />
+<h3><strong>🔍 参考にした同業他社の利用規約</strong></h3>
+<p>今回の検証にあたり、以下の自費看護・エスコートサービスの規約を参考にしました。</p>
+<ol>
+<li><strong>株式会社ShiN（自費訪問看護）</strong>  </li>
+<li>URL: <code>https://shin-inc.co.jp/terms-of-service/</code>  </li>
+<li><strong>参考ポイント:</strong> お客様側の「禁止行為（迷惑行為、宗教勧誘など）」や「医療行為を含まないこと（急変時除く）」が明記されていました。  </li>
+<li><strong>オンコ・ナース fLy（保険外看護サービス）</strong>  </li>
+<li>URL: <code>https://onco-nurse-fly.com/お問い合わせ-2/利用規約/</code>  </li>
+<li><strong>参考ポイント:</strong> 「予測できない転倒についての免責」や、食事介助はするが「調理は行わない」などの具体的な業務範囲の制限が参考になります。  </li>
+<li><strong>365ナースすぅまる（プライベート看護・外出付き添い）</strong>  </li>
+<li>URL: <code>https://365nurse.site/private-nurse/</code>  </li>
+<li><strong>参考ポイント:</strong> 外出同行において発生する「交通費や施設入場料はお客様負担」であることが明確に記載されていました。</li>
+</ol>
+<hr />
+<h3></h3>
+        </div>
+    </main>
+    <footer>
+        <p>Generated by Document to HTML Converter</p>
+    </footer>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        if (!searchInput) return;
+
+        function highlightAndJump(keyword) {
+            const container = document.querySelector('.document-content');
+            if (!container) return;
+
+            // 既存のハイライトマークを解除してテキストを元に戻す
+            const marks = container.querySelectorAll('mark.search-highlight');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (!keyword || keyword.trim() === '') return;
+
+            // 正規表現用のエスケープ処理
+            const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(safeKeyword, 'gi');
+            
+            // TreeWalkerでテキストノードのみを走査（HTMLタグの破壊を防ぐ）
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                // スクリプトやスタイルの内部は無視
+                if (node.parentNode.nodeName !== 'MARK' && 
+                    node.parentNode.nodeName !== 'SCRIPT' && 
+                    node.parentNode.nodeName !== 'STYLE' && 
+                    node.nodeValue.match(regex)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            let firstMark = null;
+            nodesToReplace.forEach(node => {
+                const span = document.createElement('span');
+                // マッチした部分を<mark>で囲む
+                span.innerHTML = node.nodeValue.replace(regex, match => 
+                    `<mark class="search-highlight" style="background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;">${match}</mark>`
+                );
+                
+                while (span.firstChild) {
+                    const child = span.firstChild;
+                    node.parentNode.insertBefore(child, node);
+                    if (child.nodeName === 'MARK' && !firstMark) {
+                        firstMark = child;
+                    }
+                }
+                node.parentNode.removeChild(node);
+            });
+
+            // 最初のヒット箇所にスクロール
+            if (firstMark) {
+                firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // URLパラメータからの検索キーワード自動入力
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchInput.value = q;
+            highlightAndJump(q);
+        }
+
+        // 入力時のリアルタイムハイライト
+        searchInput.addEventListener('input', (e) => {
+            highlightAndJump(e.target.value);
+        });
+        
+        // Enterキーの送信イベント無効化
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                highlightAndJump(e.target.value);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

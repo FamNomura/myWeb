@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>002_サービス利用および個人情報に関する同意書（案） - ぴたっとナース　ドキュメント一覧</title>
+    
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f3f4f6;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header a { color: white; text-decoration: none; }
+    
+    .search-container { position: relative; margin-top: 0.5rem; }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        border: none;
+        width: 300px;
+        font-size: 0.9rem;
+    }
+    .search-results {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        color: var(--text-color);
+        width: 350px;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        display: none;
+        border: 1px solid var(--border-color);
+    }
+    .search-result-item { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); display: block; text-decoration: none; color: inherit; }
+    .search-result-item:hover { background-color: var(--bg-color); }
+    .search-result-title { font-weight: bold; font-size: 0.95rem; color: var(--primary-color); margin-bottom: 0.2rem; }
+    .search-result-excerpt { font-size: 0.8rem; color: var(--text-muted); }
+
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    h1, h2, h3, h4 { color: #111827; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .document-content h1 { border-bottom: 2px solid var(--border-color); padding-bottom: 0.3em; margin-top: 0;}
+    .document-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+    .document-content img { max-width: 100%; height: auto; }
+    .document-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; }
+    .document-content th, .document-content td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+    .document-content th { background-color: var(--bg-color); }
+    .document-content pre { background-color: #1f2937; color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .document-content code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #d946ef; }
+    .document-content pre code { background-color: transparent; color: inherit; padding: 0; }
+    .document-content a { color: var(--primary-color); text-decoration: underline; }
+    .document-content a:hover { color: var(--primary-hover); }
+    
+    .category-section { margin-bottom: 2rem; background: var(--card-bg); border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+    .category-title { font-size: 1.25rem; background: #e5e7eb; padding: 1rem 1.5rem; margin: 0; }
+    
+    .file-list { display: flex; flex-direction: column; }
+    .file-row { display: flex; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+    .file-row:hover { background-color: #f9fafb; }
+    .file-row:last-child { border-bottom: none; }
+    .file-row-link { flex-grow: 1; text-decoration: none; color: inherit; display: flex; align-items: center; min-width: 0; }
+    .file-name { font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 1rem; }
+    .file-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; margin-left: auto; width: 150px; text-align: right; }
+    
+    .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.75em; font-weight: bold; border-radius: 0.25rem; margin-right: 1rem; white-space: nowrap; }
+    .badge-html { background-color: #dbeafe; color: #1e40af; }
+    .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html">ぴたっとナース　ドキュメント一覧</a></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="このページ内を検索してハイライト...">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb"><a href="../index.html">トップ</a> &gt; 02_ドキュメント</div>
+        <div class="card document-content">
+            <h1>002_サービス利用および個人情報に関する同意書（案）</h1>
+<h3><strong>ぴたっとナース サービス利用および個人情報に関する同意書（案）</strong></h3>
+<p>以下の内容は、ご本人（または代理人たるご家族）にチェックと署名をいただく形式を想定しています。</p>
+<h4><strong>1. サービス内容と「非医療行為」の確認</strong></h4>
+<p>私は、「ぴたっとナース（以下、当事業所）」が提供するサービスが、公的医療保険・介護保険外の自費サービスであることを理解しました。また、担当スタッフが看護師資格を有していても、本サービス内において医師の指示に基づく医療行為（注射、点滴、処方薬の変更等）や、身体的拘束などの行為を一切行わないことに同意します。</p>
+<ul>
+<li><strong>【解説】:</strong> 利用規約にも記載しますが、ご本人にも「注射などはできないただの付き添いである」ことをしっかり理解・同意していただくための念押しです。</li>
+</ul>
+<h4><strong>2. 医療機関での同席・情報共有に関する同意 ★重要</strong></h4>
+<p>私は、当事業所のスタッフが医療機関への通院に同行し、診察室へ同席すること、および医師・看護師等からの病状説明や治療方針に関する説明を聞くことに同意します。また、その内容をご家族（契約者）へ報告・共有することに同意します。</p>
+<p><strong>💡【選択肢1：診察室での「録音」についてどうしますか？】</strong></p>
+<p>ご家族へより正確に伝えるため、医師の許可を得た上で録音するという方法があります。</p>
+<ul>
+<li><strong>A案（録音は行わず、看護師のメモと記憶で報告する）:</strong> 「医師からの説明内容は、担当看護師が要約し、書面またはデータにてご家族へ報告します。」（※トラブルは少ないですが、野村さんの要約力が求められます）  </li>
+<li><strong>B案（医師の許可を得て録音データを共有する）:</strong> 「より正確な情報共有のため、医師の許可が得られた場合に限り、診察内容を録音し、その音声データを指定されたご家族へ共有することに同意します。」（※ご家族の安心感は絶大ですが、医師によっては嫌がられるケースもあります）</li>
+</ul>
+<h4><strong>3. 医療的判断と免責事項</strong></h4>
+<p>私は、当事業所のスタッフが医療通訳として医師の説明をわかりやすく解説・伝達してくれることを理解した上で、最終的な治療方針の決定や手術の同意などは、私本人および家族の責任において行うことに同意します。当事業所に対し、医療的判断の責任を問わないことを確約します。</p>
+<ul>
+<li><strong>【解説】:</strong> 「野村さんがおすすめした治療法で失敗した！」というような、後々の責任転嫁を防ぐための最重要項目です。あくまで決めるのはご本人とご家族です。</li>
+</ul>
+<h4><strong>4. 緊急時の対応について</strong></h4>
+<p>サービス提供中に私の体調が急変した場合、当事業所のスタッフが応急処置を行い、速やかに救急搬送（119番通報）および緊急連絡先へ連絡することに同意します。</p>
+<p><strong>💡【選択肢2：事前の「延命措置（DNR）」の意思確認を入れますか？】</strong></p>
+<p>高齢のお客様が対象のため、万が一エスコート中に心肺停止になった場合の対応です。</p>
+<ul>
+<li><strong>A案（シンプルに救急搬送のみとする）:</strong> 上記の文章のみとし、あとは救急隊や搬送先の医師に任せる。（※一番スタンダードで重くなりすぎない形です）  </li>
+<li><strong>B案（事前に延命措置の希望を聞いておく）:</strong> 「なお、万が一の心肺停止時等における蘇生措置（心臓マッサージ等）について、あらかじめ主治医と取り決めている事項（DNR指示など）がある場合は、事前に申告することに同意します。」（※看護師ならではの専門的で踏み込んだ対応ですが、初回面談時に少し空気が重くなる可能性があります）</li>
+</ul>
+<h4><strong>5. 個人情報・機微情報の取り扱い</strong></h4>
+<p>私は、当事業所が本サービスを提供する目的において、私の氏名、住所、連絡先のほか、既往歴、服薬状況、アレルギー、現在の病状などの機微情報（センシティブ情報）を取得し、厳重に管理した上で利用することに同意します。</p>
+<ul>
+<li><strong>【解説】:</strong> ナースアテンダント社の規約にもあったように、一般的な個人情報だけでなく「病歴」という究極のプライバシー情報を扱うため、法的に必ず同意を得る必要があります。</li>
+</ul>
+<hr />
+<p>署名欄</p>
+<p>上記すべての項目について説明を受け、十分に理解した上で、サービスを利用することに同意します。</p>
+<h2><strong>令和　　年　　月　　日</strong></h2>
+<h2><strong>ご本人様ご署名：＿＿＿＿＿＿＿＿＿＿</strong></h2>
+<h2><strong>ご家族様ご署名：＿＿＿＿＿＿＿＿＿＿</strong></h2>
+<h2><strong>（※ご本人の署名が難しい場合）</strong></h2>
+<hr />
+<h3><strong>🔍 参考にした同業他社の同意書・関連規約</strong></h3>
+<p>今回の同意書作成にあたり、以下の自費看護サービスの記載事項を参考にしました。</p>
+<ol>
+<li><strong>ナースアテンダント（自費訪問看護サービス）</strong>  </li>
+<li>URL: <code>https://www.nurse-at.jp/reservation/</code>  </li>
+<li><strong>参考ポイント:</strong> 予約時の重要事項として、「既往歴（過去の病気）」や「現在の症状」「コミュニケーション能力」などの非常に詳細な身体状況を事前に申告してもらい、その情報をサービス提供のために利用することへの同意（個人情報利用同意書）を必須としています。  </li>
+<li><strong>えがお訪問看護リハビリステーション（保険外自費ケア）</strong>  </li>
+<li>URL: <code>https://egao-orange.com/no-insurance/</code>  </li>
+<li><strong>参考ポイント:</strong> 「医師からの説明をご家族の代わりに聞き、わかりやすく伝える」というサービス特性上、ご本人の医療情報をご家族に共有することへの同意を求めている点が非常に参考になります。</li>
+</ol>
+<hr />
+        </div>
+    </main>
+    <footer>
+        <p>Generated by Document to HTML Converter</p>
+    </footer>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        if (!searchInput) return;
+
+        function highlightAndJump(keyword) {
+            const container = document.querySelector('.document-content');
+            if (!container) return;
+
+            // 既存のハイライトマークを解除してテキストを元に戻す
+            const marks = container.querySelectorAll('mark.search-highlight');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (!keyword || keyword.trim() === '') return;
+
+            // 正規表現用のエスケープ処理
+            const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(safeKeyword, 'gi');
+            
+            // TreeWalkerでテキストノードのみを走査（HTMLタグの破壊を防ぐ）
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                // スクリプトやスタイルの内部は無視
+                if (node.parentNode.nodeName !== 'MARK' && 
+                    node.parentNode.nodeName !== 'SCRIPT' && 
+                    node.parentNode.nodeName !== 'STYLE' && 
+                    node.nodeValue.match(regex)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            let firstMark = null;
+            nodesToReplace.forEach(node => {
+                const span = document.createElement('span');
+                // マッチした部分を<mark>で囲む
+                span.innerHTML = node.nodeValue.replace(regex, match => 
+                    `<mark class="search-highlight" style="background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;">${match}</mark>`
+                );
+                
+                while (span.firstChild) {
+                    const child = span.firstChild;
+                    node.parentNode.insertBefore(child, node);
+                    if (child.nodeName === 'MARK' && !firstMark) {
+                        firstMark = child;
+                    }
+                }
+                node.parentNode.removeChild(node);
+            });
+
+            // 最初のヒット箇所にスクロール
+            if (firstMark) {
+                firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // URLパラメータからの検索キーワード自動入力
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchInput.value = q;
+            highlightAndJump(q);
+        }
+
+        // 入力時のリアルタイムハイライト
+        searchInput.addEventListener('input', (e) => {
+            highlightAndJump(e.target.value);
+        });
+        
+        // Enterキーの送信イベント無効化
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                highlightAndJump(e.target.value);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_料金プラン - ぴたっとナース　ドキュメント一覧</title>
+    
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f3f4f6;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header a { color: white; text-decoration: none; }
+    
+    .search-container { position: relative; margin-top: 0.5rem; }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        border: none;
+        width: 300px;
+        font-size: 0.9rem;
+    }
+    .search-results {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        color: var(--text-color);
+        width: 350px;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        display: none;
+        border: 1px solid var(--border-color);
+    }
+    .search-result-item { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); display: block; text-decoration: none; color: inherit; }
+    .search-result-item:hover { background-color: var(--bg-color); }
+    .search-result-title { font-weight: bold; font-size: 0.95rem; color: var(--primary-color); margin-bottom: 0.2rem; }
+    .search-result-excerpt { font-size: 0.8rem; color: var(--text-muted); }
+
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    h1, h2, h3, h4 { color: #111827; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .document-content h1 { border-bottom: 2px solid var(--border-color); padding-bottom: 0.3em; margin-top: 0;}
+    .document-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+    .document-content img { max-width: 100%; height: auto; }
+    .document-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; }
+    .document-content th, .document-content td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+    .document-content th { background-color: var(--bg-color); }
+    .document-content pre { background-color: #1f2937; color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .document-content code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #d946ef; }
+    .document-content pre code { background-color: transparent; color: inherit; padding: 0; }
+    .document-content a { color: var(--primary-color); text-decoration: underline; }
+    .document-content a:hover { color: var(--primary-hover); }
+    
+    .category-section { margin-bottom: 2rem; background: var(--card-bg); border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+    .category-title { font-size: 1.25rem; background: #e5e7eb; padding: 1rem 1.5rem; margin: 0; }
+    
+    .file-list { display: flex; flex-direction: column; }
+    .file-row { display: flex; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+    .file-row:hover { background-color: #f9fafb; }
+    .file-row:last-child { border-bottom: none; }
+    .file-row-link { flex-grow: 1; text-decoration: none; color: inherit; display: flex; align-items: center; min-width: 0; }
+    .file-name { font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 1rem; }
+    .file-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; margin-left: auto; width: 150px; text-align: right; }
+    
+    .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.75em; font-weight: bold; border-radius: 0.25rem; margin-right: 1rem; white-space: nowrap; }
+    .badge-html { background-color: #dbeafe; color: #1e40af; }
+    .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html">ぴたっとナース　ドキュメント一覧</a></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="このページ内を検索してハイライト...">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb"><a href="../index.html">トップ</a> &gt; 01_事業計画</div>
+        <div class="card document-content">
+            <h1>03_料金プラン</h1>
+<h1><strong>【ぴたっとナース】ご利用料金のご案内</strong></h1>
+<p>この度は、「ぴたっとナース」のサービスをご検討いただき、誠にありがとうございます。<br />
+私たちは、看護師の専門知識と温かい心で、ご利用者様と離れて暮らすご家族に「ぴたっと」寄り添う安心をお届けします。<br />
+お客様のニーズに合わせて、シンプルで分かりやすい3つの月額プランをご用意しました。</p>
+<h3><strong>選べる3つの月額プラン</strong></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">プラン名</th>
+<th style="text-align: left;">月額料金（税別）</th>
+<th style="text-align: left;">こんなご家族にオススメです</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>【ベーシック】</strong></td>
+<td style="text-align: left;"><strong>15,000円</strong></td>
+<td style="text-align: left;">まずは月1回の基本的な通院サポートから始めたい方</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>【スタンダード】</strong></td>
+<td style="text-align: left;"><strong>25,000円</strong></td>
+<td style="text-align: left;">定期的なサポートに加え、ご様子を詳しく知って安心したい方</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>【プレミアム】</strong></td>
+<td style="text-align: left;"><strong>35,000円</strong></td>
+<td style="text-align: left;">通院以外の多様なニーズにも応える、包括的なサポートが欲しい方</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>各プランのサービス内容詳細</strong></h3>
+<h4><strong>【ベーシックプラン】</strong></h4>
+<p><strong>月額 15,000円（税別）</strong> --- <em>まずは基本的なサポートから始めたいご家族へ</em> ---</p>
+<ul>
+<li><strong>月1回の「オーダーメイド・エスコート」</strong>  </li>
+<li>通院、お買い物など、ご要望に合わせて3時間までサポートします。  </li>
+<li><strong>ご家族への簡易レポート</strong>  </li>
+<li>サポート後、当日のご様子をメールまたはLINEでご報告します。  </li>
+<li><strong>電話・オンラインでの健康相談</strong>  </li>
+<li>月1回までご利用いただけます。営業時間内で。緊急時などは別途相談に応じます。</li>
+</ul>
+<h4><strong>【スタンダードプラン】</strong></h4>
+<p>月額 25,000円（税別）<br />
+--- 定期的なサポートと詳細な報告で、もっと安心したいご家族へ（一番人気） ---</p>
+<ul>
+<li><strong>月2回の「オーダーメイド・エスコート」</strong>  </li>
+<li>通院、お買い物など、ご要望に合わせて各3時間までサポートします。  </li>
+<li><strong>ご家族への詳細レポート</strong>  </li>
+<li>ご利用者様の御様子や、医師からの説明内容なども含めて詳しくご報告します。  </li>
+<li><strong>電話・オンラインでの健康相談</strong>  </li>
+<li>月2回までご利用いただけます。営業時間内で。緊急時などは別途相談に応じます。</li>
+</ul>
+<h4><strong>【プレミアムプラン】</strong></h4>
+<p>月額 35,000円（税別）<br />
+--- 「もう一人の家族」として、包括的なサポートをお任せしたいご家族へ ---</p>
+<ul>
+<li><strong>月3回の「オーダーメイド・エスコート」</strong>  </li>
+<li>通院、お買い物、趣味の活動など、ご要望に合わせて各3時間までサポートします。  </li>
+<li><strong>ご家族への詳細レポート</strong>  </li>
+<li>ご利用者様の御様子や、医師からの説明内容なども含めて詳しくご報告します。  </li>
+<li><strong>緊急時駆けつけサポート</strong>  </li>
+<li>「いつもと様子が違う」といったご家族の不安に対し、ご自宅まで様子を見に伺います。（月1回まで）  </li>
+<li><strong>各種手続きの同席・代行サポート</strong>  </li>
+<li>入院や退院、介護保険の申請など、専門知識が必要な手続きをサポートします  </li>
+<li><strong>電話・オンラインでの健康相談</strong><br />
+<strong>回数無制限</strong>で、いつでもご相談いただけます。営業時間内で。緊急時などは別途相談に応じます。</li>
+</ul>
+        </div>
+    </main>
+    <footer>
+        <p>Generated by Document to HTML Converter</p>
+    </footer>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        if (!searchInput) return;
+
+        function highlightAndJump(keyword) {
+            const container = document.querySelector('.document-content');
+            if (!container) return;
+
+            // 既存のハイライトマークを解除してテキストを元に戻す
+            const marks = container.querySelectorAll('mark.search-highlight');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (!keyword || keyword.trim() === '') return;
+
+            // 正規表現用のエスケープ処理
+            const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(safeKeyword, 'gi');
+            
+            // TreeWalkerでテキストノードのみを走査（HTMLタグの破壊を防ぐ）
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                // スクリプトやスタイルの内部は無視
+                if (node.parentNode.nodeName !== 'MARK' && 
+                    node.parentNode.nodeName !== 'SCRIPT' && 
+                    node.parentNode.nodeName !== 'STYLE' && 
+                    node.nodeValue.match(regex)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            let firstMark = null;
+            nodesToReplace.forEach(node => {
+                const span = document.createElement('span');
+                // マッチした部分を<mark>で囲む
+                span.innerHTML = node.nodeValue.replace(regex, match => 
+                    `<mark class="search-highlight" style="background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;">${match}</mark>`
+                );
+                
+                while (span.firstChild) {
+                    const child = span.firstChild;
+                    node.parentNode.insertBefore(child, node);
+                    if (child.nodeName === 'MARK' && !firstMark) {
+                        firstMark = child;
+                    }
+                }
+                node.parentNode.removeChild(node);
+            });
+
+            // 最初のヒット箇所にスクロール
+            if (firstMark) {
+                firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // URLパラメータからの検索キーワード自動入力
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchInput.value = q;
+            highlightAndJump(q);
+        }
+
+        // 入力時のリアルタイムハイライト
+        searchInput.addEventListener('input', (e) => {
+            highlightAndJump(e.target.value);
+        });
+        
+        // Enterキーの送信イベント無効化
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                highlightAndJump(e.target.value);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

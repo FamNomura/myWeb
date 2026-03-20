@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_事業計画書 - ぴたっとナース　ドキュメント一覧</title>
+    
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f3f4f6;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header a { color: white; text-decoration: none; }
+    
+    .search-container { position: relative; margin-top: 0.5rem; }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        border: none;
+        width: 300px;
+        font-size: 0.9rem;
+    }
+    .search-results {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        color: var(--text-color);
+        width: 350px;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        display: none;
+        border: 1px solid var(--border-color);
+    }
+    .search-result-item { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); display: block; text-decoration: none; color: inherit; }
+    .search-result-item:hover { background-color: var(--bg-color); }
+    .search-result-title { font-weight: bold; font-size: 0.95rem; color: var(--primary-color); margin-bottom: 0.2rem; }
+    .search-result-excerpt { font-size: 0.8rem; color: var(--text-muted); }
+
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    h1, h2, h3, h4 { color: #111827; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .document-content h1 { border-bottom: 2px solid var(--border-color); padding-bottom: 0.3em; margin-top: 0;}
+    .document-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+    .document-content img { max-width: 100%; height: auto; }
+    .document-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; }
+    .document-content th, .document-content td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+    .document-content th { background-color: var(--bg-color); }
+    .document-content pre { background-color: #1f2937; color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .document-content code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #d946ef; }
+    .document-content pre code { background-color: transparent; color: inherit; padding: 0; }
+    .document-content a { color: var(--primary-color); text-decoration: underline; }
+    .document-content a:hover { color: var(--primary-hover); }
+    
+    .category-section { margin-bottom: 2rem; background: var(--card-bg); border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+    .category-title { font-size: 1.25rem; background: #e5e7eb; padding: 1rem 1.5rem; margin: 0; }
+    
+    .file-list { display: flex; flex-direction: column; }
+    .file-row { display: flex; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+    .file-row:hover { background-color: #f9fafb; }
+    .file-row:last-child { border-bottom: none; }
+    .file-row-link { flex-grow: 1; text-decoration: none; color: inherit; display: flex; align-items: center; min-width: 0; }
+    .file-name { font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 1rem; }
+    .file-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; margin-left: auto; width: 150px; text-align: right; }
+    
+    .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.75em; font-weight: bold; border-radius: 0.25rem; margin-right: 1rem; white-space: nowrap; }
+    .badge-html { background-color: #dbeafe; color: #1e40af; }
+    .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html">ぴたっとナース　ドキュメント一覧</a></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="このページ内を検索してハイライト...">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb"><a href="../index.html">トップ</a> &gt; 01_事業計画</div>
+        <div class="card document-content">
+            <h1>01_事業計画書</h1>
+<h4>事業名        　「ぴたっとナース」</h4>
+<h4>代表者        　「 野村 由佳子（臨床経験12年 / 正看護師）」</h4>
+<h4>事業のコンセプト   　「看護師免許を持った、もう一人の家族」</h4>
+<p><strong>１　事業概要とターゲット</strong></p>
+<h4><strong>ビジョン</strong></h4>
+<h4>離れて暮らす親を想う子ども世代の「罪悪感」を「安心感」に変え、親子の会話が再びつながる社会を実現すること 。また、「後悔のない別れ」を増やし、親孝行の新しいスタンダードを旭川から作ること 。</h4>
+<h4></h4>
+<h4><strong>解決する課題（3つの壁）</strong></h4>
+<ul>
+<li>
+<h4>距離の壁: 車で片道2時間などの物理的距離 。</h4>
+</li>
+<li>
+<h4>時間の壁: 平日の重要な会議中など、仕事や家庭の都合で駆けつけられない現状 。</h4>
+</li>
+<li>
+<h4>医療知識の壁: 診察室がブラックボックス化し、親が医師の説明を正確に理解できない問題 。</h4>
+</li>
+</ul>
+<h4></h4>
+<h4><strong>ターゲット</strong></h4>
+<ul>
+<li>
+<h4>サービス利用者: 旭川市在住の高齢者</h4>
+</li>
+<li>
+<h4>本当のお客さま（契約・支払者）: 東京や札幌など都市部で働き、経済力はあるが時間がない40〜50代の子世代 (※プロの視点からのアドバイス：ご本人にとって月額2.5万円は高額に感じられても、子世代の「帰省費用と有給消化などの損失」と比較すればリーズナブルである、というロジックを今後のマーケティングの軸にします )</h4>
+</li>
+</ul>
+<h4></h4>
+<h4></h4>
+<h4><strong>２　サービス内容と料金プラン</strong></h4>
+<h4><strong>サービスの核となる価値（提供価値）</strong></h4>
+<p>単なる「お出かけの付き添い」ではなく、看護師資格を活かした「医療通訳を伴うエスコート」が最大の価値です。 基本は「移動〜診察〜帰宅」の約3時間を1セットとし、以下の3ステップでご家族に安心を届けます。</p>
+<ul>
+<li><strong>診察前</strong>：ご本人の生活状況や体調の変化をプロの目線でアセスメントし、症状を言語化。  </li>
+<li><strong>診察中</strong>：医師へ的確に情報を伝え、医師からの専門的な説明を噛み砕いてご本人に伝える（医療通訳）。  </li>
+<li><strong>診察後</strong>：専門用語を分かりやすく翻訳した「LINEレポート」で、遠方のご家族へ迅速に報告。</li>
+</ul>
+<h4></h4>
+<h4><strong>月額料金プラン（税別）</strong></h4>
+<p>ニーズに合わせて選べる3つのプラン展開とする。</p>
+<ul>
+<li><strong>【ベーシック】 15,000円 / 月</strong>  </li>
+<li><strong>対象</strong>: まずは最低限のサポートから始めたい方  </li>
+<li><strong>内容</strong>: 月1回の同行（約3時間）＋ 簡易レポート ＋ 営業時間内の健康相談  </li>
+<li><strong>【スタンダード】 25,000円 / 月　★一番人気・おすすめ</strong>  </li>
+<li><strong>対象</strong>: 定期的なサポートと詳細な報告で、しっかり安心したい方  </li>
+<li><strong>内容</strong>: 月2回の同行（約3時間）＋ 医師との連携・調整 ＋ 詳細LINEレポート  </li>
+<li><strong>【よくばりお任せ】 33,000円 / 月</strong>  </li>
+<li><strong>対象</strong>: 頻繁な通院が必要な方や、より手厚い見守りをご希望の方  </li>
+<li><strong>内容</strong>: 月3回の同行（約3時間）＋ その他充実の見守りサポート</li>
+</ul>
+<h4></h4>
+<p><strong>オプションプラン（入口と追加ニーズへの対応）</strong></p>
+<ul>
+<li><strong>初回限定お試しサポート（5,000円 / 1回・3時間）</strong>  </li>
+<li>まずはサービスの品質と野村さんの人柄を知っていただくための「フロントエンド（集客用）商品」です。  </li>
+<li><strong>専門職同席サポート（8,000円 / 1回・2時間まで）</strong>  </li>
+<li>ケアマネジャーとの担当者会議など、専門的な視点が必要な場への代理出席・同席を行います。  </li>
+<li><strong>追加サポート（8,000円 / 回・3時間まで）</strong>  </li>
+<li>月額プランの規定回数を超えた、急な通院や外出の付き添いに対応します。  </li>
+<li><strong>【追加】スマホ・タブレット操作お手伝い・設定（5,000円 / 1時間）</strong>  </li>
+<li>LINEの設定やビデオ通話の練習など。親子のコミュニケーションをオンラインでも円滑にし、「距離の壁」を越えるお手伝いをします。  </li>
+<li><strong>【追加】見守りデバイス（カメラ等）の設置支援・レンタル（料金：初期費用＋月額レンタル料 等）</strong>  </li>
+<li>ご自宅への見守りカメラ等の設置サポートやレンタル。冬場の豪雪期など、訪問できない日でもご家族に安心を届けるとともに、事業の安定した継続収入（ストック収益）の基盤とします。</li>
+</ul>
+<h4><strong>価格の妥当性</strong></h4>
+<p>「もし東京から月に2回、お仕事を休んで旭川に帰省された場合、往復の航空券代だけで数万円かかり、さらに有給休暇の消化や体力的な疲労も重なります。月額25,000円で『仕事に穴を空けず、プロに任せられる安心』を買うと考えれば、決して高い投資ではありません」</p>
+<h3><strong>３　競合優位性とマーケティング戦略</strong></h3>
+<h4></h4>
+<h4><strong>競合優位性（なぜ「ぴたっとナース」が選ばれるのか）</strong></h4>
+<p>他社の家事代行や見守りサービスと比較し、以下の3点で圧倒的な差別化を図ります。</p>
+<ul>
+<li><strong>① 質の高い「医療通訳」能力（医療のプロ）</strong>  </li>
+<li>無資格のヘルパーや一般の代行業者とは異なり、臨床経験12年の正看護師が対応。緊急時の的確な判断と、医師とのスムーズな連携が可能です。  </li>
+<li><strong>② 完全オーダーメイドの柔軟性（わがままOK）</strong>  </li>
+<li>「マニュアル通り・寄り道不可」のサービスとは違い、「病院の帰りに、思い出の公園に寄りたい」「好物のお惣菜を一緒に買いたい」といった、ご本人のQOL（生活の質）を高めるご要望に柔軟に応えます。  </li>
+<li><strong>③ 【強力な武器】第三者機関からの圧倒的な信頼感</strong>  </li>
+<li>「道北ビジネスコンテスト最優秀賞」受賞事業であるという実績。これが、遠方から大切なお金と親御さんを託す子世代にとって、最大の安心材料（トラストマーク）となります。</li>
+</ul>
+<h4><strong>2. マーケティング戦略（集客の2本柱）</strong></h4>
+<p>「旭川に住む親」と「都市部に住む子」、それぞれに的確にアプローチするため、オンラインとオフラインを掛け合わせます。</p>
+<p><strong>【オンライン戦略：決裁者である「子世代」へ届ける】</strong></p>
+<ul>
+<li><strong>Instagram（認知拡大・ファン化）</strong>  </li>
+<li><strong>役割</strong>: 野村さんの人柄、看護師としての専門性、日々の活動を視覚的に伝えます。  </li>
+<li><strong>発信内容</strong>: 「離れて暮らす親のこんなサインに注意」「遠距離介護のリアル」「ビジコン受賞の裏側」など、子世代の悩みに寄り添うコンテンツを発信します。  </li>
+<li><strong>ホームページ（信頼構築・クロージング）※今後構築予定</strong>  </li>
+<li><strong>役割</strong>: インスタで興味を持った人を、実際の「問い合わせ（契約）」へ導くための受け皿です。  </li>
+<li><strong>掲載内容</strong>: 料金プランの明確な提示、「仕事を休むコスト」との比較ロジック、お客様の声、そして「ビジコン最優秀賞」のロゴをトップに掲げ、迷っている背中を力強く押します。</li>
+</ul>
+<p><strong>【オフライン戦略：地域ネットワークからの「紹介」を獲得する】</strong></p>
+<ul>
+<li><strong>ターゲット</strong>: 旭川市内のケアマネジャー、主要5病院の「地域連携室（退院支援の部署）」  </li>
+<li><strong>アプローチ</strong>: 彼らは「制度（介護保険等）の枠では対応しきれない患者さんの要望」に日々頭を抱えています。競合ではなく、「隙間を埋める頼もしいパートナー」として営業に回ります。「ビジコン最優秀賞の野村です」という肩書きが、アポ取りの強力な武器になります。</li>
+</ul>
+<h4><strong>3. 今すぐやるべき「具体的なアクション」</strong></h4>
+<p>大きな戦略を立てたところで、<strong>今週〜来週に実行していただきたいタスク</strong>を絞り込みます。</p>
+<ol>
+<li><strong>Instagramのプロフィール改修</strong>  </li>
+<li>名前や自己紹介の1行目に【道北ビジネスコンテスト最優秀賞受賞】と必ず追記しましょう。  </li>
+<li><strong>営業用パンフレット・名刺のアップデート</strong>  </li>
+<li>すでにある場合は、受賞実績を目立つように追加（シールを貼るだけでもOKです）。  </li>
+<li><strong>ホームページの「構成案（骨組み）」づくり</strong>  </li>
+<li>いきなり業者に頼むのではなく、まずは「どんなページが必要か」をWordや手書きで書き出してみましょう。</li>
+</ol>
+<h3><strong>４　運営体制とリスク管理</strong></h3>
+<p>看護師によるサービスだからこそ、「医療事故」や「責任問題」への対策を明記することが、お客様や金融機関からの最大の信用につながります。</p>
+<ul>
+<li><strong>1. 初期〜中期の運営体制（家族の絆で固定費を抑える）</strong>  </li>
+<li><strong>1〜2年目（基盤構築期）</strong>：野村さん1名（代表）を中心に、お母様（看護師）と義理のお母様（経理経験者）のサポートを得て、人件費等の固定費を最小限に抑えた堅実なスモールスタートを切ります。  </li>
+<li><strong>3年目以降（拡大期）</strong>：パート看護師を採用し、組織化を図ります。  </li>
+<li><strong>2. リスク管理・コンプライアンス対策</strong>  </li>
+<li><strong>医療行為の線引き</strong>：医師の指示書がない状態での医療行為（注射等）は一切行わず、法的範囲内の「療養上の世話」と「応急処置」に留めます。急変時はプロとして「トリアージ（緊急度判断）」を行い、迅速に救急搬送へつなぐ『命のリレー』に徹します。  </li>
+<li><strong>責任問題への対策</strong>：医療通訳における誤解を防ぐため、医師の言葉を正確に記録します。また、利用規約にて「最終的な医療判断の責任は医師にある」旨を明記して同意を取得し、万が一に備えて損害賠償保険に加入します。</li>
+</ul>
+<h3></h3>
+<h3><strong>５　財務・収支計画（5カ年の成長ロードマップ）</strong></h3>
+<p>ここからがいよいよ「お金」のお話です。月額平均単価を約24,000円（スタンダードプラン中心）、変動費を1件2,000円と仮定し、無理のない現実的な成長曲線を描いています。</p>
+<p><strong>【5カ年の収支目標サマリー】</strong></p>
+<ul>
+<li><strong>1年目（2025年度）：月平均8名 / 年商 約230万円</strong>  </li>
+<li>まずは実績づくり。家族サポートで固定費を抑え、少人数のお客様に120%の満足度を提供し、口コミの土台を作ります。  </li>
+<li><strong>2年目（2026年度）：月平均15名 / 年商 約430万円</strong>  </li>
+<li>ケアマネジャーや病院連携室からの紹介が回り始め、黒字化を安定させます。  </li>
+<li><strong>3年目（2027年度）：月平均30名 / 年商 720万円 ★転換点</strong>  </li>
+<li>ここでパート看護師1名を採用！野村さん一人のマンパワーの限界を超え、組織としての売上を作ります。  </li>
+<li><strong>4年目（2028年度）：月平均40名 / 年商 約1,000万円 ★事業拡大</strong>  </li>
+<li>介護タクシー事業（中古車両購入）を開始！看護師の付き添いと移動サービスを統合した「完全なドアツードア」を完成させます。（※パート看護師さらに1名追加）  </li>
+<li><strong>5年目（2029年度）：月平均50名 / 年商 約1,300万円</strong>  </li>
+<li>パート事務員も採用し、野村さんは経営と質の管理、重要顧客の対応に注力。事業として完全に軌道に乗った状態です。</li>
+</ul>
+        </div>
+    </main>
+    <footer>
+        <p>Generated by Document to HTML Converter</p>
+    </footer>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        if (!searchInput) return;
+
+        function highlightAndJump(keyword) {
+            const container = document.querySelector('.document-content');
+            if (!container) return;
+
+            // 既存のハイライトマークを解除してテキストを元に戻す
+            const marks = container.querySelectorAll('mark.search-highlight');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (!keyword || keyword.trim() === '') return;
+
+            // 正規表現用のエスケープ処理
+            const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(safeKeyword, 'gi');
+            
+            // TreeWalkerでテキストノードのみを走査（HTMLタグの破壊を防ぐ）
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                // スクリプトやスタイルの内部は無視
+                if (node.parentNode.nodeName !== 'MARK' && 
+                    node.parentNode.nodeName !== 'SCRIPT' && 
+                    node.parentNode.nodeName !== 'STYLE' && 
+                    node.nodeValue.match(regex)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            let firstMark = null;
+            nodesToReplace.forEach(node => {
+                const span = document.createElement('span');
+                // マッチした部分を<mark>で囲む
+                span.innerHTML = node.nodeValue.replace(regex, match => 
+                    `<mark class="search-highlight" style="background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;">${match}</mark>`
+                );
+                
+                while (span.firstChild) {
+                    const child = span.firstChild;
+                    node.parentNode.insertBefore(child, node);
+                    if (child.nodeName === 'MARK' && !firstMark) {
+                        firstMark = child;
+                    }
+                }
+                node.parentNode.removeChild(node);
+            });
+
+            // 最初のヒット箇所にスクロール
+            if (firstMark) {
+                firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // URLパラメータからの検索キーワード自動入力
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchInput.value = q;
+            highlightAndJump(q);
+        }
+
+        // 入力時のリアルタイムハイライト
+        searchInput.addEventListener('input', (e) => {
+            highlightAndJump(e.target.value);
+        });
+        
+        // Enterキーの送信イベント無効化
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                highlightAndJump(e.target.value);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

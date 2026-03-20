@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06_ロードマップ - ぴたっとナース　ドキュメント一覧</title>
+    
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f3f4f6;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header a { color: white; text-decoration: none; }
+    
+    .search-container { position: relative; margin-top: 0.5rem; }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        border: none;
+        width: 300px;
+        font-size: 0.9rem;
+    }
+    .search-results {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        color: var(--text-color);
+        width: 350px;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        display: none;
+        border: 1px solid var(--border-color);
+    }
+    .search-result-item { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); display: block; text-decoration: none; color: inherit; }
+    .search-result-item:hover { background-color: var(--bg-color); }
+    .search-result-title { font-weight: bold; font-size: 0.95rem; color: var(--primary-color); margin-bottom: 0.2rem; }
+    .search-result-excerpt { font-size: 0.8rem; color: var(--text-muted); }
+
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    h1, h2, h3, h4 { color: #111827; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .document-content h1 { border-bottom: 2px solid var(--border-color); padding-bottom: 0.3em; margin-top: 0;}
+    .document-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+    .document-content img { max-width: 100%; height: auto; }
+    .document-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; }
+    .document-content th, .document-content td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+    .document-content th { background-color: var(--bg-color); }
+    .document-content pre { background-color: #1f2937; color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .document-content code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #d946ef; }
+    .document-content pre code { background-color: transparent; color: inherit; padding: 0; }
+    .document-content a { color: var(--primary-color); text-decoration: underline; }
+    .document-content a:hover { color: var(--primary-hover); }
+    
+    .category-section { margin-bottom: 2rem; background: var(--card-bg); border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+    .category-title { font-size: 1.25rem; background: #e5e7eb; padding: 1rem 1.5rem; margin: 0; }
+    
+    .file-list { display: flex; flex-direction: column; }
+    .file-row { display: flex; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+    .file-row:hover { background-color: #f9fafb; }
+    .file-row:last-child { border-bottom: none; }
+    .file-row-link { flex-grow: 1; text-decoration: none; color: inherit; display: flex; align-items: center; min-width: 0; }
+    .file-name { font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 1rem; }
+    .file-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; margin-left: auto; width: 150px; text-align: right; }
+    
+    .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.75em; font-weight: bold; border-radius: 0.25rem; margin-right: 1rem; white-space: nowrap; }
+    .badge-html { background-color: #dbeafe; color: #1e40af; }
+    .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html">ぴたっとナース　ドキュメント一覧</a></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="このページ内を検索してハイライト...">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb"><a href="../index.html">トップ</a> &gt; 01_事業計画</div>
+        <div class="card document-content">
+            <h1>06_ロードマップ</h1>
+<h3><strong>🗺️ ぴたっとナース 開業ロードマップ（2026年3月〜6月最新版）</strong></h3>
+<h4></h4>
+<h4><strong>【フェーズ1：足場固めと『勝てる』広報準備】（3月）</strong></h4>
+<p><strong>テーマ：受賞実績を最大の武器にし、デジタル基盤を作り始める</strong></p>
+<p><strong>資金・インフラ（担当：奥様・野村様）</strong></p>
+<ul>
+<li><strong>[ 　]  事業用インフラの整備（※未完了の場合）</strong>  </li>
+<li>事業用クレジットカード（奥様名義）の作成、事業用銀行口座の開設。  </li>
+<li>プライベートと分けるための「事業用電話番号（050アプリ等）」の取得。</li>
+</ul>
+<p><strong>ブランディング・広報（担当：奥様 / 監修：野村様）</strong></p>
+<ul>
+<li><strong>[ 　]  Instagramの「受賞特化」プロフィール改修</strong>  </li>
+<li>すでに始めているInstagramのプロフィール一行目に「道北ビジコン最優秀賞受賞」を記載し、圧倒的な信頼感を持たせます。運用を効率化する自作のSNS管理ツールなどの導入も検討し、発信を軌道に乗せます。  </li>
+<li><strong>[ 　]  宣材写真の撮影とユニフォーム準備</strong>  </li>
+<li>清潔感のあるスクラブ姿（プロの信頼）と、オフィスカジュアル（親しみやすさ）の2パターンを撮影。  </li>
+<li><strong>[ 　]  『最強の』名刺とパンフレットの作成</strong>  </li>
+<li>受賞ロゴや実績を大きく配置したデザインで作成（ラクスル等で印刷）。</li>
+</ul>
+<p><strong>システム開発・リサーチ（担当：野村様）</strong></p>
+<ul>
+<li><strong>[ 　]  報告システム（AppSheet等）のプロトタイプ作成</strong>  </li>
+<li>まずはスマートフォンで動く画面を作り、奥様に触ってフィードバックをもらう。  </li>
+<li><strong>[ 　]  ホームページの構成案作成と技術選定</strong>  </li>
+<li>ランニングコストを抑えるため、MkDocsとGitHub Pagesなどを組み合わせた静的サイト構築など、管理がしやすく表示速度の速い技術での作成を検討・準備します。</li>
+</ul>
+<h4>---</h4>
+<p><strong>【フェーズ2：計画精緻化と「お試し」期間】（4月）</strong></p>
+<p><strong>テーマ：補助金に向けた理論武装と、サービスの品質テスト</strong></p>
+<p><strong>事業計画・補助金（担当：奥様・野村様）</strong></p>
+<ul>
+<li><strong>[ 　]  産業創造プラザでの「補助金申請」準備</strong>  </li>
+<li>再構築した事業計画書を持参し、6月公募予定の「小規模事業者持続化補助金」に向けた申請理由書などの下書きを始めます。  </li>
+<li><strong>[ 　]  必要な初期費用の見積もり収集</strong>  </li>
+<li>PC、タブレット、パンフレット印刷費に加え、オプション用の「見守りカメラ」などデバイス類の見積もりもWeb等で取得します。</li>
+</ul>
+<p><strong>サービス構築・テスト（担当：奥様）</strong></p>
+<ul>
+<li><strong>[ 　]  モニター利用（ロールプレイング）の実施</strong>  </li>
+<li>知人やご親戚の家で、「訪問 → アセスメント（バイタル等） → 病院への同行想定 → スマホからのシステム入力 → LINEでの家族報告」という一連の流れをテストし、時間配分や改善点を洗い出します。</li>
+</ul>
+<p><strong>法務・契約（担当：野村様）</strong></p>
+<ul>
+<li><strong>[ 　]  契約書・利用規約・同意書の作成</strong>  </li>
+<li>「医療行為は行わない」等の線引きを明確にした規約を作成。産業創造プラザの無料専門家相談などを活用してリーガルチェックを受けます。  </li>
+<li><strong>[ 　]  賠償責任保険の選定</strong>  </li>
+<li>万が一に備えた看護職賠償責任保険などの加入手続きを進めます（補償開始日を開業日に合わせる）。</li>
+</ul>
+<h4>---</h4>
+<p><strong>【フェーズ3：対外折衝とシステムの総仕上げ】（5月）</strong></p>
+<p><strong>テーマ：地域ネットワークへの食い込みと、ITの自動化</strong></p>
+<p><strong>営業・連携（担当：奥様）</strong></p>
+<ul>
+<li><strong>[ 　]  地域のキーマンへの挨拶回り（オフライン営業）</strong>  </li>
+<li>完成した名刺とパンフレットを持ち、旭川市内の主要病院の地域連携室やケアマネジャー事業所へ「6月スタート」の挨拶に回ります。ビジコン受賞実績がアポ取りの強力な武器になります。</li>
+</ul>
+<p><strong>開発仕上げ（担当：野村様）</strong></p>
+<ul>
+<li><strong>[ 　]  LINE公式アカウントの開設とシステム連携</strong>  </li>
+<li>AppSheetとGoogle Apps Script (GAS) などを連携させ、診察後のレポートをご家族のLINEへ自動・半自動で配信する仕組みを完成させます。  </li>
+<li><strong>[ 　]  決済システム（Square等）のテスト完了</strong>  </li>
+<li>クレジットカード決済や月額課金がスムーズに行えるかテストします。  </li>
+<li><strong>[ 　]  ホームページの公開準備</strong>  </li>
+<li>ドメインを取得し、サイトを本番環境にデプロイします（この段階ではティザーサイトとして「6月オープン」とだけ出しておくのも有効です）。</li>
+</ul>
+<h4>---</h4>
+<p><strong>【フェーズ4：いよいよ開業・スタートダッシュ】（6月）</strong></p>
+<p><strong>テーマ：公的手続きの完了と、堂々たる船出</strong></p>
+<p><strong>手続き（担当：奥様）</strong></p>
+<ul>
+<li><strong>[ 　]  開業届 ＆ 青色申告承認申請書の提出（税務署）</strong>  </li>
+<li>6月吉日付で提出。最大65万円の特別控除（節税）を受けるため、青色申告の申請書は開業届と必ずセットで提出します。  </li>
+<li><strong>[ 　]  補助金の申請書提出</strong>  </li>
+<li>公募が始まり次第、産業創造プラザの支援を受けながら速やかに提出します。</li>
+</ul>
+<p><strong>営業開始（担当：奥様・野村様）</strong></p>
+<ul>
+<li><strong>[ 　]  HPの正式公開とSNSでの大々的な告知</strong>  </li>
+<li><strong>[ 　]  プレスリリースの送付</strong>  </li>
+<li>北海道新聞やライナーネットワークなどの地元メディアへ、「旭川発・ビジコン最優秀賞の元看護師が始める、家族をつなぐ新サービス」として情報提供を行います（無料で記事として取り上げられる可能性があります）。</li>
+</ul>
+        </div>
+    </main>
+    <footer>
+        <p>Generated by Document to HTML Converter</p>
+    </footer>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        if (!searchInput) return;
+
+        function highlightAndJump(keyword) {
+            const container = document.querySelector('.document-content');
+            if (!container) return;
+
+            // 既存のハイライトマークを解除してテキストを元に戻す
+            const marks = container.querySelectorAll('mark.search-highlight');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (!keyword || keyword.trim() === '') return;
+
+            // 正規表現用のエスケープ処理
+            const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(safeKeyword, 'gi');
+            
+            // TreeWalkerでテキストノードのみを走査（HTMLタグの破壊を防ぐ）
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                // スクリプトやスタイルの内部は無視
+                if (node.parentNode.nodeName !== 'MARK' && 
+                    node.parentNode.nodeName !== 'SCRIPT' && 
+                    node.parentNode.nodeName !== 'STYLE' && 
+                    node.nodeValue.match(regex)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            let firstMark = null;
+            nodesToReplace.forEach(node => {
+                const span = document.createElement('span');
+                // マッチした部分を<mark>で囲む
+                span.innerHTML = node.nodeValue.replace(regex, match => 
+                    `<mark class="search-highlight" style="background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;">${match}</mark>`
+                );
+                
+                while (span.firstChild) {
+                    const child = span.firstChild;
+                    node.parentNode.insertBefore(child, node);
+                    if (child.nodeName === 'MARK' && !firstMark) {
+                        firstMark = child;
+                    }
+                }
+                node.parentNode.removeChild(node);
+            });
+
+            // 最初のヒット箇所にスクロール
+            if (firstMark) {
+                firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // URLパラメータからの検索キーワード自動入力
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchInput.value = q;
+            highlightAndJump(q);
+        }
+
+        // 入力時のリアルタイムハイライト
+        searchInput.addEventListener('input', (e) => {
+            highlightAndJump(e.target.value);
+        });
+        
+        // Enterキーの送信イベント無効化
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                highlightAndJump(e.target.value);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

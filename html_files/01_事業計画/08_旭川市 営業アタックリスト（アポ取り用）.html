@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08_旭川市 営業アタックリスト（アポ取り用） - ぴたっとナース　ドキュメント一覧</title>
+    
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f3f4f6;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header a { color: white; text-decoration: none; }
+    
+    .search-container { position: relative; margin-top: 0.5rem; }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        border: none;
+        width: 300px;
+        font-size: 0.9rem;
+    }
+    .search-results {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        color: var(--text-color);
+        width: 350px;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        display: none;
+        border: 1px solid var(--border-color);
+    }
+    .search-result-item { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); display: block; text-decoration: none; color: inherit; }
+    .search-result-item:hover { background-color: var(--bg-color); }
+    .search-result-title { font-weight: bold; font-size: 0.95rem; color: var(--primary-color); margin-bottom: 0.2rem; }
+    .search-result-excerpt { font-size: 0.8rem; color: var(--text-muted); }
+
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    h1, h2, h3, h4 { color: #111827; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .document-content h1 { border-bottom: 2px solid var(--border-color); padding-bottom: 0.3em; margin-top: 0;}
+    .document-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+    .document-content img { max-width: 100%; height: auto; }
+    .document-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; }
+    .document-content th, .document-content td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+    .document-content th { background-color: var(--bg-color); }
+    .document-content pre { background-color: #1f2937; color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .document-content code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #d946ef; }
+    .document-content pre code { background-color: transparent; color: inherit; padding: 0; }
+    .document-content a { color: var(--primary-color); text-decoration: underline; }
+    .document-content a:hover { color: var(--primary-hover); }
+    
+    .category-section { margin-bottom: 2rem; background: var(--card-bg); border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+    .category-title { font-size: 1.25rem; background: #e5e7eb; padding: 1rem 1.5rem; margin: 0; }
+    
+    .file-list { display: flex; flex-direction: column; }
+    .file-row { display: flex; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+    .file-row:hover { background-color: #f9fafb; }
+    .file-row:last-child { border-bottom: none; }
+    .file-row-link { flex-grow: 1; text-decoration: none; color: inherit; display: flex; align-items: center; min-width: 0; }
+    .file-name { font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 1rem; }
+    .file-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; margin-left: auto; width: 150px; text-align: right; }
+    
+    .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.75em; font-weight: bold; border-radius: 0.25rem; margin-right: 1rem; white-space: nowrap; }
+    .badge-html { background-color: #dbeafe; color: #1e40af; }
+    .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html">ぴたっとナース　ドキュメント一覧</a></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="このページ内を検索してハイライト...">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb"><a href="../index.html">トップ</a> &gt; 01_事業計画</div>
+        <div class="card document-content">
+            <h1>08_旭川市 営業アタックリスト（アポ取り用）</h1>
+<h1><strong>【ぴたっとナース】旭川市内 営業アタックリスト</strong></h1>
+<p>開業初期の1〜2ヶ月間で集中的にアプローチすべきターゲットを優先度順（S〜B）に整理しました。この表を印刷、またはスプレッドシートにコピーして、アプローチの進捗管理にご活用ください。</p>
+<h2><strong>1. 医療・介護の専門職（最優先：BtoB連携）</strong></h2>
+<p>「介護保険の枠外」で困っている専門職へアプローチし、信頼関係を構築します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">優先度</th>
+<th style="text-align: left;">ターゲットカテゴリ</th>
+<th style="text-align: left;">具体的なアプローチ先例（旭川市内）</th>
+<th style="text-align: left;">提案のポイント（相手のメリット）</th>
+<th style="text-align: left;">持参する武器（ツール）</th>
+<th style="text-align: left;">進捗 / メモ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>S</strong></td>
+<td style="text-align: left;"><strong>主要病院の地域連携室</strong></td>
+<td style="text-align: left;">旭川赤十字病院、旭川医科大学病院、旭川厚生病院、旭川市立病院、旭川医療センター</td>
+<td style="text-align: left;">【退院調整の円滑化】 「遠方の家族が通院支援できず退院させられない」患者様の受け皿になる。医療通訳ができる点を強調。</td>
+<td style="text-align: left;">・ケアマネ/病院向けチラシ ・名刺（案1: 王道ブルー）</td>
+<td style="text-align: left;">[　] アポ取り [　] 訪問済</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>S</strong></td>
+<td style="text-align: left;">居宅介護支援事業所 （ケアマネジャー）</td>
+<td style="text-align: left;">市内の居宅介護支援事業所、地域包括支援センター</td>
+<td style="text-align: left;">【業務負担の軽減】 ヘルパーでは対応できない「長時間の院内介助」「医師の医療情報の正確な聞き取りと家族報告」を丸投げできる。</td>
+<td style="text-align: left;">・ケアマネ/病院向けチラシ ・名刺（案1: 王道ブルー）</td>
+<td style="text-align: left;">[　] アポ取り [　] 訪問済</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>A</strong></td>
+<td style="text-align: left;"><strong>調剤薬局</strong></td>
+<td style="text-align: left;">地域密着型の「かかりつけ薬局」、病院前の門前薬局</td>
+<td style="text-align: left;">【服薬管理の連携】 医師の処方意図を正確に薬局に伝える。また、薬の受け取りや残薬確認のサポートで薬剤師と連携する。</td>
+<td style="text-align: left;">・ケアマネ/病院向けチラシ ・名刺（案1: 王道ブルー）</td>
+<td style="text-align: left;">[　] アポ取り [　] 訪問済</td>
+</tr>
+</tbody>
+</table>
+<h2><strong>2. 協力企業（Win-Winの相互送客ルート）</strong></h2>
+<p>高齢者の「日常の困りごと」を一番よく聞いている民間企業とタッグを組みます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">優先度</th>
+<th style="text-align: left;">ターゲットカテゴリ</th>
+<th style="text-align: left;">具体的なアプローチ先例（旭川市内）</th>
+<th style="text-align: left;">提案のポイント（Win-Winの相互送客）</th>
+<th style="text-align: left;">持参する武器（ツール）</th>
+<th style="text-align: left;">進捗 / メモ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>S</strong></td>
+<td style="text-align: left;"><strong>配食サービス</strong></td>
+<td style="text-align: left;">宅配クック123、ニコニコキッチンなどの市内FC店や地元弁当店</td>
+<td style="text-align: left;">【安心の提供・顧客紹介】 配達時に異変を感じた際の相談窓口に。ぴたっとナースから「食事に困っているお客様」を配食サービスへ紹介する。</td>
+<td style="text-align: left;">・協力企業向けチラシ ・名刺（案5: 情報量重視）</td>
+<td style="text-align: left;">[　] アポ取り [　] 訪問済</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>A</strong></td>
+<td style="text-align: left;">シニア向けフィットネス リハビリ特化デイ</td>
+<td style="text-align: left;">カーブス、半日型のリハビリデイサービス施設 など</td>
+<td style="text-align: left;">【退会防止・顧客紹介】 「膝が痛くて通えなくなる前」の整形外科受診をサポートし、退会を防ぐ。ぴたっとナースから運動希望者を紹介する。</td>
+<td style="text-align: left;">・協力企業向けチラシ ・名刺（案5: 情報量重視）</td>
+<td style="text-align: left;">[　] アポ取り [　] 訪問済</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>A</strong></td>
+<td style="text-align: left;">補聴器専門店 眼鏡店</td>
+<td style="text-align: left;">富士メガネ、市内の補聴器センター など</td>
+<td style="text-align: left;">【来店サポート・顧客紹介】 難聴で医師の説明が聞こえない高齢者の通院をサポート。ぴたっとナースから「補聴器の調整が必要な方」をお店へ送客する。</td>
+<td style="text-align: left;">・協力企業向けチラシ ・ご家族向けチラシ（設置用）</td>
+<td style="text-align: left;">[　] アポ取り [　] 訪問済</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>B</strong></td>
+<td style="text-align: left;"><strong>美容室・理容室</strong></td>
+<td style="text-align: left;">昔ながらの地元の美容室、訪問美容サービス業者</td>
+<td style="text-align: left;">【美容室への送迎・愚痴の解決】 美容師さんがカット中に聞く「病院への不安・愚痴」の解決窓口になる。美容室への送迎付き添いも可能であることをアピール。</td>
+<td style="text-align: left;">・協力企業向けチラシ ・ご家族向けチラシ（設置用）</td>
+<td style="text-align: left;">[　] アポ取り [　] 訪問済</td>
+</tr>
+</tbody>
+</table>
+<h2><strong>💡 コンサルタントからの「アポ取り」ワンポイントアドバイス</strong></h2>
+<ol>
+<li><strong>「道北ビジコン最優秀賞」をアポ取りの電話で必ず名乗る</strong><br />
+   「新しくできた事業所です」と言うより、「先日、道北ビジネスプランコンテストで最優秀賞をいただき、〇〇の事業を立ち上げました野村と申します。ご挨拶に…」と伝えると、ガチャ切りされる確率が激減します。  </li>
+<li><strong>協力企業には「情報交換」という名目で会う</strong><br />
+   お弁当屋さんやジムに電話する際は、「営業」ではなく「高齢者の支援について、情報交換をさせていただけないか」「相互に紹介し合える関係が作れないか」と切り出すと、経営者や店長が会ってくれやすくなります。  </li>
+<li><strong>チラシは「ご家族向け（BtoC）」も一緒に渡して「設置」をお願いする</strong><br />
+   事業者向けに説明をした後、「もしよろしければ、お客様のご家族が見える場所にこのチラシ（ご家族向け）を置かせていただけませんか？」と必ずお願いしましょう。</li>
+</ol>
+        </div>
+    </main>
+    <footer>
+        <p>Generated by Document to HTML Converter</p>
+    </footer>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        if (!searchInput) return;
+
+        function highlightAndJump(keyword) {
+            const container = document.querySelector('.document-content');
+            if (!container) return;
+
+            // 既存のハイライトマークを解除してテキストを元に戻す
+            const marks = container.querySelectorAll('mark.search-highlight');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (!keyword || keyword.trim() === '') return;
+
+            // 正規表現用のエスケープ処理
+            const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(safeKeyword, 'gi');
+            
+            // TreeWalkerでテキストノードのみを走査（HTMLタグの破壊を防ぐ）
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                // スクリプトやスタイルの内部は無視
+                if (node.parentNode.nodeName !== 'MARK' && 
+                    node.parentNode.nodeName !== 'SCRIPT' && 
+                    node.parentNode.nodeName !== 'STYLE' && 
+                    node.nodeValue.match(regex)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            let firstMark = null;
+            nodesToReplace.forEach(node => {
+                const span = document.createElement('span');
+                // マッチした部分を<mark>で囲む
+                span.innerHTML = node.nodeValue.replace(regex, match => 
+                    `<mark class="search-highlight" style="background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;">${match}</mark>`
+                );
+                
+                while (span.firstChild) {
+                    const child = span.firstChild;
+                    node.parentNode.insertBefore(child, node);
+                    if (child.nodeName === 'MARK' && !firstMark) {
+                        firstMark = child;
+                    }
+                }
+                node.parentNode.removeChild(node);
+            });
+
+            // 最初のヒット箇所にスクロール
+            if (firstMark) {
+                firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // URLパラメータからの検索キーワード自動入力
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchInput.value = q;
+            highlightAndJump(q);
+        }
+
+        // 入力時のリアルタイムハイライト
+        searchInput.addEventListener('input', (e) => {
+            highlightAndJump(e.target.value);
+        });
+        
+        // Enterキーの送信イベント無効化
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                highlightAndJump(e.target.value);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

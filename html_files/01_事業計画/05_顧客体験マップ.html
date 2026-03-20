@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05_顧客体験マップ - ぴたっとナース　ドキュメント一覧</title>
+    
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f3f4f6;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header a { color: white; text-decoration: none; }
+    
+    .search-container { position: relative; margin-top: 0.5rem; }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        border: none;
+        width: 300px;
+        font-size: 0.9rem;
+    }
+    .search-results {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        color: var(--text-color);
+        width: 350px;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        display: none;
+        border: 1px solid var(--border-color);
+    }
+    .search-result-item { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); display: block; text-decoration: none; color: inherit; }
+    .search-result-item:hover { background-color: var(--bg-color); }
+    .search-result-title { font-weight: bold; font-size: 0.95rem; color: var(--primary-color); margin-bottom: 0.2rem; }
+    .search-result-excerpt { font-size: 0.8rem; color: var(--text-muted); }
+
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    h1, h2, h3, h4 { color: #111827; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .document-content h1 { border-bottom: 2px solid var(--border-color); padding-bottom: 0.3em; margin-top: 0;}
+    .document-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+    .document-content img { max-width: 100%; height: auto; }
+    .document-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; }
+    .document-content th, .document-content td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+    .document-content th { background-color: var(--bg-color); }
+    .document-content pre { background-color: #1f2937; color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .document-content code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #d946ef; }
+    .document-content pre code { background-color: transparent; color: inherit; padding: 0; }
+    .document-content a { color: var(--primary-color); text-decoration: underline; }
+    .document-content a:hover { color: var(--primary-hover); }
+    
+    .category-section { margin-bottom: 2rem; background: var(--card-bg); border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+    .category-title { font-size: 1.25rem; background: #e5e7eb; padding: 1rem 1.5rem; margin: 0; }
+    
+    .file-list { display: flex; flex-direction: column; }
+    .file-row { display: flex; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+    .file-row:hover { background-color: #f9fafb; }
+    .file-row:last-child { border-bottom: none; }
+    .file-row-link { flex-grow: 1; text-decoration: none; color: inherit; display: flex; align-items: center; min-width: 0; }
+    .file-name { font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 1rem; }
+    .file-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; margin-left: auto; width: 150px; text-align: right; }
+    
+    .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.75em; font-weight: bold; border-radius: 0.25rem; margin-right: 1rem; white-space: nowrap; }
+    .badge-html { background-color: #dbeafe; color: #1e40af; }
+    .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html">ぴたっとナース　ドキュメント一覧</a></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="このページ内を検索してハイライト...">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb"><a href="../index.html">トップ</a> &gt; 01_事業計画</div>
+        <div class="card document-content">
+            <h1>05_顧客体験マップ</h1>
+<h1><strong>顧客体験マップ（3パターン）</strong></h1>
+<h3><strong>パターン1：遠方に住むご家族が、親御さんの日々の暮らしを心配しているケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 東京在住の50代女性。旭川市内で一人暮らしをする80代の母親のことが気がかり。母親は最近、外出がおっくうになり、月一回の通院も少し負担に感じている。  </li>
+<li><strong>利用プラン：</strong> 【竹】すこやか充実コース（月額20,000円）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">娘さんが「旭川 親 病院 付き添い」などで検索し、Instagramで「ぴたっとナース」を発見。「看護師さんがやってるんだ、良さそう」と興味を持つ。</td>
+<td style="text-align: left;">[cite_start]<strong>SNSでの発信</strong>\&lt;br&gt;「離れて暮らすご家族との結びつき」をテーマにした投稿が目に留まる [cite: 82]。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">公式サイトを訪れ、代表の野村さんのプロフィールや事業への想いを読み、信頼感を抱く。料金プランが明瞭な点も安心材料に。</td>
+<td style="text-align: left;"><strong>ウェブサイト</strong>\&lt;br&gt;代表者の顔と経歴、具体的なプランを提示することで不安を払拭。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">サイトのフォームから問い合わせ。後日、旭川の母親、東京の娘さん（オンライン参加）、野村さんの三者で面談。母親も「野村さんなら優しそう」と乗り気に。</td>
+<td style="text-align: left;"><strong>三者面談</strong>\&lt;br&gt;ご本人とご家族、双方の不安をヒアリングし、最適な「竹プラン」を提案。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;"><strong>【1回目】</strong> 通院サポートを利用。野村さんが診察に同席し、医師の説明を補足してくれたおかげで、母親の理解が深まる。<strong>【2回目】</strong> 野村さんの提案で、母親が好きだった近所の公園へ散歩に出かける。</td>
+<td style="text-align: left;">[cite_start]<strong>専門的サポート</strong>\&lt;br&gt;看護師としての知識で、通院の質を向上させる。本人の「やりたい」気持ちを引き出す提案を行う [cite: 178, 187, 191]。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">娘さんの元に、その月のサポート内容と母親の楽しそうな写真が添えられた月次レポートが届く。「プロに頼んで本当に良かった」と心から安心する。母親も、外出の良いきっかけができたと喜ぶ。</td>
+<td style="text-align: left;">[cite_start]<strong>月次レポート</strong>\&lt;br&gt;単なる業務報告ではなく、写真や表情の変化を伝えることで、家族の心のつながりを強める [cite: 56]。</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>パターン2：ご本人が、将来のために主体的にサービスを探しているケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 旭川市在住の70代男性。一人暮らしで身の回りのことは自分でできるが、複数の科に通院しており、薬の管理や医師とのコミュニケーションに少し不安を感じ始めている。「子供たちには迷惑をかけたくない」が口癖。  </li>
+<li><strong>利用プラン：</strong> 【梅】あんしん基本コース（月額12,000円）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">かかりつけの病院の待合室に置かれていたパンフレットを見て、「ぴたっとナース」を知る。「看護師の付き添い」という言葉に興味を持つ。</td>
+<td style="text-align: left;"><strong>オフラインでの連携</strong>\&lt;br&gt;地域の医療機関や薬局にパンフレットを設置。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">パンフレットに書かれた電話番号に連絡。「まずは一度、お話だけでも」と無料相談を予約する。</td>
+<td style="text-align: left;"><strong>電話対応</strong>\&lt;br&gt;丁寧な言葉遣いと、親身な対応で安心感を与える。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">野村さんが自宅を訪問。自身の病状や不安に思っていることを話すと、専門的な視点で共感してくれたことに安心し、その場で「梅プラン」の利用を決める。</td>
+<td style="text-align: left;"><strong>初回アセスメント</strong>\&lt;br&gt;サービス利用契約書やアセスメントシートに基づき、丁寧にご本人の状況をヒアリング。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">月に一度の循環器内科の通院に同行を依頼。野村さんが事前に聞きたいことを整理してくれ、診察時に一緒に医師に質問してくれたおかげで、長年の疑問が解消する。</td>
+<td style="text-align: left;">[cite_start]<strong>通院サポート</strong>\&lt;br&gt;ただ付き添うだけでなく、ご本人が納得できる医療を受けられるよう、コミュニケーションを支援 [cite: 55]。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">サービス後、野村さんから「息子さんにもご報告しておきましょうか？」と提案があり、お願いする。息子さんからも「専門家が見てくれてるなら安心だ」と言われ、肩の荷が下りる。</td>
+<td style="text-align: left;">[cite_start]<strong>家族への情報連携</strong>\&lt;br&gt;ご本人の許可を得た上で、適切な情報を家族へ共有し、安心の輪を広げる [cite: 56]。</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>パターン3：単発の特別な目的で、専門サポートを求めているケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 旭川市在住の80代のご夫婦。ご主人が最近大きな病気を経験し、退院したばかり。「子供たちに迷惑をかけないよう、元気なうちに色々準備しておきたい」と考えている。  </li>
+<li><strong>利用サービス：</strong> 専門サポート「もしも」の備えサポート（1回 10,000円〜）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">地域包括支援センターの職員に相談したところ、「専門家と一緒に整理してくれる、こんなサービスがありますよ」と「ぴたっとナース」を紹介される。</td>
+<td style="text-align: left;"><strong>専門機関からの紹介</strong>\&lt;br&gt;地域包括支援センターなどとの信頼関係を構築。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">ウェブサイトで「もしも」の備えサポートの内容を確認。「エンディングノートは難しそうだけど、これならできそう」と前向きな気持ちになる。</td>
+<td style="text-align: left;"><strong>ウェブサイト</strong>\&lt;br&gt;専門サポートの内容を具体的に紹介し、顧客の潜在的なニーズを掘り起こす。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">電話で問い合わせ。野村さんから「不安な気持ちを整理するお手伝いですから、ゆっくり進めましょう」と温かい言葉をかけられ、依頼を決意する。</td>
+<td style="text-align: left;"><strong>電話対応</strong>\&lt;br&gt;デリケートな相談内容に対し、看護師としての傾聴スキルで対応。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">全2回の訪問で、野村さんと一緒に緊急連絡先リスト、かかりつけ医やかかりつけ薬局の情報、お薬リストなどをまとめた「安心ファイル」を作成。夫婦の想いも書き留める。</td>
+<td style="text-align: left;">[cite_start]<strong>専門サポート</strong>\&lt;br&gt;単なる情報整理だけでなく、ご夫婦の想いを引き出す対話を通じて、前向きな「終活」を支援 [cite: 72]。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">完成した「安心ファイル」を遠方に住む子供たちに送付。「こんなにしっかり準備してくれてありがとう。すごく安心した」と電話があり、夫婦ともに大きな安堵感に包まれる。</td>
+<td style="text-align: left;"><strong>成果物の提供</strong>\&lt;br&gt;「安心ファイル」という目に見える形で成果を提供し、高い満足感と家族の安心を実現。</td>
+</tr>
+</tbody>
+</table>
+<h1><strong>顧客体験マップ（追加3パターン）</strong></h1>
+<h3><strong>パターン4：従業員の「介護離職」に悩む企業と、その従業員ケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 旭川市内のIT企業と、そこで働く40代の男性従業員。市内で一人暮らしをする父親の通院頻度が増え、男性が仕事を休んで付き添うことが増え、業務に支障が出始めている。  </li>
+<li><strong>利用プラン：</strong> 法人契約による福利厚生サービス（従業員の父親は【竹】すこやか充実コースを利用）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴぴっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">企業の総務部長が、旭川産業創造プラザの紹介で「ぴたっとナース」を知る。「従業員の介護離職防止に繋がるかもしれない」と関心を持つ。</td>
+<td style="text-align: left;"><strong>公的機関・企業連携</strong>\&lt;br&gt;産業創造プラザや商工会議所などを通じた法人向けPR活動。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">総務部長が野村さんに連絡。野村さんが企業を訪問し、従業員の仕事と介護の両立を支援する「福利厚生プラン」を提案。</td>
+<td style="text-align: left;"><strong>法人向け提案</strong>\&lt;br&gt;介護離職による損失と、福利厚生導入によるメリット（人材定着、生産性向上）を具体的に説明。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">企業がこの制度を従業員に案内。男性従業員が早速利用を申し出る。野村さんが父親のご自宅を訪問し、サービス内容を説明、契約。</td>
+<td style="text-align: left;"><strong>従業員への導入支援</strong>\&lt;br&gt;企業と連携し、従業員がスムーズにサービスを利用できるようサポート。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">月2回の通院を野村さんが代行。男性従業員は仕事を休むことなく、スマホに届く野村さんからの的確な報告で父親の状況をリアルタイムに把握できる。</td>
+<td style="text-align: left;"><strong>業務への貢献</strong>\&lt;br&gt;従業員が仕事に集中できる環境を創出。専門的な報告で、従業員の精神的負担も軽減。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">男性の仕事のパフォーマンスが改善。父親も「息子に気兼ねなく病院に行ける」と満足。企業は優秀な人材の離職を防ぐことができ、三方よしの結果に。</td>
+<td style="text-align: left;"><strong>企業価値向上への貢献</strong>\&lt;br&gt;「従業員を大切にする企業」としての社会的評価向上にも貢献。</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>パターン5：退院直後で、在宅生活への復帰に不安があるケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 80代女性。骨折で入院し、退院が決まったが、まだ一人での生活に不安がある。介護保険のサービスが開始されるまでの1ヶ月間、集中的なサポートが必要。  </li>
+<li><strong>利用プラン：</strong> 【松】よくばり安心おまかせコース（最初の1ヶ月間のみ）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">入院先の病院の退院支援看護師が、介護保険開始までの「つなぎのサービス」として「ぴたっとナース」をご本人とご家族に紹介する。</td>
+<td style="text-align: left;"><strong>医療機関との連携</strong>\&lt;br&gt;病院の医療連携室や退院支援部署との日頃からの関係構築。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">ご家族が「看護師さんが退院直後を支えてくれるなら心強い」と前向きに検討。すぐに野村さんに連絡を取る。</td>
+<td style="text-align: left;"><strong>信頼性</strong>\&lt;br&gt;医療専門職からの紹介であるため、スムーズに検討段階に進む。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">退院前カンファレンスに野村さんも参加。病棟看護師やリハビリ担当者から直接情報を引き継ぎ、ご自宅の環境も確認した上で、最適なサポートプランを提案。</td>
+<td style="text-align: left;"><strong>多職種連携</strong>\&lt;br&gt;医療の専門用語が通じる強みを活かし、病院とのシームレスな連携を実現。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">退院後の1ヶ月間、週に2〜3回訪問。退院後の初回診察の付き添いや、リハビリの進捗確認、服薬管理、家の中での安全な動き方などを包括的にサポート。</td>
+<td style="text-align: left;"><strong>退院後集中ケア</strong>\&lt;br&gt;在宅復帰における不安な時期に集中的に関わることで、再入院を防ぎ、在宅生活の基盤を整える。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">1ヶ月後、女性はすっかり自宅での生活に自信を取り戻す。ケアマネジャーが作成した介護保険のケアプランにも、野村さんからの情報が活かされ、スムーズに公的サービスへ移行できた。</td>
+<td style="text-align: left;"><strong>公的サービスへの橋渡し</strong>\&lt;br&gt;自費サービスならではの柔軟な対応で、「制度の狭間」を埋める社会的な役割を果たす。</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>パターン6：公的サービスを利用しつつ、趣味や生きがいを大切にしたいケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 70代女性。介護保険の訪問介護で身の回りの手伝いはしてもらっているが、週一回のコーラス教室が生きがい。しかし、会場まで一人で行くのが少し不安。「ヘルパーさんは趣味には付き添えない」と言われている。  </li>
+<li><strong>利用サービス：</strong> 単発でのご利用（時間制プラン）を毎週利用</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">担当のケアマネジャーに「コーラスだけが続けられなくて寂しい」と相談したところ、「保険外だけど、こんなサービスなら願いを叶えられますよ」と紹介される。</td>
+<td style="text-align: left;"><strong>ケアマネジャーとの連携</strong>\&lt;br&gt;地域のケアマネジャーに、公的サービスではカバーできない「＋α」の支援内容を日頃から伝えておく。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">「趣味のためだけにお願いするなんて…」と一度はためらうが、「やりたいことを続けるのが一番の健康法ですよ」というケアマネジャーの言葉に後押しされ、電話してみる。</td>
+<td style="text-align: left;"><strong>潜在ニーズの掘り起こし</strong>\&lt;br&gt;「生活に必須ではないが、QOL（生活の質）向上に不可欠」なニーズに応える。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">電話口の野村さんの明るい声と、「素敵ですね！ぜひ応援させてください」という言葉に、心が晴れやかになり、毎週の利用を決める。</td>
+<td style="text-align: left;"><strong>共感と傾聴</strong>\&lt;br&gt;ご本人の「生きがい」を尊重し、肯定する姿勢が信頼につながる。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">毎週水曜の午後、野村さんがコーラス教室へ付き添う。会場での準備を手伝い、終わるまで待っていてくれる。帰りの車での音楽談義が、新たな楽しみに。</td>
+<td style="text-align: left;"><strong>QOLの向上</strong>\&lt;br&gt;身体的な介助だけでなく、楽しみや生きがいを共有することで、心の健康をサポート。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">コーラスを続けられることで、生活にハリが生まれ、表情も明るくなる。ケアマネジャーも「ぴたっとナースさんにお願いして良かった」と、他の利用者にも紹介したくなる。</td>
+<td style="text-align: left;"><strong>口コミの創出</strong>\&lt;br&gt;満足度の高いサービスが、地域の専門家からのさらなる紹介という好循環を生み出す。</td>
+</tr>
+</tbody>
+</table>
+<h1><strong>顧客体験マップ（追加3パターン）</strong></h1>
+<h3><strong>パターン4：従業員の「介護離職」に悩む企業と、その従業員ケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 旭川市内のIT企業と、そこで働く40代の男性従業員。市内で一人暮らしをする父親の通院頻度が増え、男性が仕事を休んで付き添うことが増え、業務に支障が出始めている。  </li>
+<li><strong>利用プラン：</strong> 法人契約による福利厚生サービス（従業員の父親は【竹】すこやか充実コースを利用）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴぴっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">企業の総務部長が、旭川産業創造プラザの紹介で「ぴたっとナース」を知る。「従業員の介護離職防止に繋がるかもしれない」と関心を持つ。</td>
+<td style="text-align: left;"><strong>公的機関・企業連携</strong>\&lt;br&gt;産業創造プラザや商工会議所などを通じた法人向けPR活動。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">総務部長が野村さんに連絡。野村さんが企業を訪問し、従業員の仕事と介護の両立を支援する「福利厚生プラン」を提案。</td>
+<td style="text-align: left;"><strong>法人向け提案</strong>\&lt;br&gt;介護離職による損失と、福利厚生導入によるメリット（人材定着、生産性向上）を具体的に説明。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">企業がこの制度を従業員に案内。男性従業員が早速利用を申し出る。野村さんが父親のご自宅を訪問し、サービス内容を説明、契約。</td>
+<td style="text-align: left;"><strong>従業員への導入支援</strong>\&lt;br&gt;企業と連携し、従業員がスムーズにサービスを利用できるようサポート。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">月2回の通院を野村さんが代行。男性従業員は仕事を休むことなく、スマホに届く野村さんからの的確な報告で父親の状況をリアルタイムに把握できる。</td>
+<td style="text-align: left;"><strong>業務への貢献</strong>\&lt;br&gt;従業員が仕事に集中できる環境を創出。専門的な報告で、従業員の精神的負担も軽減。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">男性の仕事のパフォーマンスが改善。父親も「息子に気兼ねなく病院に行ける」と満足。企業は優秀な人材の離職を防ぐことができ、三方よしの結果に。</td>
+<td style="text-align: left;"><strong>企業価値向上への貢献</strong>\&lt;br&gt;「従業員を大切にする企業」としての社会的評価向上にも貢献。</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>パターン5：退院直後で、在宅生活への復帰に不安があるケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 80代女性。骨折で入院し、退院が決まったが、まだ一人での生活に不安がある。介護保険のサービスが開始されるまでの1ヶ月間、集中的なサポートが必要。  </li>
+<li><strong>利用プラン：</strong> 【松】よくばり安心おまかせコース（最初の1ヶ月間のみ）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">入院先の病院の退院支援看護師が、介護保険開始までの「つなぎのサービス」として「ぴたっとナース」をご本人とご家族に紹介する。</td>
+<td style="text-align: left;"><strong>医療機関との連携</strong>\&lt;br&gt;病院の医療連携室や退院支援部署との日頃からの関係構築。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">ご家族が「看護師さんが退院直後を支えてくれるなら心強い」と前向きに検討。すぐに野村さんに連絡を取る。</td>
+<td style="text-align: left;"><strong>信頼性</strong>\&lt;br&gt;医療専門職からの紹介であるため、スムーズに検討段階に進む。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">退院前カンファレンスに野村さんも参加。病棟看護師やリハビリ担当者から直接情報を引き継ぎ、ご自宅の環境も確認した上で、最適なサポートプランを提案。</td>
+<td style="text-align: left;"><strong>多職種連携</strong>\&lt;br&gt;医療の専門用語が通じる強みを活かし、病院とのシームレスな連携を実現。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">退院後の1ヶ月間、週に2〜3回訪問。退院後の初回診察の付き添いや、リハビリの進捗確認、服薬管理、家の中での安全な動き方などを包括的にサポート。</td>
+<td style="text-align: left;"><strong>退院後集中ケア</strong>\&lt;br&gt;在宅復帰における不安な時期に集中的に関わることで、再入院を防ぎ、在宅生活の基盤を整える。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">1ヶ月後、女性はすっかり自宅での生活に自信を取り戻す。ケアマネジャーが作成した介護保険のケアプランにも、野村さんからの情報が活かされ、スムーズに公的サービスへ移行できた。</td>
+<td style="text-align: left;"><strong>公的サービスへの橋渡し</strong>\&lt;br&gt;自費サービスならではの柔軟な対応で、「制度の狭間」を埋める社会的な役割を果たす。</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>パターン6：公的サービスを利用しつつ、趣味や生きがいを大切にしたいケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 70代女性。介護保険の訪問介護で身の回りの手伝いはしてもらっているが、週一回のコーラス教室が生きがい。しかし、会場まで一人で行くのが少し不安。「ヘルパーさんは趣味には付き添えない」と言われている。  </li>
+<li><strong>利用サービス：</strong> 単発でのご利用（時間制プラン）を毎週利用</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">担当のケアマネジャーに「コーラスだけが続けられなくて寂しい」と相談したところ、「保険外だけど、こんなサービスなら願いを叶えられますよ」と紹介される。</td>
+<td style="text-align: left;"><strong>ケアマネジャーとの連携</strong>\&lt;br&gt;地域のケアマネジャーに、公的サービスではカバーできない「＋α」の支援内容を日頃から伝えておく。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">「趣味のためだけにお願いするなんて…」と一度はためらうが、「やりたいことを続けるのが一番の健康法ですよ」というケアマネジャーの言葉に後押しされ、電話してみる。</td>
+<td style="text-align: left;"><strong>潜在ニーズの掘り起こし</strong>\&lt;br&gt;「生活に必須ではないが、QOL（生活の質）向上に不可欠」なニーズに応える。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">電話口の野村さんの明るい声と、「素敵ですね！ぜひ応援させてください」という言葉に、心が晴れやかになり、毎週の利用を決める。</td>
+<td style="text-align: left;"><strong>共感と傾聴</strong>\&lt;br&gt;ご本人の「生きがい」を尊重し、肯定する姿勢が信頼につながる。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">毎週水曜の午後、野村さんがコーラス教室へ付き添う。会場での準備を手伝い、終わるまで待っていてくれる。帰りの車での音楽談義が、新たな楽しみに。</td>
+<td style="text-align: left;"><strong>QOLの向上</strong>\&lt;br&gt;身体的な介助だけでなく、楽しみや生きがいを共有することで、心の健康をサポート。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">コーラスを続けられることで、生活にハリが生まれ、表情も明るくなる。ケアマネジャーも「ぴたっとナースさんにお願いして良かった」と、他の利用者にも紹介したくなる。</td>
+<td style="text-align: left;"><strong>口コミの創出</strong>\&lt;br&gt;満足度の高いサービスが、地域の専門家からのさらなる紹介という好循環を生み出す。</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>パターン10：メンタルヘルスの不調で、通院に一歩踏み出せない方のケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 30代女性。パニック障害の既往があり、病院の閉鎖的な空間や待ち時間に強い不安を感じる。定期的な婦人科検診を受けたいが、一人では行けずに先延ばしにしている。  </li>
+<li><strong>利用プラン：</strong> 単発でのご利用（時間制プラン）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">ネットで「病院 不安 付き添い」と検索し、地域の専門家を紹介するブログ記事で「ぴたっとナース」を知る。「看護師さんなら、発作の時も安心かも」と希望を持つ。</td>
+<td style="text-align: left;"><strong>ウェブメディアとの連携</strong>\&lt;br&gt;地域のブログや情報サイトと連携し、特定の悩みに寄り添う形でサービスを紹介。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">ウェブサイトの「代表者の想い」を読み、温かい人柄に安心する。「こんなこと、頼んでもいいのかな」と思いながらも、LINEで問い合わせる。</td>
+<td style="text-align: left;"><strong>多様な問い合わせ窓口</strong>\&lt;br&gt;電話が苦手な方でも、心理的なハードルが低いテキストベースでの相談を可能にする。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">野村さんから「その勇気が素晴らしいです。大丈夫、一番安心できる方法を一緒に考えましょう」と返信があり、涙が出るほど嬉しくなる。事前に不安を軽減する方法を一緒に計画。</td>
+<td style="text-align: left;"><strong>個別性の高い計画</strong>\&lt;br&gt;空いている時間帯の予約や、待合室での過ごし方など、その方の特性に合わせた具体的な安心プランを共に作成。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">検診当日、野村さんが同行。不安が強くなった時に、事前に打ち合わせた呼吸法を一緒に実践してくれたり、他愛のない話で気を紛らわせてくれたりしたおかげで、無事に検診を終えることができた。</td>
+<td style="text-align: left;"><strong>精神科看護のスキル</strong>\&lt;br&gt;傾聴と共感の姿勢、不安を和らげる専門的なコミュニケーション技術で、利用者の心を支える。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">「一人では絶対に無理だった」と、大きな達成感を得る。自分の健康と向き合えたことで自信がつき、次回の予約も前向きに検討できるようになった。</td>
+<td style="text-align: left;"><strong>自己効力感の向上</strong>\&lt;br&gt;健康を取り戻すだけでなく、利用者の「できた」という成功体験を支援し、心の成長にも貢献する。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>パターン11：医療的ケアが必要なお子様の通院に、専門的な助けを求める親御さん</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 40代の母親。小学生の息子に医療的ケアが必要で、定期的に専門病院へ通院している。一人で多くの医療機器や書類を抱え、医師からの複雑な説明を理解し、息子のケアもすることに心身ともに疲れを感じている。  </li>
+<li><strong>利用プラン：</strong> 【竹】すこやか充実コース（月2回のサポートを活用）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">同じ境遇の親御さんのSNS投稿で、「看護師さんが通院に付き添ってくれるサービスがあって、世界が変わった」という体験談を読み、すぐに検索する。</td>
+<td style="text-align: left;"><strong>ターゲットコミュニティでの口コミ</strong>\&lt;br&gt;特定のニーズを持つコミュニティ内での信頼できる口コミが、最も強力な認知拡大のきっかけとなる。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">「まさか旭川にそんなサービスが…」と半信半疑でサイトを見る。小児科経験のある看護師だと知り、「この人なら分かってくれるかもしれない」と強く思う。</td>
+<td style="text-align: left;"><strong>専門性の明示</strong>\&lt;br&gt;代表者の経歴や得意分野を具体的に示すことで、専門的なニーズを持つ顧客を引きつける。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">オンラインでの初回相談で、母親がこれまでの苦労を話すと、野村さんが涙ぐみながら聞いてくれた。「初めて気持ちを理解してもらえた」と感じ、利用を決意。</td>
+<td style="text-align: left;"><strong>当事者意識の共有</strong>\&lt;br&gt;単なる同情ではなく、同じ医療専門職として、親御さんが置かれている状況の困難さを深く理解し、共感する。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">通院当日、野村さんが荷物を持つだけでなく、医師への質問事項を事前に整理してくれたり、専門用語を分かりやすく解説してくれたりしたおかげで、母親は息子のケアに集中できた。</td>
+<td style="text-align: left;"><strong>情報整理と翻訳</strong>\&lt;br&gt;医療情報を整理し、「親が理解できる言葉」に翻訳する能力が、サービスの核となる価値。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">サポート後、その日の医師からの指示や注意点が簡潔にまとめられたレポートが届く。夫にも共有しやすく、家庭内での連携もスムーズになった。何より「一人じゃない」と思えたことが最大の支えに。</td>
+<td style="text-align: left;"><strong>パートナーとしての役割</strong>\&lt;br&gt;一回きりの業者ではなく、共に子どもの成長を見守る「医療パートナー」としての信頼関係を築く。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>パターン12：健康意識が高く、予防医療に投資したいと考える経営者</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 50代男性、旭川市内で会社を経営。健康が資本だと考えているが多忙。年に一度の人間ドックの結果を、翌年の健康管理に活かしきれていないことにもどかしさを感じている。  </li>
+<li><strong>利用サービス：</strong> 専門サポート「健康診断・人間ドック まるごとサポート」</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">取引先の社長との会食で、「最近、自分の健康管理のために“看護師コンシェルジュ”を雇ったんだ」という話を聞き、強い興味を抱く。</td>
+<td style="text-align: left;"><strong>経営者コミュニティでの紹介</strong>\&lt;br&gt;質の高いサービスは、影響力のあるキーパーソンからの紹介によって最も効果的に広がる。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">「時間も専門知識もお金で買う」という自身の価値観にマッチ。サイトでサービスの具体性を確認し、「これぞプロの仕事だ」と納得する。</td>
+<td style="text-align: left;"><strong>価値提案</strong>\&lt;br&gt;「健康」という最も重要な経営資源を守るための「投資」として、サービスの価値を明確に提示する。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">オンラインで野村さんと面談。これまでの健診結果を共有し、自身の健康に関する目標や懸念を伝える。野村さんの的確な分析と提案に感銘を受ける。</td>
+<td style="text-align: left;"><strong>コンサルティング能力</strong>\&lt;br&gt;単なる付き添いではなく、現状分析と目標設定を行う、健康経営コンサルタントとしての能力を発揮。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">人間ドックの結果説明に野村さんが同席。医師からの説明を補足し、専門的な視点から「次の1年で取り組むべき3つのこと」を具体的に提案してくれた。</td>
+<td style="text-align: left;"><strong>目標の具体化と動機付け</strong>\&lt;br&gt;膨大な検査結果の中から、最も重要なポイントを抽出し、実行可能なアクションプランに落とし込む。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">面談後、具体的なアクションプランと、参考となる情報がまとめられたレポートが届く。多忙な日々の中でも、効率的に健康管理に取り組めるようになり、仕事のパフォーマンスも向上。</td>
+<td style="text-align: left;"><strong>継続的な関係構築</strong>\&lt;br&gt;一度きりのサービスで終わらせず、翌年の人間ドックの予約や、定期的な進捗確認など、継続的な健康パートナーとしての関係を築く。</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>パターン13：親の見守りに、テクノロジーを導入したいご家族のケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 札幌在住の40代男性。旭川で一人暮らしをする70代の父親は元気だが、時々連絡が取れないと不安になる。自身はITに詳しいが、帰省して設定する時間がなく、父親に使い方を優しく教えてくれる人を探している。  </li>
+<li><strong>利用サービス：</strong> 専門サポート「スマートスピーカー・見守りカメラ導入支援」</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">ネットで「高齢者 見守りカメラ 設置代行 旭川」と検索。個人の便利屋ではなく、看護師が提供するサービスである点に強く惹かれる。</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>ウェブ検索と専門性</strong>\&lt;br&gt;ブログなどで「看護師が教えるスマート機器活用術」といった専門的な情報を発信し、検索からの流入を狙う 1。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">サイトで具体的なサポート内容を確認。「機器の購入から設定、操作説明まで一括サポート」という点に魅力を感じる 2。</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>ワンストップサービス</strong>\&lt;br&gt;面倒な部分をすべて代行してくれるという、分かりやすい価値を提供する 3。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">オンラインで野村さんと面談。父親の性格や家の間取りを伝え、最適な機器と設置場所を一緒に考える。看護師ならではの視点（緊急時の動線など）に感心する。</td>
+<td style="text-align: left;"><strong>コンサルティング</strong>\&lt;br&gt;ただ設置するだけでなく、そのご家庭に最適な「見守りの形」を一緒にデザインする。</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">野村さんが父親の自宅を訪問。機器を設定し、「お父さん、これを押すだけで息子さんと顔を見て話せますよ」と、父親が楽しめる機能に絞って根気強く説明 4。</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>利用者中心の導入支援</strong>\&lt;br&gt;高齢者がIT機器に抱く苦手意識を、看護師のコミュニケーション技術で和らげ、成功体験を提供する 5。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">息子はスマホからいつでも父親の様子を確認でき、安心感を得る 6。父親はスマートスピーカーで孫とビデオ通話ができるようになり、生活に新しい楽しみが生まれた。</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>新しいつながりの創出</strong>\&lt;br&gt;テクノロジーを介して、物理的な距離を超えた家族の「ぴたっと感」を創り出す 7777。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>パターン14：【未来予測】介護タクシー事業開始後の、シームレスな移動支援ケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 80代女性、車椅子を常用。週に数回、透析のための通院が必須。現在は、介護保険のヘルパー、福祉タクシー、病院と、複数の関係者との連携や支払いに煩わしさを感じている。  </li>
+<li><strong>利用プラン：</strong> （将来的に設定する）介護タクシー送迎を含む月額プラン</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">現在利用中の「ぴたっとナース」から、「この度、看護師が運転する介護タクシーサービスを開始しました」という案内を受け取る。</td>
+<td style="text-align: left;"><strong>既存顧客へのアップセル</strong>\&lt;br&gt;信頼関係のある既存顧客へ、付加価値の高い新サービスを提案する。</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">いつも来てくれる野村さんが、送迎から院内介助まで全て一人で担当してくれるという点に、大きな魅力を感じる。複数の事業者に連絡する手間がなくなるのが嬉しい。</td>
+<td style="text-align: left;"><strong>ワンストップの利便性</strong>\&lt;br&gt;移動、介助、看護、情報連携のすべてを、一人の専門家が担うことによる圧倒的な利便性と安心感を訴求。</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">次回の通院から新しいサービスに切り替えることを相談。月額プランに送迎費用が組み込まれ、支払いが一本化されることも決め手となる。</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>シンプルな料金体系</strong>\&lt;br&gt;複雑な運賃計算や介助料を月額プランに統合し、明朗会計を実現 8。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">通院当日、野村さんが事業用の緑ナンバーを付けた車（フィット）で自宅に到着 9。車内での会話や体調確認も、いつもの安心感がある。病院到着後も、そのままシームレスに院内介助へ移行。</td>
+<td style="text-align: left;"><strong>移動時間の看護</strong>\&lt;br&gt;単なる移動時間ではなく、看護師が同乗する「メディカルエスコート」として、移動中の健康状態も観察する。</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">複数の事業者を使い分けていた頃の精神的・時間的負担から解放され、通院がずっと楽になった。サービスの質が一貫しており、すべてを野村さんに任せられる安心感を強く実感する。</td>
+<td style="text-align: left;"><strong>事業の完成形</strong>\&lt;br&gt;看護師による付き添いと、移動サービスが完全に統合された、理想的なドアツードアのサポートが完成する。</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>パターン15：家族の「ハレの日」を、万全の体制で支えるケース</strong></h3>
+<ul>
+<li><strong>顧客像：</strong> 50代の夫婦。長男の結婚式が旭川市内のホテルで行われる。市内で一人暮らしをする80代の祖母にもぜひ出席してほしいが、人混みや長時間の拘束が体調の負担にならないか心配。当日は自分たちも忙しく、付きっきりではいられない。  </li>
+<li><strong>利用サービス：</strong> 単発でのご利用（時間制プラン）をイベント時間に合わせて利用</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">フェーズ</th>
+<th style="text-align: left;">お客様の行動・感情</th>
+<th style="text-align: left;">「ぴたっとナース」の接点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 認知</strong></td>
+<td style="text-align: left;">結婚式のプランナーに「祖母の体調が心配で…」と相談したところ、「以前、同じようなお客様が看護師の付き添いサービスを利用されて、とても喜ばれていましたよ」と「ぴたっとナース」を教えてもらう。</td>
+<td style="text-align: left;"><strong>BtoB連携（冠婚葬祭）</strong>\&lt;br&gt;結婚式場やホテルと連携し、特別な日のためのオプションサービスとして提案。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 検討</strong></td>
+<td style="text-align: left;">「そんなサービスがあるなんて！」と早速サイトを検索。料金も明確で、看護師がそばにいてくれるなら、万が一の時も安心だと確信する。</td>
+<td style="text-align: left;"><strong>安心感の提供</strong>\&lt;br&gt;「何かあったらどうしよう」という家族の不安を、「看護師がいるから大丈夫」という安心感に変える。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 初回相談</strong></td>
+<td style="text-align: left;">事前に野村さんが祖母の自宅を訪問し、ご本人と顔合わせ。当日のスケジュールや服用中の薬、休憩のタイミングなどを一緒に確認。祖母も「優しい人で良かった」と楽しみに。</td>
+<td style="text-align: left;"><strong>パーソナルな事前準備</strong>\&lt;br&gt;イベント当日を最高の一日にするため、主役である祖母の体調と気持ちを最優先した計画を立てる。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. サービス利用</strong></td>
+<td style="text-align: left;">結婚式当日、野村さんが「祖母専属のコンシェルジュ」として付き添う。式典中は隣の席で見守り、披露宴の合間には控室で休憩を促し、服薬もサポート。</td>
+<td style="text-align: left;"><strong>黒子としての役割</strong>\&lt;br&gt;家族の一員のように自然に寄り添い、決して目立つことなく、主役である家族が安心してイベントを楽しめる環境を作る。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 報告・満足</strong></td>
+<td style="text-align: left;">祖母は疲れすぎることなく、孫の晴れ姿を最後まで見届けることができた。家族全員が「野村さんにお願いしたお陰で、心から式を楽しめた」と大満足。最高の思い出ができた。</td>
+<td style="text-align: left;"><strong>感動体験の創出</strong>\&lt;br&gt;単なる身体的な安全だけでなく、家族の大切な思い出作りという、プライスレスな価値を提供する。</td>
+</tr>
+</tbody>
+</table>
+        </div>
+    </main>
+    <footer>
+        <p>Generated by Document to HTML Converter</p>
+    </footer>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        if (!searchInput) return;
+
+        function highlightAndJump(keyword) {
+            const container = document.querySelector('.document-content');
+            if (!container) return;
+
+            // 既存のハイライトマークを解除してテキストを元に戻す
+            const marks = container.querySelectorAll('mark.search-highlight');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (!keyword || keyword.trim() === '') return;
+
+            // 正規表現用のエスケープ処理
+            const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(safeKeyword, 'gi');
+            
+            // TreeWalkerでテキストノードのみを走査（HTMLタグの破壊を防ぐ）
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                // スクリプトやスタイルの内部は無視
+                if (node.parentNode.nodeName !== 'MARK' && 
+                    node.parentNode.nodeName !== 'SCRIPT' && 
+                    node.parentNode.nodeName !== 'STYLE' && 
+                    node.nodeValue.match(regex)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            let firstMark = null;
+            nodesToReplace.forEach(node => {
+                const span = document.createElement('span');
+                // マッチした部分を<mark>で囲む
+                span.innerHTML = node.nodeValue.replace(regex, match => 
+                    `<mark class="search-highlight" style="background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;">${match}</mark>`
+                );
+                
+                while (span.firstChild) {
+                    const child = span.firstChild;
+                    node.parentNode.insertBefore(child, node);
+                    if (child.nodeName === 'MARK' && !firstMark) {
+                        firstMark = child;
+                    }
+                }
+                node.parentNode.removeChild(node);
+            });
+
+            // 最初のヒット箇所にスクロール
+            if (firstMark) {
+                firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // URLパラメータからの検索キーワード自動入力
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchInput.value = q;
+            highlightAndJump(q);
+        }
+
+        // 入力時のリアルタイムハイライト
+        searchInput.addEventListener('input', (e) => {
+            highlightAndJump(e.target.value);
+        });
+        
+        // Enterキーの送信イベント無効化
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                highlightAndJump(e.target.value);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

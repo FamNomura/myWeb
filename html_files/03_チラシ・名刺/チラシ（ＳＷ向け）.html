@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぴたっとナース 営業用チラシ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#e0f2fe', // sky-100
+                            DEFAULT: '#0284c7', // sky-600
+                            dark: '#0369a1', // sky-700
+                        },
+                        accent: {
+                            DEFAULT: '#fbbf24', // amber-400
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .a4-wrapper {
+            max-width: 800px; /* A4 width approximation for web */
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* 印刷時の設定 */
+        @media print {
+            body { background-color: white; padding: 0; }
+            .a4-wrapper { box-shadow: none; max-width: 100%; width: 100%; }
+            .no-print { display: none; }
+        }
+        .text-shadow {
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+    </style>
+</head>
+<body class="py-8 px-4 md:px-8">
+
+    <!-- 印刷ボタン (Web表示用) -->
+    <div class="max-w-3xl mx-auto mb-4 text-right no-print">
+        <button onclick="window.print()" class="bg-gray-800 text-white px-4 py-2 rounded shadow hover:bg-gray-700 transition">
+            <svg class="w-5 h-5 inline-block mr-1 -mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+            印刷・PDF保存
+        </button>
+    </div>
+
+    <!-- チラシコンテナ (表面・裏面を縦に配置) -->
+    <div class="a4-wrapper overflow-hidden relative">
+
+        <!-- ==================== 表面 ==================== -->
+        <div class="p-8 md:p-12 relative">
+            
+            <!-- 権威性バッジ -->
+            <div class="absolute top-0 right-8 bg-gradient-to-b from-yellow-300 to-yellow-500 text-neutral-900 font-bold px-4 py-6 rounded-b-lg shadow-lg text-center z-10 border-b-4 border-yellow-600">
+                <svg class="w-8 h-8 mx-auto mb-1 text-yellow-800" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+                <div class="text-xs leading-tight">令和〇年度</div>
+                <div class="text-sm">道北ビジネスプラン</div>
+                <div class="text-sm">コンテスト</div>
+                <div class="text-lg mt-1 font-black tracking-widest text-red-700">最優秀賞</div>
+                <div class="text-xs">受賞事業</div>
+            </div>
+
+            <!-- ヘッダー -->
+            <header class="mb-8">
+                <p class="text-brand-dark font-bold tracking-wider mb-2">自費訪問看護・外出エスコートサービス</p>
+                <h1 class="text-5xl font-black text-brand tracking-tight">ぴたっとナース</h1>
+            </header>
+
+            <!-- ヒーローセクション -->
+            <div class="bg-brand-light rounded-2xl p-6 md:p-8 mb-10 flex flex-col md:flex-row items-center gap-6">
+                <div class="flex-1">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 leading-snug mb-4">
+                        <span class="text-brand border-b-4 border-accent">介護保険では届かない</span><br>
+                        「あと一歩」のサポートを。
+                    </h2>
+                    <p class="text-lg text-gray-700 font-medium leading-relaxed mb-4">
+                        離れて暮らすご家族に代わり、<br>看護師が通院・外出に『ぴたっと』寄り添います。
+                    </p>
+                    <p class="text-gray-600 leading-relaxed bg-white/60 p-3 rounded border border-white">
+                        ご本人には「安全な外出」を、ご家族には「確かな安心」を、そしてケアマネジャー様・医療機関様には「スムーズな連携」をお約束します。
+                    </p>
+                </div>
+                <div class="w-full md:w-2/5 shrink-0">
+                    <div class="aspect-[4/3] bg-gray-200 rounded-xl overflow-hidden relative shadow-inner border-4 border-white">
+                        <div class="absolute inset-0 flex items-center justify-center text-gray-400 flex-col">
+                            <svg class="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span class="text-sm"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- お悩み・連携メリット -->
+            <div class="mb-10">
+                <div class="bg-gray-100 p-5 rounded-lg mb-6 border-l-4 border-gray-400">
+                    <p class="font-bold text-gray-700 mb-2">ケアマネジャー様・医療連携室様のこんなお悩みを解決します</p>
+                    <ul class="text-gray-600 space-y-1 text-sm md:text-base">
+                        <li>「退院させたいが、家族が遠方で通院支援ができない…」</li>
+                        <li>「介護保険のヘルパーさんでは、医師からの医療情報を正確に聞き取れない…」</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-xl font-bold text-center mb-6">ぴたっとナースは、<span class="text-brand text-2xl border-b-2 border-brand">「医療通訳ができる、もう一人の家族」</span>です</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- メリット1 -->
+                    <div class="bg-white border-2 border-brand-light rounded-xl p-4 text-center shadow-sm">
+                        <div class="bg-brand text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">1</div>
+                        <h4 class="font-bold text-gray-800 mb-2">圧倒的な医療通訳力</h4>
+                        <p class="text-sm text-gray-600 text-left">臨床経験12年の正看護師が同行。医師の説明を正確に理解し、ご本人とご遠方のご家族へ分かりやすく翻訳してレポートします。</p>
+                    </div>
+                    <!-- メリット2 -->
+                    <div class="bg-white border-2 border-brand-light rounded-xl p-4 text-center shadow-sm">
+                        <div class="bg-brand text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">2</div>
+                        <h4 class="font-bold text-gray-800 mb-2">柔軟な対応力</h4>
+                        <p class="text-sm text-gray-600 text-left">公的保険の枠にとらわれないため、通院・お買い物・趣味の外出まで、ドアツードアでシームレスに同伴可能です。</p>
+                    </div>
+                    <!-- メリット3 -->
+                    <div class="bg-white border-2 border-brand-light rounded-xl p-4 text-center shadow-sm">
+                        <div class="bg-brand text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">3</div>
+                        <h4 class="font-bold text-gray-800 mb-2">スムーズな連携</h4>
+                        <p class="text-sm text-gray-600 text-left">ご希望に応じて、ケアマネジャー様との担当者会議の同席や、医療機関との情報共有をスムーズに行います。</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-gray-300 my-8 border-dashed">
+
+            <!-- 料金プラン (松竹梅) -->
+            <div class="mb-10">
+                <h3 class="text-2xl font-bold text-center mb-2">サービス内容と料金<span class="text-sm font-normal text-gray-500 ml-2">※税別</span></h3>
+                <p class="text-center text-gray-600 mb-6">ご家族のニーズに合わせて、分かりやすい3つの月額プランをご用意しています。</p>
+
+                <div class="flex flex-col md:flex-row gap-4 items-end justify-center">
+                    <!-- ベーシック -->
+                    <div class="flex-1 bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                        <div class="text-center mb-4">
+                            <h4 class="text-gray-600 font-bold">ベーシックプラン</h4>
+                            <div class="text-2xl font-black text-gray-800 mt-2">15,000<span class="text-sm font-normal">円/月</span></div>
+                        </div>
+                        <ul class="text-xs text-gray-600 space-y-2">
+                            <li class="flex"><svg class="w-4 h-4 text-green-500 mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>月1回のエスコート(3h)</li>
+                            <li class="flex"><svg class="w-4 h-4 text-green-500 mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>簡易レポート</li>
+                            <li class="flex"><svg class="w-4 h-4 text-green-500 mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>月1回の健康相談</li>
+                        </ul>
+                    </div>
+
+                    <!-- スタンダード (おすすめ・強調) -->
+                    <div class="flex-1 bg-white border-4 border-brand rounded-xl p-6 shadow-xl relative transform md:-translate-y-4">
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-accent text-white px-4 py-1 rounded-full text-sm font-bold w-max">
+                            一番人気・おすすめ
+                        </div>
+                        <div class="text-center mb-4 mt-2">
+                            <h4 class="text-brand-dark font-black text-lg">スタンダードプラン</h4>
+                            <div class="text-3xl font-black text-brand mt-2">25,000<span class="text-sm font-normal text-gray-600">円/月</span></div>
+                        </div>
+                        <ul class="text-sm text-gray-700 space-y-3 font-medium">
+                            <li class="flex"><svg class="w-5 h-5 text-brand mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>月2回のエスコート(各3h)</li>
+                            <li class="flex"><svg class="w-5 h-5 text-brand mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>写真付き詳細レポート</li>
+                            <li class="flex"><svg class="w-5 h-5 text-brand mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>月2回の健康相談</li>
+                        </ul>
+                        <p class="text-xs text-brand-dark mt-4 text-center bg-brand-light p-2 rounded">「離れて暮らす親の様子が手に取るようにわかる」と好評です。</p>
+                    </div>
+
+                    <!-- プレミアム -->
+                    <div class="flex-1 bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                        <div class="text-center mb-4">
+                            <h4 class="text-gray-600 font-bold">プレミアムプラン</h4>
+                            <div class="text-2xl font-black text-gray-800 mt-2">35,000<span class="text-sm font-normal">円/月</span></div>
+                        </div>
+                        <ul class="text-xs text-gray-600 space-y-2">
+                            <li class="flex"><svg class="w-4 h-4 text-green-500 mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>月3回のエスコート(各3h)</li>
+                            <li class="flex"><svg class="w-4 h-4 text-green-500 mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>詳細レポート</li>
+                            <li class="flex"><svg class="w-4 h-4 text-green-500 mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>無制限の健康相談</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-gray-500 mt-4">※単発のお試しプラン（5,000円）もございます。</p>
+            </div>
+
+            <!-- プロフィール＆連絡先 -->
+            <div class="bg-gray-800 text-white rounded-2xl p-6 flex flex-col md:flex-row gap-6 items-center">
+                <!-- プロフィール -->
+                <div class="flex-1">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-16 h-16 bg-gray-600 rounded-full overflow-hidden shrink-0 border-2 border-brand text-xs flex items-center justify-center text-center text-gray-400">
+                            
+                        </div>
+                        <div>
+                            <p class="text-sm text-brand-light">代表 / 正看護師 (臨床経験12年)</p>
+                            <p class="text-xl font-bold">野村 由佳子</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed">
+                        旭川市出身。自身の経験から、「離れて暮らす親を想う子ども世代の罪悪感を、安心感に変えたい」と強く思い立ち上げました。親孝行の新しいスタンダードを旭川から作ります。
+                    </p>
+                </div>
+                
+                <!-- 連絡先 -->
+                <div class="flex-1 bg-white text-gray-800 p-4 rounded-xl w-full flex flex-col md:flex-row gap-4 items-center">
+                    <div class="flex-1">
+                        <p class="text-xs font-bold text-brand mb-1">お気軽にご相談ください</p>
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <span class="text-lg font-black tracking-wider">050-XXXX-XXXX</span>
+                        </div>
+                        <p class="text-[10px] text-gray-500 mb-2">受付時間：平日 9:00〜18:00</p>
+                        <div class="text-xs space-y-1">
+                            <div class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> info@xxxx.com</div>
+                            <div class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg> https://xxxx.com</div>
+                        </div>
+                    </div>
+                    <!-- QRコードプレースホルダー -->
+                    <div class="w-20 h-20 bg-gray-200 border border-gray-300 flex flex-col items-center justify-center shrink-0">
+                        <svg class="w-8 h-8 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                        <span class="text-[8px] text-gray-500 text-center leading-tight">WEBサイトへ<br>アクセス</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

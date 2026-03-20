@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>003_サービス利用契約書 - ぴたっとナース　ドキュメント一覧</title>
+    
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f3f4f6;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header a { color: white; text-decoration: none; }
+    
+    .search-container { position: relative; margin-top: 0.5rem; }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        border: none;
+        width: 300px;
+        font-size: 0.9rem;
+    }
+    .search-results {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        color: var(--text-color);
+        width: 350px;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        display: none;
+        border: 1px solid var(--border-color);
+    }
+    .search-result-item { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); display: block; text-decoration: none; color: inherit; }
+    .search-result-item:hover { background-color: var(--bg-color); }
+    .search-result-title { font-weight: bold; font-size: 0.95rem; color: var(--primary-color); margin-bottom: 0.2rem; }
+    .search-result-excerpt { font-size: 0.8rem; color: var(--text-muted); }
+
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    h1, h2, h3, h4 { color: #111827; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .document-content h1 { border-bottom: 2px solid var(--border-color); padding-bottom: 0.3em; margin-top: 0;}
+    .document-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+    .document-content img { max-width: 100%; height: auto; }
+    .document-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; }
+    .document-content th, .document-content td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+    .document-content th { background-color: var(--bg-color); }
+    .document-content pre { background-color: #1f2937; color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .document-content code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #d946ef; }
+    .document-content pre code { background-color: transparent; color: inherit; padding: 0; }
+    .document-content a { color: var(--primary-color); text-decoration: underline; }
+    .document-content a:hover { color: var(--primary-hover); }
+    
+    .category-section { margin-bottom: 2rem; background: var(--card-bg); border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+    .category-title { font-size: 1.25rem; background: #e5e7eb; padding: 1rem 1.5rem; margin: 0; }
+    
+    .file-list { display: flex; flex-direction: column; }
+    .file-row { display: flex; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+    .file-row:hover { background-color: #f9fafb; }
+    .file-row:last-child { border-bottom: none; }
+    .file-row-link { flex-grow: 1; text-decoration: none; color: inherit; display: flex; align-items: center; min-width: 0; }
+    .file-name { font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 1rem; }
+    .file-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; margin-left: auto; width: 150px; text-align: right; }
+    
+    .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.75em; font-weight: bold; border-radius: 0.25rem; margin-right: 1rem; white-space: nowrap; }
+    .badge-html { background-color: #dbeafe; color: #1e40af; }
+    .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html">ぴたっとナース　ドキュメント一覧</a></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="このページ内を検索してハイライト...">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb"><a href="../index.html">トップ</a> &gt; 02_ドキュメント</div>
+        <div class="card document-content">
+            <h1>003_サービス利用契約書</h1>
+<h3><strong>ぴたっとナース サービス利用契約書（案）</strong></h3>
+<p><strong>ぴたっとナース サービス利用契約書</strong></p>
+<p>利用者（以下「甲」という）、契約者・支払代行者（以下「乙」という）、および ぴたっとナース 代表 野村 由佳子（以下「丙」という）は、自費エスコート・訪問看護サービスの利用に関して、以下の通り契約を締結する。</p>
+<h4><strong>第1条（契約の目的）</strong></h4>
+<p>本契約は、甲が丙の提供するサービスを利用し、乙がその利用料金を支払うにあたり、必要な基本事項を定めることを目的とする。</p>
+<ul>
+<li><strong>【解説】:</strong> この契約書が、「サービスを受ける人（親）」「お金を払う人（子）」「サービスを提供する人（野村さん）」の三者間の約束であることを明記します。</li>
+</ul>
+<h4><strong>第2条（利用プランおよび利用料金）</strong></h4>
+<p>甲および乙は、以下のプランの利用を申し込み、丙はこれを受諾する。</p>
+<p>□ ベーシックプラン（月額 15,000円 / 税別）</p>
+<p>□ スタンダードプラン（月額 25,000円 / 税別）</p>
+<p>□ プレミアムプラン（月額 35,000円 / 税別）</p>
+<p>□ その他オプション（　　　　　　　　　　　　　　　）</p>
+<ul>
+<li><strong>【解説】:</strong> お客様がどのプランを契約したのか、チェックボックス形式でわかりやすく明示します。言った・言わないのトラブルを防ぐ最重要項目です。</li>
+</ul>
+<h4><strong>第3条（利用規約および同意書の遵守）</strong></h4>
+<p>甲および乙は、本契約の締結にあたり、丙が別途提示する「サービス利用規約」および「個人情報に関する同意書」の内容を十分に理解し、これらを誠実に遵守するものとする。</p>
+<ul>
+<li><strong>【解説】:</strong> ここが魔法の言葉です。この一文があることで、前に作った「利用規約」と「同意書」の全ての効力が、この契約書と合体して法的な効力を持ちます。</li>
+</ul>
+<h4><strong>第4条（契約期間と更新）</strong></h4>
+<p>本契約の有効期間は、令和　　年　　月　　日から令和　　年　　月　　日までの〇ヶ月間とする。</p>
+<p><strong>💡【選択肢1：契約期間と「自動更新」のルールをどうしますか？】</strong></p>
+<p>サブスクリプション（月額制）モデルにおいて、毎月契約書を巻き直すのは現実的ではありません。</p>
+<ul>
+<li><strong>A案（1ヶ月ごとの自動更新）：</strong> 「ただし、期間満了の〇日前までに甲または乙から解約の申し出がない場合は、同一条件でさらに1ヶ月間自動的に更新されるものとし、以降も同様とする。」（※最もスタンダードで、お客様も辞めやすく始めやすいです）  </li>
+<li><strong>B案（半年・または1年ごとの自動更新）：</strong> 契約期間を最初から「半年」等に設定する。（※野村さんの売上の見通しは立ちやすいですが、お客様にとっては契約のハードルが少し上がります）</li>
+</ul>
+<h4><strong>第5条（契約の解除・終了）</strong></h4>
+<p><strong>💡【選択肢2：お客様側からの解約手続きの期限をどうしますか？】</strong></p>
+<p>お客様が「来月からプランをやめたい」と思った時の連絡期限です。野村さんの翌月のスケジュール調整に直結します。</p>
+<ul>
+<li><strong>A案（当月の15日締め）：</strong> 「本契約を解約する場合、甲または乙は【解約希望月の15日】までに丙へ通知するものとする。15日を過ぎての申し出は、翌月末の解約扱いとなる。」（※野村さんが翌月のシフトや予定を組むのに十分な余裕が持てます）  </li>
+<li><strong>B案（当月の末日締め）：</strong> 「本契約を解約する場合、甲または乙は【解約希望月の末日】までに丙へ通知するものとする。」（※お客様には親切ですが、野村さんは翌月の予定がギリギリまで確定しません）</li>
+</ul>
+<hr />
+<p><strong>【署名欄】</strong></p>
+<p>本契約の成立を証するため、本契約書を2通作成し、甲（または乙）および丙が署名の上、各自1通を保有する。</p>
+<p>契約締結日：令和　　年　　月　　日</p>
+<p><strong>（甲）サービス利用者（ご本人）</strong></p>
+<p>住所：</p>
+<p>氏名：　　　　　　　　　　　　　　印</p>
+<p><strong>（乙）契約者・お支払者（ご家族等）</strong> ※甲と異なる場合のみ記入</p>
+<p>住所：</p>
+<p>氏名：　　　　　　　　　　　　　　印</p>
+<p>甲との続柄：</p>
+<p><strong>（丙）事業者</strong></p>
+<p>住所：北海道旭川市〇〇（事業所住所）</p>
+<p>屋号：ぴたっとナース</p>
+<p>代表：野村 由佳子　　　　　　　　印</p>
+<h3>---</h3>
+<p><strong>🔍 参考にした同業他社の契約書</strong></p>
+<p>今回の契約書作成にあたり、以下の自費訪問看護サービスのひな形を参考にしました。</p>
+<ol>
+<li><strong>株式会社グッドライフケア東京（自費訪問看護サービス利用契約書）</strong>  </li>
+<li>URL: https://goodlifecare.co.jp/tokyo-service/ （※公開されているPDFひな形より）  </li>
+<li><strong>参考ポイント:</strong> 別途定めた「重要事項説明書（＝利用規約）」の内容を遵守させる一文を入れることで、契約書自体をシンプルにまとめている点が非常に参考になります。  </li>
+<li><strong>訪問看護ステーション一叶（ご利用契約書）</strong>  </li>
+<li>URL: https://takeo-ichika.com/ （※公開されているPDFひな形より）  </li>
+<li><strong>参考ポイント:</strong> 利用者本人と、実際に支払いをするご家族（契約者）の署名欄を分けている点や、契約の自動更新について明記されている点が、「遠方の親を想う子世代」をターゲットとする野村さんの事業モデルにぴったりです。</li>
+</ol>
+        </div>
+    </main>
+    <footer>
+        <p>Generated by Document to HTML Converter</p>
+    </footer>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        if (!searchInput) return;
+
+        function highlightAndJump(keyword) {
+            const container = document.querySelector('.document-content');
+            if (!container) return;
+
+            // 既存のハイライトマークを解除してテキストを元に戻す
+            const marks = container.querySelectorAll('mark.search-highlight');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (!keyword || keyword.trim() === '') return;
+
+            // 正規表現用のエスケープ処理
+            const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(safeKeyword, 'gi');
+            
+            // TreeWalkerでテキストノードのみを走査（HTMLタグの破壊を防ぐ）
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                // スクリプトやスタイルの内部は無視
+                if (node.parentNode.nodeName !== 'MARK' && 
+                    node.parentNode.nodeName !== 'SCRIPT' && 
+                    node.parentNode.nodeName !== 'STYLE' && 
+                    node.nodeValue.match(regex)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            let firstMark = null;
+            nodesToReplace.forEach(node => {
+                const span = document.createElement('span');
+                // マッチした部分を<mark>で囲む
+                span.innerHTML = node.nodeValue.replace(regex, match => 
+                    `<mark class="search-highlight" style="background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;">${match}</mark>`
+                );
+                
+                while (span.firstChild) {
+                    const child = span.firstChild;
+                    node.parentNode.insertBefore(child, node);
+                    if (child.nodeName === 'MARK' && !firstMark) {
+                        firstMark = child;
+                    }
+                }
+                node.parentNode.removeChild(node);
+            });
+
+            // 最初のヒット箇所にスクロール
+            if (firstMark) {
+                firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // URLパラメータからの検索キーワード自動入力
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchInput.value = q;
+            highlightAndJump(q);
+        }
+
+        // 入力時のリアルタイムハイライト
+        searchInput.addEventListener('input', (e) => {
+            highlightAndJump(e.target.value);
+        });
+        
+        // Enterキーの送信イベント無効化
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                highlightAndJump(e.target.value);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
