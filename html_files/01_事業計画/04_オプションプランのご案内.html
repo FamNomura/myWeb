@@ -116,7 +116,7 @@
     <header>
         <h1><a href="../index.html">ぴたっとナース　ドキュメント一覧</a></h1>
         <div class="search-container">
-            <input type="text" id="search-input" class="search-input" placeholder="このページ内を検索してハイライト...">
+            <input type="text" id="search-input" class="search-input" placeholder="ページ内検索 (Enterで次へ)...">
             <div id="search-results" class="search-results"></div>
         </div>
     </header>
@@ -197,13 +197,37 @@
         const searchInput = document.getElementById('search-input');
         if (!searchInput) return;
 
-        function highlightAndJump(keyword) {
+        let marks = [];
+        let currentMatchIndex = -1;
+        let lastQuery = '';
+
+        function updateMarkStyles() {
+            marks.forEach((mark, index) => {
+                if (index === currentMatchIndex) {
+                    mark.style.cssText = "background-color: #f97316; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 5px rgba(0,0,0,0.5); color: white;";
+                } else {
+                    mark.style.cssText = "background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;";
+                }
+            });
+        }
+
+        function highlightAndJump(keyword, isEnterKey) {
             const container = document.querySelector('.document-content');
             if (!container) return;
 
-            // 既存のハイライトマークを解除してテキストを元に戻す
-            const marks = container.querySelectorAll('mark.search-highlight');
-            marks.forEach(mark => {
+            if (keyword === lastQuery && isEnterKey && marks.length > 0) {
+                currentMatchIndex = (currentMatchIndex + 1) % marks.length;
+                updateMarkStyles();
+                marks[currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            lastQuery = keyword;
+            currentMatchIndex = -1;
+            marks = [];
+
+            const oldMarks = container.querySelectorAll('mark.search-highlight');
+            oldMarks.forEach(mark => {
                 const parent = mark.parentNode;
                 parent.replaceChild(document.createTextNode(mark.textContent), mark);
                 parent.normalize();
@@ -211,16 +235,13 @@
 
             if (!keyword || keyword.trim() === '') return;
 
-            // 正規表現用のエスケープ処理
             const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             const regex = new RegExp(safeKeyword, 'gi');
             
-            // TreeWalkerでテキストノードのみを走査（HTMLタグの破壊を防ぐ）
             const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
             const nodesToReplace = [];
             let node;
             while (node = walker.nextNode()) {
-                // スクリプトやスタイルの内部は無視
                 if (node.parentNode.nodeName !== 'MARK' && 
                     node.parentNode.nodeName !== 'SCRIPT' && 
                     node.parentNode.nodeName !== 'STYLE' && 
@@ -229,48 +250,44 @@
                 }
             }
 
-            let firstMark = null;
             nodesToReplace.forEach(node => {
                 const span = document.createElement('span');
-                // マッチした部分を<mark>で囲む
                 span.innerHTML = node.nodeValue.replace(regex, match => 
-                    `<mark class="search-highlight" style="background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;">${match}</mark>`
+                    `<mark class="search-highlight">${match}</mark>`
                 );
                 
                 while (span.firstChild) {
                     const child = span.firstChild;
                     node.parentNode.insertBefore(child, node);
-                    if (child.nodeName === 'MARK' && !firstMark) {
-                        firstMark = child;
+                    if (child.nodeName === 'MARK') {
+                        marks.push(child);
                     }
                 }
                 node.parentNode.removeChild(node);
             });
 
-            // 最初のヒット箇所にスクロール
-            if (firstMark) {
-                firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (marks.length > 0) {
+                currentMatchIndex = 0;
+                updateMarkStyles();
+                marks[currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
 
-        // URLパラメータからの検索キーワード自動入力
         const urlParams = new URLSearchParams(window.location.search);
         const q = urlParams.get('q');
         if (q) {
             searchInput.value = q;
-            highlightAndJump(q);
+            highlightAndJump(q, false);
         }
 
-        // 入力時のリアルタイムハイライト
         searchInput.addEventListener('input', (e) => {
-            highlightAndJump(e.target.value);
+            highlightAndJump(e.target.value, false);
         });
         
-        // Enterキーの送信イベント無効化
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                highlightAndJump(e.target.value);
+                highlightAndJump(e.target.value, true);
             }
         });
     });
