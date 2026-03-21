@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>003_家族向けLINEレポート（ひな形） - ぴたっとナース　ドキュメント一覧</title>
+    
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f3f4f6;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header a { color: white; text-decoration: none; }
+    
+    .search-container { position: relative; margin-top: 0.5rem; width: 100%; max-width: 300px; }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        border: none;
+        width: 100%;
+        font-size: 0.9rem;
+    }
+    .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        color: var(--text-color);
+        width: 100%;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        display: none;
+        border: 1px solid var(--border-color);
+    }
+    .search-result-item { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); display: block; text-decoration: none; color: inherit; }
+    .search-result-item:hover { background-color: var(--bg-color); }
+    .search-result-title { font-weight: bold; font-size: 0.95rem; color: var(--primary-color); margin-bottom: 0.2rem; }
+    .search-result-excerpt { font-size: 0.8rem; color: var(--text-muted); }
+
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    h1, h2, h3, h4 { color: #111827; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .document-content h1 { border-bottom: 2px solid var(--border-color); padding-bottom: 0.3em; margin-top: 0;}
+    .document-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+    .document-content img { max-width: 100%; height: auto; }
+    .document-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; }
+    .document-content th, .document-content td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+    .document-content th { background-color: var(--bg-color); }
+    .document-content pre { background-color: #1f2937; color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .document-content code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #d946ef; }
+    .document-content pre code { background-color: transparent; color: inherit; padding: 0; }
+    .document-content a { color: var(--primary-color); text-decoration: underline; }
+    .document-content a:hover { color: var(--primary-hover); }
+    
+    .category-section { margin-bottom: 2rem; background: var(--card-bg); border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+    .category-title { font-size: 1.25rem; background: #e5e7eb; padding: 1rem 1.5rem; margin: 0; }
+    
+    .file-list { display: flex; flex-direction: column; }
+    .file-row { display: flex; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+    .file-row:hover { background-color: #f9fafb; }
+    .file-row:last-child { border-bottom: none; }
+    .file-row-link { flex-grow: 1; text-decoration: none; color: inherit; display: flex; align-items: center; min-width: 0; }
+    .file-name { font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 1rem; }
+    .file-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; margin-left: auto; width: 150px; text-align: right; }
+    
+    .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.75em; font-weight: bold; border-radius: 0.25rem; margin-right: 1rem; white-space: nowrap; }
+    .badge-html { background-color: #dbeafe; color: #1e40af; }
+    .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+
+    @media (max-width: 768px) {
+        header { flex-direction: column; align-items: flex-start; padding: 1rem; }
+        .search-container { max-width: 100%; margin-top: 1rem; }
+        main { margin: 1rem auto; }
+        .card { padding: 1rem; }
+        .file-row { flex-direction: column; align-items: flex-start; padding: 0.75rem 1rem; }
+        .file-row-link { width: 100%; margin-bottom: 0.5rem; }
+        .file-name { margin-right: 0; white-space: normal; }
+        .file-date { width: auto; text-align: left; margin-left: 0; font-size: 0.8rem; }
+        .document-content table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+    }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1><a href="../ぴたっとナースドキュメント一覧.html">ぴたっとナース　ドキュメント一覧</a></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="ページ内検索 (Enterで次へ)...">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb"><a href="../ぴたっとナースドキュメント一覧.html">トップ</a> &gt; 03_チラシ・名刺</div>
+        <div class="card document-content">
+            <h1>003_家族向けLINEレポート（ひな形）</h1>
+<h3><strong>📱 【ぴたっとナース】 ご家族向けLINEレポート（ひな形）</strong></h3>
+<p>〇〇様（※ご家族のお名前）<br />
+いつもお世話になっております。「ぴたっとナース」の野村です。<br />
+本日のサポートが無事に終了いたしましたので、ご報告いたします。</p>
+<p><strong>【本日のサポート内容】</strong><br />
+・日時：〇月〇日（〇）〇:〇〜〇:〇（約3時間）<br />
+・行き先：〇〇病院（整形外科）、〇〇薬局<br />
+・同行内容：ご自宅へのお迎え、通院同行、診察同席、お薬受取、ご自宅へのお送り</p>
+<p><strong>【出発前のご様子・体調】</strong><br />
+・体温：〇.〇℃ ／ 血圧：〇/〇 ／ 血中酸素：〇%</p>
+<p>💡<strong>看護師の視点</strong>：<br />
+血圧も安定しており、お顔色もとても良く安心しました。「最近は夜もよく眠れている」と笑顔でお話しされていました。お庭のお花が咲いたと、とても嬉しそうに教えてくださいましたよ！</p>
+<p><strong>【診察室でのご様子・医師からの説明】</strong><br />
+・<strong>本日の診察内容</strong>：<br />
+先月から痛みが強くなっていた右膝について、レントゲンを撮って確認していただきました。<br />
+・<strong>医師からの説明（医療通訳）</strong>：<br />
+骨に大きな異常はなく、加齢による軟骨のすり減りが原因とのことです。手術の必要は全くありませんのでご安心ください。<br />
+・<strong>お薬について</strong>：<br />
+痛みを和らげるための湿布と、新しい痛み止めの飲み薬が処方されました。「痛い時だけ飲めばいい」とのことでしたので、お母様にもそのようにしっかりお伝えしております。</p>
+<p><strong>【道中やその他のご様子】</strong><br />
+タクシーの中では、〇〇様（ご家族）が先日送ってくださったお菓子の話題になり、「もったいなくて少しずつ食べているのよ」と大変喜んでおられました。歩行時も、私の腕にしっかり掴まっていただき、安全に移動できております。</p>
+<p><strong>【次回に向けて】</strong><br />
+次回は〇月〇日（〇）に再診の予定です。<br />
+今回処方された痛み止めが体に合っているか、次回訪問時にも私の方でしっかりと確認させていただきますね。<br />
+その他、ご不明な点やご心配なことがございましたら、いつでもこのLINEにご返信ください。<br />
+引き続き、〇〇様とご家族の安心をサポートさせていただきます！</p>
+        </div>
+    </main>
+    <footer>
+        <p>Generated by Document to HTML Converter</p>
+    </footer>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        if (!searchInput) return;
+
+        let marks = [];
+        let currentMatchIndex = -1;
+        let lastQuery = '';
+
+        function updateMarkStyles() {
+            marks.forEach((mark, index) => {
+                if (index === currentMatchIndex) {
+                    mark.style.cssText = "background-color: #f97316; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 5px rgba(0,0,0,0.5); color: white;";
+                } else {
+                    mark.style.cssText = "background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;";
+                }
+            });
+        }
+
+        function highlightAndJump(keyword, isEnterKey) {
+            const container = document.querySelector('.document-content');
+            if (!container) return;
+
+            if (keyword === lastQuery && isEnterKey && marks.length > 0) {
+                currentMatchIndex = (currentMatchIndex + 1) % marks.length;
+                updateMarkStyles();
+                marks[currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            lastQuery = keyword;
+            currentMatchIndex = -1;
+            marks = [];
+
+            const oldMarks = container.querySelectorAll('mark.search-highlight');
+            oldMarks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (!keyword || keyword.trim() === '') return;
+
+            const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(safeKeyword, 'gi');
+            
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                if (node.parentNode.nodeName !== 'MARK' && 
+                    node.parentNode.nodeName !== 'SCRIPT' && 
+                    node.parentNode.nodeName !== 'STYLE' && 
+                    node.nodeValue.match(regex)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            nodesToReplace.forEach(node => {
+                const span = document.createElement('span');
+                span.innerHTML = node.nodeValue.replace(regex, match => 
+                    `<mark class="search-highlight">${match}</mark>`
+                );
+                
+                while (span.firstChild) {
+                    const child = span.firstChild;
+                    node.parentNode.insertBefore(child, node);
+                    if (child.nodeName === 'MARK') {
+                        marks.push(child);
+                    }
+                }
+                node.parentNode.removeChild(node);
+            });
+
+            if (marks.length > 0) {
+                currentMatchIndex = 0;
+                updateMarkStyles();
+                marks[currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchInput.value = q;
+            highlightAndJump(q, false);
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            highlightAndJump(e.target.value, false);
+        });
+        
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                highlightAndJump(e.target.value, true);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
