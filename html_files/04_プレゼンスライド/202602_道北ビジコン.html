@@ -1,0 +1,873 @@
+﻿
+﻿<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぴたっとナース - ピッチ資料</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        /* デザイン設定 */
+        :root {
+            --brand-color: #ff7f50; /* コーラルピンク */
+            --brand-sub: #ffb7b2;
+            --text-color: #333;
+            --accent-blue: #4a90e2; /* 信頼感の青 */
+        }
+        
+        body { font-family: 'Noto Sans JP', sans-serif !important; color: var(--text-color); }
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 { font-family: 'Noto Sans JP', sans-serif !important; }
+        
+        .text-brand { color: var(--brand-color) !important; }
+        .text-blue { color: var(--accent-blue) !important; }
+        .text-bold { font-weight: 900 !important; }
+        .bg-brand { background-color: var(--brand-color); color: white; }
+
+        /* 左上の固定ロゴ */
+        .fixed-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border: 2px solid var(--brand-color);
+            border-radius: 50%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: var(--brand-color);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* レイアウト */
+        .split-container { display: flex; align-items: center; gap: 30px; justify-content: center; }
+        .split-col { flex: 1; }
+
+        /* 画像プレースホルダー */
+        .img-box {
+            background: #eee; border: 2px dashed #ccc; color: #888;
+            display: flex; align-items: center; justify-content: center;
+            margin: 20px auto; font-weight: bold;
+        }
+
+        /* 比較表 */
+        .comp-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            font-size: 0.7em !important; 
+            border-bottom: 1px solid #ccc; /* 【追加】テーブル全体の下線を強制 */
+        }
+        .comp-table th { background: #f0f0f0; padding: 15px; border: 1px solid #ccc; }
+        .comp-table td { padding: 15px; border: 1px solid #ccc; }
+		
+        .highlight-col { background: #fff0eb; border: 3px solid var(--brand-color) !important; font-weight: bold; }
+        .price-big { font-size: 1.5em; color: var(--brand-color); font-weight: bold; }
+
+        /* --- 追加: 着信画面デザイン --- */
+        .incoming-call-ui {
+            background: rgba(20, 20, 20, 0.95); /* スマホ画面の黒背景 */
+            color: white;
+            padding: 30px 20px;
+            border-radius: 40px;
+            width: 320px;
+            margin: 30px auto;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            border: 4px solid #333;
+            animation: vibrate 0.5s infinite linear; /* 着信バイブレーション */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        }
+
+        .caller-icon {
+            width: 100px;
+            height: 100px;
+            background: #aaa;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+            color: #555;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23ccc" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>');
+            background-size: cover;
+        }
+
+        .caller-name { font-size: 2rem; font-weight: normal; margin-bottom: 5px; }
+        .call-status { font-size: 0.9rem; color: #aaa; margin-bottom: 50px; }
+
+        .call-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .action-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .btn-decline { background-color: #ff3b30; }
+        .btn-accept { background-color: #4cd964; }
+
+        @keyframes vibrate {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+		
+		/* --- 9ページ目レイアウト調整 --- */
+		/* 真ん中の矢印を必要最小限の幅にする */
+		.col-shrink { 
+			flex: 0 0 auto !important; 
+			width: auto !important; 
+			margin: 0 10px !important;
+		}
+		/* 左右のボックス内の会話レイアウト */
+		.chat-box {
+			padding: 25px !important;
+			border-radius: 15px;
+			height: 100%;
+		}
+		.chat-row {
+			display: flex;
+			align-items: flex-start; /* アイコンとテキストの上揃え */
+			text-align: left;
+			margin-bottom: 15px;
+			font-size: 24px !important; /* 文字サイズ調整 */
+			line-height: 1.4 !important;
+		}
+		.chat-icon {
+			flex: 0 0 50px; /* アイコン幅固定 */
+			font-size: 1.2em;
+		}
+		.chat-content {
+			flex: 1;
+		}
+		
+		/* --- 15ページ目 ロードマップ調整 --- */
+		.roadmap-box {
+			text-align: left;
+			display: flex;
+			flex-direction: column;
+			gap: 15px; /* 各ステップ間の隙間 */
+		}
+		.step-card {
+			background: white;
+			border-left: 5px solid #ddd; /* 左側の線 */
+			padding: 10px 15px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+		}
+		.step-card.active {
+			border-left-color: var(--brand-color); /* Step3など強調したい部分の色 */
+			background: #fff9f5;
+		}
+		.step-title {
+			font-size: 24px;
+			font-weight: bold;
+			margin-bottom: 5px;
+			color: #555;
+		}
+		.step-desc {
+			font-size: 18px;
+			line-height: 1.4;
+		}
+		.step-sub {
+			font-size: 14px;
+			color: #888;
+			margin-top: 5px;
+			display: block;
+		}
+		
+		/* ▼▼▼ ここを追加：スライド番号を強制的に表示・着色 ▼▼▼ */
+        .reveal .slide-number {
+            display: block !important;
+            color: #ff7f50 !important;    /* ブランドカラー */
+            font-weight: bold !important;
+            font-size: 20px !important;
+            
+            /* 中央寄せの魔法の記述 */
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            right: auto !important;       /* 右寄せ設定をリセット */
+            
+            bottom: 20px !important;      /* 下からの位置 */
+            z-index: 2000 !important;
+            background-color: transparent !important;
+        }
+		
+		/* 印刷（PDF）時はスライド番号を隠す */
+        @media print {
+            .reveal .slide-number {
+                display: none !important;
+            }
+        }
+		
+
+        /* --------------------------- */
+
+    </style>
+</head>
+<body>
+
+<div class="fixed-logo"><img src="img/logo.png" style="width: 70%; height: auto;"></div>
+
+<div class="reveal">
+    <div class="slides">
+
+        <section>
+            <h4>看護師が、あなたの「もう一人の家族」に</h4>
+            <h1 class="text-brand text-bold">ぴたっとナース</h1>
+            <img src="img/mainvisu.png" style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover; border: 2px solid #eee;" alt="メインビジュアル">
+            <p>代表：野村 由佳子（臨床経験12年 / 正看護師）</p>
+        </section>
+
+        <section>
+            <h2>命を守るプロフェッショナル</h2>
+            <div class="split-container">
+                <div class="split-col">
+                    <div style="height: 350px; display: flex; align-items: center; justify-content: center;">
+                        <img src="img/old.png" style="max-height: 100%; max-width: 100%; width: auto;" alt="看護師姿の写真">
+                    </div>
+                </div>
+                <div class="split-col" style="text-align: left;">
+                    <ul>
+                        <li>臨床経験 12年</li>
+                        <li>救急処置・医師連携</li>
+                        <li>患者様の心のケア</li>
+                    </ul>
+                    <br><br>
+                    <h4 class="text-brand">しかし、私にも<br><span style="white-space: nowrap;">救えないものがありました。</span></h4>
+                </div>
+            </div>
+        </section>
+
+		<section>
+            <h2>残酷な「120キロ」の壁</h2>
+            <div class="img-box" style="height: 250px; border: none; background: none;">
+                <img src="img/map.png" style="height: 100%; width: auto;" alt="地図">
+            </div>
+            <h3 class="text-brand">車で片道 2時間</h3>
+            <p>親には「すぐ行くよ」と言っている。<br>でも、仕事がある。家庭がある。</p>
+            <p class="text-bold">気持ちとは裏腹に、かけつけられない</p>
+        </section>
+
+		<section data-background="#f5f5f5" style="padding: 20px 0;">
+			<h3 style="margin-bottom: 15px; font-size: 1.8em;">想像してください</h3>
+			
+			<div style="width: 100%; display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+				<img src="img/ushirosugata.png" 
+					 style="max-width: 80%; max-height: 50vh; width: auto; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" 
+					 alt="高齢者の後ろ姿">
+			</div>
+
+			<div style="line-height: 1.3;">
+				<p style="margin: 0; font-weight: bold; font-size: 0.8em;">医師の説明もよく分からず、ただ頷く親。</p>
+				<p style="margin: 0; font-weight: bold; font-size: 0.8em;">その横に、誰もいてあげられない現実。</p>
+			</div>
+		</section>
+
+        <section data-background-image="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80">
+            <div style="background-color: rgba(0,0,0,0.6); position: absolute; top:0; left:0; width: 100%; height: 100%;"></div>
+            
+            <div style="position: relative; z-index: 2; padding-top: 5%;">
+                <h2 style="color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">平日 AM 10:00<br>重要な会議中</h2>
+                
+                <div class="fragment incoming-call-ui">
+                    <audio data-autoplay src="mp3/ringtone.mp3"></audio> <div class="caller-icon"></div>
+                    <div class="caller-name">母さん</div>
+                    <div class="call-status">スマートフォン音声通話...</div>
+                    
+                    <div class="call-actions">
+                        <div class="action-btn btn-decline">
+                            <span class="material-icons">call_end</span>
+                        </div>
+                        <div class="action-btn btn-accept">
+                            <span class="material-icons">call</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="notes">
+                平日の午前10時。大事な会議中です。ふと、実家から着信が入る。
+                （着信音を鳴らす）
+                「何かあったのか？」と心臓が止まりそうになる。
+                けれど、電話には出られない。「ごめんね」と心の中で謝りながら、スマホを裏返して、置く。
+            </aside>
+        </section>
+
+        <section data-background-color="#000">
+            <h2 style="color: white; font-size: 3em;">静かな絶望</h2>
+            <br>
+            <h2 style="color: #ccc;">罪悪感</h2>
+
+            <aside class="notes">
+                これは、現役世代の私たちが抱える「静かな絶望」です。
+                私たちは皆、心に「罪悪感」を抱えています。
+                「心配だ。でも仕事は休めない」
+                その板挟みの中で、多くの人が見ないふりをして、日々をやり過ごしています。
+            </aside>
+        </section>
+
+        <section>
+             <h4 style="color: #999; font-size: 1.3em;">物理的な距離は変えられない。</h4>
+            <h2 class="text-brand text-bold" style="margin-top: 10px; font-size: 2.0em;">でも、「心の距離」は<br>変えられる。</h2>
+        </section>
+
+        <section>
+            <h2>解決すべき「3つの壁」</h2>
+            <div style="display: flex; gap: 10px; margin-top: 30px;">
+                <div style="flex: 1; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                    <div style="font-size: 3em;">🕒</div>
+                    <h4>時間の壁</h4>
+                </div>
+                <div style="flex: 1; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                    <div style="font-size: 3em;">⛄</div>
+                    <h4>距離の壁</h4>
+                </div>
+                <div class="fragment" style="flex: 1; padding: 20px; background: #fff0eb; border: 2px solid var(--brand-color); border-radius: 10px;">
+                    <div style="font-size: 3em;">🏥</div>
+                    <h4 class="text-brand">医療知識の壁</h4>
+                    <small class="text-bold">診察室は<br>ブラックボックス</small>
+                </div>
+            </div>
+
+            <aside class="notes">
+                なぜ、家族の愛だけでは解決できないのか。そこには「3つの壁」があります。
+                特に深刻なのが「医療知識の壁」です。
+                診察室で何が起きたのか？ 専門用語が飛び交う中、親御さんは分かったふりをしてしまう。
+                結果、テーブルには飲まれていない薬が山積みになるのです。
+            </aside>
+        </section>
+		
+		<section>
+			<h3 style="margin-bottom: 50px;">看護師による「医療通訳」プロセス</h3>
+			<div class="split-container" style="align-items: stretch; gap: 20px;">
+				
+				<div class="split-col chat-box" style="background: #f8f9fa; border-top: 5px solid #ccc;">
+					<div style="font-size: 0.8em; color: var(--brand-color); font-weight: bold;">Step 1：診察前</div>
+					<h5 style="margin: 10px 0;">情報の整理</h5>
+					<div style="font-size: 20px; text-align: left;">
+						<p>・生活状況のアセスメント</p>
+						<p>・曖昧な症状を言語化</p>
+						<p>・医師への伝達事項を要約</p>
+					</div>
+				</div>
+
+				<div class="split-col chat-box" style="background: #fff0eb; border: 3px solid var(--brand-color); position: relative;">
+					<div style="font-size: 0.8em; color: var(--brand-color); font-weight: bold;">Step 2：診察中</div>
+					<h5 style="margin: 10px 0;">「医療通訳」</h5>
+					<div style="font-size: 20px; text-align: left;">
+						<p>・専門用語を平易に翻訳</p>
+						<p>・本音を代弁</p>
+						<p>・最適な治療プランを打診</p>
+					</div>
+					<div style="position: absolute; top: -15px; right: -10px; background: var(--brand-color); color: white; padding: 2px 10px; border-radius: 5px; font-size: 0.6em;">核となる価値</div>
+				</div>
+
+				<div class="split-col chat-box" style="background: #f8f9fa; border-top: 5px solid #ccc;">
+					<div style="font-size: 0.8em; color: var(--brand-color); font-weight: bold;">Step 3：診察後</div>
+					<h5 style="margin: 10px 0;">家族へ報告</h5>
+					<div style="font-size: 20px; text-align: left;">
+						<p>・LINEで詳細レポート</p>
+						<p>・薬のセット・服用指導</p>
+						<p>・次回の受診方針を共有</p>
+					</div>
+				</div>
+
+			</div>
+			<p style="margin-top: 20px; font-weight: bold; color: var(--brand-color);">
+				単なる「付き添い」ではない<br>医学的知識に基づいた「支援」
+			</p>
+		</section>
+
+		<section>
+            <h3 style="margin-bottom: 50px;">「医療通訳」とは</h3>
+            <div class="split-container" style="align-items: stretch;">
+                
+                <div class="split-col chat-box" style="background: #f0f0f0;">
+                    <h5 style="color: #666; margin-bottom: 30px;">これまでの診察</h5>
+                    
+                    <div class="chat-row">
+                        <div class="chat-icon">👨‍⚕️</div>
+                        <div class="chat-content">
+                            <strong>医師：</strong><br>
+                            「血圧170。高いね。<br>　薬増やします」
+                        </div>
+                    </div>
+                    
+                    <div class="chat-row">
+                        <div class="chat-icon">👵</div>
+                        <div class="chat-content">
+                            <strong>親：</strong><br>
+                            「何が原因かわからない...」
+                        </div>
+                    </div>
+                </div>
+
+                <div class="split-col col-shrink">
+                    <h2 class="text-brand" style="margin: 0;">➡</h2>
+                    <h4 class="text-brand text-bold">介入</h4>
+                </div>
+
+                <div class="split-col fragment chat-box" style="background: #fff0eb; border: 3px solid var(--brand-color);">
+                    <h5 class="text-brand text-bold" style="margin-bottom: 30px;">ぴたっとナース</h5>
+                    
+                    <div class="chat-row">
+                        <div class="chat-icon">👩🏻‍⚕️</div>
+                        <div class="chat-content">
+                            <strong>私：</strong>「先生、実は原因は<br>
+                            <span class="text-brand text-bold" style="font-size: 1.1em;">『ニシン漬け』</span>です！」
+                        </div>
+                    </div>
+                    
+                    <hr style="border-color: var(--brand-sub); margin: 15px 0;">
+                    
+                    <div style="text-align: left; font-size: 24px;">
+                        <strong>結果：</strong><br>
+                        薬は増やさず、1日1切れに制限
+                    </div>
+                </div>
+            </div>
+        </section>
+		
+
+
+        <section>
+            <h3>ブラックボックスを開ける</h3>
+            <div class="split-container">
+                <div class="split-col">
+                    <div class="img-box" style="height: 350px; border: none; background: none;">
+                        <img src="img/smartphone.png" style="max-height: 100%; max-width: 100%; width: auto;" alt="スマートフォンでのLINE報告画面">
+                    </div>
+                </div>
+                <div class="split-col">
+                    <h4 class="text-blue">ご家族の安心</h4>
+                    <p><span style="white-space: nowrap;">「そうか、ニシン漬けか。</span><br>電話で話そう」</p>
+                    <h3 class="text-brand">親子の会話が、<br>再びつながる。</h3>
+                </div>
+            </div>
+        </section>
+		
+		<section>
+            <h3>QOL（生活の質）の向上も</h3>
+            <p style="font-size: 0.6em; margin-bottom: 20px; color: #666;">制度の壁で諦めていた「小さな願い」を叶えます</p>
+            
+            <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 20px;">
+                <div class="card-box">
+                    <div style="font-size: 4em; margin-bottom: 10px;">🍡</div>
+                    <h5 style="margin: 0; font-weight: bold; color: #555;">好物の買い物</h5>
+                    <small style="color: #999;">「ついで」のお使いOK</small>
+                </div>
+                <div class="card-box">
+                    <div style="font-size: 4em; margin-bottom: 10px;">📸</div>
+                    <h5 style="margin: 0; font-weight: bold; color: #555;">孫へ写真送付</h5>
+                    <small style="color: #999;">スマホ操作もサポート</small>
+                </div>
+                <div class="card-box">
+                    <div style="font-size: 4em; margin-bottom: 10px;">🌸</div>
+                    <h5 style="margin: 0; font-weight: bold; color: #555;">季節を感じる</h5>
+                    <small style="color: #999;">寄り道・散歩OK</small>
+                </div>
+            </div>
+
+            <div style="background: #fff0eb; padding: 15px; border-radius: 50px; display: inline-block; padding-left: 40px; padding-right: 40px; border: 2px solid var(--brand-color);">
+                <h4 class="text-brand text-bold" style="margin: 0;">「叶わなかった親孝行」の代行</h4>
+            </div>
+        </section>
+
+
+
+
+        <section>
+            <h3 style="margin-bottom: 50px;">選べる3つのプラン</h3>
+            <div style="display: flex; align-items: flex-end; justify-content: center; gap: 15px; margin-top: 30px;">
+                
+                <div style="
+                    background: white; 
+                    border: 2px solid #ddd; 
+                    border-radius: 15px; 
+                    padding: 20px; 
+                    width: 28%; 
+                    color: #666;
+                ">
+                    <h5 style="font-size: 0.7em; margin: 0; color: #888;">あんしん基本</h5>
+                    <div style="font-size: 1.5em; font-weight: bold; margin: 10px 0;">15,000<span style="font-size: 0.5em;">円</span></div>
+                    <ul style="font-size: 0.5em; text-align: left; padding-left: 15px; margin: 0;">
+                        <li>通院同行 月1回</li>
+                        <li>基本レポート</li>
+                    </ul>
+                </div>
+
+                <div style="
+                    background: #fff0eb; 
+                    border: 4px solid var(--brand-color); 
+                    border-radius: 15px; 
+                    padding: 30px 20px; 
+                    width: 34%; 
+                    box-shadow: 0 10px 30px rgba(255, 127, 80, 0.3);
+                    position: relative;
+                    bottom: 20px; /* 少し上に飛び出させる */
+                ">
+                    <div style="
+                        position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+                        background: var(--brand-color); color: white; padding: 5px 15px;
+                        border-radius: 20px; font-size: 0.6em; font-weight: bold; white-space: nowrap;
+                    ">
+                        おすすめ
+                    </div>
+                    
+                    <h5 style="font-size: 0.9em; margin: 0; color: var(--brand-color); font-weight: bold;">スタンダード</h5>
+                    <div style="font-size: 0.5em; color: #888; margin-bottom: 5px;">(すこやか充実プラン)</div>
+                    <div class="text-brand" style="font-size: 2.0em; font-weight: 900; margin: 10px 0; line-height: 1;">25,000<span style="font-size: 0.5em;">円</span></div>
+                    <p style="font-size: 0.6em; margin: 10px 0; font-weight: bold;">必要なサポートが<br>全てセット</p>
+                    <ul style="font-size: 0.6em; text-align: left; padding-left: 20px; margin: 0; color: #555;">
+                        <li>通院同行 月2回</li>
+                        <li>医師連携・調整</li>
+                        <li>詳細LINEレポート</li>
+                    </ul>
+                </div>
+
+                <div style="
+                    background: white; 
+                    border: 2px solid #ddd; 
+                    border-radius: 15px; 
+                    padding: 20px; 
+                    width: 28%; 
+                    color: #666;
+                ">
+                    <h5 style="font-size: 0.7em; margin: 0; color: #888;">よくばりお任せ</h5>
+                    <div style="font-size: 1.5em; font-weight: bold; margin: 10px 0;">33,000<span style="font-size: 0.5em;">円</span></div>
+                    <ul style="font-size: 0.5em; text-align: left; padding-left: 15px; margin: 0;">
+                        <li>通院同行 月３回</li>
+                        <li>その他充実の見守り</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+		<section>
+            <h3 style="margin-bottom: 50px;">あなたが「月2回」仕事を休んだら？</h3>
+            <div class="split-container" style="align-items: stretch; margin-top: 30px;">
+                
+                <div class="split-col" style="text-align: left; padding: 20px; color: #666;">
+                    <h4 style="color: #888; margin-bottom: 20px;">自分で帰省</h4>
+                    <ul style="font-size: 24px; line-height: 1.8;">
+                        <li>往復の交通費</li>
+                        <li>有給休暇の消化</li>
+                        <li>体力的な疲労</li>
+                        <li>会社での評価ダウン</li>
+                    </ul>
+                    <hr style="margin: 20px 0; border-color: #ccc;">
+                    <h4 style="margin-top: 10px;">数万円以上の損失</h4>
+                </div>
+
+                <div class="split-col col-shrink">
+                    <h1 style="color: #ddd; font-size: 80px; margin: 0; line-height: 1;">VS</h1>
+                </div>
+
+                <div class="split-col" style="background: #fff0eb; padding: 30px; border-radius: 15px; border: 3px solid var(--brand-color); display: flex; flex-direction: column; justify-content: center;">
+                    <h3 class="text-brand" style="font-size: 45px;">ぴたっとナース</h3>
+                    <h2 class="text-brand" style="font-size: 60px; margin: 15px 0;">2.5万円</h2>
+                    <div style="font-size: 24px; font-weight: bold; line-height: 1.6;">
+                        <p style="margin: 0;">仕事は休まなくていい。</p>
+                        <p style="margin: 0;">プロが見守る安心。</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <h3 style="margin-bottom: 50px;">「隙間」ではなく「勝てる」市場</h3>
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th width="25%"></th>
+                        <th width="35%">大手家事代行・警備</th>
+                        <th width="40%" class="highlight-col text-brand">ぴたっとナース</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>料金相場</td>
+                        <td><strong>3.5万円〜 /月</strong><br><small>(交通費別・入会金あり)</small></td>
+                        <td class="highlight-col"><span class="price-big">2.5万円</span> /月<br><small>(定額・入会金なし)</small></td>
+                    </tr>
+                    <tr>
+                        <td>対応者</td>
+                        <td>ヘルパー・一般<br><small>(医療知識なし)</small></td>
+                        <td class="highlight-col text-bold">正看護師<br><small>(医療のプロ)</small></td>
+                    </tr>
+                    <tr>
+                        <td>柔軟性</td>
+                        <td>マニュアル通り<br><small>(寄り道不可)</small></td>
+                        <td class="highlight-col text-bold">完全オーダーメイド<br><small>(わがままOK)</small></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 20px;"><strong>高品質なのに、価格競争力がある。</strong></p>
+        </section>
+		
+		
+		<section>
+            <h3 style="margin-bottom: 50px;">3年目の転換点を目指す事業計画</h3>
+            
+            <div style="display: flex; align-items: flex-start; justify-content: center; gap: 40px; width: 960px; margin: 0 auto;">
+                
+                <div style="flex: 0 0 40%; height: 350px; position: relative;"> 
+
+					<div style="display: flex; justify-content: space-around; align-items: flex-end; height: 100%; padding-bottom: 0;">
+						
+						<div style="text-align: center; width: 30%;">
+							<div style="font-weight: bold; color: #666; margin-bottom: 5px; font-size: 0.7em;">230万</div>
+							<div class="bg-brand" style="
+								height: 70px; width: 50px; margin: 0 auto; border-radius: 5px 5px 0 0; opacity: 0.7;
+								display: flex; align-items: center; justify-content: center; padding-bottom: 5px;
+							">
+								<span style="color: white; font-weight: bold; font-size: 0.5em;">8名</span>
+							</div>
+							<div style="margin-top: 10px; font-weight: bold; color: #666; font-size: 0.8em;">1年目</div>
+						</div>
+
+						<div style="text-align: center; width: 30%;">
+							<div style="font-weight: bold; color: #666; margin-bottom: 5px; font-size: 0.7em;">432万</div>
+							<div class="bg-brand" style="
+								height: 130px; width: 50px; margin: 0 auto; border-radius: 5px 5px 0 0; opacity: 0.7;
+								display: flex; align-items: center; justify-content: center; padding-bottom: 5px;
+							">
+								 <span style="color: white; font-weight: bold; font-size: 0.5em;">15名</span>
+							</div>
+							<div style="margin-top: 10px; font-weight: bold; color: #666; font-size: 0.8em;">2年目</div>
+						</div>
+
+						<div style="text-align: center; width: 35%;">
+							<div class="text-brand" style="font-weight: 900; margin-bottom: 5px; font-size: 1.0em;">720万</div>
+							<div class="bg-brand" style="
+								height: 220px; width: 70px; margin: 0 auto; border-radius: 5px 5px 0 0; 
+								border: 2px solid #b2461d; box-shadow: 0 0 10px rgba(255, 127, 80, 0.3); 
+								display: flex; align-items: center; justify-content: center; padding-bottom: 10px;
+							">
+								<span style="color: white; font-weight: bold; font-size: 0.8em;">30名</span>
+							</div>
+							<div class="text-brand" style="margin-top: 10px; font-weight: 900; font-size: 0.8em;">3年目</div>
+						</div>
+					</div>
+				</div>
+
+                <div style="flex: 0 0 55%; padding-top: 20px;">
+                    <table style="width: 100%; font-size: 0.65em; border-collapse: collapse; box-shadow: 0 5px 15px rgba(0,0,0,0.05); white-space: nowrap;">
+                        <tr style="background: #f8f9fa; border-bottom: 2px solid #ddd;">
+                            <th style="padding: 10px; text-align: left;">項目</th>
+                            <th style="padding: 10px; text-align: center;">１年目</th>
+                            <th style="padding: 10px; text-align: center;">２年目</th>
+                            <th style="padding: 10px; text-align: center; color: var(--brand-color); font-weight: bold; border-bottom: 3px solid var(--brand-color);">３年目</th>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 10px; font-weight: bold;">売上高</td>
+                            <td style="padding: 10px; text-align: center;">230万</td>
+                            <td style="padding: 10px; text-align: center;">432万</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; font-size: 1.2em;">720万</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 10px;">経費計 <span style="font-size:0.8em; color:#888;">(人件費込)</span></td>
+                            <td style="padding: 10px; text-align: center;">187万</td>
+                            <td style="padding: 10px; text-align: center;">204万</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; font-size: 1.2em;">542万</td>
+                        </tr>
+                        <tr style="background: #fff9f5;">
+                            <td style="padding: 10px; font-weight: bold; color: var(--brand-color);">利益</td>
+                            <td style="padding: 10px; text-align: center;">43万</td>
+                            <td style="padding: 10px; text-align: center;">228万</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; font-size: 1.2em;">178万</td>
+                        </tr>
+                    </table>
+                    
+                    <div style="margin-top: 15px; font-size: 0.5em; color: #666; text-align: right; line-height: 1.6;">
+                        <p style="margin:0;">※ 顧客単価：24,000円/月｜変動費：2,000円/件</p>
+                        <p style="margin:0;">※ 2年目までは代表1名体制で利益最大化</p>
+						<p style="margin:0;">※ 3年目から看護師の雇用により組織化</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section>
+            <h3>絶対に潰れない「堅実」な経営</h3>
+            <div class="split-container" style="margin-top: 40px; align-items: center; justify-content: center; gap: 50px;">
+                
+                <div style="flex: 0 0 350px;">
+                    <div style="position: relative; width: 350px; height: 350px; margin: 0 auto; border-radius: 50%;
+                        background: conic-gradient(
+                            var(--brand-color) 0% 70%, 
+                            #e0e0e0 70% 100%
+                        );
+                        box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                        
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                            width: 220px; height: 220px; background: white; border-radius: 50%;
+                            display: flex; flex-direction: column; align-items: center; justify-content: center;
+                            z-index: 2; box-shadow: inset 0 0 20px rgba(0,0,0,0.05);">
+                            
+                            <div style="color: #666; font-size: 18px; font-weight: bold; margin-bottom: 5px;">固定費の</div>
+                            <div style="color: var(--brand-color); font-size: 60px; font-weight: 900; line-height: 1;">70<span style="font-size: 30px;">%</span></div>
+                            <div style="color: #666; font-size: 20px; font-weight: bold; margin-top: 5px;">は人件費</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px; font-size: 14px; color: #888;">
+                        <span style="display:inline-block; width:10px; height:10px; background:#e0e0e0; margin-right:5px;"></span>その他（通信・消耗品）
+                    </div>
+                </div>
+
+                <div style="flex: 1; text-align: left;">
+                    <div style="margin-bottom: 20px;">
+                        <ul style="font-size: 28px; line-height: 2.0; list-style: none; margin: 0; padding: 0;">
+                            <li>✅ 在庫リスク <span class="text-bold" style="font-size: 1.2em;">ゼロ</span></li>
+                            <li>✅ 家賃などの固定費 <span class="text-bold">最小限</span></li>
+                        </ul>
+                    </div>
+                    <div style="background: #f4f6f9; padding: 25px; border-radius: 15px; border-left: 10px solid var(--accent-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <div style="color: #666; font-weight: bold; font-size: 20px; margin-bottom: 5px;">万が一、売上が下がっても...</div>
+                        <div class="text-bold text-blue" style="font-size: 36px;">赤字になりにくい構造</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+
+		<section>
+            <h3>地域全体で支える「共生」モデル</h3>
+            <p style="font-size: 0.7em; color: #888; margin-bottom: 30px;">既存の制度と競合せず、役割分担で支える</p>
+            
+            <div style="display: flex; align-items: center; justify-content: center; gap: 30px;">
+                
+                <div style="
+                    background: #f4f6f9; 
+                    width: 380px; /* 幅を拡大 */
+                    padding: 25px;
+                    border-radius: 30px;
+                    text-align: center;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    height: 380px; /* 高さを拡大 */
+                ">
+                    <span style="font-size: 3em; margin-bottom: 15px; display: block;">🏥</span>
+                    <h4 style="margin: 0; font-weight: bold; color: #555; font-size: 1.2em;">制度内</h4>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 15px; line-height: 1.5;">
+                        病院・介護保険<br>ケアマネジャー
+                    </p>
+                </div>
+
+                <div style="font-size: 4em; color: #ccc; font-weight: bold; padding: 0 10px;">＋</div>
+
+                <div style="
+                    background: #fff0eb; 
+                    border: 5px solid var(--brand-color);
+                    width: 380px; /* 幅を拡大 */
+                    padding: 25px;
+                    border-radius: 30px;
+                    text-align: center;
+                    box-shadow: 0 15px 30px rgba(255, 127, 80, 0.25);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    height: 380px; /* 高さを拡大 */
+                ">
+                    <span style="font-size: 3em; margin-bottom: 15px; display: block;">🧡</span>
+                    <h4 class="text-brand" style="margin: 0; font-weight: bold; font-size: 1.2em;">制度外</h4>
+                    <h3 class="text-brand text-bold" style="margin: 10px 0 15px; font-size: 1.3em; line-height: 1.2;">ぴたっと<br>ナース</h3>
+                </div>
+
+            </div>
+
+            <div class="fragment" style="
+                position: absolute;
+                top: 55%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 80%;
+                background: white; 
+                border: 4px solid #eee; 
+                border-left: 15px solid var(--brand-color); 
+                padding: 40px; 
+                border-radius: 20px; 
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                z-index: 10;
+                text-align: center;
+            ">
+                <h4 style="margin: 0 0 15px 0; color: #333; font-weight: bold; font-size: 2.0em;">
+                    競合ではなく同志
+                </h4>
+                <p style="margin: 0; font-size: 1.2em; color: #666; font-weight: bold;">
+                    制度の「隙間」を埋め<br>地域医療の質を底上げする
+                </p>
+            </div>
+		</section>	
+
+        <section>
+            <h3>「後悔のない別れ」を増やす</h3>
+            <p>「もっと話を聞いてあげればよかった」<br>そんな涙を、一つでも減らしたい。</p>
+            <br>
+            <h4 class="fragment text-brand">親孝行の新しいスタンダードを、<br>ここ旭川から。</h4>
+        </section>
+
+        <section data-background-image="https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?auto=format&fit=crop&w=1600&q=80">
+            <div style="background: rgba(255,255,255,0.85); padding: 40px; border-radius: 20px;">
+                <h3 class="text-brand"><p style="color: #333;">あなたの「もう一人の家族」に</p></h3>
+                <h1 class="text-brand text-bold">ぴたっとナース</h1>
+                <div class="img-box" style="width: 150px; height: 150px; border-radius: 50%; margin: 20px auto; border: 3px solid var(--brand-color);">
+                    <img src="img/mainvisu.png" style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover; border: 2px solid #eee;" alt="メインビジュアル">
+                </div>
+                <p style="color: #333;">ご清聴ありがとうございました</p>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+<script>
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        transition: 'slide',
+        
+        // ▼ ここを追加：スライド番号を表示（ c/t = 現在 / 合計 ）
+        slideNumber: 'c/t', 
+    });
+</script>
+
+</body>
+
+</html>

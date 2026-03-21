@@ -40,10 +40,7 @@
     header h1 { margin: 0; font-size: 1.5rem; }
     header a { color: white; text-decoration: none; }
     
-    /* 【変更】検索コンテナがスマホで柔軟に広がるよう調整 */
     .search-container { position: relative; margin-top: 0.5rem; width: 100%; max-width: 300px; }
-    
-    /* 【変更】固定幅(300px)を廃止し、親要素に対して100%広がるように変更 */
     .search-input {
         padding: 0.5rem 1rem;
         border-radius: 9999px;
@@ -51,8 +48,6 @@
         width: 100%;
         font-size: 0.9rem;
     }
-    
-    /* 【変更】検索結果もスマホ幅に追従するよう調整 */
     .search-results {
         position: absolute;
         top: 100%;
@@ -116,41 +111,16 @@
     
     footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
 
-    /* 【追加】スマートフォン閲覧用のレスポンシブデザイン（幅768px以下の場合に適用） */
     @media (max-width: 768px) {
-        header {
-            flex-direction: column; /* 横並びを縦積みに変更 */
-            align-items: flex-start;
-            padding: 1rem;
-        }
-        .search-container {
-            max-width: 100%; /* スマホでは検索バーを画面幅いっぱいに */
-            margin-top: 1rem;
-        }
+        header { flex-direction: column; align-items: flex-start; padding: 1rem; }
+        .search-container { max-width: 100%; margin-top: 1rem; }
         main { margin: 1rem auto; }
-        .card { padding: 1rem; } /* カードの余白を狭く */
-        
-        .file-row {
-            flex-direction: column; /* ファイル名と日付を縦積みに変更 */
-            align-items: flex-start;
-            padding: 0.75rem 1rem;
-        }
+        .card { padding: 1rem; }
+        .file-row { flex-direction: column; align-items: flex-start; padding: 0.75rem 1rem; }
         .file-row-link { width: 100%; margin-bottom: 0.5rem; }
-        .file-name { margin-right: 0; white-space: normal; /* 長いファイル名の折り返しを許可 */ }
-        .file-date {
-            width: auto;
-            text-align: left; /* 日付を左寄せに変更 */
-            margin-left: 0;
-            font-size: 0.8rem;
-        }
-        
-        /* スマホ閲覧時、テーブルが画面外にはみ出さないよう横スクロールを強制 */
-        .document-content table {
-            display: block;
-            overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch; /* iOSでの滑らかなスクロール */
-        }
+        .file-name { margin-right: 0; white-space: normal; }
+        .file-date { width: auto; text-align: left; margin-left: 0; font-size: 0.8rem; }
+        .document-content table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
     }
 </style>
 
@@ -374,6 +344,46 @@
                         <div class='file-name' title='名刺案'>名刺案</div>
                     </a>
                     <div class='file-date'>2026/03/20 23:57</div>
+                </div>
+                
+</div></div>
+<div class='category-section'>
+<h2 class='category-title'>📁 04_プレゼンスライド</h2>
+<div class='file-list'>
+
+                <div class='file-row'>
+                    <a href='04_%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%89/202511_RED_JAPAN.pdf' class='file-row-link'>
+                        <span class='badge badge-file'>📦 ファイル</span>
+                        <div class='file-name' title='202511_RED_JAPAN.pdf'>202511_RED_JAPAN.pdf</div>
+                    </a>
+                    <div class='file-date'>2026/03/21 08:53</div>
+                </div>
+                
+
+                <div class='file-row'>
+                    <a href='04_%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%89/202511_RED_JAPAN_%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%83%BC%E3%82%B7%E3%83%BC%E3%83%88.xlsx' class='file-row-link'>
+                        <span class='badge badge-file'>📦 ファイル</span>
+                        <div class='file-name' title='202511_RED_JAPAN_エントリーシート.xlsx'>202511_RED_JAPAN_エントリーシート.xlsx</div>
+                    </a>
+                    <div class='file-date'>2026/03/21 10:04</div>
+                </div>
+                
+
+                <div class='file-row'>
+                    <a href='04_%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%89/202602_%E9%81%93%E5%8C%97%E3%83%93%E3%82%B8%E3%82%B3%E3%83%B3.html' class='file-row-link'>
+                        <span class='badge badge-html'>📄 HTML</span>
+                        <div class='file-name' title='202602_道北ビジコン'>202602_道北ビジコン</div>
+                    </a>
+                    <div class='file-date'>2026/02/18 21:58</div>
+                </div>
+                
+
+                <div class='file-row'>
+                    <a href='04_%E3%83%97%E3%83%AC%E3%82%BC%E3%83%B3%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%89/202602_%E9%81%93%E5%8C%97%E3%83%93%E3%82%B8%E3%82%B3%E3%83%B3_%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%83%BC%E3%82%B7%E3%83%BC%E3%83%88.pdf' class='file-row-link'>
+                        <span class='badge badge-file'>📦 ファイル</span>
+                        <div class='file-name' title='202602_道北ビジコン_エントリーシート.pdf'>202602_道北ビジコン_エントリーシート.pdf</div>
+                    </a>
+                    <div class='file-date'>2026/03/21 10:05</div>
                 </div>
                 
 </div></div>
