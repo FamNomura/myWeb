@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>004_Instagram投稿スケジュール - ぴたっとナース　ドキュメント一覧</title>
+    
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --bg-color: #f3f4f6;
+        --card-bg: #ffffff;
+        --text-color: #1f2937;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header a { color: white; text-decoration: none; }
+    
+    .search-container { position: relative; margin-top: 0.5rem; width: 100%; max-width: 300px; }
+    .search-input {
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        border: none;
+        width: 100%;
+        font-size: 0.9rem;
+    }
+    .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        color: var(--text-color);
+        width: 100%;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+        display: none;
+        border: 1px solid var(--border-color);
+    }
+    .search-result-item { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); display: block; text-decoration: none; color: inherit; }
+    .search-result-item:hover { background-color: var(--bg-color); }
+    .search-result-title { font-weight: bold; font-size: 0.95rem; color: var(--primary-color); margin-bottom: 0.2rem; }
+    .search-result-excerpt { font-size: 0.8rem; color: var(--text-muted); }
+
+    main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+    .breadcrumb { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    h1, h2, h3, h4 { color: #111827; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .document-content h1 { border-bottom: 2px solid var(--border-color); padding-bottom: 0.3em; margin-top: 0;}
+    .document-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+    .document-content img { max-width: 100%; height: auto; }
+    .document-content table { border-collapse: collapse; width: 100%; margin-bottom: 1.5em; }
+    .document-content th, .document-content td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+    .document-content th { background-color: var(--bg-color); }
+    .document-content pre { background-color: #1f2937; color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .document-content code { background-color: #e5e7eb; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; color: #d946ef; }
+    .document-content pre code { background-color: transparent; color: inherit; padding: 0; }
+    .document-content a { color: var(--primary-color); text-decoration: underline; }
+    .document-content a:hover { color: var(--primary-hover); }
+    
+    .category-section { margin-bottom: 2rem; background: var(--card-bg); border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
+    .category-title { font-size: 1.25rem; background: #e5e7eb; padding: 1rem 1.5rem; margin: 0; }
+    
+    .file-list { display: flex; flex-direction: column; }
+    .file-row { display: flex; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s; }
+    .file-row:hover { background-color: #f9fafb; }
+    .file-row:last-child { border-bottom: none; }
+    .file-row-link { flex-grow: 1; text-decoration: none; color: inherit; display: flex; align-items: center; min-width: 0; }
+    .file-name { font-weight: bold; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 1rem; }
+    .file-date { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; margin-left: auto; width: 150px; text-align: right; }
+    
+    .badge { display: inline-block; padding: 0.25em 0.5em; font-size: 0.75em; font-weight: bold; border-radius: 0.25rem; margin-right: 1rem; white-space: nowrap; }
+    .badge-html { background-color: #dbeafe; color: #1e40af; }
+    .badge-file { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.875rem; }
+
+    @media (max-width: 768px) {
+        header { flex-direction: column; align-items: flex-start; padding: 1rem; }
+        .search-container { max-width: 100%; margin-top: 1rem; }
+        main { margin: 1rem auto; }
+        .card { padding: 1rem; }
+        .file-row { flex-direction: column; align-items: flex-start; padding: 0.75rem 1rem; }
+        .file-row-link { width: 100%; margin-bottom: 0.5rem; }
+        .file-name { margin-right: 0; white-space: normal; }
+        .file-date { width: auto; text-align: left; margin-left: 0; font-size: 0.8rem; }
+        .document-content table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+    }
+</style>
+
+</head>
+<body>
+    <header>
+        <h1><a href="../ぴたっとナースドキュメント一覧.html">ぴたっとナース　ドキュメント一覧</a></h1>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="ページ内検索 (Enterで次へ)...">
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb"><a href="../ぴたっとナースドキュメント一覧.html">トップ</a> &gt; 05_作業中</div>
+        <div class="card document-content">
+            <h1>004_Instagram投稿スケジュール</h1>
+<h3><strong>📱 ぴたっとナース Instagram投稿スケジュール（4月〜9月）</strong></h3>
+<h4><strong>【4月】テーマ：開業前告知と「共感」の獲得</strong></h4>
+<p>まずは「どんな想いで、どんなプロが始めるのか」を知ってもらう月です。</p>
+<ul>
+<li><strong>第1週</strong>  </li>
+<li>① 【ご報告】道北ビジコン最優秀賞を受賞しました！（実績アピール）  </li>
+<li>② 私が「ぴたっとナース」を立ち上げる理由（原体験や想い）  </li>
+<li><strong>第2週</strong>  </li>
+<li>① 「親の通院、付き添えない…」遠距離介護の罪悪感、手放しませんか？（共感）  </li>
+<li>② 開業準備中！ただいまパンフレットを制作しています（日常・親近感）  </li>
+<li><strong>第3週</strong>  </li>
+<li>① ぴたっとナースの最大の強み「医療通訳」って何？（専門性）  </li>
+<li>② 旭川の春の風景と、高齢者の寒暖差対策（看護師目線のお役立ち）  </li>
+<li><strong>第4週</strong>  </li>
+<li>① ただの付き添いじゃない。ご自宅へのお迎え〜帰宅までの流れ（サービス紹介）  </li>
+<li>② 知人にお願いして、サービスの模擬練習をしました！（活動報告）</li>
+</ul>
+<h4><strong>【5月】テーマ：サービスの具体化と「期待感」の醸成</strong></h4>
+<p>開業1ヶ月前。より具体的なサービス内容や料金について触れていきます。</p>
+<ul>
+<li><strong>第1週</strong>  </li>
+<li>① GW帰省した時、親のココをチェックしてみて！（冷蔵庫の中身など）（お役立ち）  </li>
+<li>② 営業用名刺が完成！「ビジコン最優秀賞」のロゴ入りです（活動報告）  </li>
+<li><strong>第2週</strong>  </li>
+<li>① 選べる3つの料金プラン。一番人気は「スタンダード」になる予感！（サービス紹介）  </li>
+<li>② 離れた家族が一番嬉しい「安心LINEレポート」の中身をチラ見せ（強みアピール）  </li>
+<li><strong>第3週</strong>  </li>
+<li>① こんなことも頼めるの？便利なオプションサービスのご紹介（サービス紹介）  </li>
+<li>② 看護師だから気づける「移動中のアセスメント（体調観察）」（専門性）  </li>
+<li><strong>第4週</strong>  </li>
+<li>① サービスに関する「よくある質問 Q\&amp;A」（疑問解消）  </li>
+<li>② いよいよ来月開業！今の率直な気持ちと意気込み（想い）</li>
+</ul>
+<h4><strong>【6月】テーマ：祝・開業！「利用イメージ」の提示</strong></h4>
+<p>開業月！実際にお客様が利用している（または利用を想定した）具体的なイメージを発信します。</p>
+<ul>
+<li><strong>第1週</strong>  </li>
+<li>① 【祝】本日「ぴたっとナース」正式に開業いたしました！（ご挨拶）  </li>
+<li>② 初回のご相談（面談）はどんな風に進むの？（サービスの流れ）  </li>
+<li><strong>第2週</strong>  </li>
+<li>① ケアマネージャーさんへご挨拶回りに行っています！（BtoB向け・活動報告）  </li>
+<li>② 梅雨〜初夏、高齢者の通院時に気をつけるべきポイント（お役立ち）  </li>
+<li><strong>第3週</strong>  </li>
+<li>① 「親にサービスを提案したいけど、何て言えばいい？」への回答（お悩み解決）  </li>
+<li>② 診察室でのドクターとのやり取り、こんな風にサポートします（専門性）  </li>
+<li><strong>第4週</strong>  </li>
+<li>① お客様（またはご家族）からの嬉しいお声・ホッコリエピソード（実績・安心感）  </li>
+<li>② 月に1回の通院サポートが、親子の会話を増やす理由（想い）</li>
+</ul>
+<h4><strong>【7月】テーマ：夏のトラブル予防と「頼れるプロ」</strong></h4>
+<p>本格的な夏。看護師としての専門性を強くアピールし、お盆前の駆け込み需要を狙います。</p>
+<ul>
+<li><strong>第1週</strong>  </li>
+<li>① 【看護師直伝】高齢者の「かくれ脱水」を見抜くサイン（お役立ち）  </li>
+<li>② 病院での長い待ち時間、野村とどんな話をして過ごす？（親近感）  </li>
+<li><strong>第2週</strong>  </li>
+<li>① 夏の外出エスコート、車内の温度管理と水分補給の工夫（専門性）  </li>
+<li>② 旭川市内の薬局さんとも連携！お薬の受け取りもスムーズです（活動報告）  </li>
+<li><strong>第3週</strong>  </li>
+<li>① もうすぐお盆。帰省できないご家族からのご相談、増えています（需要喚起）  </li>
+<li>② サービス利用のビフォーアフター（通院疲れがどう変わる？）（サービス紹介）  </li>
+<li><strong>第4週</strong>  </li>
+<li>① 趣味の活動や、お墓参りへの付き添いも承ります！（オプション紹介）  </li>
+<li>② お客様との道中の何気ない会話が、私のやりがいです（想い）</li>
+</ul>
+<h4><strong>【8月】テーマ：お盆帰省に合わせたアプローチ</strong></h4>
+<p>帰省で実際に親の老いを感じた子世代へ、直接刺さるメッセージを発信します。</p>
+<ul>
+<li><strong>第1週</strong>  </li>
+<li>① お盆で帰省中の方へ。親御さんの歩くスピード、遅くなっていませんか？（お役立ち）  </li>
+<li>② 帰省中に、親御さんと「これからの通院」について話してみませんか（提案）  </li>
+<li><strong>第2週</strong>  </li>
+<li>① 帰省から東京・札幌へ戻る皆様へ。「後ろ髪引かれる思い」をサポートします（共感）  </li>
+<li>② 残暑厳しい時期の、エアコン利用と体調管理について（お役立ち）  </li>
+<li><strong>第3週</strong>  </li>
+<li>① 「医療通訳」が役立った具体的なエピソードをご紹介（専門性）  </li>
+<li>② ケアマネ会議への同席サポートも承っております（サービス紹介）  </li>
+<li><strong>第4週</strong>  </li>
+<li>① 秋に向けた通院スケジュールの立て方（お役立ち）  </li>
+<li>② 改めて自己紹介。私が「ぴたっとナース」に込めた願い（想い・再掲）</li>
+</ul>
+<h4><strong>【9月】テーマ：秋の健康管理と「敬老の日」ギフト提案</strong></h4>
+<p>敬老の日をフックに、サービスをプレゼントとして提案します。</p>
+<ul>
+<li><strong>第1週</strong>  </li>
+<li>① 今年の「敬老の日」は、モノではなく「安心の付き添い」をプレゼントしませんか？（提案）  </li>
+<li>② 季節の変わり目、高齢者の血圧変動にご注意を（お役立ち）  </li>
+<li><strong>第2週</strong>  </li>
+<li>① 離れていてもできる、最高の親孝行とは（共感・想い）  </li>
+<li>② お客様の笑顔ショット（※許可を得て後ろ姿やお花などの写真）（安心感）  </li>
+<li><strong>第3週</strong>  </li>
+<li>① 秋のワクチン接種、予約〜当日の付き添いもお任せください（サービス紹介）  </li>
+<li>② 読書の秋。私が看護師として大切にしている本（親近感）  </li>
+<li><strong>第4週</strong>  </li>
+<li>① 開業から3ヶ月。皆様への感謝とこれからの目標（活動報告）  </li>
+<li>② これからも旭川のシニアと、遠くのご家族を「ぴたっと」つなぎます（想い）</li>
+</ul>
+        </div>
+    </main>
+    <footer>
+        <p>Generated by Document to HTML Converter</p>
+    </footer>
+    
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('search-input');
+        if (!searchInput) return;
+
+        let marks = [];
+        let currentMatchIndex = -1;
+        let lastQuery = '';
+
+        function updateMarkStyles() {
+            marks.forEach((mark, index) => {
+                if (index === currentMatchIndex) {
+                    mark.style.cssText = "background-color: #f97316; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 5px rgba(0,0,0,0.5); color: white;";
+                } else {
+                    mark.style.cssText = "background-color: #fef08a; padding: 0.1em; border-radius: 0.2em; box-shadow: 0 0 3px rgba(0,0,0,0.2); color: black;";
+                }
+            });
+        }
+
+        function highlightAndJump(keyword, isEnterKey) {
+            const container = document.querySelector('.document-content');
+            if (!container) return;
+
+            if (keyword === lastQuery && isEnterKey && marks.length > 0) {
+                currentMatchIndex = (currentMatchIndex + 1) % marks.length;
+                updateMarkStyles();
+                marks[currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            lastQuery = keyword;
+            currentMatchIndex = -1;
+            marks = [];
+
+            const oldMarks = container.querySelectorAll('mark.search-highlight');
+            oldMarks.forEach(mark => {
+                const parent = mark.parentNode;
+                parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                parent.normalize();
+            });
+
+            if (!keyword || keyword.trim() === '') return;
+
+            const safeKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(safeKeyword, 'gi');
+            
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                if (node.parentNode.nodeName !== 'MARK' && 
+                    node.parentNode.nodeName !== 'SCRIPT' && 
+                    node.parentNode.nodeName !== 'STYLE' && 
+                    node.nodeValue.match(regex)) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            nodesToReplace.forEach(node => {
+                const span = document.createElement('span');
+                span.innerHTML = node.nodeValue.replace(regex, match => 
+                    `<mark class="search-highlight">${match}</mark>`
+                );
+                
+                while (span.firstChild) {
+                    const child = span.firstChild;
+                    node.parentNode.insertBefore(child, node);
+                    if (child.nodeName === 'MARK') {
+                        marks.push(child);
+                    }
+                }
+                node.parentNode.removeChild(node);
+            });
+
+            if (marks.length > 0) {
+                currentMatchIndex = 0;
+                updateMarkStyles();
+                marks[currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const q = urlParams.get('q');
+        if (q) {
+            searchInput.value = q;
+            highlightAndJump(q, false);
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            highlightAndJump(e.target.value, false);
+        });
+        
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                highlightAndJump(e.target.value, true);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
