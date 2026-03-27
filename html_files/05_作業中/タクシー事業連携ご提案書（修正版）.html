@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>タクシー会社様向け連携提案書 - ぴたっとナース</title>
+    <style>
+        /* リセットと基本設定：高さ固定をせず、中身に合わせて伸びるように */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f0faff; /* さわやかな空色 */
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 50px;
+            border-top: 12px solid #00aeef;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* ヘッダー */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #e1f5fe;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .award-banner {
+            background: linear-gradient(135deg, #d4af37, #f9d976);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        h1 { font-size: 26px; color: #0071bc; line-height: 1.3; }
+        .brand-logo { font-size: 24px; font-weight: bold; color: #00aeef; text-align: right; }
+
+        /* 1. 導入・プロフィール */
+        .intro-block {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+            background-color: #f9feff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .profile-img-placeholder {
+            flex-shrink: 0;
+            width: 180px;
+            height: 240px;
+            background-color: #fff;
+            border: 2px dashed #b3e5fc;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            font-size: 14px;
+            text-align: center;
+        }
+        .intro-message { flex: 1; font-size: 16px; }
+
+        /* 見出し */
+        h2 {
+            font-size: 20px;
+            color: #0071bc;
+            border-left: 6px solid #00aeef;
+            padding-left: 15px;
+            margin: 40px 0 20px 0;
+            background-color: #f0faff;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        /* 2. 事業概要 */
+        .service-info {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        .concept-img-placeholder {
+            width: 300px;
+            height: 180px;
+            background-color: #f9feff;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        /* 3. メリット（グリッド） */
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .benefit-card {
+            border: 1px solid #e1f5fe;
+            padding: 20px;
+            border-radius: 8px;
+            border-bottom: 4px solid #b3e5fc;
+        }
+        .benefit-card h3 { color: #00aeef; font-size: 16px; margin-bottom: 10px; }
+
+        /* 4. 具体的な要望（今回の修正ポイント） */
+        .request-card {
+            background-color: #fffdf9; /* 少し温かみのある色 */
+            border: 1px solid #ffcc80;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .request-card h3 {
+            font-size: 19px;
+            color: #e67e22; /* 強調 */
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .request-card h3::before {
+            content: '📌';
+            margin-right: 10px;
+        }
+        .request-detail {
+            margin-bottom: 15px;
+        }
+        .request-detail p { font-weight: bold; color: #333; margin-bottom: 5px; }
+        .request-detail ul { padding-left: 25px; font-size: 14px; color: #555; }
+
+        /* フッター */
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .contact-box .name { font-size: 22px; font-weight: bold; color: #0071bc; margin-bottom: 5px; }
+        .contact-box p { font-size: 14px; margin-bottom: 4px; }
+        .slogan { color: #00aeef; font-style: italic; font-weight: bold; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: none; width: 100%; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <div class="award-banner">2025道北ビジネスプランコンテスト 最優秀賞受賞事業</div>
+            <h1>タクシー運行における<br>業務連携のご提案</h1>
+        </div>
+        <div class="brand-logo">ぴたっとナース</div>
+    </header>
+
+    <div class="intro-block">
+        <div class="profile-img-placeholder">
+            代表写真<br>(180x240)
+        </div>
+        <div class="intro-message">
+            <p>貴社におかれましては、地域の交通インフラの要として多大なる貢献をされていることと存じます。私は旭川市内で「看護師による病院同行・外出支援サービス」を展開する、代表の野村由佳子と申します。</p>
+            <p style="margin-top:15px;">「離れて暮らすご家族の不安を安心に変える」というビジョンのもと、利用者様がより気軽に、かつ安心して外出できる体制を整えるため、貴社に特別なご協力をお願いしたく本資料を作成いたしました。</p>
+        </div>
+    </div>
+
+    <section>
+        <h2>1. サービス概要「ぴたっとナース」とは</h2>
+        <div class="service-info">
+            <div class="concept-img-placeholder">
+                ロゴまたはコンセプト図<br>(300x180)
+            </div>
+            <div class="service-text">
+                <p>正看護師が、高齢者の通院や買い物に「もう一人の家族」として付き添う保険外のオーダーメイド・エスコートサービスです。</p>
+                <p style="margin-top:10px;">単なる付き添いに留まらず、医療知識に基づいた「医療通訳」や、ご家族への詳細な状況報告を行い、地域医療とご家庭を繋ぐ「隙間を埋めるパートナー」を目指しています。</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. 貴社と連携するメリット</h2>
+        <div class="benefit-grid">
+            <div class="benefit-card">
+                <h3>① ドライバー様の負担軽減と新規顧客獲得</h3>
+                <p>看護師が必ず同乗し、乗降介助や見守りを担うため、ドライバー様は運転に専念できます。また、臨床経験12年の正看護師の同乗により、本来介護タクシーに流れてしまう「少し歩行に不安がある方」も、貴社の一般車両で安全に送迎可能になり、新たな顧客層の開拓に繋がります。</p>
+            </div>
+            <div class="benefit-card">
+                <h3>② 定期的な優良顧客の確保</h3>
+                <p>通院等の定期利用者がメインです。確実な予約配車の受注と、信頼関係に基づいた質の高いお客様の獲得に繋がります。</p>
+            </div>
+            <div class="benefit-card">
+                <h3>③ 地域貢献への取り組みをPR</h3>
+                <p>ビジコン受賞事業との先進的な連携事例として、高齢者に優しい企業姿勢を地域やメディアに発信することが可能です。</p>
+            </div>
+            <div class="benefit-card">
+                <h3>④ 安心の「ドアツードア」の実現</h3>
+                <p>「移動」と「専門的ケア」が融合することで、競合他社にはない圧倒的な付加価値と安心感を利用者に提供できます。</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. 具体的な連携のご相談内容</h2>
+
+        <div class="request-card">
+            <h3>完全予約制による「優先配車」の確約</h3>
+            <div class="request-detail">
+                <p>通院時間に合わせた確実な車両確保</p>
+                <ul>
+                    <li>1週間前までの事前予約により、朝のピーク時でも優先的に車両を確保いただきたい。</li>
+                    <li>診察終了後、看護師からの電話連絡に基づき「優先的にお迎え」をいただける運用を検討したい。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="request-card" style="border-color: #00aeef;">
+            <h3 style="color: #0071bc;">利用者様の安心を支える「柔軟な料金体系」の構築</h3>
+            <div class="request-detail">
+                <p>「いくらかかるか分からない」という高齢者の不安を解消したい</p>
+                <ul>
+                    <li><strong>定額プランの共同検討：</strong> 主要な病院と自宅間の往復など、利用者にとって分かりやすい「1回あたり固定料金」の設定をご相談したい。</li>
+                    <li><strong>待機料の融通・免除：</strong> 通院の途中に数分だけドラッグストアに寄る際など、短時間の待機については料金内で対応いただけるような「サービス協力」をお願いしたい。</li>
+                    <li><strong>車両の有効活用（稼働率の維持）：</strong> 病院での長時間の診察・付き添い中（約1〜2時間）は車両を解放するため、貴社はその間に別の配車（稼働）を入れることができ、車両の回転率を下げることなく、利用者様の待機料負担も減らすWin-Winの運用を確立したいと考えております。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="request-card" style="border-color: #4caf50; background-color: #f1f8e9;">
+            <h3 style="color: #2e7d32;">まずは「実証実験（テスト導入）」からのスタート</h3>
+            <div class="request-detail">
+                <p>双方にとって無理のない運用ルールを構築するために</p>
+                <ul>
+                    <li>まずは1ヶ月間、数名のモデルケースを用いてテスト運行（実証実験）を行わせていただき、現場のフィードバックをもとに最適な連携方法（料金や配車ルール）を一緒に模索させていただけないでしょうか。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section style="margin-top: 30px; padding: 20px; background-color: #fff4e5; border: 1px solid #ffe0b2; border-radius: 8px;">
+        <h3 style="color: #e65100; font-size: 16px; margin-bottom: 10px;">🛡️ リスク管理・責任の所在について</h3>
+        <p style="font-size: 14px; color: #555;">万が一の車内での体調急変時は、看護師がプロとしてトリアージ（緊急度判断）を行い、迅速な救急要請等を行います。また、当事業にて損害賠償保険に加入しておりますので、医療・介助面での責任は弊事業が負います。貴社に医療的リスクをおかけすることはありません。</p>
+    </section>
+
+    <section style="margin-top: 30px; padding: 15px; background-color: #fefefe; border: 1px solid #ddd; border-radius: 8px; text-align: center;">
+        <p style="font-size: 14px; color: #666;">
+            ※本事業は、<strong>旭川産業創造プラザ</strong>や<strong>旭川信用金庫</strong>等の支援を受け、地域課題の解決を目指しております。
+        </p>
+    </section>
+
+    <footer>
+        <div class="contact-box">
+            <p>【お問い合わせ先】</p>
+            <p class="name">ぴたっとナース 代表 野村 由佳子</p>
+            <p>住所：北海道旭川市（以下、詳細をご記入ください）</p>
+            <p>電話：XXX-XXXX-XXXX / Email：info@pitatto-nurse.com</p>
+        </div>
+        <div class="slogan">
+            <p>ご家族の心を、ぴたっと寄り添わせる社会へ</p>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
