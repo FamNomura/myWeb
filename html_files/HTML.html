@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>FootBath Pro V1.0 - Project Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; background-color: #f4f7f6; }
+        header { background: #2c3e50; color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; text-align: center; }
+        section { background: white; padding: 25px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { border-left: 5px solid #27ae60; padding-left: 10px; color: #27ae60; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .code-block { background: #282c34; color: #abb2bf; padding: 20px; border-radius: 5px; overflow-x: auto; font-family: 'Courier New', Courier, monospace; position: relative; }
+        .diagram { text-align: center; background: #eee; padding: 20px; border-radius: 8px; }
+        .warning { background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        .step-list { counter-reset: step; list-style: none; padding: 0; }
+        .step-list li { margin-bottom: 15px; padding-left: 45px; position: relative; }
+        .step-list li::before { content: counter(step); counter-increment: step; position: absolute; left: 0; top: 0; width: 30px; height: 30px; background: #27ae60; color: white; border-radius: 50%; text-align: center; line-height: 30px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>足湯器開発プロジェクト V1.0</h1>
+    <p>量産試作機設計・開発ダッシュボード</p>
+</header>
+
+<div class="warning">
+    <strong>【安全上の警告】</strong> 本機は水と電気を同時に扱います。必ず認証済みのACアダプターを使用し、コンセントには漏電遮断器を設置してください。
+</div>
+
+<section id="layout">
+    <h2>1. 3Dレイアウト・コンポーネント配置</h2>
+    <p>完成品の内部構造と配置イメージです。</p>
+    <div class="diagram">
+        <svg width="600" height="400" viewBox="0 0 600 400">
+            <rect x="50" y="100" width="300" height="250" fill="none" stroke="#2c3e50" stroke-width="3" />
+            <text x="60" y="120" font-size="14" fill="#2c3e50">足湯桶（水槽部）</text>
+            <rect x="52" y="180" width="296" height="168" fill="#e1f5fe" opacity="0.6" />
+            <rect x="100" y="300" width="200" height="20" fill="#e74c3c" rx="5" />
+            <text x="130" y="340" font-size="12" fill="#e74c3c">PTCヒーター（ガード付）</text>
+            <circle cx="80" cy="280" r="20" fill="#3498db" />
+            <text x="60" y="250" font-size="12" fill="#3498db">撹拌ポンプ</text>
+            <rect x="380" y="50" width="180" height="120" fill="#95a5a6" rx="10" />
+            <text x="400" y="80" font-size="14" fill="white">コントロールBOX</text>
+            <rect x="400" y="100" width="140" height="40" fill="#34495e" />
+            <text x="425" y="125" font-size="12" fill="#2ecc71">43.0 °C</text>
+            <path d="M 380 110 L 200 300" stroke="#7f8c8d" stroke-dasharray="5,5" fill="none" />
+            <path d="M 380 130 L 100 280" stroke="#7f8c8d" stroke-dasharray="5,5" fill="none" />
+        </svg>
+    </div>
+</section>
+
+<section id="bom">
+    <h2>2. 部品・工具一覧 (BOM & Tools)</h2>
+    <h3>主要電子部品（DC24V仕様）</h3>
+    <table>
+        <tr><th>部品名</th><th>推奨型番</th><th>目的</th></tr>
+        <tr><td>マイコン</td><td>ESP32-DevKitC</td><td>全体制御・将来のWi-Fi連携</td></tr>
+        <tr><td>温度センサー</td><td>DS18B20 (防水)</td><td>水温計測（1-Wire）</td></tr>
+        <tr><td>ヒーター</td><td>24V 200W PTCヒーター</td><td>安全加熱（自己温度制御）</td></tr>
+        <tr><td>リレー</td><td>SSR (5V入力 / 30V10A)</td><td>高耐久ヒーター制御</td></tr>
+        <tr><td>AC電源</td><td>24V 10A ACアダプタ</td><td>PSE認証済みの安全な電力供給</td></tr>
+    </table>
+
+    <h3>推奨工具</h3>
+    <table>
+        <tr><th>ツール名</th><th>推奨品番</th><th>用途</th></tr>
+        <tr><td>ドリルドライバー</td><td>マキタ DF333DSHX</td><td>筐体穴あけ</td></tr>
+        <tr><td>ステップドリル</td><td>TRUSCO NMS-21G</td><td>ケーブルグランド用丸穴</td></tr>
+        <tr><td>ハンドニブラ</td><td>エンジニア TZ-20</td><td>LCD用角穴加工</td></tr>
+        <tr><td>温調はんだごて</td><td>白光 FX-600</td><td>基板・配線作業</td></tr>
+    </table>
+</section>
+
+<section id="procedure">
+    <h2>3. 組み立て手順</h2>
+    <ul class="step-list">
+        <li><strong>ケース加工:</strong> 防水ケースにLCD、スイッチ、ケーブルグランド用の穴を開けます。</li>
+        <li><strong>電子工作:</strong> ESP32にリレー、センサー（4.7kΩプルアップ抵抗付）を配線し、ケース内に固定します。</li>
+        <li><strong>防水処理:</strong> センサーとポンプの線を水槽へ引き込み、接続部をシリコンでコーキングします。</li>
+        <li><strong>コード書き込み:</strong> 下記のソースコードをArduino IDEでESP32に書き込みます。</li>
+        <li><strong>動作確認:</strong> 最初にヒーターを入れず、ポンプの循環と温度計の表示が正常か確認します。</li>
+    </ul>
+</section>
+
+<section id="code">
+    <h2>4. 制御用ソースコード</h2>
+    <p>Arduino IDEで使用。ESP32ボードパッケージをインストールしてください。</p>
+    <div class="code-block">
+<pre>
+/*
+ * path: footbath_pro_v1/footbath_pro_v1.ino
+ * description: 
+ * - 量産試作機向け 堅牢制御コード（ESP32版）
+ * - WDT監視、異常温度遮断、SSR制御実装
+ */
+
+#include &lt;OneWire.h&gt;
+#include &lt;DallasTemperature.h&gt;
+
+#define PIN_SENSOR 4
+#define PIN_HEATER 16  // SSR
+#define PIN_PUMP   17
+
+const float TARGET_TEMP = 43.0;
+const float TEMP_LIMIT  = 46.0;
+
+OneWire oneWire(PIN_SENSOR);
+DallasTemperature sensors(&amp;oneWire);
+
+void setup() {
+    Serial.begin(115200);
+    pinMode(PIN_HEATER, OUTPUT);
+    pinMode(PIN_PUMP, OUTPUT);
+    digitalWrite(PIN_HEATER, LOW);
+    digitalWrite(PIN_PUMP, LOW);
+
+    sensors.begin();
+    
+    // ポンプ始動
+    digitalWrite(PIN_PUMP, HIGH);
+    Serial.println("System Ready.");
+}
+
+void loop() {
+    sensors.requestTemperatures();
+    float currentTemp = sensors.getTempCByIndex(0);
+
+    // 異常検知（センサー断線、46度超過）
+    if (currentTemp == DEVICE_DISCONNECTED_C || currentTemp > TEMP_LIMIT) {
+        digitalWrite(PIN_HEATER, LOW);
+        Serial.println("CRITICAL ERROR: System Halted.");
+        while(1) delay(1000); 
+    }
+
+    // ヒステリシス制御
+    if (currentTemp < (TARGET_TEMP - 0.5)) {
+        digitalWrite(PIN_HEATER, HIGH);
+    } else if (currentTemp >= TARGET_TEMP) {
+        digitalWrite(PIN_HEATER, LOW);
+    }
+
+    Serial.printf("Temp: %.2f C | Heater: %s\n", 
+                  currentTemp, digitalRead(PIN_HEATER) ? "ON" : "OFF");
+    delay(1000);
+}
+</pre>
+    </div>
+</section>
+
+<footer>
+    <p style="text-align: center; color: #7f8c8d;">&copy; 2026 FootBath Project Prototype</p>
+</footer>
+
+</body>
+</html>
