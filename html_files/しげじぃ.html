@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>しげじぃの珈琲屋さん | 魔法の香りをお届けします</title>
+    <style>
+        /* 全体の設定：ご指定通り背景色は白（#ffffff）に設定 */
+        body {
+            background-color: #ffffff;
+            color: #4a3b32; /* コーヒーを思わせる柔らかいダークブラウン */
+            font-family: 'Shippori Mincho', 'Noto Serif JP', 'Hiragino Mincho ProN', serif; /* 女性らしさと物語性を演出する明朝体 */
+            margin: 0;
+            padding: 0;
+            line-height: 2.2;
+            letter-spacing: 0.08em; /* 文字間隔を少し広げてゆったりとした印象に */
+        }
+
+        /* コンテンツ幅の制御 */
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* メインビジュアル（ロゴ画像） */
+        .hero-image {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            width: 320px;
+            border-radius: 50%; /* 画像を丸く切り抜いて優しい印象に */
+            box-shadow: 0 8px 25px rgba(139, 109, 92, 0.1); /* ふんわりとした影 */
+        }
+
+        /* コンセプト（ストーリー）セクション */
+        .concept-section {
+            background-color: #faf8f5; /* 白背景に映える、ごく淡いミルクティー色 */
+            padding: 60px 50px;
+            border-radius: 20px; /* 角を丸くして女性好みのデザインに */
+            text-align: center;
+            margin-bottom: 60px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+        .concept-title {
+            font-size: 1.5em;
+            color: #8b6d5c;
+            margin-bottom: 40px;
+            font-weight: normal;
+            line-height: 1.6;
+        }
+        .concept-text {
+            font-size: 1.05em;
+            display: inline-block;
+            text-align: left; /* 文章自体は左揃えで読みやすく */
+        }
+        .concept-text p {
+            margin-bottom: 20px;
+        }
+        .concept-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 商品・アクションセクション */
+        .products-section {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .products-section h3 {
+            color: #8b6d5c;
+            font-weight: normal;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #8b6d5c;
+            color: #ffffff;
+            padding: 16px 50px;
+            border-radius: 30px; /* コロンとした丸いボタン */
+            text-decoration: none;
+            font-size: 1.05em;
+            transition: all 0.3s ease;
+            margin-top: 25px;
+            box-shadow: 0 4px 10px rgba(139, 109, 92, 0.2);
+        }
+        .btn:hover {
+            background-color: #725849;
+            transform: translateY(-2px); /* ホバー時に少し浮き上がるアニメーション */
+            box-shadow: 0 6px 15px rgba(139, 109, 92, 0.3);
+        }
+
+        /* フッター */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid #f0e6e0;
+            font-size: 0.85em;
+            color: #bfaea5;
+        }
+
+        /* スマートフォン向けレスポンシブ調整 */
+        @media (max-width: 600px) {
+            .concept-section {
+                padding: 40px 20px;
+            }
+            .concept-title {
+                font-size: 1.3em;
+            }
+            .concept-text {
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-image">
+            <img src="img/しげじいの画像.jpg" alt="しげじぃの珈琲屋さん">
+        </div>
+
+        <section class="concept-section">
+            <h2 class="concept-title">キッチンから届く、<br>父が遺した「魔法の香り」</h2>
+            <div class="concept-text">
+                <p>「しげじぃ」こと私の父は、<br>自宅のキッチンでコーヒーを焙煎するのが趣味でした。</p>
+                <p>家中に広がる香ばしい匂いと、<br>まるで魔法の飲み物のように滋味深い一杯。</p>
+                <p>あの味が忘れられず、<br>私は「しげじぃの珈琲屋さん」を始めました。</p>
+                <p>手間を惜しまず、<br>父が目指したあの優しく深い味わいを、<br>皆様の元へお届けします。</p>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <h3>自家焙煎コーヒー豆</h3>
+            <p>しげじぃのレシピを受け継いだ、<br>心温まるブレンドをご用意しています。</p>
+            <a href="#" class="btn">商品を見てみる</a>
+        </section>
+
+        <footer>
+            <p>ASAHIKAWA, HOKKAIDO</p>
+            <p>&copy; 2026 しげじぃの珈琲屋さん All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
