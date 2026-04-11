@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぴたっとナース - 統合モックアップ (案4)</title>
+    <style>
+        :root {
+            --primary: #f07b70; /* Coral Pink */
+            --primary-light: #fff0ed;
+            --primary-dark: #d6645a;
+            --text-main: #5c4d4c;
+            --bg-ivory: #fffbf5;
+            --white: #ffffff;
+            --accent: #f2a65a;
+            --line-green: #06c755;
+        }
+        body {
+            font-family: 'Zen Kaku Gothic New', 'Hiragino Maru Gothic ProN', 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            background-color: var(--bg-ivory);
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .section-title::after {
+            content: ''; display: block; width: 60px; height: 3px;
+            background: var(--accent); margin: 15px auto 0; border-radius: 3px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-ivory);
+            padding: 20px 0;
+            position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .header-inner {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-size: 26px; font-weight: 800; color: var(--primary); letter-spacing: 1px;
+        }
+        .btn-header {
+            background-color: var(--primary); color: var(--white);
+            padding: 10px 25px; text-decoration: none; border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(240, 123, 112, 0.3); font-weight: bold; font-size: 14px;
+        }
+
+        /* Hero */
+        .hero { padding: 40px 0 60px; }
+        .hero-inner {
+            background: linear-gradient(135deg, var(--white) 0%, var(--primary-light) 100%);
+            border-radius: 30px; display: flex; align-items: center; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex-direction: row-reverse;
+        }
+        .hero-image-placeholder {
+            flex: 1; background-color: #eaddd7; height: 450px; display: flex; align-items: center; justify-content: center;
+            color: #8c7f7e; font-size: 20px; font-weight: bold; text-align: center; padding: 20px;
+        }
+        .hero-text { flex: 1; padding: 50px; }
+        .hero-text h1 { font-size: 34px; color: var(--primary); line-height: 1.5; margin-bottom: 15px; }
+        .trust-badge {
+            display: inline-block; background-color: transparent; color: var(--accent);
+            padding: 5px 0; font-weight: bold; font-size: 16px; border-bottom: 2px dashed var(--accent); margin-bottom: 20px;
+        }
+
+        /* Message */
+        .message-section { padding: 60px 0; text-align: center; }
+        .message-section h2 { font-size: 26px; color: var(--primary); margin-bottom: 20px; }
+        .message-section p { font-size: 17px; }
+
+        /* Features (Added) */
+        .features-section { padding: 60px 0; background: var(--white); border-radius: 30px; margin-bottom: 60px; box-shadow: 0 10px 30px rgba(0,0,0,0.02);}
+        .features { display: flex; gap: 30px; margin-top: 40px; }
+        .feature-box {
+            flex: 1; text-align: center; padding: 20px;
+        }
+        .icon-circle {
+            width: 90px; height: 90px; border-radius: 50%; background: var(--primary-light);
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+            color: var(--primary); font-weight: bold; font-size: 14px;
+        }
+        .feature-box h3 { color: var(--primary); font-size: 18px; margin-bottom: 15px; }
+
+        /* Plans */
+        .plans-section { padding: 40px 0; }
+        .plans-container { display: flex; gap: 20px; margin-top: 40px; }
+        .plan-card {
+            background: var(--white); border-radius: 20px; padding: 40px 20px; text-align: center;
+            flex: 1; box-shadow: 0 10px 20px rgba(0,0,0,0.03); border: 2px solid transparent; position: relative;
+        }
+        .plan-card.pickup { border-color: var(--primary); transform: translateY(-10px); }
+        .plan-ribbon {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            background: var(--primary); color: white; padding: 5px 20px; border-radius: 20px; font-weight: bold;
+        }
+        .plan-card h3 { color: #8c7f7e; font-size: 20px; margin-top: 0; }
+        .plan-card .price { font-size: 32px; color: var(--primary); font-weight: bold; margin: 15px 0; }
+        .plan-card .price span { font-size: 14px; font-weight: normal; }
+        .plan-list { text-align: left; margin-bottom: 30px; padding: 0 10px; }
+        .plan-list p { margin: 8px 0; font-size: 15px; position: relative; padding-left: 20px; }
+        .plan-list p::before { content: "●"; color: var(--accent); position: absolute; left: 0; }
+        .btn-round {
+            display: inline-block; background: var(--primary); color: white; padding: 12px 30px;
+            border-radius: 30px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 10px rgba(240, 123, 112, 0.3);
+        }
+        .btn-round.light { background: var(--primary-light); color: var(--primary); box-shadow: none; }
+
+        /* Flow (Added) */
+        .flow-section { padding: 60px 0; }
+        .flow-container { background: var(--white); padding: 40px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.02);}
+        .step { display: flex; align-items:flex-start; margin-bottom: 30px; }
+        .step:last-child { margin-bottom: 0; }
+        .step-number { 
+            background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; flex-shrink: 0; margin-right: 20px;
+        }
+        .step-content h3 { margin: 0 0 10px 0; color: var(--primary-dark); font-size: 20px; }
+        .step-content p { margin: 0; font-size: 15px; }
+
+        /* FAQ (Added) */
+        .faq-section { padding: 60px 0; }
+        .faq-item { background: var(--white); border-radius: 15px; padding: 25px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        .faq-q { color: var(--primary); font-weight: bold; font-size: 18px; margin-bottom: 10px; display: flex; }
+        .faq-q::before { content: "Q."; margin-right: 15px; font-size: 22px; color: var(--accent); }
+        .faq-a { display: flex; font-size: 16px; }
+        .faq-a::before { content: "A."; margin-right: 15px; font-weight: bold; font-size: 22px; color: #ccc; }
+
+        /* Profile */
+        .profile {
+            display: flex; gap: 40px; align-items: center; background: var(--white); padding: 50px; border-radius: 30px;
+            margin: 60px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+        .profile-img-ph {
+            width: 200px; height: 200px; border-radius: 50%; background: #eaddd7;
+            display: flex; align-items: center; justify-content: center; color: #8c7f7e; flex-shrink: 0;
+        }
+
+        /* LINE CTA (Adopted from Prototype 1, adjusted) */
+        .cta-section {
+            background-color: var(--primary-light);
+            text-align: center;
+            padding: 80px 20px;
+            border-radius: 30px;
+            margin-bottom: 60px;
+        }
+        .cta-section h2 { margin-top: 0; font-size: 28px; color: var(--primary-dark); }
+        .cta-section p { font-size: 18px; color: var(--text-main); margin-bottom: 30px; }
+        .btn-cta-line {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--line-green);
+            color: white;
+            padding: 18px 50px;
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 8px 15px rgba(6, 199, 85, 0.3);
+            transition: transform 0.2s;
+        }
+        .btn-cta-line:hover { transform: translateY(-3px); }
+        .line-icon-ph {
+            display: inline-block; width: 30px; height: 30px; background: white; border-radius: 50%; margin-right: 15px;
+            color: var(--line-green); font-size: 12px; line-height: 30px; text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-inner">
+            <div class="logo">ぴたっとナース</div>
+            <a href="#" class="btn-header">無料面談・お問い合わせ</a>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container hero-inner">
+            <div class="hero-image-placeholder">
+                [娘世代と親世代が<br>オンライン通話で<br>笑顔になっている写真]
+            </div>
+            <div class="hero-text">
+                <div class="trust-badge">🏆 2025道北ビジネスコンテスト最優秀賞</div>
+                <h1>看護師免許を持った、<br>「もう一人の家族」です</h1>
+                <p>遠く離れて暮らしていても、大丈夫。<br>私たちがご家族に代わって、親御さまの通院に<br>「ぴたっと」寄り添います。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="message-section container">
+        <h2>親を想う「罪悪感」を、「安心感」に。</h2>
+        <p>「今日は病院の日だけど、仕事で駆けつけられない…」そんな自己嫌悪はもう手放してください。<br>
+           臨床経験12年の正看護師が、ご自宅のお迎えから診察室での医療通訳、<br>
+           そしてご家族への詳細なLINEレポートまで、心を込めてエスコートします。</p>
+    </div>
+
+    <!-- NEW SECTION: Features -->
+    <div class="container">
+        <div class="features-section">
+            <h2 class="section-title">ぴたっとナースの３つの強み</h2>
+            <div class="features container">
+                <div class="feature-box">
+                    <div class="icon-circle">[注射器<br>アイコン]</div>
+                    <h3>臨床経験12年の正看護師</h3>
+                    <p style="font-size:14px; text-align:left;">ただの付き添いではありません。確かな医療知識で医師の説明をアセスメントし「医療通訳」として正確にご家族へお伝えします。</p>
+                </div>
+                <div class="feature-box">
+                    <div class="icon-circle">[ハート<br>アイコン]</div>
+                    <h3>わがままOKの柔軟対応</h3>
+                    <p style="font-size:14px; text-align:left;">介護保険外の自費サービスだからこそ、「少し遠回りして帰りたい」「お惣菜を買いたい」といったご要望にも柔軟にお応えします。</p>
+                </div>
+                <div class="feature-box">
+                    <div class="icon-circle">[スマホ<br>アイコン]</div>
+                    <h3>迅速で詳細なLINEレポート</h3>
+                    <p style="font-size:14px; text-align:left;">診察終了後、すぐにLINEでご報告。専門用語を噛み砕き、お写真とともに「今日の親御さんの笑顔」をお届けします。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="plans-section">
+        <div class="container">
+            <h2 class="section-title">選べる3つの安心プラン</h2>
+            <div class="plans-container">
+                <div class="plan-card">
+                    <h3>ベーシック</h3>
+                    <div class="price">15,000<span>円/月(税別)</span></div>
+                    <div class="plan-list">
+                        <p>月1回の同行（約3時間）</p>
+                        <p>簡易LINEレポート</p>
+                        <p>営業時間内の健康相談</p>
+                    </div>
+                    <a href="#" class="btn-round light">詳細はこちら</a>
+                </div>
+                <div class="plan-card pickup">
+                    <div class="plan-ribbon">一番人気・おすすめ</div>
+                    <h3>スタンダード</h3>
+                    <div class="price">25,000<span>円/月(税別)</span></div>
+                    <div class="plan-list">
+                        <p>月2回の同行（約3時間）</p>
+                        <p>詳細LINEレポート（医療通訳）</p>
+                        <p>医師との連携・調整</p>
+                    </div>
+                    <a href="#" class="btn-round">無料面談へ進む</a>
+                </div>
+                <div class="plan-card">
+                    <h3>プレミアム</h3>
+                    <div class="price">35,000<span>円/月(税別)</span></div>
+                    <div class="plan-list">
+                        <p>月3回の同行（約3時間）</p>
+                        <p>緊急時駆けつけサポート</p>
+                        <p>健康相談 回数無制限</p>
+                    </div>
+                    <a href="#" class="btn-round light">詳細はこちら</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW SECTION: Flow -->
+    <div class="flow-section">
+        <div class="container">
+            <h2 class="section-title">ご利用までの流れ</h2>
+            <div class="flow-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>無料オンライン相談（面談）</h3>
+                        <p>まずはLINEからお気軽にお問い合わせください。遠方のご家族も交え、現在の状況やご不安な点をヒアリングいたします。</p>
+                    </div>
+                </div>
+                <div class="step" style="border-left: 2px dashed #f07b70; padding-left: 38px; margin-left: 19px; margin-top: -20px; margin-bottom: 20px; height: 30px;"></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>アセスメント（事前確認）</h3>
+                        <p>ご本人に無理がないか、移動手段や配慮すべき点などを看護師のプロ目線で事前に把握・確認します。</p>
+                    </div>
+                </div>
+                <div class="step" style="border-left: 2px dashed #f07b70; padding-left: 38px; margin-left: 19px; margin-top: -20px; margin-bottom: 20px; height: 30px;"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>ご契約・プラン決定</h3>
+                        <p>サービス内容にご納得いただきましたら、オンラインもしくはお電話・郵送にてご契約を進めさせていただきます。</p>
+                    </div>
+                </div>
+                <div class="step" style="border-left: 2px dashed #f07b70; padding-left: 38px; margin-left: 19px; margin-top: -20px; margin-bottom: 20px; height: 30px;"></div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>サービスご利用（通院当日）</h3>
+                        <p>ご自宅までの送迎から診察同席、終了後はLINEにて「本日のご様子」と「医師からの説明内容」をご報告いたします。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW SECTION: FAQ -->
+    <div class="faq-section">
+        <div class="container">
+            <h2 class="section-title">よくあるご質問</h2>
+            <div class="faq-item">
+                <div class="faq-q">医療行為（注射や点滴など）はお願いできますか？</div>
+                <div class="faq-a"><div>当社サービスは医師の指示に基づく医療行為は行えません。「療養上の世話」や「応急処置」に限定し、急変時は的確に救急へ連携する対応となります。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">交通費はどうなりますか？</div>
+                <div class="faq-a"><div>ご指定の場所までの公共交通機関、またはタクシー代は実費にてご負担をお願いしております。</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">本人が嫌がらないか不安です…。</div>
+                <div class="faq-a"><div>最初は「お試し同行（5,000円）」を利用して人柄を見ていただくことも可能です。看護師として、ご本人のプライドを尊重しながら少しずつ関係性を築いていきます。</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="profile">
+            <div class="profile-img-ph">[ 代表 野村由佳子の<br>親しみやすい笑顔の写真 ]</div>
+            <div>
+                <h3 style="color: var(--primary); margin-top: 0; font-size:22px;">代表 / 正看護師　野村 由佳子</h3>
+                <p>自身も家族の通院サポートに悩んだ経験から、このサービスを立ち上げました。<br>
+                ご本人にとっても、遠方のご家族にとっても、心から頼れる存在になれるよう尽力いたします。</p>
+            </div>
+        </div>
+
+        <!-- NEW SECTION: LINE CTA (Adopted from Prototype 1) -->
+        <div class="cta-section">
+            <h2>まずはお気軽に無料ご相談へ</h2>
+            <p>遠方にお住まいのご家族のご不安、<br>どんなに小さなことでも大丈夫です。お聞かせください。</p>
+            <a href="#" class="btn-cta-line">
+                <span class="line-icon-ph">L</span> 公式LINEで無料相談する
+            </a>
+            <p style="font-size: 13px; margin-top: 15px; margin-bottom: 0;">※24時間受付中 / ご相談だけでも大歓迎です</p>
+        </div>
+    </div>
+</body>
+</html>
