@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GRANDPA COFFEE ROASTERS</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&family=Shippori+Mincho:wght@400;500;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #2b201a; /* Deep Espresso Brown */
+      color: #f7f3ec; /* Cream white for softness */
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* Hero Section */
+    .hero-espresso {
+      height: 90vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bg-image-container {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+    }
+
+    .bg-image {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+
+    .gradient-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to bottom, rgba(43, 32, 26, 0.6) 0%, rgba(43, 32, 26, 0.95) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.3em;
+      font-size: 1rem;
+      color: #cca876; /* Soft Gold */
+      margin-bottom: 2rem;
+    }
+
+    .title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 3.5rem;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 3rem;
+      color: #f7f3ec;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-button {
+      display: inline-block;
+      text-decoration: none;
+      background: transparent;
+      border: 1px solid #cca876;
+      color: #cca876;
+      padding: 1rem 2.5rem;
+      letter-spacing: 0.1em;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .cta-button:hover {
+      background: #cca876;
+      color: #2b201a;
+    }
+
+    /* Product Section */
+    .premium-products {
+      padding: 8rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .section-title h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      margin-bottom: 1rem;
+    }
+
+    .line {
+      width: 40px;
+      height: 1px;
+      background-color: #cca876;
+      margin: 0 auto;
+    }
+
+    .product-showcase {
+      display: flex;
+      gap: 4rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .product-image {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .product-image img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .product-details {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .origin {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: #a89f91;
+    }
+
+    .product-details h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin: 0.5rem 0 1.5rem 0;
+      color: #cca876;
+    }
+
+    .tasting-notes {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .note {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      border: 1px solid #6b5744;
+      color: #f7f3ec;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+    }
+
+    .desc {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #c9c0b1;
+      margin-bottom: 2rem;
+    }
+
+    /* Roast Selection */
+    .roast-selection {
+      margin-bottom: 2.5rem;
+    }
+
+    .roast-label {
+      display: block;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: #a89f91;
+      margin-bottom: 0.8rem;
+    }
+
+    .roast-options {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .roast-option {
+      position: relative;
+    }
+
+    .roast-option input[type="radio"] {
+      display: none;
+    }
+
+    .roast-option label {
+      display: block;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid #6b5744;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      font-family: 'Shippori Mincho', serif;
+      text-align: center;
+    }
+
+    .roast-option input[type="radio"]:checked + label {
+      background-color: #cca876;
+      color: #2b201a;
+      border-color: #cca876;
+      font-weight: bold;
+    }
+
+    .roast-option label:hover {
+      background-color: rgba(204, 168, 118, 0.1);
+    }
+
+    .price-action {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .price {
+      font-size: 1.8rem;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .buy-btn {
+      background: #cca876;
+      color: #2b201a;
+      border: none;
+      padding: 1rem 3rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    
+    .buy-btn:hover {
+      opacity: 0.8;
+    }
+
+    /* Story Section */
+    .story-espresso {
+      background-color: #3f3128;
+      padding: 8rem 2rem;
+    }
+
+    .story-layout {
+      display: flex;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .story-image-wrapper {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .story-image {
+      width: 100%;
+      border-radius: 8px;
+      filter: sepia(0.3) contrast(1.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .story-text-wrapper {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .story-badge {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      color: #cca876;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .story-text-wrapper h3 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.8rem;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+      color: #f7f3ec;
+    }
+
+    .story-text-wrapper p {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1rem;
+      line-height: 1.9;
+      color: #c9c0b1;
+      margin-bottom: 1.5rem;
+    }
+
+    /* LINE CTA Section */
+    .line-cta-section {
+      background-color: #2b201a;
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .line-cta-box {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 3rem;
+      border: 1px solid #4a3b32;
+      border-radius: 8px;
+      background: rgba(63, 49, 40, 0.3);
+    }
+
+    .line-cta-box h3 {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #f7f3ec;
+    }
+
+    .line-cta-box p {
+      color: #c9c0b1;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .line-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      background-color: #06C755; /* LINE Official Color */
+      color: #fff;
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .line-button:hover {
+      background-color: #05b34c;
+      transform: translateY(-2px);
+    }
+
+    .line-icon {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    /* Footer */
+    .footer-espresso {
+      padding: 4rem 2rem;
+      text-align: center;
+      background-color: #1a120e;
+    }
+
+    .footer-espresso h2 {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.3em;
+      font-size: 1.2rem;
+      color: #8a7b6e;
+      margin-bottom: 1rem;
+    }
+
+    .disclaimer {
+      font-size: 0.75rem;
+      color: #666;
+    }
+
+    /* Comprehensive Mobile Responsive Styles */
+    @media (max-width: 768px) {
+      .hero-espresso { height: auto; padding: 6rem 0; }
+      .bg-image-container { position: absolute; }
+      
+      /* Typography scale down */
+      .brand-name { font-size: 0.85rem; margin-bottom: 1.5rem; }
+      .title { font-size: 2.2rem; margin-bottom: 2rem; line-height: 1.3; }
+      .section-title h3 { font-size: 1.6rem; }
+      .product-details h4 { font-size: 1.8rem; }
+      .price { font-size: 1.6rem; }
+      .story-text-wrapper h3 { font-size: 1.4rem; }
+      
+      /* Component Layout Adjustments */
+      .premium-products { padding: 4rem 1.5rem; }
+      .story-espresso { padding: 4rem 1.5rem; }
+      .line-cta-section { padding: 4rem 1.5rem; }
+      .footer-espresso { padding: 3rem 1.5rem; }
+      
+      .product-showcase { gap: 2.5rem; flex-direction: column; }
+      .story-layout { gap: 2.5rem; flex-direction: column; }
+      .section-title { margin-bottom: 3rem; }
+      
+      .hero-buttons { width: 100%; flex-direction: column; padding: 0 1rem; }
+      .cta-button { width: 100%; box-sizing: border-box; text-align: center; }
+      
+      .product-image { min-width: 100%; }
+      .story-image-wrapper { min-width: 100%; }
+      
+      .roast-options { flex-direction: column; width: 100%; }
+      .roast-option { width: 100%; }
+      .roast-option label { width: 100%; text-align: center; display: block; box-sizing: border-box; }
+      
+      .price-action { justify-content: center; flex-direction: column; width: 100%; }
+      .buy-btn { width: 100%; }
+      
+      .line-cta-box { padding: 2rem 1.5rem; }
+      .line-button { width: 100%; box-sizing: border-box; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero-espresso">
+    <div class="bg-image-container">
+      <img src="assets/halo_beriti11.jpg" alt="エチオピア イルガチェフェ" class="bg-image" />
+      <div class="gradient-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="brand-name">GRANDPA COFFEE ROASTERS</p>
+      <h2 class="title">極上の1杯、<br>研ぎ澄まされた至福の香り</h2>
+      <div class="hero-buttons">
+        <a href="#selection" class="cta-button">EXPLORE BEANS</a>
+        <a href="#philosophy" class="cta-button">OUR STORY</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Minimalism Product Section -->
+  <section id="selection" class="premium-products">
+    <div class="section-title">
+      <h3>OUR SELECTION</h3>
+      <div class="line"></div>
+    </div>
+    
+    <div class="product-showcase">
+      <div class="product-image">
+        <img src="assets/beans1.jpg" alt="Beans" />
+      </div>
+      <div class="product-details">
+        <span class="origin">ETHIOPIA YIRGACHEFFE</span>
+        <h4>Halo Beriti Natural G1</h4>
+        <div class="tasting-notes">
+          <span class="note">Floral</span>
+          <span class="note">Berry</span>
+          <span class="note">Winey</span>
+        </div>
+        <p class="desc">
+          選び抜かれた最高級の豆のみを使用し、素材の甘みと果実味を極限まで引き出します。<br>
+          フルーティーな酸味と芳醇な香りが織りなす、至高の体験をご自宅で。
+        </p>
+
+        <!-- Roast Selection -->
+        <div class="roast-selection">
+          <span class="roast-label">焙煎度合いを選ぶ</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-light" name="roast" value="light" checked>
+              <label for="roast-light">浅煎り</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-medium" name="roast" value="medium">
+              <label for="roast-medium">中煎り</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-dark" name="roast" value="dark">
+              <label for="roast-dark">深煎り</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="price-action">
+          <span class="price">¥1,800</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートに入れる</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Story Section -->
+  <section id="philosophy" class="story-espresso">
+    <div class="story-layout">
+      <div class="story-image-wrapper">
+        <img src="assets/shigejii.jpg" alt="しげじぃ" class="story-image" />
+      </div>
+      <div class="story-text-wrapper">
+        <span class="story-badge">OUR PHILOSOPHY</span>
+        <h3>キッチンから届く、<br>父が遺した「魔法の香り」</h3>
+        <p>
+          「しげじぃ」こと私の父は、自宅のキッチンでコーヒーを焙煎するのが趣味でした。<br>
+          家中に広がる香ばしい匂いと、まるで魔法の飲み物のように滋味深い一杯。<br>
+          あの味が忘れられず、私は「しげじぃの珈琲屋さん」を始めました。
+        </p>
+        <p>
+          手間を惜しまず、父が目指したあの優しく深い味わいを、皆様の元へお届けします。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LINE CTA Section -->
+  <section class="line-cta-section">
+    <div class="line-cta-box">
+      <h3>LINE公式アカウント</h3>
+      <p>新豆の入荷情報や、限定クーポンの配布、おいしい淹れ方のコツなどを配信しています。ぜひお友だち登録をお願いします。</p>
+      <a href="#" class="line-button" onclick="alert('LINE登録画面へ移動します')">
+        <svg class="line-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 3.931 8.895 9.4 9.613.367.065.867.202.996.471.116.24.076.614.037.865l-.337 2.015c-.05.289-.239 1.168 1.026.637 1.265-.531 6.818-4.015 9.387-7.235C22.846 14.544 24 12.518 24 10.304zm-14.887.89H6.969V8.087c0-.444.356-.804.795-.804h.011c.433 0 .783.36.783.804v2.296h5.811c.444 0 .805.36.805.805s-.361.805-.805.805a.8.8 0 0 1-.419-.115L11.517 9.46v1.734c0 .444-.362.805-.806.805a.81.81 0 0 1-.795-.805v-3.11c0-.444.352-.804.795-.804h.011c.433 0 .783.36.783.804v1.735l2.433-2.427a.784.784 0 0 1 .419-.115c.444 0 .805.361.805.805s-.361.805-.805.805h-1.341l2.096 2.094a.8.8 0 0 1 .116.42.8.8 0 0 1-.806.806.8.8 0 0 1-.418-.116l-2.613-2.613a.81.81 0 0 1-.116-.115v1.84c0 .444-.361.805-.805.805h-.012c-.433 0-.783-.36-.783-.804V8.087c0-.444.3-1.121.733-1.121s1.396 0 1.84 0a.784.784 0 0 1 .805.804v3.11a.807.807 0 0 1-.805.805H9.113z"/>
+        </svg>
+        お友だち追加
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-espresso">
+    <div class="footer-content">
+      <h2>GRANDPA COFFEE</h2>
+      <p class="disclaimer">※商品画像は海ノ向こうコーヒー様より提供。無断転載・二次利用禁止。</p>
+      <p class="disclaimer" style="margin-top:0.5rem; opacity:0.5;">&copy; しげじぃの珈琲屋さん All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
