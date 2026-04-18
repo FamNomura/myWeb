@@ -18,8 +18,7 @@
       background-color: #2b201a; /* Deep Espresso Brown */
       color: #f7f3ec; /* Cream white for softness */
       line-height: 1.6;
-      scroll-behavior: smooth;
-    }
+      }
 
     /* Hero Section */
     .hero-espresso {
@@ -126,88 +125,99 @@
       margin: 0 auto;
     }
 
-    .product-showcase {
-      display: flex;
-      gap: 4rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .product-image {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .product-image img {
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
       width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
 
-    .product-details {
+    .product-card {
+      background: #362921;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image-container {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      background: #2b201a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .no-image {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b5744;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+    }
+
+    .product-info {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
       flex: 1;
-      min-width: 300px;
     }
 
     .origin {
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      color: #a89f91;
-    }
-
-    .product-details h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem;
-      font-weight: 400;
-      margin: 0.5rem 0 1.5rem 0;
-      color: #cca876;
-    }
-
-    .tasting-notes {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .note {
       font-size: 0.75rem;
       letter-spacing: 0.1em;
-      border: 1px solid #6b5744;
-      color: #f7f3ec;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
+      color: #a89f91;
+      margin-bottom: 0.5rem;
     }
 
-    .desc {
+    .product-info h4 {
       font-family: 'Shippori Mincho', serif;
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #c9c0b1;
-      margin-bottom: 2rem;
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 1.5rem;
+      color: #cca876;
+      flex-grow: 1;
     }
 
-    /* Roast Selection */
     .roast-selection {
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .roast-label {
       display: block;
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      color: #a89f91;
-      margin-bottom: 0.8rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: #c9c0b1;
+      margin-bottom: 0.5rem;
     }
 
     .roast-options {
       display: flex;
-      gap: 1rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
     }
 
     .roast-option {
-      position: relative;
+      flex: 1 1 auto;
     }
 
     .roast-option input[type="radio"] {
@@ -216,14 +226,15 @@
 
     .roast-option label {
       display: block;
-      padding: 0.6rem 1.5rem;
+      padding: 0.4rem 0.5rem;
+      white-space: nowrap;
       border: 1px solid #6b5744;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      font-family: 'Shippori Mincho', serif;
+      font-size: 0.8rem;
       text-align: center;
+      transition: all 0.3s ease;
+      color: #c9c0b1;
     }
 
     .roast-option input[type="radio"]:checked + label {
@@ -233,28 +244,25 @@
       font-weight: bold;
     }
 
-    .roast-option label:hover {
-      background-color: rgba(204, 168, 118, 0.1);
-    }
-
     .price-action {
       display: flex;
       align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: auto;
     }
 
     .price {
-      font-size: 1.8rem;
+      font-size: 1.3rem;
       font-family: 'Cormorant Garamond', serif;
+      color: #f7f3ec;
     }
 
     .buy-btn {
       background: #cca876;
       color: #2b201a;
       border: none;
-      padding: 1rem 3rem;
-      font-family: 'Montserrat', sans-serif;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
       font-weight: 600;
       border-radius: 4px;
       cursor: pointer;
@@ -416,7 +424,7 @@
       .line-cta-section { padding: 4rem 1.5rem; }
       .footer-espresso { padding: 3rem 1.5rem; }
       
-      .product-showcase { gap: 2.5rem; flex-direction: column; }
+      .product-grid { grid-template-columns: 1fr; gap: 2rem; }
       .story-layout { gap: 2.5rem; flex-direction: column; }
       .section-title { margin-bottom: 3rem; }
       
@@ -436,9 +444,200 @@
       .line-cta-box { padding: 2rem 1.5rem; }
       .line-button { width: 100%; box-sizing: border-box; }
     }
-  </style>
+  
+    /* Cart & Modal Styles */
+    .cart-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #cca876;
+      color: #2b201a;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.2s ease;
+      display: none;
+    }
+    .cart-float:hover { transform: scale(1.05); }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #362921;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      color: #f7f3ec;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem; right: 1.5rem;
+      cursor: pointer;
+      font-size: 2rem;
+      line-height: 1;
+      color: #cca876;
+    }
+    .modal-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #cca876;
+      text-align: center;
+      border-bottom: 1px solid #4a3b32;
+      padding-bottom: 1rem;
+    }
+    .cart-list-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed #4a3b32;
+      padding: 1rem 0;
+    }
+    .cart-item-name { font-weight: bold; margin-bottom: 0.3rem;}
+    .cart-item-meta { font-size: 0.85rem; color: #a89f91; }
+    .cart-total {
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 1.5rem 0;
+      color: #f7f3ec;
+    }
+
+    .checkout-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .checkout-form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .checkout-form-row.half {
+      flex-direction: row;
+      gap: 1rem;
+    }
+    .checkout-form-row.half > div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .checkout-form input, .checkout-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 4px;
+      border: 1px solid #6b5744;
+      background: #2b201a;
+      color: #f7f3ec;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .checkout-form input:focus, .checkout-form textarea:focus {
+      outline: none;
+      border-color: #cca876;
+    }
+    .checkout-form label {
+      font-size: 0.85rem;
+      color: #c9c0b1;
+    }
+    .submit-btn {
+      background: #cca876;
+      color: #2b201a;
+      border: none;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+    .submit-btn:hover { background: #b89666; }
+
+    #mock-email-display { display: none; }
+    #mock-email-text {
+      width: 100%;
+      height: 300px;
+      margin-top: 1rem;
+      background: #1a120e;
+      color: #f7f3ec;
+      padding: 1rem;
+      border: 1px solid #4a3b32;
+      font-family: monospace;
+      white-space: pre-wrap;
+      resize: vertical;
+    }
+
+</style>
 </head>
 <body>
+
+  
+  <!-- Cart Float -->
+  <div id="cart-float" class="cart-float" onclick="openCartModal()">🛒 カート (0)</div>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="modal-overlay" onclick="if(event.target===this) closeCartModal()">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeCartModal()">&times;</span>
+      
+      <div id="checkout-form-container">
+        <h2 class="modal-title">ご注文内容の確認</h2>
+        <div id="cart-items-list"></div>
+        <div id="cart-total-price" class="cart-total">合計: ¥0</div>
+        
+        <form class="checkout-form" name="checkoutForm" onsubmit="event.preventDefault(); generateMockEmail();">
+          <div class="checkout-form-row">
+            <label>お名前 *</label>
+            <input type="text" name="name" required placeholder="例：山田 太郎" />
+          </div>
+          <div class="checkout-form-row">
+            <label>電話番号 *</label>
+            <input type="tel" name="phone" required placeholder="例：090-1234-5678" />
+          </div>
+          <div class="checkout-form-row half">
+            <div>
+              <label>部署（個人の場合は空欄可）</label>
+              <input type="text" name="dept" placeholder="営業部" />
+            </div>
+            <div>
+              <label>内線番号</label>
+              <input type="text" name="ext" placeholder="1234" />
+            </div>
+          </div>
+          <div class="checkout-form-row">
+            <label>ご住所 / お届け先備考 *</label>
+            <textarea name="address" rows="2" required placeholder="例：〇〇ビル 4F デスク前"></textarea>
+          </div>
+          <button type="submit" class="submit-btn" style="width:100%">上記の内容で注文メールを作成する</button>
+        </form>
+      </div>
+
+      <div id="mock-email-display">
+        <h2 class="modal-title">メールプレビュー（テスト送信）</h2>
+        <p style="font-size:0.9rem; color:#a89f91; margin-bottom:1rem;">
+          ※現在テストモードです。以下の文章が営業担当への注文メールとして生成されます。
+        </p>
+        <textarea id="mock-email-text" readonly></textarea>
+        <button class="submit-btn" style="width:100%" onclick="closeCartModal()">閉じる</button>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero-espresso">
@@ -463,47 +662,504 @@
       <div class="line"></div>
     </div>
     
-    <div class="product-showcase">
-      <div class="product-image">
-        <img src="assets/beans1.jpg" alt="Beans" />
-      </div>
-      <div class="product-details">
-        <span class="origin">ETHIOPIA YIRGACHEFFE</span>
-        <h4>Halo Beriti Natural G1</h4>
-        <div class="tasting-notes">
-          <span class="note">Floral</span>
-          <span class="note">Berry</span>
-          <span class="note">Winey</span>
-        </div>
-        <p class="desc">
-          選び抜かれた最高級の豆のみを使用し、素材の甘みと果実味を極限まで引き出します。<br>
-          フルーティーな酸味と芳醇な香りが織りなす、至高の体験をご自宅で。
-        </p>
+    <div class="product-grid">
 
-        <!-- Roast Selection -->
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_1.png" alt="パイナップルハニー ナチュラル No.2" />
+      </div>
+      <div class="product-info">
+        <span class="origin">ブラジル</span>
+        <h4>パイナップルハニー ナチュラル No.2</h4>
         <div class="roast-selection">
-          <span class="roast-label">焙煎度合いを選ぶ</span>
+          <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
-              <input type="radio" id="roast-light" name="roast" value="light" checked>
-              <label for="roast-light">浅煎り</label>
+              <input type="radio" id="roast-bean-1" name="roast-1" value="bean" checked onchange="updatePrice(1, 1000)">
+              <label for="roast-bean-1">豆</label>
             </div>
             <div class="roast-option">
-              <input type="radio" id="roast-medium" name="roast" value="medium">
-              <label for="roast-medium">中煎り</label>
+              <input type="radio" id="roast-ground-1" name="roast-1" value="ground" onchange="updatePrice(1, 1000)">
+              <label for="roast-ground-1">挽く</label>
             </div>
             <div class="roast-option">
-              <input type="radio" id="roast-dark" name="roast" value="dark">
-              <label for="roast-dark">深煎り</label>
+              <input type="radio" id="roast-drip-1" name="roast-1" value="drip" onchange="updatePrice(1, 500)">
+              <label for="roast-drip-1">ドリップ(2個)</label>
             </div>
           </div>
         </div>
-
         <div class="price-action">
-          <span class="price">¥1,800</span>
-          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートに入れる</button>
+          <span class="price" id="price-display-1">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
         </div>
       </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_2.png" alt="ドルチェチョコラーダ ナチュラル No.2" />
+      </div>
+      <div class="product-info">
+        <span class="origin">ブラジル</span>
+        <h4>ドルチェチョコラーダ ナチュラル No.2</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-2" name="roast-2" value="bean" checked onchange="updatePrice(2, 1000)">
+              <label for="roast-bean-2">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-2" name="roast-2" value="ground" onchange="updatePrice(2, 1000)">
+              <label for="roast-ground-2">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-2" name="roast-2" value="drip" onchange="updatePrice(2, 500)">
+              <label for="roast-drip-2">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-2">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_3.png" alt="トロピカルバイーア スイート ナチュラル No.2" />
+      </div>
+      <div class="product-info">
+        <span class="origin">ブラジル</span>
+        <h4>トロピカルバイーア スイート ナチュラル No.2</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-3" name="roast-3" value="bean" checked onchange="updatePrice(3, 1000)">
+              <label for="roast-bean-3">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-3" name="roast-3" value="ground" onchange="updatePrice(3, 1000)">
+              <label for="roast-ground-3">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-3" name="roast-3" value="drip" onchange="updatePrice(3, 500)">
+              <label for="roast-drip-3">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-3">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_4.jpeg" alt="アラビカ ミンマウンテン フリーウォッシュ G1" />
+      </div>
+      <div class="product-info">
+        <span class="origin">ベトナム</span>
+        <h4>アラビカ ミンマウンテン フリーウォッシュ G1</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-4" name="roast-4" value="bean" checked onchange="updatePrice(4, 1000)">
+              <label for="roast-bean-4">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-4" name="roast-4" value="ground" onchange="updatePrice(4, 1000)">
+              <label for="roast-ground-4">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-4" name="roast-4" value="drip" onchange="updatePrice(4, 500)">
+              <label for="roast-drip-4">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-4">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_5.jpg" alt="ロンボク島 ロブスタ ナチュラル G1" />
+      </div>
+      <div class="product-info">
+        <span class="origin">インドネシア</span>
+        <h4>ロンボク島 ロブスタ ナチュラル G1</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-5" name="roast-5" value="bean" checked onchange="updatePrice(5, 1000)">
+              <label for="roast-bean-5">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-5" name="roast-5" value="ground" onchange="updatePrice(5, 1000)">
+              <label for="roast-ground-5">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-5" name="roast-5" value="drip" onchange="updatePrice(5, 500)">
+              <label for="roast-drip-5">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-5">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <div class="no-image"><span>NO IMAGE</span></div>
+      </div>
+      <div class="product-info">
+        <span class="origin">インドネシア</span>
+        <h4>ホリデーマンデリン スマトラ式 G1</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-6" name="roast-6" value="bean" checked onchange="updatePrice(6, 1000)">
+              <label for="roast-bean-6">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-6" name="roast-6" value="ground" onchange="updatePrice(6, 1000)">
+              <label for="roast-ground-6">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-6" name="roast-6" value="drip" onchange="updatePrice(6, 500)">
+              <label for="roast-drip-6">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-6">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <div class="no-image"><span>NO IMAGE</span></div>
+      </div>
+      <div class="product-info">
+        <span class="origin">インドネシア</span>
+        <h4>アチェ マンデリン ガジャ農園 ビッグワン</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-7" name="roast-7" value="bean" checked onchange="updatePrice(7, 1000)">
+              <label for="roast-bean-7">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-7" name="roast-7" value="ground" onchange="updatePrice(7, 1000)">
+              <label for="roast-ground-7">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-7" name="roast-7" value="drip" onchange="updatePrice(7, 500)">
+              <label for="roast-drip-7">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-7">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <div class="no-image"><span>NO IMAGE</span></div>
+      </div>
+      <div class="product-info">
+        <span class="origin">コロンビア</span>
+        <h4>ナーリョウォッシュ スプレモ</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-8" name="roast-8" value="bean" checked onchange="updatePrice(8, 1000)">
+              <label for="roast-bean-8">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-8" name="roast-8" value="ground" onchange="updatePrice(8, 1000)">
+              <label for="roast-ground-8">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-8" name="roast-8" value="drip" onchange="updatePrice(8, 500)">
+              <label for="roast-drip-8">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-8">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_9.png" alt="アンデスブルー ウォッシュ G1" />
+      </div>
+      <div class="product-info">
+        <span class="origin">ペルー</span>
+        <h4>アンデスブルー ウォッシュ G1</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-9" name="roast-9" value="bean" checked onchange="updatePrice(9, 1000)">
+              <label for="roast-bean-9">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-9" name="roast-9" value="ground" onchange="updatePrice(9, 1000)">
+              <label for="roast-ground-9">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-9" name="roast-9" value="drip" onchange="updatePrice(9, 500)">
+              <label for="roast-drip-9">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-9">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_10.png" alt="パパクチ農園 ファインロブスタ ウォッシュ A" />
+      </div>
+      <div class="product-info">
+        <span class="origin">インド</span>
+        <h4>パパクチ農園 ファインロブスタ ウォッシュ A</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-10" name="roast-10" value="bean" checked onchange="updatePrice(10, 1000)">
+              <label for="roast-bean-10">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-10" name="roast-10" value="ground" onchange="updatePrice(10, 1000)">
+              <label for="roast-ground-10">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-10" name="roast-10" value="drip" onchange="updatePrice(10, 500)">
+              <label for="roast-drip-10">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-10">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_11.png" alt="ルウェンゾリ アフリカンムーン ナチュラル A" />
+      </div>
+      <div class="product-info">
+        <span class="origin">ウガンダ</span>
+        <h4>ルウェンゾリ アフリカンムーン ナチュラル A</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-11" name="roast-11" value="bean" checked onchange="updatePrice(11, 1000)">
+              <label for="roast-bean-11">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-11" name="roast-11" value="ground" onchange="updatePrice(11, 1000)">
+              <label for="roast-ground-11">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-11" name="roast-11" value="drip" onchange="updatePrice(11, 500)">
+              <label for="roast-drip-11">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-11">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <div class="no-image"><span>NO IMAGE</span></div>
+      </div>
+      <div class="product-info">
+        <span class="origin">ケニア</span>
+        <h4>シンバ ウォッシュ AB TOP</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-12" name="roast-12" value="bean" checked onchange="updatePrice(12, 1000)">
+              <label for="roast-bean-12">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-12" name="roast-12" value="ground" onchange="updatePrice(12, 1000)">
+              <label for="roast-ground-12">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-12" name="roast-12" value="drip" onchange="updatePrice(12, 500)">
+              <label for="roast-drip-12">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-12">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_13.png" alt="ジャガーハニー SHB" />
+      </div>
+      <div class="product-info">
+        <span class="origin">コスタリカ</span>
+        <h4>ジャガーハニー SHB</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-13" name="roast-13" value="bean" checked onchange="updatePrice(13, 1000)">
+              <label for="roast-bean-13">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-13" name="roast-13" value="ground" onchange="updatePrice(13, 1000)">
+              <label for="roast-ground-13">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-13" name="roast-13" value="drip" onchange="updatePrice(13, 500)">
+              <label for="roast-drip-13">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-13">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_14.jpg" alt="マッドマンコーヒー ウォッシュ" />
+      </div>
+      <div class="product-info">
+        <span class="origin">パプアニューギニア</span>
+        <h4>マッドマンコーヒー ウォッシュ</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-14" name="roast-14" value="bean" checked onchange="updatePrice(14, 1000)">
+              <label for="roast-bean-14">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-14" name="roast-14" value="ground" onchange="updatePrice(14, 1000)">
+              <label for="roast-ground-14">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-14" name="roast-14" value="drip" onchange="updatePrice(14, 500)">
+              <label for="roast-drip-14">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-14">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <div class="no-image"><span>NO IMAGE</span></div>
+      </div>
+      <div class="product-info">
+        <span class="origin">ルワンダ</span>
+        <h4>ジュルコーヒー フリーウォッシュ AA</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-15" name="roast-15" value="bean" checked onchange="updatePrice(15, 1000)">
+              <label for="roast-bean-15">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-15" name="roast-15" value="ground" onchange="updatePrice(15, 1000)">
+              <label for="roast-ground-15">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-15" name="roast-15" value="drip" onchange="updatePrice(15, 500)">
+              <label for="roast-drip-15">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-15">¥1,000</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="product-card">
+      <div class="product-image-container">
+        <img src="assets/bean_16.png" alt="チリノス組合 ゲイシャ ウォッシュ G1" />
+      </div>
+      <div class="product-info">
+        <span class="origin">ペルー</span>
+        <h4>チリノス組合 ゲイシャ ウォッシュ G1</h4>
+        <div class="roast-selection">
+          <span class="roast-label">豆の状態</span>
+          <div class="roast-options">
+            <div class="roast-option">
+              <input type="radio" id="roast-bean-16" name="roast-16" value="bean" checked onchange="updatePrice(16, 1500)">
+              <label for="roast-bean-16">豆</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-ground-16" name="roast-16" value="ground" onchange="updatePrice(16, 1500)">
+              <label for="roast-ground-16">挽く</label>
+            </div>
+            <div class="roast-option">
+              <input type="radio" id="roast-drip-16" name="roast-16" value="drip" onchange="updatePrice(16, 500)">
+              <label for="roast-drip-16">ドリップ(2個)</label>
+            </div>
+          </div>
+        </div>
+        <div class="price-action">
+          <span class="price" id="price-display-16">¥1,500</span>
+          <button class="buy-btn" onclick="alert('カート機能は準備中です')">カートへ</button>
+        </div>
+      </div>
+    </div>
+    
     </div>
   </section>
 
@@ -551,5 +1207,173 @@
     </div>
   </footer>
 
+
+  <script>
+    // Price update function
+    function updatePrice(id, newPrice) {
+      const display = document.getElementById('price-display-' + id);
+      if (display) {
+        display.innerText = '¥' + newPrice.toLocaleString();
+      }
+    }
+
+    
+    // --- Cart & Checkout Flow ---
+    let cart = [];
+
+    // Attach cart actions to all buy-btn elements
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.buy-btn').forEach(btn => {
+        // Remove native inline onclick which had the alert
+        btn.removeAttribute('onclick');
+        
+        btn.addEventListener('click', function(e) {
+          const card = e.target.closest('.product-card');
+          if (!card) return;
+          
+          const name = card.querySelector('h4').innerText;
+          const radio = card.querySelector('input[type="radio"]:checked');
+          const typeLabel = card.querySelector(`label[for="${radio.id}"]`).innerText;
+          const priceText = card.querySelector('.price').innerText;
+          const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+
+          cart.push({ name, type: typeLabel, price });
+          
+          // Feedback animation
+          const oldText = btn.innerText;
+          btn.innerText = '追加しました!';
+          btn.style.background = '#4CAF50';
+          btn.style.color = 'white';
+          setTimeout(() => {
+            btn.innerText = oldText;
+            btn.style.background = '';
+            btn.style.color = '';
+          }, 1500);
+
+          updateCartUI();
+        });
+      });
+    });
+
+    function updateCartUI() {
+      const float = document.getElementById('cart-float');
+      if (cart.length > 0) {
+        float.style.display = 'block';
+        float.innerText = `🛒 カート (${cart.length}点)`;
+      } else {
+        float.style.display = 'none';
+      }
+    }
+
+    function openCartModal() {
+      document.getElementById('cart-modal').style.display = 'flex';
+      renderCartItems();
+      document.getElementById('checkout-form-container').style.display = 'block';
+      document.getElementById('mock-email-display').style.display = 'none';
+    }
+
+    function closeCartModal() {
+      document.getElementById('cart-modal').style.display = 'none';
+    }
+
+    function renderCartItems() {
+      const list = document.getElementById('cart-items-list');
+      list.innerHTML = '';
+      if(cart.length === 0) {
+        list.innerHTML = '<p style="text-align:center; padding: 2rem 0; color:#a89f91;">カートは空です。</p>';
+      }
+      
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price;
+        const div = document.createElement('div');
+        div.className = 'cart-list-item';
+        div.innerHTML = `
+          <div>
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-meta">状態: ${item.type}</div>
+          </div>
+          <div style="font-weight:bold; color:#f7f3ec;">¥${item.price.toLocaleString()}</div>
+        `;
+        list.appendChild(div);
+      });
+      document.getElementById('cart-total-price').innerText = `合計: ¥${total.toLocaleString()}`;
+    }
+
+    function generateMockEmail() {
+      if(cart.length === 0) { alert('カートが空です'); return; }
+
+      const form = document.forms['checkoutForm'];
+      const name = form['name'].value;
+      const phone = form['phone'].value;
+      const address = form['address'].value;
+      const dept = form['dept'].value || 'なし';
+      const ext = form['ext'].value || 'なし';
+
+      let emailBody = `【しげじぃの珈琲屋さん 注文票】\n\n`;
+      emailBody += `■ ご注文内容\n`;
+      emailBody += `-----------------------------------\n`;
+      let total = 0;
+      cart.forEach((item, i) => {
+        emailBody += `${i+1}. ${item.name}\n`;
+        emailBody += `   [${item.type}] - ¥${item.price.toLocaleString()}\n`;
+        total += item.price;
+      });
+      emailBody += `-----------------------------------\n`;
+      emailBody += `合計金額: ¥${total.toLocaleString()}\n\n`;
+
+      emailBody += `■ お客様情報\n`;
+      emailBody += `お名前　　: ${name}\n`;
+      emailBody += `電話番号　: ${phone}\n`;
+      emailBody += `部署名　　: ${dept}\n`;
+      emailBody += `内線番号　: ${ext}\n`;
+      emailBody += `お届け先等: ${address}\n\n`;
+      emailBody += `-----------------------------------\n`;
+
+      // show mock email display
+      document.getElementById('checkout-form-container').style.display = 'none';
+      document.getElementById('mock-email-display').style.display = 'block';
+      document.getElementById('mock-email-text').value = emailBody;
+      
+      // Empty the cart
+      cart = [];
+      updateCartUI();
+      form.reset();
+    }
+
+    // Custom Smooth Scrolling with easing (slow down the scroll)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetElement = document.querySelector(this.getAttribute('href'));
+        if (targetElement) {
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+          const startPosition = window.pageYOffset;
+          const distance = targetPosition - startPosition;
+          const duration = 1200; // 1200ms = 1.2s for a slow, elegant glide
+          let start = null;
+
+          window.requestAnimationFrame(step);
+
+          function step(timestamp) {
+            if (!start) start = timestamp;
+            const progress = timestamp - start;
+            // cubic ease-in-out
+            const percentage = Math.min(progress / duration, 1);
+            const easeCurve = percentage < 0.5 
+              ? 4 * percentage * percentage * percentage 
+              : 1 - Math.pow(-2 * percentage + 2, 3) / 2;
+            
+            window.scrollTo(0, startPosition + distance * easeCurve);
+            
+            if (progress < duration) {
+              window.requestAnimationFrame(step);
+            }
+          }
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>
