@@ -200,6 +200,10 @@
       line-height: 1.4;
       margin-bottom: 1.5rem;
       color: #cca876;
+      min-height: 4rem; /* Standardize title area to align stories */
+    }
+
+    .desc {
       flex-grow: 1;
     }
 
@@ -676,21 +680,21 @@
       <div class="product-info">
         <span class="origin">ブラジル</span>
         <h4>パイナップルハニー ナチュラル No.2</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">標高1,000m超の寒暖差が育んだ、甘味のつまったコーヒー。パイナップルや蜂蜜のような風味と、まろやかな口当たりが特徴です。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">自然と共に育った、明るい酸味とやさしい甘みのナチュラル。1,000mを超えるブラジルのなかでは高標高に位置する農園のコーヒーです。昼夜の寒暖差が大きく、コーヒーチェリーがゆっくりと時間をかけて熟していくことで、甘味のつまったコーヒーが生産できます。口当たりがまろやかでパイナップルやはちみつのような風味を感じられることに由来して「パイナップルハニー」と名付けられました。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-1" name="roast-1" value="bean" checked onchange="updatePrice(1, 1000)">
-              <label for="roast-bean-1">豆のまま(100g)</label>
+              <label for="roast-bean-1">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-1" name="roast-1" value="ground" onchange="updatePrice(1, 1000)">
-              <label for="roast-ground-1">挽く(100g)</label>
+              <label for="roast-ground-1">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-1" name="roast-1" value="drip" onchange="updatePrice(1, 500)">
-              <label for="roast-drip-1">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-1">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -708,21 +712,21 @@
       <div class="product-info">
         <span class="origin">ブラジル</span>
         <h4>ドルチェチョコラーダ ナチュラル No.2</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">ダークチョコやナッツ感にこだわって厳選。浅煎りでは甘い香りとナッツの風味が漂い、あっさりとした口当たりに仕上がります。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">ダークチョコレート感やナッツ感にとことんこだわって厳選したコーヒー豆です。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-2" name="roast-2" value="bean" checked onchange="updatePrice(2, 1000)">
-              <label for="roast-bean-2">豆のまま(100g)</label>
+              <label for="roast-bean-2">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-2" name="roast-2" value="ground" onchange="updatePrice(2, 1000)">
-              <label for="roast-ground-2">挽く(100g)</label>
+              <label for="roast-ground-2">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-2" name="roast-2" value="drip" onchange="updatePrice(2, 500)">
-              <label for="roast-drip-2">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-2">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -740,21 +744,21 @@
       <div class="product-info">
         <span class="origin">ブラジル</span>
         <h4>トロピカルバイーア スイート ナチュラル No.2</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">運搬中の自然発酵で偶然生まれたトロピカルフルーツのフレーバー。チェリーの風味と豊かな甘みが特徴的なコーヒーです。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">太陽が照りつける中での２４時間以上の運搬により、コーヒーチェリーが自然発酵することで偶然生まれたトロピカルフルーツのフレーバー。チェリーの風味と甘みが特徴。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-3" name="roast-3" value="bean" checked onchange="updatePrice(3, 1000)">
-              <label for="roast-bean-3">豆のまま(100g)</label>
+              <label for="roast-bean-3">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-3" name="roast-3" value="ground" onchange="updatePrice(3, 1000)">
-              <label for="roast-ground-3">挽く(100g)</label>
+              <label for="roast-ground-3">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-3" name="roast-3" value="drip" onchange="updatePrice(3, 500)">
-              <label for="roast-drip-3">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-3">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -772,21 +776,21 @@
       <div class="product-info">
         <span class="origin">ベトナム</span>
         <h4>アラビカ ミンマウンテン フリーウォッシュ G1</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">希少なベトナム産アラビカ。少し深めの焙煎で立体感が出て、芳醇な味わいと香りが広がります。深煎りの水出しコーヒーにも◎</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">希少なベトナムのアラビカ。少し深めの焙煎で芳醇な味わいに。深煎りの水出しコーヒーにも◎</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-4" name="roast-4" value="bean" checked onchange="updatePrice(4, 1000)">
-              <label for="roast-bean-4">豆のまま(100g)</label>
+              <label for="roast-bean-4">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-4" name="roast-4" value="ground" onchange="updatePrice(4, 1000)">
-              <label for="roast-ground-4">挽く(100g)</label>
+              <label for="roast-ground-4">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-4" name="roast-4" value="drip" onchange="updatePrice(4, 500)">
-              <label for="roast-drip-4">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-4">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -804,21 +808,21 @@
       <div class="product-info">
         <span class="origin">インドネシア</span>
         <h4>ロンボク島 ロブスタ ナチュラル G1</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">日本で流通量の少ない希少なロンボク島産の上質なロブスタ種。雑味が少なく杏のような甘酸っぱい後味で、ミルクとも好相性です。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">甘味ものっていて雑味が少なく、大粒で上質なロブスタ種。エスプレッソ用にもぴったりの一品でミルクとの相性もばっちりです。バリ島のお隣のロンボク島という島で生産されたコーヒーで、日本では流通量が少なく、とても希少性が高いコーヒーです。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-5" name="roast-5" value="bean" checked onchange="updatePrice(5, 1000)">
-              <label for="roast-bean-5">豆のまま(100g)</label>
+              <label for="roast-bean-5">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-5" name="roast-5" value="ground" onchange="updatePrice(5, 1000)">
-              <label for="roast-ground-5">挽く(100g)</label>
+              <label for="roast-ground-5">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-5" name="roast-5" value="drip" onchange="updatePrice(5, 500)">
-              <label for="roast-drip-5">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-5">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -836,21 +840,21 @@
       <div class="product-info">
         <span class="origin">インドネシア</span>
         <h4>ホリデーマンデリン スマトラ式 G1</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">トロピカルフルーツや柑橘フルーツを思わせる味わいに、ほどよいアーシーさがのっていて、とてもバランスの良いマンデリンです。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">マンデリンという地域のマンデリン！ トロピカルフルーツや柑橘フルーツを思わせる味わいにほどよいアーシーさがのっていて、とてもバランスの良いコーヒーです。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-6" name="roast-6" value="bean" checked onchange="updatePrice(6, 1000)">
-              <label for="roast-bean-6">豆のまま(100g)</label>
+              <label for="roast-bean-6">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-6" name="roast-6" value="ground" onchange="updatePrice(6, 1000)">
-              <label for="roast-ground-6">挽く(100g)</label>
+              <label for="roast-ground-6">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-6" name="roast-6" value="drip" onchange="updatePrice(6, 500)">
-              <label for="roast-drip-6">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-6">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -868,21 +872,21 @@
       <div class="product-info">
         <span class="origin">インドネシア</span>
         <h4>アチェ マンデリン ガジャ農園 ビッグワン</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">野生のスマトラゾウが生息するほど自然豊かな農園で育ちました。大粒でジューシーな味わいが特徴の、特別なマンデリンです。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">スマトラ島にあるゾウの農園から大粒でジューシーな味わいのコーヒーが届きました！100haの広大な農園内では野生のスマトラゾウが生息しているほど、自然豊かな環境です。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-7" name="roast-7" value="bean" checked onchange="updatePrice(7, 1000)">
-              <label for="roast-bean-7">豆のまま(100g)</label>
+              <label for="roast-bean-7">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-7" name="roast-7" value="ground" onchange="updatePrice(7, 1000)">
-              <label for="roast-ground-7">挽く(100g)</label>
+              <label for="roast-ground-7">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-7" name="roast-7" value="drip" onchange="updatePrice(7, 500)">
-              <label for="roast-drip-7">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-7">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -899,22 +903,22 @@
       </div>
       <div class="product-info">
         <span class="origin">コロンビア</span>
-        <h4>ナーリョウォッシュ スプレモ</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">手摘みで収穫されたコロンビア・ナリーニョ産。寒暖差が育んだ糖分のつまったコーヒーで、穏やかな酸味と甘味のバランスが絶妙。</p>
+        <h4>ナリーニョウォッシュ スプレモ</h4>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">穏やかな酸味と甘味が特徴でバランスの取れた味わいです。コロンビア南西部のナリーニョ県は北緯1度と、ほぼ赤道直下の地域です。ミネラル豊富な火山性土壌を有し、標高が高く冷涼な気候と谷底から立ちのぼる暖かく湿った空気のおかげで寒暖差が生まれ、糖分のつまったコーヒーチェリーが生産できます。農園は険しい斜面にあり機械を入れることもできないため、一つひとつが手摘み収穫されたものです。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-8" name="roast-8" value="bean" checked onchange="updatePrice(8, 1000)">
-              <label for="roast-bean-8">豆のまま(100g)</label>
+              <label for="roast-bean-8">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-8" name="roast-8" value="ground" onchange="updatePrice(8, 1000)">
-              <label for="roast-ground-8">挽く(100g)</label>
+              <label for="roast-ground-8">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-8" name="roast-8" value="drip" onchange="updatePrice(8, 500)">
-              <label for="roast-drip-8">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-8">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -932,21 +936,21 @@
       <div class="product-info">
         <span class="origin">ペルー</span>
         <h4>アンデスブルー ウォッシュ G1</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">南米随一のトップスペシャルティ産地で、農家の収益性と品質向上を目指して丁寧につくられた、甘味が際立つコーヒーです。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">ペルー最北部カハマルカ県は、近年、南米随一のトップスペシャルティーコーヒーの产地として注目を浴びています。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-9" name="roast-9" value="bean" checked onchange="updatePrice(9, 1000)">
-              <label for="roast-bean-9">豆のまま(100g)</label>
+              <label for="roast-bean-9">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-9" name="roast-9" value="ground" onchange="updatePrice(9, 1000)">
-              <label for="roast-ground-9">挽く(100g)</label>
+              <label for="roast-ground-9">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-9" name="roast-9" value="drip" onchange="updatePrice(9, 500)">
-              <label for="roast-drip-9">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-9">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -964,21 +968,21 @@
       <div class="product-info">
         <span class="origin">インド</span>
         <h4>パパクチ農園 ファインロブスタ ウォッシュ A</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">緑豊かな環境で強いこだわりと誇りを持って栽培されたインド産の品。甘味を感じるクリーンなロブスタでブレンドにも好相性です。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">甘味を感じるクリーンなロブスタ。パパクチ農園はインドの南西部コーグという町にあり、この地の緑豊かな環境や土壌に魅了されたパバンさんのおじいさんが始めた農園です。「ロブスタの栽培に関してはどの農園にも劣らないこだわりや誇りを持っている。」そう話すパバンさんの表情は誇らしく自信に満ちています。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-10" name="roast-10" value="bean" checked onchange="updatePrice(10, 1000)">
-              <label for="roast-bean-10">豆のまま(100g)</label>
+              <label for="roast-bean-10">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-10" name="roast-10" value="ground" onchange="updatePrice(10, 1000)">
-              <label for="roast-ground-10">挽く(100g)</label>
+              <label for="roast-ground-10">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-10" name="roast-10" value="drip" onchange="updatePrice(10, 500)">
-              <label for="roast-drip-10">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-10">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -995,22 +999,22 @@
       </div>
       <div class="product-info">
         <span class="origin">ウガンダ</span>
-        <h4>ルウェンゾリ アフリカンムーン ナチュラル A</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">細い山道をロバが運ぶウガンダのスペシャルティ。穏やかな酸味とまろやかな口当たりで、黄桃のような果実感をお楽しみ頂けます。</p>
+        <h4>ウガンダ ルウェンゾリ ドンキー アフリカンムーン ナチュラル A</h4>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">ロバが運ぶ、ウガンダのスペシャルティコーヒー。ルウェンゾリ山脈のふもとから中腹付近の標高1,200～1,800メートル程度の地域で栽培されており道が細く車は通れないため、コーヒーの運搬にはロバが活躍しています。アフリカならではの果実感やジューシーさをお楽しみいただける商品です。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-11" name="roast-11" value="bean" checked onchange="updatePrice(11, 1000)">
-              <label for="roast-bean-11">豆のまま(100g)</label>
+              <label for="roast-bean-11">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-11" name="roast-11" value="ground" onchange="updatePrice(11, 1000)">
-              <label for="roast-ground-11">挽く(100g)</label>
+              <label for="roast-ground-11">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-11" name="roast-11" value="drip" onchange="updatePrice(11, 500)">
-              <label for="roast-drip-11">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-11">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -1028,21 +1032,21 @@
       <div class="product-info">
         <span class="origin">ケニア</span>
         <h4>シンバ ウォッシュ AB TOP</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">ケニア特有の水洗式で丁寧に精製された一品。濃厚でジューシーな口当たりが特徴で、深煎りにもぴったりのコーヒーです。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">濃厚でジューシーな口当たり。深煎りのケニアには、シンバを！ケニアでは水洗式を行うとき、カナルと呼ばれる水路を使用し磨くようにコーヒーの精製を行います。この方法は、ケニアスタイルウォッシュと呼ばれます。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-12" name="roast-12" value="bean" checked onchange="updatePrice(12, 1000)">
-              <label for="roast-bean-12">豆のまま(100g)</label>
+              <label for="roast-bean-12">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-12" name="roast-12" value="ground" onchange="updatePrice(12, 1000)">
-              <label for="roast-ground-12">挽く(100g)</label>
+              <label for="roast-ground-12">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-12" name="roast-12" value="drip" onchange="updatePrice(12, 500)">
-              <label for="roast-drip-12">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-12">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -1059,22 +1063,22 @@
       </div>
       <div class="product-info">
         <span class="origin">コスタリカ</span>
-        <h4>ジャガーハニー SHB</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">ハニープロセス由来のこっくりした甘味と、コスタリカの大地が生むやさしい酸味が特徴。深めの焙煎やブレンドにおすすめです。</p>
+        <h4>コスタリカ ジャガー ハニー SHB</h4>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">ハニープロセス由来のこっくりした甘味と、コスタリカの大地が生むやさしい酸味. 深めの焙煎がおすすめです。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-13" name="roast-13" value="bean" checked onchange="updatePrice(13, 1000)">
-              <label for="roast-bean-13">豆のまま(100g)</label>
+              <label for="roast-bean-13">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-13" name="roast-13" value="ground" onchange="updatePrice(13, 1000)">
-              <label for="roast-ground-13">挽く(100g)</label>
+              <label for="roast-ground-13">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-13" name="roast-13" value="drip" onchange="updatePrice(13, 500)">
-              <label for="roast-drip-13">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-13">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -1092,21 +1096,21 @@
       <div class="product-info">
         <span class="origin">パプアニューギニア</span>
         <h4>マッドマンコーヒー ウォッシュ</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">泥男の伝承を持つ民族の農園で極めて丁寧に栽培。ナッツの風味や柔らかな甘味、柑橘系のニュアンスを持った上質な味わいです。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">マッドマン=泥男の伝承を持つ民族のコーヒー。農園主ピーターさんは、マッドマンの血を引く民族系の一つ、オネトレフォ族の出身です。彼の祖父が始めたこの農園のコーヒー作りは非常に丁寧で、コーヒーの木はアカシアの木陰の下、2メートル四方の間隔を空けて整然と植えられています。雑草の管理も怠らず、緑肥をすき込むことで土壌の栄養もしっかりと維持されています。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-14" name="roast-14" value="bean" checked onchange="updatePrice(14, 1000)">
-              <label for="roast-bean-14">豆のまま(100g)</label>
+              <label for="roast-bean-14">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-14" name="roast-14" value="ground" onchange="updatePrice(14, 1000)">
-              <label for="roast-ground-14">挽く(100g)</label>
+              <label for="roast-ground-14">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-14" name="roast-14" value="drip" onchange="updatePrice(14, 500)">
-              <label for="roast-drip-14">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-14">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -1124,21 +1128,21 @@
       <div class="product-info">
         <span class="origin">ルワンダ</span>
         <h4>ジュルコーヒー フリーウォッシュ AA</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">「千の丘の国」大自然ルワンダの緑豊かな大地で育ちました。飲みごたえ抜群で、明るい酸味とジューシーな口当たりが特徴です。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">飲みごたえ抜群！明るい酸味とジューシーな口当たりが特徴です。アフリカ大陸の中心に位置する内陸国のルワンダは「千の丘の国」と称される丘陵地帯です。緑の大地に、丘が幾重にも連なる景色が広がっています。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-15" name="roast-15" value="bean" checked onchange="updatePrice(15, 1000)">
-              <label for="roast-bean-15">豆のまま(100g)</label>
+              <label for="roast-bean-15">豆のまま (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-15" name="roast-15" value="ground" onchange="updatePrice(15, 1000)">
-              <label for="roast-ground-15">挽く(100g)</label>
+              <label for="roast-ground-15">挽く (¥1,000/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-15" name="roast-15" value="drip" onchange="updatePrice(15, 500)">
-              <label for="roast-drip-15">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-15">ドリップバッグ (¥500/2杯分)</label>
             </div>
           </div>
         </div>
@@ -1156,21 +1160,21 @@
       <div class="product-info">
         <span class="origin">ペルー</span>
         <h4>チリノス組合 ゲイシャ ウォッシュ G1</h4>
-        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">Light Roast（浅煎り）シトラスの風味がのっていて、ティーライクな口当たりです。ゲイシャの華やかさも心地よい強度で感じられます。</p>
+        <p class="desc" style="font-size:0.85rem; color:#c9c0b1; margin-bottom:1rem; line-height:1.6; min-height: 60px;">今年もチリノス農協さんのゲイシャが届きました。風味は例年同様、フローラルさを感じられるゲイシャに仕上がっています。農園主のミゲルさんはチリノス組合のなかでもリーダー的存在として活躍しており、自身の農園をモデルケースとして地域の農家に向けた研修を提供しています。未来のコーヒー生産者を育てることにも注力しているミゲルさんが手掛ける、華やかさが魅力のゲイシャをお楽しみください。</p>
         <div class="roast-selection">
           <span class="roast-label">豆の状態</span>
           <div class="roast-options">
             <div class="roast-option">
               <input type="radio" id="roast-bean-16" name="roast-16" value="bean" checked onchange="updatePrice(16, 1500)">
-              <label for="roast-bean-16">豆のまま(100g)</label>
+              <label for="roast-bean-16">豆のまま (¥1,500/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-ground-16" name="roast-16" value="ground" onchange="updatePrice(16, 1500)">
-              <label for="roast-ground-16">挽く(100g)</label>
+              <label for="roast-ground-16">挽く (¥1,500/100g)</label>
             </div>
             <div class="roast-option">
               <input type="radio" id="roast-drip-16" name="roast-16" value="drip" onchange="updatePrice(16, 700)">
-              <label for="roast-drip-16">ドリップバッグ(2杯分)</label>
+              <label for="roast-drip-16">ドリップバッグ (¥700/2杯分)</label>
             </div>
           </div>
         </div>
