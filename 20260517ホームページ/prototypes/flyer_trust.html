@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ぴたっとナース - チラシ案1（信頼・専門性）</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1b263b; /* ネイビー */
+            --accent: #c5a880; /* ゴールド */
+            --bg: #ffffff;
+            --text: #333333;
+            --light-bg: #f8f9fa;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Serif JP', serif;
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .sheet {
+            width: 210mm;
+            height: 296.7mm; /* A4 */
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg);
+            box-sizing: border-box;
+            padding: 15mm;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 装飾的な枠線 */
+        .border-inner {
+            position: absolute;
+            top: 5mm; left: 5mm; right: 5mm; bottom: 5mm;
+            border: 1px solid var(--accent);
+            pointer-events: none;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .award-badge {
+            display: inline-block;
+            border: 1.5px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 25px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: var(--primary);
+            margin: 5px 0;
+            letter-spacing: 3px;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: var(--text);
+            font-weight: normal;
+        }
+
+        .main-points {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .point-card {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+
+        .point-card h2 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .point-card h2 span {
+            background: var(--primary);
+            color: white;
+            padding: 2px 10px;
+            font-size: 16px;
+            margin-right: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .profile-section {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 4px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .profile-img {
+            width: 40mm;
+            height: 40mm;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .profile-text h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        /* 料金プラン */
+        .price-section {
+            margin: 20px 0;
+        }
+
+        .price-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .price-item {
+            display: grid;
+            grid-template-columns: 130px 1fr 140px;
+            align-items: center;
+            border-bottom: 1px dashed #ccc;
+            padding: 8px 10px;
+            gap: 10px;
+        }
+
+        .price-item .plan-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+
+        .price-item .plan-desc {
+            font-size: 12px;
+            color: var(--text);
+        }
+
+        .price-item .amount {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        /* フッター・連絡先 */
+        footer {
+            margin-top: auto;
+            border-top: 1px solid var(--accent);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .contact-info {
+            font-size: 14px;
+        }
+
+        .contact-info .tel {
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .qr-area {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .qr-code {
+            width: 25mm;
+            height: 25mm;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        @media screen {
+            body { background: #e0e0e0; padding: 20mm 0; }
+            .sheet { box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+        }
+    </style>
+</head>
+<body>
+    <div class="sheet">
+        <div class="border-inner"></div>
+        
+        <!-- 右上の丸いロゴ -->
+        <div style="position: absolute; top: 12mm; right: 12mm; width: 25mm; height: 25mm; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1.5px solid var(--accent); z-index: 10;">
+            <img src="../../img/ロゴ.png" alt="ロゴ" style="max-width: 80%; max-height: 80%; object-fit: contain;">
+        </div>
+        
+        <header>
+            <div class="award-badge">2025 道北ビジネスコンテスト 最優秀賞受賞</div>
+            <h1>ぴたっとナース</h1>
+            <div class="tagline">臨床経験12年の正看護師による、一歩踏み込んだ通院エスコート</div>
+        </header>
+
+        <section class="main-points">
+            <div class="point-card">
+                <h2><span>01</span> 質の高い医療通訳</h2>
+                <p>医師の専門的な説明や体調の変化を正確にアセスメント。ご家族へ分かりやすく「翻訳」し、的確な意思決定をサポートします。</p>
+            </div>
+            <div class="point-card">
+                <h2><span>02</span> 完全オーダーメイド</h2>
+                <p>自費サービスだからこそ、「寄り道不可」の制約はありません。お買い物、お墓参り、思い出の場所への立ち寄りも可能です。</p>
+            </div>
+        </section>
+
+        <section class="profile-section">
+            <img class="profile-img" src="../../img/代表者写真.png" alt="代表：野村 由佳子" style="object-fit: cover; border-radius: 50%; padding: 0;">
+            <div class="profile-text">
+                <h3>代表：野村 由佳子（正看護師）</h3>
+                <p style="font-size: 14px; margin-bottom: 0;">
+                    総合病院等で12年の臨床経験を積み、現場での課題に直面。「離れて暮らす親の通院を、プロの知識で支えたい」という想いから、旭川にて当サービスをスタート。2025年道北ビジコン最優秀賞を受賞。
+                </p>
+            </div>
+        </section>
+
+        <section class="price-section">
+            <h2 style="font-size: 18px; color: var(--primary); margin: 0 0 10px 0; border-left: 4px solid var(--accent); padding-left: 10px;">料金プラン</h2>
+            <div class="price-list">
+                <div class="price-item" style="background-color: #fff8eb; border: 1px solid var(--accent); border-radius: 4px;">
+                    <div class="plan-name">初回お試し</div>
+                    <div class="plan-desc">まずは相性確認から（同行サポート3h）</div>
+                    <div class="amount">1回 <span style="font-size: 20px;">5,000</span>円</div>
+                </div>
+                <div class="price-item">
+                    <div class="plan-name">ベーシック</div>
+                    <div class="plan-desc">月1回の同行（3h） / 簡易レポート</div>
+                    <div class="amount">月額 <span style="font-size: 18px;">15,000</span>円</div>
+                </div>
+                <div class="price-item">
+                    <div class="plan-name" style="color: var(--accent);">スタンダード<br><span style="font-size:11px; font-weight:normal;">★一番人気</span></div>
+                    <div class="plan-desc">月2回の同行（3h） / 詳細レポート / 医師連携</div>
+                    <div class="amount" style="color: var(--accent);">月額 <span style="font-size: 20px;">25,000</span>円</div>
+                </div>
+                <div class="price-item" style="border-bottom: none;">
+                    <div class="plan-name">プレミアム</div>
+                    <div class="plan-desc">月3回の同行（3h） / 緊急駆けつけ等</div>
+                    <div class="amount">月額 <span style="font-size: 18px;">35,000</span>円</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="contact-info">
+                <div>[ 運営事務局 ] 北海道旭川市〇〇（ダミー住所）</div>
+                <div class="tel">TEL: 000-0000-0000</div>
+                <div style="font-size: 12px; color: #666;">受付時間：平日 9:00 - 16:00</div>
+            </div>
+            <div class="qr-area" style="gap: 15px; text-align: center;">
+                <div>
+                    <div class="qr-code" style="width: 20mm; height: 20mm; margin: 0 auto 5px;">LINE</div>
+                    <div style="font-size: 10px;">公式LINE</div>
+                </div>
+                <div>
+                    <div class="qr-code" style="width: 20mm; height: 20mm; margin: 0 auto 5px;">Insta</div>
+                    <div style="font-size: 10px;">Instagram</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

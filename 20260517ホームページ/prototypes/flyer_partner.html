@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ぴたっとナース - チラシ案2（連携・課題解決）</title>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a9d8f; /* 誠実なティール */
+            --accent: #e76f51; /* 注意を引くオレンジ */
+            --bg: #ffffff;
+            --text: #2d3436;
+            --light-bg: #fdf2f0;
+        }
+
+        @page { size: A4; margin: 0; }
+        body { margin: 0; padding: 0; font-family: 'Noto Sans JP', sans-serif; color: var(--text); line-height: 1.5; -webkit-print-color-adjust: exact; }
+
+        .sheet {
+            width: 210mm; height: 296.7mm; padding: 12mm; box-sizing: border-box;
+            background: var(--bg); display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        header {
+            background: var(--primary); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;
+            text-align: center; position: relative;
+        }
+
+        .award-banner {
+            position: absolute; top: 10px; right: 20px; background: var(--accent);
+            color: white; padding: 4px 12px; font-size: 11px; font-weight: bold; border-radius: 20px;
+        }
+
+        header h1 { margin: 0; font-size: 28px; letter-spacing: 1px; }
+        header p { margin: 5px 0 0; font-size: 16px; opacity: 0.9; }
+
+        /* 「こんな悩みありませんか？」セクション */
+        .pain-points {
+            background: var(--light-bg); border: 2px dashed var(--accent); padding: 15px; border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .pain-points h2 { font-size: 18px; color: var(--accent); margin-top: 0; text-align: center; margin-bottom: 10px; }
+        .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .pain-item { background: white; padding: 8px 12px; border-radius: 4px; font-size: 13px; display: flex; align-items: center; }
+        .pain-item::before { content: "×"; color: var(--accent); font-weight: bold; margin-right: 8px; }
+
+        /* 「ぴたっと解決」セクション */
+        .solution-title { text-align: center; margin-bottom: 20px; }
+        .solution-title h2 { font-size: 24px; color: var(--primary); border-bottom: 3px solid var(--primary); display: inline-block; padding-bottom: 5px; }
+
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .feature-card { text-align: center; border: 1px solid #efefef; padding: 15px; border-radius: 8px; }
+        .feature-card .icon { font-size: 40px; margin-bottom: 10px; }
+        .feature-card h3 { font-size: 15px; color: var(--primary); margin: 0 0 8px; }
+        .feature-card p { font-size: 12px; margin: 0; text-align: left; color: #666; }
+
+        /* 導入メリット */
+        .merit-section { background: #f8fcfb; padding: 20px; border-left: 6px solid var(--primary); margin-bottom: 30px; }
+        .merit-section h3 { margin-top: 0; color: var(--primary); font-size: 18px; }
+        .merit-list { list-style: none; padding: 0; margin: 10px 0; }
+        .merit-list li { padding-left: 20px; position: relative; font-size: 14px; margin-bottom: 5px; }
+        .merit-list li::before { content: "✔"; color: var(--primary); position: absolute; left: 0; font-weight: bold; }
+
+        /* 実績・料金 */
+        .info-bottom { display: flex; gap: 30px; margin-top: auto; border-top: 1px solid #ddd; padding-top: 20px; }
+        .price-box { flex: 1; }
+        .price-box h4 { margin: 0 0 10px; color: var(--primary); font-size: 15px; border-bottom: 1px solid #ddd; }
+        .price-item { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
+        .price-item .p-cost { font-weight: bold; }
+
+        .contact-box { flex: 1.2; background: #2d3436; color: white; padding: 15px; border-radius: 4px; display: flex; gap: 15px; align-items: center; }
+        .contact-box .tel { font-size: 24px; font-weight: bold; display: block; }
+        .contact-box .qr { width: 22mm; height: 22mm; background: white; color: black; font-size: 10px; text-align: center; display: flex; align-items: center; justify-content: center; }
+
+        @media screen {
+            body { background: #e0e0e0; padding: 10mm 0; }
+            .sheet { box-shadow: 0 0 10px rgba(0,0,0,0.2); margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sheet">
+        <header>
+            <div class="award-banner">道北ビジネスコンテスト 2025 最優秀賞受賞</div>
+            <h1>ぴたっとナース</h1>
+            <p>介護保険外だからこそできる「あと一歩」のサポートを</p>
+        </header>
+
+        <section class="pain-points">
+            <h2>ケアマネジャー様、こんな時ありませんか？</h2>
+            <div class="pain-grid">
+                <div class="pain-item">診察同行が制度的に難しく、病院がブラックボックス化している</div>
+                <div class="pain-item">「寄り道」や「お買い物」の希望に対応しきれず心苦しい</div>
+                <div class="pain-item">遠方の家族から連絡が多く、情報共有に時間がとられる</div>
+                <div class="pain-item">独居の方の通院サポートが限界に来ている</div>
+            </div>
+        </section>
+
+        <section class="solution-title">
+            <h2>ぴたっとナースが「制度の隙間」を埋めます</h2>
+        </section>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon">🩺</div>
+                <h3>質の高い医療通訳</h3>
+                <p>臨床経験12年の正看護師が同席。医師の説明を正確に把握し、専門用語を分かりやすくご家族・ケアマネ様へ伝達します。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🛍️</div>
+                <h3>寄り道OKの柔軟性</h3>
+                <p>病院帰りのスーパー、薬局、お墓参りまで。「本人らしい生活」を支えるオーダーメイドの外出支援が可能です。</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📱</div>
+                <h3>最速LINEレポート</h3>
+                <p>同行後、即座にご家族のLINEへ写真付きレポートを配信。安心をお届けすると共に、ケアマネ様の連絡調整負担を軽減します。</p>
+            </div>
+        </div>
+
+        <section class="merit-section">
+            <h3>🤝 ケアマネジャー様への３つのメリット</h3>
+            <ul class="merit-list">
+                <li>**モニタリングの質向上**: 看護師の視点による詳細なアセスメントをご報告。モニタリングの裏付けデータとして活用いただけます。</li>
+                <li>**家族関係の円滑化**: 子世代の「罪悪感」を解消。家族間のコミュニケーションが良好になり、支援の安定に繋がります。</li>
+                <li>**業務の効率化**: 煩雑な家族連絡や、同行の調整を「丸投げ」いただくことで、本来のケアマネ業務に集中いただけます。</li>
+            </ul>
+        </section>
+
+        <div class="info-bottom">
+            <div class="price-box">
+                <h4>ご利用プラン（月額・税別）</h4>
+                <div class="price-item"><span>ベーシック（月1回/3h）</span> <span class="p-cost">15,000円</span></div>
+                <div class="price-item"><span>スタンダード（月2回/3h）</span> <span class="p-cost">25,000円</span></div>
+                <div class="price-item"><span>プレミアム（月3回/3h）</span> <span class="p-cost">35,000円</span></div>
+                <p style="font-size: 11px; margin-top: 10px; color: #666;">※単発のお試しサポート（5,000円）もございます。まずはお気軽にご相談ください。</p>
+            </div>
+            <div class="contact-box">
+                <div style="flex: 1;">
+                    <span style="font-size: 11px;">[ 無料相談・お問い合わせ ]</span>
+                    <span class="tel">000-0000-0000</span>
+                    <p style="font-size: 10px; margin: 5px 0 0; opacity: 0.8;">代表：野村 由佳子（正看護師）<br>旭川市東光〇〇（ダミー住所）</p>
+                </div>
+                <div class="qr">LINEで<br>資料請求</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

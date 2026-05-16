@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぴたっとナース - チラシ案プレビュー</title>
+    <style>
+        :root {
+            --primary: #1b263b;
+            --accent: #c5a880;
+            --bg: #f5f7fa;
+            --text: #333;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0; padding: 50px 20px;
+            background-color: var(--bg);
+            color: var(--text);
+            text-align: center;
+        }
+        h1 { margin-bottom: 10px; color: var(--primary); }
+        p.subtitle { margin-bottom: 50px; color: #666; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .flyer-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flyer-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .preview-box {
+            height: 400px;
+            background: #eee;
+            overflow: hidden;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        iframe {
+            width: 1000px;
+            height: 1414px; /* A4 Ratio */
+            border: none;
+            transform: scale(0.4);
+            transform-origin: top left;
+            pointer-events: none;
+        }
+
+        .card-body {
+            padding: 25px;
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .card-body h3 {
+            margin: 0 0 10px;
+            color: var(--primary);
+        }
+
+        .card-body p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn-view {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-view:hover {
+            background: var(--accent);
+        }
+
+        .print-tip {
+            margin-top: 50px;
+            background: #fffbe6;
+            border: 1px solid #ffe58f;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            text-align: left;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ぴたっとナース チラシ制作物プレビュー</h1>
+    <p class="subtitle">ケアマネジャー様・地域連携室様向け、目的別の3パターンを作成しました。</p>
+
+    <div class="container">
+        <!-- Pattern 1 -->
+        <div class="flyer-card">
+            <div class="preview-box">
+                <iframe src="flyer_trust.html"></iframe>
+            </div>
+            <div class="card-body">
+                <h3>案1：信頼・専門性重視</h3>
+                <p>病院の地域連携室や医師向け。12年の臨床経験と「道北ビジコン最優秀賞」の実績を前面に出し、医療のプロとしての信頼を確立します。</p>
+                <a href="flyer_trust.html" target="_blank" class="btn-view">全画面で見る</a>
+            </div>
+        </div>
+
+        <!-- Pattern 2 -->
+        <div class="flyer-card">
+            <div class="preview-box">
+                <iframe src="flyer_partner.html"></iframe>
+            </div>
+            <div class="card-body">
+                <h3>案2：課題解決・連携重視</h3>
+                <p>ケアマネジャー様向け。介護保険制度では対応できない「寄り道」や「買い物」の隙間を埋めるパートナーとしての利便性を強調します。</p>
+                <a href="flyer_partner.html" target="_blank" class="btn-view">全画面で見る</a>
+            </div>
+        </div>
+
+        <!-- Pattern 3 -->
+        <div class="flyer-card">
+            <div class="preview-box">
+                <iframe src="flyer_family.html"></iframe>
+            </div>
+            <div class="card-body">
+                <h3>案3：情緒・安心重視</h3>
+                <p>紹介を受けたご家族へ手渡す際。子世代の「罪悪感」を「安心感」に変えるメッセージと温かなデザインで、問い合わせを促します。</p>
+                <a href="flyer_family.html" target="_blank" class="btn-view">全画面で見る</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="print-tip">
+        <strong>💡 印刷のコツ：</strong><br>
+        1. 「全画面で見る」をクリックして別タブで開きます。<br>
+        2. <code>Ctrl + P</code> (または <code>Cmd + P</code>) を押して印刷画面を開きます。<br>
+        3. 送信先を「PDFとして保存」にするか、お手持ちのプリンターを選択。 <strong>「背景のグラフィック」にチェックを入れてください。</strong><br>
+        4. 余白を「なし」に設定すると、レイアウトが綺麗に収まります。
+    </div>
+</body>
+</html>
