@@ -137,10 +137,11 @@ def main():
         print(f"Created directory: {HTML_DIR}")
 
     file_info_list = []
-    # 【変更箇所】rglob（再帰的検索）からglob（直下のみ検索）に変更し、配下のフォルダに入ったファイルを無視するように修正しました。
-    for filepath in HTML_DIR.glob('*.html'):
-        info = get_file_info(filepath)
-        file_info_list.append(info)
+    # 直下のすべてのhtmlファイルと、サブディレクトリ内のindex.htmlを対象とする
+    for filepath in HTML_DIR.rglob('*.html'):
+        if filepath.parent == HTML_DIR or filepath.name == 'index.html':
+            info = get_file_info(filepath)
+            file_info_list.append(info)
 
     html_output = generate_html(file_info_list)
 
