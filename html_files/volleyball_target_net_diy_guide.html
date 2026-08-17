@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【DIY完全攻略】イレクターパイプで作る家庭用バレーボール・トスターゲットネット</title>
+<!-- Three.js and OrbitControls -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<style>
+  :root {
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --accent: #f59e0b;
+    --accent-dark: #d97706;
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --success: #10b981;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.7;
+    padding-bottom: 60px;
+  }
+
+  header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    color: #ffffff;
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  header h1 {
+    font-size: 1.85rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  header p {
+    font-size: 1.05rem;
+    color: #bfdbfe;
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .badge-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 30px auto;
+    padding: 0 16px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    border: 1px solid var(--border-color);
+  }
+
+  h2 {
+    font-size: 1.45rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid #eff6ff;
+    padding-bottom: 10px;
+  }
+
+  h2::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 24px;
+    background: var(--primary-light);
+    border-radius: 3px;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    color: #1e293b;
+    margin: 20px 0 10px 0;
+  }
+
+  p {
+    margin-bottom: 16px;
+  }
+
+  /* 3D Canvas Section */
+  #viewer-container {
+    width: 100%;
+    height: 480px;
+    background: radial-gradient(circle at center, #ffffff 0%, #e2e8f0 100%);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+  }
+
+  #canvas3d {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .viewer-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(15, 23, 42, 0.75);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+  }
+
+  .viewer-controls {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-view {
+    background: white;
+    border: 1px solid #cbd5e1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-main);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+  }
+
+  .btn-view:hover {
+    background: #f1f5f9;
+    color: var(--primary);
+  }
+
+  /* Tables */
+  .table-responsive {
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f1f5f9;
+    color: #334155;
+    font-weight: 700;
+    padding: 12px 14px;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  tr:hover td {
+    background-color: #fafafa;
+  }
+
+  .price-col {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .total-row {
+    font-weight: 800;
+    background: #eff6ff;
+    color: var(--primary);
+  }
+
+  .total-row td {
+    border-top: 2px solid var(--primary-light);
+  }
+
+  /* Step by Step */
+  .step-card {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 24px;
+    background: #f8fafc;
+    padding: 18px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-light);
+  }
+
+  .step-num {
+    background: var(--primary);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .step-content {
+    flex-grow: 1;
+  }
+
+  .step-content h4 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    color: #0f172a;
+  }
+
+  .pro-tip {
+    background: #fffbeb;
+    border-left: 4px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 10px 0 0 0;
+    font-size: 0.9rem;
+    color: #92400e;
+  }
+
+  .pro-tip strong {
+    color: var(--accent-dark);
+  }
+
+  /* Feature Grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-box {
+    background: #f1f5f9;
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .feature-box h4 {
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+
+  .feature-box p {
+    font-size: 0.88rem;
+    margin-bottom: 0;
+    color: #475569;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>家庭用バレーボール トスターゲットネット 自作マニュアル</h1>
+  <p>小学生のセッター・トス練習に最適！省スペース＆高耐久のイレクターパイプDIY設計図</p>
+  <div class="badge-container">
+    <span class="badge">予算目安: 約1.1万〜1.3万円</span>
+    <span class="badge">製作時間: 約90分</span>
+    <span class="badge">難易度: ★★☆☆☆（初心者OK）</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- 3D モデルプレビュー -->
+  <div class="card">
+    <h2>3D完成イメージ（ドラッグで360度回転可能）</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">マウスドラッグ（スマホはスワイプ）で回転、スクロールでズームできます。全体のパイプ構成や角度をご確認ください。</p>
+    <div id="viewer-container">
+      <div class="viewer-controls">
+        <button class="btn-view" onclick="resetCamera()">正面</button>
+        <button class="btn-view" onclick="setSideView()">側面</button>
+        <button class="btn-view" onclick="setTopView()">上面</button>
+      </div>
+      <canvas id="canvas3d"></canvas>
+      <div class="viewer-overlay">3D Interactive Model (ドラッグ回転 / ピンチ拡大)</div>
+    </div>
+  </div>
+
+  <!-- プロの設計思想・ポイント -->
+  <div class="card">
+    <h2>DIYプロが考えた「家庭用・小学生向け」3つの効率化ポイント</h2>
+    <div class="grid-2">
+      <div class="feature-box">
+        <h4>1. 支柱を「後ろ寄り」に配置（転倒完全防止）</h4>
+        <p>ボールがリングに当たる力は前方から加わります。土台の後方に支柱を立て、前方の脚を長く取ることで、重しと合わせて前倒れを徹底防御しています。</p>
+      </div>
+      <div class="feature-box">
+        <h4>2. 丸リングではなく「四角ターゲット枠」で簡単・頑丈</h4>
+        <p>初心者がパイプを綺麗に丸く曲げるのは至難の業。45cmの正方形枠にすることで、標準ジョイントだけで高剛性かつ超簡単に組める構造にしました。</p>
+      </div>
+      <div class="feature-box">
+        <h4>3. 角度調整に「メタルジョイント」を採用</h4>
+        <p>リングの角度取り付け部にメタルジョイント（六角ボルト締め）を採用。お子さんの身長や練習内容（直上トス・平行トス）に合わせて角度変更が可能です。</p>
+      </div>
+      <div class="feature-box">
+        <h4>4. ボールが散らからない「ボトムガイド」</h4>
+        <p>ネットの底を土台の手前パイプに少し引き寄せて留めることで、入ったボールが手元にコロンと転がり出るリターン構造を実現しました。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 材料・費用一覧 -->
+  <div class="card">
+    <h2>材料・パーツ一覧と概算費用（BOM）</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">ホームセンター（コメリ、カインズ等）やネット通販で購入できる実勢価格（税込）です。</p>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>品名・規格</th>
+            <th>用途・詳細</th>
+            <th>数量</th>
+            <th class="price-col">単価目安</th>
+            <th class="price-col">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>イレクターパイプ 2000mm (Φ28)</strong></td>
+            <td>メイン支柱（高さ調整用ベース）</td>
+            <td>1本</td>
+            <td class="price-col">¥1,100</td>
+            <td class="price-col">¥1,100</td>
+          </tr>
+          <tr>
+            <td><strong>イレクターパイプ 900mm (Φ28)</strong></td>
+            <td>土台の奥行き（2本）</td>
+            <td>2本</td>
+            <td class="price-col">¥550</td>
+            <td class="price-col">¥1,100</td>
+          </tr>
+          <tr>
+            <td><strong>イレクターパイプ 600mm (Φ28)</strong></td>
+            <td>土台の横幅・補強（3本）</td>
+            <td>3本</td>
+            <td class="price-col">¥420</td>
+            <td class="price-col">¥1,260</td>
+          </tr>
+          <tr>
+            <td><strong>イレクターパイプ 450mm (Φ28)</strong></td>
+            <td>上部ターゲット正方形枠（4本）</td>
+            <td>4本</td>
+            <td class="price-col">¥330</td>
+            <td class="price-col">¥1,320</td>
+          </tr>
+          <tr>
+            <td><strong>イレクターパイプ 300mm (Φ28)</strong></td>
+            <td>突き出しアーム・斜め補強用</td>
+            <td>2本</td>
+            <td class="price-col">¥250</td>
+            <td class="price-col">¥500</td>
+          </tr>
+          <tr>
+            <td><strong>プラスチックジョイント J-4 / J-5 等</strong></td>
+            <td>土台のコーナー・T字交差、上部枠の4隅</td>
+            <td>10個</td>
+            <td class="price-col">¥120</td>
+            <td class="price-col">¥1,200</td>
+          </tr>
+          <tr>
+            <td><strong>メタルジョイント HJ-7 (角度調整用)</strong></td>
+            <td>アームとターゲット枠の角度可動部</td>
+            <td>1個</td>
+            <td class="price-col">¥680</td>
+            <td class="price-col">¥680</td>
+          </tr>
+          <tr>
+            <td><strong>メタルジョイント HJ-1 (支柱直交用)</strong></td>
+            <td>支柱と土台、アームの固定</td>
+            <td>3個</td>
+            <td class="price-col">¥580</td>
+            <td class="price-col">¥1,740</td>
+          </tr>
+          <tr>
+            <td><strong>専用サンアロー接着剤 (30ml)</strong></td>
+            <td>プラスチックジョイントの溶着固定</td>
+            <td>1個</td>
+            <td class="price-col">¥380</td>
+            <td class="price-col">¥380</td>
+          </tr>
+          <tr>
+            <td><strong>防球ネット / 多目的ネット (2m×1m)</strong></td>
+            <td>網目25mm〜37.5mm（筒状にして使用）</td>
+            <td>1枚</td>
+            <td class="price-col">¥1,500</td>
+            <td class="price-col">¥1,500</td>
+          </tr>
+          <tr>
+            <td><strong>結束バンド (耐候性・200mm)</strong></td>
+            <td>ネット固定用（100本入りパック）</td>
+            <td>1袋</td>
+            <td class="price-col">¥300</td>
+            <td class="price-col">¥300</td>
+          </tr>
+          <tr>
+            <td><strong>ゴムキャップ / インナーキャップ</strong></td>
+            <td>パイプ端部保護（床の傷防止）</td>
+            <td>4個</td>
+            <td class="price-col">¥80</td>
+            <td class="price-col">¥320</td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="4"><strong>合計概算金額（税込）</strong></td>
+            <td class="price-col"><strong>¥11,400</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pro-tip">
+      <strong>必要な工具：</strong>六角レンチ（5mm：メタルジョイント用）、ハサミ/ニッパー（結束バンド切断用）、メジャー。パイプカッターは定寸パイプを組み合わせるため今回は不要です！
+    </div>
+  </div>
+
+  <!-- 組み立て手順 -->
+  <div class="card">
+    <h2>プロが教える！失敗しない組み立て手順（6ステップ）</h2>
+
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>土台（ベース）の仮組み</h4>
+        <p>900mmパイプ2本（縦）と600mmパイプ3本（横）を使って「日」の字型の長方形ベースを組みます。奥側のパイプ交差部に支柱用のメタルジョイント（HJ-1）をセットします。</p>
+        <div class="pro-tip">
+          <strong>プロのアドバイス：</strong>最初は接着剤を流し込まず、必ず全体の水平が出ているか確認してから接着します。
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>ターゲット正方形枠の組み立て</h4>
+        <p>450mmパイプ4本とコーナー用ジョイント（J-4）を使って45cm×45cmの正方形枠を作ります。4号球（直径約20cm）がすっぽり余裕を持って通過できるサイズです。こちらはサンアロー接着剤で完全固定します。</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>メイン支柱とアームの取り付け</h4>
+        <p>土台の奥側に2000mm支柱パイプを垂直に立てます。支柱の先端付近にメタルジョイント（HJ-1）で300mmのアームパイプを斜め前方へ突き出すように取り付けます。</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>角度調整ジョイント（HJ-7）で枠を合体</h4>
+        <p>アームの先端にメタルジョイント（HJ-7）を取り付け、ステップ2で作った正方形枠を連結します。角度は斜め上約45度〜60度に傾けて六角ボルトをしっかり締めます。</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>ネットの取り付け（筒状シェイプ）</h4>
+        <p>正方形枠の外周にネットの開口部を結束バンドで約5〜10cm間隔でしっかり固定します。そのまま下までネットを筒状に垂らし、合わせ目を結束バンドで縫い合わせるように留めます。</p>
+        <div class="pro-tip">
+          <strong>プロのアドバイス：</strong>ネットの最下部は土台の前側パイプに結束バンドでゆるめに固定すると、ボールが枠外へ飛び出さず手元にまとまります。
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h4>安全確認とウエイト（重し）の設置</h4>
+        <p>土台のパイプの上に「2Lペットボトル×4本」または「園芸用土嚢袋・ダンベル」などのウエイト（約8〜10kg）を必ず乗せます。室内で使用する場合は、土台底面に家具用保護フェルトを貼ると床のキズを防止できます。</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 3D Scene Initialization Script -->
+<script>
+  let scene, camera, renderer, controls;
+  const container = document.getElementById('viewer-container');
+  const canvas = document.getElementById('canvas3d');
+
+  function init3D() {
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf1f5f9);
+
+    // Grid Floor
+    const grid = new THREE.GridHelper(3000, 30, 0xcbd5e1, 0xe2e8f0);
+    grid.position.y = 0;
+    scene.add(grid);
+
+    // Camera
+    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 10, 10000);
+    camera.position.set(1800, 1500, 2200);
+
+    // Renderer
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+
+    // Controls
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.target.set(0, 1000, 0);
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight.position.set(1500, 3000, 1500);
+    dirLight.castShadow = true;
+    scene.add(dirLight);
+
+    const backLight = new THREE.DirectionalLight(0xbfdbfe, 0.4);
+    backLight.position.set(-1500, 1000, -1500);
+    scene.add(backLight);
+
+    // Materials
+    const pipeMaterial = new THREE.MeshStandardMaterial({
+      color: 0x1e3a8a, // Navy / Blue Pipe
+      roughness: 0.3,
+      metalness: 0.2
+    });
+
+    const jointMaterial = new THREE.MeshStandardMaterial({
+      color: 0x334155, // Dark slate joints
+      roughness: 0.5,
+      metalness: 0.1
+    });
+
+    const metalJointMaterial = new THREE.MeshStandardMaterial({
+      color: 0x94a3b8, // Silver metal joint
+      roughness: 0.2,
+      metalness: 0.8
+    });
+
+    const netMaterial = new THREE.MeshStandardMaterial({
+      color: 0x10b981, // Green net
+      wireframe: true,
+      transparent: true,
+      opacity: 0.6
+    });
+
+    const ballMaterial = new THREE.MeshStandardMaterial({
+      color: 0xf59e0b, // Volleyball Yellow/Orange
+      roughness: 0.4
+    });
+
+    // Helper: create cylinder pipe
+    function createPipe(length, diameter = 28) {
+      const geom = new THREE.CylinderGeometry(diameter / 2, diameter / 2, length, 16);
+      return new THREE.Mesh(geom, pipeMaterial);
+    }
+
+    // Helper: create joint box/sphere
+    function createJoint(type = 'plastic') {
+      const geom = new THREE.SphereGeometry(22, 12, 12);
+      const mat = type === 'metal' ? metalJointMaterial : jointMaterial;
+      return new THREE.Mesh(geom, mat);
+    }
+
+    /* ================= STRUCTURE BUILD ================= */
+    // BASE: 600mm width (X), 900mm depth (Z). Origin at center floor
+    const baseW = 600;
+    const baseD = 900;
+    const pipeR = 14;
+
+    // Base Front & Back pipes (X-axis)
+    const baseFront = createPipe(baseW);
+    baseFront.rotation.z = Math.PI / 2;
+    baseFront.position.set(0, pipeR, baseD / 2);
+    scene.add(baseFront);
+
+    const baseBack = createPipe(baseW);
+    baseBack.rotation.z = Math.PI / 2;
+    baseBack.position.set(0, pipeR, -baseD / 2);
+    scene.add(baseBack);
+
+    const baseMid = createPipe(baseW);
+    baseMid.rotation.z = Math.PI / 2;
+    baseMid.position.set(0, pipeR, 0);
+    scene.add(baseMid);
+
+    // Base Left & Right pipes (Z-axis)
+    const baseLeft = createPipe(baseD);
+    baseLeft.rotation.x = Math.PI / 2;
+    baseLeft.position.set(-baseW / 2, pipeR, 0);
+    scene.add(baseLeft);
+
+    const baseRight = createPipe(baseD);
+    baseRight.rotation.x = Math.PI / 2;
+    baseRight.position.set(baseW / 2, pipeR, 0);
+    scene.add(baseRight);
+
+    // Joints for base
+    const baseJointCoords = [
+      [-baseW/2, pipeR, -baseD/2], [baseW/2, pipeR, -baseD/2],
+      [-baseW/2, pipeR, baseD/2],  [baseW/2, pipeR, baseD/2],
+      [-baseW/2, pipeR, 0],         [baseW/2, pipeR, 0]
+    ];
+    baseJointCoords.forEach(pos => {
+      const j = createJoint();
+      j.position.set(...pos);
+      scene.add(j);
+    });
+
+    // MAIN POLE (Y-axis): 2000mm height, located at back center (X=0, Z=-baseD/2)
+    const poleH = 2000;
+    const pole = createPipe(poleH);
+    pole.position.set(0, poleH / 2 + pipeR, -baseD / 2);
+    scene.add(pole);
+
+    const poleBaseJoint = createJoint('metal');
+    poleBaseJoint.position.set(0, pipeR, -baseD / 2);
+    scene.add(poleBaseJoint);
+
+    // Diagonal Bracing for Pole Stability
+    const braceGeom = new THREE.CylinderGeometry(14, 14, 550, 16);
+    const braceLeft = new THREE.Mesh(braceGeom, pipeMaterial);
+    braceLeft.position.set(-150, 200, -baseD/2 + 100);
+    braceLeft.rotation.z = -0.6;
+    braceLeft.rotation.x = 0.4;
+    scene.add(braceLeft);
+
+    const braceRight = new THREE.Mesh(braceGeom, pipeMaterial);
+    braceRight.position.set(150, 200, -baseD/2 + 100);
+    braceRight.rotation.z = 0.6;
+    braceRight.rotation.x = 0.4;
+    scene.add(braceRight);
+
+    // TOP ARM: 300mm length sticking forward (+Z) at height 1950mm
+    const armH = 1950;
+    const armLen = 280;
+    const topArm = createPipe(armLen);
+    topArm.rotation.x = Math.PI / 2 - 0.2; // slight upward tilt
+    topArm.position.set(0, armH, -baseD / 2 + armLen / 2 * 0.95);
+    scene.add(topArm);
+
+    const topJoint = createJoint('metal');
+    topJoint.position.set(0, armH, -baseD / 2);
+    scene.add(topJoint);
+
+    // TARGET SQUARE RING (450mm x 450mm) tilted 45 degrees
+    const ringW = 450;
+    const ringCenter = new THREE.Vector3(0, armH + 60, -baseD / 2 + armLen);
+
+    const ringGroup = new THREE.Group();
+    ringGroup.position.copy(ringCenter);
+    ringGroup.rotation.x = Math.PI / 4; // 45 degree tilt
+
+    // 4 edges of the target frame
+    const fTop = createPipe(ringW);
+    fTop.rotation.z = Math.PI / 2;
+    fTop.position.set(0, 0, -ringW / 2);
+    ringGroup.add(fTop);
+
+    const fBottom = createPipe(ringW);
+    fBottom.rotation.z = Math.PI / 2;
+    fBottom.position.set(0, 0, ringW / 2);
+    ringGroup.add(fBottom);
+
+    const fLeft = createPipe(ringW);
+    fLeft.rotation.x = Math.PI / 2;
+    fLeft.position.set(-ringW / 2, 0, 0);
+    ringGroup.add(fLeft);
+
+    const fRight = createPipe(ringW);
+    fRight.rotation.x = Math.PI / 2;
+    fRight.position.set(ringW / 2, 0, 0);
+    ringGroup.add(fRight);
+
+    // Corner joints
+    [[-ringW/2, 0, -ringW/2], [ringW/2, 0, -ringW/2], [-ringW/2, 0, ringW/2], [ringW/2, 0, ringW/2]].forEach(p => {
+      const cj = createJoint();
+      cj.position.set(...p);
+      ringGroup.add(cj);
+    });
+
+    scene.add(ringGroup);
+
+    // MESH NET (Tube hanging from ring to bottom)
+    const netGeom = new THREE.CylinderGeometry(210, 240, 1850, 16, 20, true);
+    const netMesh = new THREE.Mesh(netGeom, netMaterial);
+    netMesh.position.set(0, 950, -baseD/2 + armLen + 20);
+    netMesh.rotation.x = 0.05; // slight slope
+    scene.add(netMesh);
+
+    // DEMO VOLLEYBALLS inside net
+    const ball1 = new THREE.Mesh(new THREE.SphereGeometry(100, 16, 16), ballMaterial);
+    ball1.position.set(0, 120, -baseD/2 + armLen + 30);
+    scene.add(ball1);
+
+    const ball2 = new THREE.Mesh(new THREE.SphereGeometry(100, 16, 16), ballMaterial);
+    ball2.position.set(0, 310, -baseD/2 + armLen + 20);
+    scene.add(ball2);
+
+    // Animate Loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', onWindowResize);
+  }
+
+  function onWindowResize() {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+  }
+
+  function resetCamera() {
+    controls.target.set(0, 1000, 0);
+    camera.position.set(0, 1300, 2600);
+  }
+
+  function setSideView() {
+    controls.target.set(0, 1000, 0);
+    camera.position.set(2600, 1000, 0);
+  }
+
+  function setTopView() {
+    controls.target.set(0, 0, 0);
+    camera.position.set(0, 3000, 100);
+  }
+
+  window.onload = init3D;
+</script>
+
+</body>
+</html>
