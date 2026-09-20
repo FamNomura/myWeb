@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📸 想い出アルバム＆旅行記 | ディズニー家族旅行 2026</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .photo-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .photo-placeholder {
+      height: 200px;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-card);
+    }
+    .photo-placeholder span.icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .photo-info {
+      padding: 1rem 1.25rem;
+    }
+    .photo-title {
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+    .photo-caption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="sparkle">✨</span> ディズニー家族旅行 2026
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">🏠 トップ</a>
+        <a href="shiori.html">🗺️ 旅のしおり</a>
+        <a href="land.html">🏰 ランド詳細</a>
+        <a href="sea.html">🌋 シー詳細</a>
+        <a href="todo.html">✅ 準備TODO</a>
+        <a href="album.html" class="active">📸 想い出</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <a href="index.html" class="btn-back">⬅ トップページへ戻る</a>
+
+    <section class="hero" style="padding-top: 1rem;">
+      <div class="hero-badge" style="color: #00d2d3; border-color: rgba(0, 210, 211, 0.4);">Memories & Travelogue</div>
+      <h1 class="hero-title">📸 想い出アルバム ＆ 旅行記</h1>
+      <p class="hero-subtitle">旅行中のベストショットやお土産、家族みんなの笑顔を記録する想い出ノート</p>
+    </section>
+
+    <!-- 写真ギャラリー -->
+    <div class="section-card">
+      <div class="section-header">
+        <span class="icon">🌟</span>
+        <h2>旅のベストショット（写真ギャラリー）</h2>
+      </div>
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">旅行後に撮影した家族写真をここへ追加してアルバムを完成させましょう！</p>
+      
+      <div class="photo-grid">
+        <div class="photo-card">
+          <div class="photo-placeholder">
+            <span class="icon">🏰</span>
+            <span>写真追加エリア</span>
+          </div>
+          <div class="photo-info">
+            <div class="photo-title">シンデレラ城と家族記念写真</div>
+            <div class="photo-caption">2日目：ランドにて撮影予定</div>
+          </div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-placeholder">
+            <span class="icon">✨</span>
+            <span>写真追加エリア</span>
+          </div>
+          <div class="photo-info">
+            <div class="photo-title">キャラクターグリーティング</div>
+            <div class="photo-caption">ミッキーやミニーとサイン帳を持って</div>
+          </div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-placeholder">
+            <span class="icon">❄️</span>
+            <span>写真追加エリア</span>
+          </div>
+          <div class="photo-info">
+            <div class="photo-title">ファンタジースプリングスの魔法の泉</div>
+            <div class="photo-caption">3日目：アナ＆エルサの岩の前で記念撮影</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- お土産リスト -->
+    <div class="section-card">
+      <div class="section-header">
+        <span class="icon">🎁</span>
+        <h2>買ったお土産リスト（予算: 50,000円）</h2>
+      </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr><th>品名</th><th>渡す相手</th><th>購入場所・価格</th><th>感想・メモ</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>（お菓子・チョコクランチ等）</td>
+              <td>ご家族・親戚</td>
+              <td>パーク内（予算 20,000円）</td>
+              <td>お配り用、定番缶入りお菓子など</td>
+            </tr>
+            <tr>
+              <td>（グッズ・おもちゃ等）</td>
+              <td>はると君</td>
+              <td>パーク内（予算 5,000円）</td>
+              <td>自分用のお気に入りの記念品</td>
+            </tr>
+            <tr>
+              <td>（グッズ・ぬいぐるみ等）</td>
+              <td>さやちゃん</td>
+              <td>パーク内（予算 5,000円）</td>
+              <td>大好きなプリンセスやキャラクター</td>
+            </tr>
+            <tr>
+              <td>（記念品・お菓子等）</td>
+              <td>自分たち用（パパ・ママ）</td>
+              <td>パーク内 / 空港（予算 20,000円）</td>
+              <td>思い出に残る限定グッズや美味しいもの</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 日程別旅行記メモ -->
+    <div class="section-card">
+      <div class="section-header">
+        <span class="icon">📝</span>
+        <h2>日程別ハイライト ＆ 旅の記録メモ</h2>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div style="background: rgba(255, 255, 255, 0.03); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-card);">
+          <h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 0.5rem;">1日目：2026/10/04（日）「出発・成田到着・平和公園経由でホテルへ」</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">新千歳空港 ➔ 成田空港 ➔ 千葉平和公園 ➔ コンフォートスイーツ東京ベイ</p>
+          <div style="margin-top: 0.75rem; color: #94a3b8; font-style: italic;">（旅行後に感想や出来事を記入）</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.03); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-card);">
+          <h3 style="color: #ff6b81; font-size: 1.1rem; margin-bottom: 0.5rem;">2日目：2026/10/05（月）「東京ディズニーランド 満喫日」</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">美女と野獣、ベイマックス、ホーンテッドマンション、エレクトリカルパレード</p>
+          <div style="margin-top: 0.75rem; color: #94a3b8; font-style: italic;">（子供たちの様子や一番楽しかったアトラクションなどを記入）</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.03); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-card);">
+          <h3 style="color: #1dd1a1; font-size: 1.1rem; margin-bottom: 0.5rem;">3日目：2026/10/06（火）「東京ディズニーシー 満喫日」</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">ファンタジースプリングス（アナ雪）、トイマニ対決、マーメイドラグーン、ビリーヴ</p>
+          <div style="margin-top: 0.75rem; color: #94a3b8; font-style: italic;">（トイマニの勝敗やアナ雪の感動、夜のショーの感想などを記入）</div>
+        </div>
+
+        <div style="background: rgba(255, 255, 255, 0.03); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-card);">
+          <h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 0.5rem;">4日目：2026/10/07（水）「チェックアウト・成田空港から帰路へ」</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">スーツケース発送 ➔ 成田空港 ➔ 新千歳空港 ➔ ご自宅へ無事帰宅</p>
+          <div style="margin-top: 0.75rem; color: #94a3b8; font-style: italic;">（旅行全体の総評や次回への反省点などを記入）</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Disney Family Trip Portal. Designed with magic for our family.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
