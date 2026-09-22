@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ぴたっとナース | プロジェクト総合ポータル & ダッシュボード</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;600;700;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #089c97;
+      --primary-dark: #056e6a;
+      --primary-deep: #034845;
+      --primary-light: #e0f5f4;
+      --primary-subtle: #f0faf9;
+      --accent-gold: #d97706;
+      --accent-gold-light: #fef3c7;
+      --accent-orange: #ea580c;
+      --accent-blue: #0284c7;
+      --accent-purple: #7c3aed;
+      --success: #16a34a;
+      --success-light: #dcfce7;
+      --warning: #ca8a04;
+      --warning-light: #fef9c3;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --border-color-subtle: #edf2f7;
+      
+      --text-main: #1e293b;
+      --text-sub: #475569;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.03);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.04);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-pill: 9999px;
+      
+      --font-main: 'Noto Sans JP', sans-serif;
+      --font-rounded: 'M PLUS Rounded 1c', sans-serif;
+      --font-number: 'Outfit', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 上部固定ナビゲーション */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--primary-dark);
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 900;
+      box-shadow: 0 4px 10px rgba(8, 156, 151, 0.3);
+    }
+    .logo-text h1 {
+      font-family: var(--font-rounded);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .logo-text p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-sub);
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+    .nav-links a:hover {
+      color: var(--primary-dark);
+      background: var(--primary-light);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-sub);
+    }
+    .btn-action:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+    .btn-action.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(8, 156, 151, 0.25);
+    }
+    .btn-action.primary:hover {
+      background: var(--primary-dark);
+    }
+
+    /* メインコンテナ */
+    .main-wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    /* ヒーローセクション */
+    .hero-banner {
+      background: linear-gradient(135deg, #056e6a 0%, #089c97 60%, #0d9488 100%);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+    .hero-banner::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+    }
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      bottom: -60px;
+      left: 20%;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(217,119,6,0.2) 0%, rgba(217,119,6,0) 70%);
+      border-radius: 50%;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .hero-badge.gold {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
+      border: 1px solid #fbbf24;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
+    }
+    .hero-badge.subsidy {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--primary-dark);
+      border: 1px solid #ffffff;
+      font-weight: 800;
+    }
+
+    .hero-title-area h2 {
+      font-family: var(--font-rounded);
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .hero-title-area p.subtitle {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      max-width: 800px;
+      font-weight: 500;
+    }
+
+    .hero-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .hero-meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.8;
+    }
+    .hero-meta-value {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    /* カウントダウン・ステータスバー */
+    .status-strip {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+    }
+    .phase-indicator {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .phase-pill {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .phase-pill .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(8, 156, 151, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(8, 156, 151, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(8, 156, 151, 0); }
+    }
+    .phase-desc {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .phase-desc span {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin-left: 8px;
+    }
+
+    .quick-metrics {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .metric-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .metric-badge .m-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .metric-badge .m-val {
+      font-family: var(--font-number);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .metric-badge .m-val.highlight {
+      color: var(--primary-dark);
+    }
+
+    /* セクション共通見出し */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .section-title {
+      font-family: var(--font-rounded);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* KPIハイライトカード Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--border-color);
+    }
+    .kpi-card.teal::before { background: var(--primary); }
+    .kpi-card.gold::before { background: var(--accent-gold); }
+    .kpi-card.blue::before { background: var(--accent-blue); }
+    .kpi-card.purple::before { background: var(--accent-purple); }
+
+    .kpi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .kpi-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+    .kpi-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: #f1f5f9;
+      color: var(--text-muted);
+    }
+    .kpi-tag.success {
+      background: var(--success-light);
+      color: var(--success);
+    }
+    .kpi-tag.gold {
+      background: var(--accent-gold-light);
+      color: var(--accent-gold);
+    }
+    .kpi-value-area {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .kpi-num {
+      font-family: var(--font-number);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1;
+    }
+    .kpi-unit {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .kpi-subtext {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* 決定事項・重要方針アーカイブ */
+    .decisions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+    }
+    .decision-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .decision-card-header {
+      padding: 16px 20px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .decision-category {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+    .decision-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--primary-light);
+      color: var(--primary-dark);
+    }
+    .decision-card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+    .decision-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+    .decision-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .decision-item-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .decision-item-desc {
+      font-size: 0.84rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+    .alert-box {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: #92400e;
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+    .alert-box strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* 料金プランテーブル */
+    .plan-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.82rem;
+    }
+    .plan-table th, .plan-table td {
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .plan-table th {
+      background: #f1f5f9;
+      color: var(--text-sub);
+      font-weight: 700;
+    }
+    .plan-table td.plan-price {
+      font-family: var(--font-number);
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    .plan-table tr.highlight {
+      background: var(--primary-subtle);
+    }
+
+    /* 進捗状況セクション */
+    .progress-overview {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
+    .progress-item-box {
+      background: #f8fafc;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .progress-box-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .folder-tag {
+      font-family: var(--font-number);
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: #e2e8f0;
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--text-sub);
+    }
+    .progress-percent {
+      font-family: var(--font-number);
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+    .progress-box-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      border-radius: var(--radius-pill);
+      transition: width 0.5s ease;
+    }
+    .progress-task-list {
+      list-style: none;
+      font-size: 0.76rem;
+      color: var(--text-sub);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .progress-task-list li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .task-check {
+      color: var(--success);
+      font-weight: 800;
+    }
+    .task-doing {
+      color: var(--accent-orange);
+      font-weight: 800;
+    }
+
+    /* ToDo・ネクストアクション管理ボード */
+    .todo-board {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .todo-toolbar {
+      padding: 16px 24px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .todo-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter-btn {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+    .filter-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(8, 156, 151, 0.25);
+    }
+    .todo-stats-bar {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .todo-stats-bar strong {
+      color: var(--primary-dark);
+    }
+
+    .todo-list-container {
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    .todo-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      transition: all 0.2s;
+    }
+    .todo-row:hover {
+      border-color: #cbd5e1;
+      box-shadow: var(--shadow-sm);
+    }
+    .todo-row.completed {
+      background: #f8fafc;
+      opacity: 0.75;
+    }
+    .todo-row.completed .todo-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+    .todo-checkbox {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .todo-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .todo-header-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .priority-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+    .priority-badge.p-high {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+    .priority-badge.p-medium {
+      background: #fef3c7;
+      color: #b45309;
+    }
+    .priority-badge.p-low {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+    .category-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: #f1f5f9;
+      color: var(--text-sub);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .todo-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .todo-notes {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
+    .todo-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* 収支計画シミュレーション Table */
+    .finance-overview {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 14px;
+    }
+    .finance-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      min-width: 680px;
+    }
+    .finance-table th, .finance-table td {
+      padding: 10px 14px;
+      text-align: right;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .finance-table th:first-child, .finance-table td:first-child {
+      text-align: left;
+    }
+    .finance-table th {
+      background: #f1f5f9;
+      color: var(--text-sub);
+      font-weight: 700;
+    }
+    .finance-table tr.highlight-row {
+      background: var(--primary-subtle);
+      font-weight: 700;
+    }
+    .finance-table tr.highlight-row td {
+      color: var(--primary-dark);
+    }
+    .finance-table td.profit-plus {
+      color: var(--success);
+      font-weight: 800;
+      font-family: var(--font-number);
+    }
+    .loan-callout {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .loan-callout-text h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #166534;
+      margin-bottom: 4px;
+    }
+    .loan-callout-text p {
+      font-size: 0.82rem;
+      color: #15803d;
+    }
+    .loan-stats {
+      display: flex;
+      gap: 16px;
+    }
+    .loan-stat-item {
+      text-align: right;
+    }
+    .loan-stat-label {
+      font-size: 0.72rem;
+      color: #15803d;
+      font-weight: 600;
+    }
+    .loan-stat-val {
+      font-family: var(--font-number);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #166534;
+    }
+
+    /* 補助金・開業費 2カラム */
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+    }
+    .detail-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .detail-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .detail-card-title {
+      font-family: var(--font-rounded);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .expense-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.84rem;
+    }
+    .expense-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: #f8fafc;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+    }
+    .expense-item-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .expense-item-name {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .expense-item-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .expense-item-price {
+      font-family: var(--font-number);
+      font-weight: 700;
+      color: var(--text-main);
+      text-align: right;
+    }
+
+    /* ドキュメント一覧・カード（モーダル起動対応） */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .doc-link-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .doc-link-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .doc-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .doc-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .doc-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.3;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .doc-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .doc-btn-view {
+      font-size: 0.72rem;
+      color: var(--primary-dark);
+      font-weight: 700;
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ドキュメント閲覧モーダル */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-container {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 860px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      animation: modalFade 0.2s ease-out;
+    }
+    @keyframes modalFade {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-header {
+      padding: 18px 24px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-header-title {
+      font-family: var(--font-rounded);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-close-btn {
+      background: #e2e8f0;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-sub);
+      transition: all 0.2s;
+    }
+    .modal-close-btn:hover {
+      background: #cbd5e1;
+      color: var(--text-main);
+    }
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+    .modal-body h2 {
+      font-size: 1.25rem;
+      margin: 20px 0 10px;
+      color: var(--primary-dark);
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 4px;
+    }
+    .modal-body h3 {
+      font-size: 1.05rem;
+      margin: 16px 0 8px;
+      color: var(--text-main);
+    }
+    .modal-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 0.85rem;
+    }
+    .modal-body th, .modal-body td {
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .modal-body th {
+      background: #f1f5f9;
+      font-weight: 700;
+    }
+    .modal-body ul, .modal-body ol {
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    /* フッター */
+    .page-footer {
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 40px 24px;
+      margin-top: 60px;
+      border-top: 1px solid #334155;
+    }
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-info h3 {
+      color: #ffffff;
+      font-family: var(--font-rounded);
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    .footer-info p {
+      font-size: 0.8rem;
+    }
+    .footer-copy {
+      font-size: 0.78rem;
+    }
+
+    /* レスポンシブ対応 */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-banner { padding: 24px; }
+      .hero-title-area h2 { font-size: 1.6rem; }
+      .main-wrapper { padding: 16px 16px 60px; gap: 24px; }
+      .decisions-grid, .two-col-grid { grid-template-columns: 1fr; }
+      .quick-metrics { gap: 14px; }
+      .metric-badge .m-val { font-size: 1.1rem; }
+    }
+
+    /* 印刷用スタイル */
+    @media print {
+      .top-nav, .todo-toolbar, .btn-action, .page-footer, .modal-overlay { display: none !important; }
+      body { background: #ffffff; color: #000000; }
+      .hero-banner { background: #089c97 !important; color: #ffffff !important; -webkit-print-color-adjust: exact; }
+      .main-wrapper { max-width: 100%; padding: 0; }
+      .kpi-card, .decision-card, .detail-card, .todo-board { box-shadow: none !important; border: 1px solid #ccc !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 固定ナビゲーションバー -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <div class="logo-icon">🌿</div>
+        <div class="logo-text">
+          <h1>ぴたっとナース</h1>
+          <p>PROJECT PORTAL & DASHBOARD</p>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#summary">概要・実績</a></li>
+          <li><a href="#decisions">決まったこと</a></li>
+          <li><a href="#progress">進捗状況</a></li>
+          <li><a href="#todos">ToDo・次のアクション</a></li>
+          <li><a href="#finance">資金・収支</a></li>
+          <li><a href="#documents">資料集</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-action" onclick="window.print()" title="このページを印刷 / PDF保存">
+          <span>🖨️ 印刷 / PDF保存</span>
+        </button>
+        <a href="flyers.html" class="btn-action primary" target="_blank" title="チラシ3パターンを開く">
+          <span>📄 チラシプレビュー</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+
+    <!-- ヒーローサマリーエリア -->
+    <section id="summary" class="hero-banner">
+      <div class="hero-content">
+        <div class="hero-tags">
+          <span class="hero-badge gold">🏆 2025道北ビジコン 最優秀賞受賞</span>
+          <span class="hero-badge subsidy">🏛 地域課題解決型起業支援金 採択済 (39万円)</span>
+          <span class="hero-badge">🏅 RED北海道 入賞</span>
+          <span class="hero-badge">🤝 旭川産業創造プラザ 伴走支援</span>
+        </div>
+
+        <div class="hero-title-area">
+          <h2>「看護師免許を持った、もう一人の家族」</h2>
+          <p class="subtitle">
+            離れて暮らす親を想う子ども世代の「罪悪感」を「安心感」に変え、親子の会話が再びつながる社会を実現する。<br>
+            医療通訳を伴う通院エスコートで、後悔のない別れを減らし、親孝行の新しいスタンダードを旭川から作ります。
+          </p>
+        </div>
+
+        <div class="hero-meta-grid">
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">代表者 / 資格</span>
+            <span class="hero-meta-value">野村 由佳子（正看護師 / 臨床12年）</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">拠点所在地</span>
+            <span class="hero-meta-value">北海道旭川市神楽5条7丁目2-3</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">開業目標日</span>
+            <span class="hero-meta-value">2026年9月14日</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">現在フェーズ</span>
+            <span class="hero-meta-value">Phase 1: 開業直前・資金調達＆行政手続き</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ステータス・ストリップ -->
+    <section class="status-strip">
+      <div class="phase-indicator">
+        <div class="phase-pill">
+          <div class="pulse-dot"></div>
+          <span>Phase 1 実行中</span>
+        </div>
+        <div class="phase-desc">
+          開業直前・行政手続き＆資金調達準備フェーズ
+          <span>（税務届出・信金面談・証憑回収が進行中）</span>
+        </div>
+      </div>
+
+      <div class="quick-metrics">
+        <div class="metric-badge">
+          <span class="m-label">補助金採択額</span>
+          <span class="m-val highlight">¥390,000</span>
+        </div>
+        <div class="metric-badge">
+          <span class="m-label">融資相談希望額</span>
+          <span class="m-val">¥1,500,000</span>
+        </div>
+        <div class="metric-badge">
+          <span class="m-label">初年度目標顧客</span>
+          <span class="m-val highlight">8 名/月</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPIハイライトカード -->
+    <section>
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">📊</div>
+          <div>
+            <h3 class="section-title">プロジェクト重要指標・KPI</h3>
+            <p class="section-subtitle">事業規模・財務目標・公的採択ステータスの要約</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card teal">
+          <div class="kpi-header">
+            <span class="kpi-title">初年度 目標顧客数</span>
+            <span class="kpi-tag success">1年目目標</span>
+          </div>
+          <div class="kpi-value-area">
+            <span class="kpi-num">8</span>
+            <span class="kpi-unit">名 / 月</span>
+          </div>
+          <p class="kpi-subtext">病院連携室4名＋SNS/Web3名＋紹介1名の着実な獲得ポートフォリオ</p>
+        </div>
+
+        <div class="kpi-card gold">
+          <div class="kpi-header">
+            <span class="kpi-title">2年目 想定営業利益</span>
+            <span class="kpi-tag gold">黒字化計画</span>
+          </div>
+          <div class="kpi-value-area">
+            <span class="kpi-num">228</span>
+            <span class="kpi-unit">万円</span>
+          </div>
+          <p class="kpi-subtext">年商432万円。家族サポートで固定費を極小化し、確実な利益実績を構築</p>
+        </div>
+
+        <div class="kpi-card blue">
+          <div class="kpi-header">
+            <span class="kpi-title">旭川信金 融資希望額</span>
+            <span class="kpi-tag">相談準備済</span>
+          </div>
+          <div class="kpi-value-area">
+            <span class="kpi-num">150</span>
+            <span class="kpi-unit">万円</span>
+          </div>
+          <p class="kpi-subtext">自己資金150万と対比50%の健全比率。月返済約2.6万円（据置6ヶ月〜1年）</p>
+        </div>
+
+        <div class="kpi-card purple">
+          <div class="kpi-header">
+            <span class="kpi-title">地域課題解決型起業支援金</span>
+            <span class="kpi-tag success">交付決定済</span>
+          </div>
+          <div class="kpi-value-area">
+            <span class="kpi-num">39</span>
+            <span class="kpi-unit">万円</span>
+          </div>
+          <p class="kpi-subtext">対象経費78.2万円（人件費39万、バイタル機器10.2万、写真撮影11.5万、広告17.4万）</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- これまでの歩みと「決まったこと」（決定事項アーカイブ） -->
+    <section id="decisions">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">⚖️</div>
+          <div>
+            <h3 class="section-title">これまでの決定事項・確定方針</h3>
+            <p class="section-subtitle">資料突合・精査を経て合意・確定したプロジェクトの基本方針</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="decisions-grid">
+        <!-- サービス・料金設計 -->
+        <div class="decision-card">
+          <div class="decision-card-header">
+            <div class="decision-category">
+              <span>🩺</span> サービス設計・料金体系
+            </div>
+            <span class="decision-badge">税込表示統一</span>
+          </div>
+          <div class="decision-card-body">
+            <div class="decision-item">
+              <div class="decision-item-title">
+                <span>✓</span> 提供価値の核：「医療通訳を伴うエスコート」
+              </div>
+              <p class="decision-item-desc">
+                単なるお出かけ付き添いではなく、正看護師が診察室へ同席。医師の説明を専門的に噛み砕き本人に伝え、診察直後にLINEで遠方家族へ詳細レポートを報告。
+              </p>
+            </div>
+            <div class="decision-item">
+              <div class="decision-item-title">
+                <span>✓</span> 月額3プラン（松竹梅）＋お試し枠の確定
+              </div>
+              <table class="plan-table">
+                <thead>
+                  <tr>
+                    <th>プラン名</th>
+                    <th>月額(税込)</th>
+                    <th>回数/月</th>
+                    <th>特徴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>ベーシック</td>
+                    <td class="plan-price">¥15,000</td>
+                    <td>1回(3h)</td>
+                    <td>受診同行＋簡易報告</td>
+                  </tr>
+                  <tr class="highlight">
+                    <td><strong>スタンダード★人気</strong></td>
+                    <td class="plan-price">¥25,000</td>
+                    <td>2回(各3h)</td>
+                    <td>医師連携＋詳細LINE報告</td>
+                  </tr>
+                  <tr>
+                    <td>プレミアム</td>
+                    <td class="plan-price">¥35,000</td>
+                    <td>3回(各3h)</td>
+                    <td>緊急時駆けつけ＋手厚い支援</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">
+                ※初回お試しサポート: 5,000円（1回3時間）で利用ハードルを緩和
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 法令遵守・移動手段（最重要） -->
+        <div class="decision-card">
+          <div class="decision-card-header">
+            <div class="decision-category">
+              <span>🚗</span> 移動・送迎の法令遵守方針
+            </div>
+            <span class="decision-badge" style="background:#fef3c7; color:#b45309;">超重要確定事項</span>
+          </div>
+          <div class="decision-card-body">
+            <div class="decision-item">
+              <div class="decision-item-title">
+                <span>✓</span> 白タク行為（道路運送法）の完全回避ルール
+              </div>
+              <p class="decision-item-desc">
+                1〜3年目の移動は、自家用車による有償送迎を一切行わず、<strong>「一般タクシーまたは福祉タクシーを利用者と同乗利用（運賃実費は利用者負担）」</strong>とする方針を確定。
+              </p>
+              <div class="alert-box">
+                <strong>法的リスクを完全クリア</strong>
+                白タク規制に抵触しないクリーンな体制を確立。金融機関や行政に対しても堂々と説明可能。4年目以降に正規の介護タクシー許可を取得・車両導入予定。
+              </div>
+            </div>
+            <div class="decision-item">
+              <div class="decision-item-title">
+                <span>✓</span> 医療行為の線引きと安全管理
+              </div>
+              <p class="decision-item-desc">
+                医師の指示書がない医療行為は行わず、法的範囲内の「療養上の世話」と「トリアージ（救急要請）」に徹する。利用規約で明記し、看護師賠償責任保険でリスクカバー。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 財務・融資方針 -->
+        <div class="decision-card">
+          <div class="decision-card-header">
+            <div class="decision-category">
+              <span>🏦</span> 旭川信金・資金調達方針
+            </div>
+            <span class="decision-badge">プレゼン資料完成</span>
+          </div>
+          <div class="decision-card-body">
+            <div class="decision-item">
+              <div class="decision-item-title">
+                <span>✓</span> 創業融資希望条件の明確化
+              </div>
+              <p class="decision-item-desc">
+                希望額<strong>150万円</strong>（自己資金150万と対比して比率50%の健全性）。期間5年（据置6ヶ月〜1年希望）。北海道信用保証協会の創業関連保証（無担保・無保証人）を利用。
+              </p>
+            </div>
+            <div class="decision-item">
+              <div class="decision-item-title">
+                <span>✓</span> 資金使途の明確化
+              </div>
+              <p class="decision-item-desc">
+                ① 補助金39万円（総額78.2万円）の精算払いまでのつなぎ資金（約78万円）<br>
+                ② 初期安定稼働のための運転資金（約72万円）
+              </p>
+            </div>
+            <div class="decision-item">
+              <div class="decision-item-title">
+                <span>✓</span> 月々の返済試算
+              </div>
+              <p class="decision-item-desc">
+                金利2.0%想定で<strong>月約26,300円</strong>。初年度の営業利益（月平均3.6万円）および2年目利益（月約19万円）で十分に安全返済可能。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 補助金・開業費ルール -->
+        <div class="decision-card">
+          <div class="decision-card-header">
+            <div class="decision-category">
+              <span>🧾</span> 補助金・開業費（税務対応）
+            </div>
+            <span class="decision-badge">証憑ルール確立</span>
+          </div>
+          <div class="decision-card-body">
+            <div class="decision-item">
+              <div class="decision-item-title">
+                <span>✓</span> 補助金証憑の「5点セット義務化」
+              </div>
+              <p class="decision-item-desc">
+                精算払い（受給）のため、全対象経費で「見積書・注文書・納品書・請求書・振込控」の5点を徹底保管。人件費は雇用契約書・タイムカード・賃金台帳を完備。
+              </p>
+            </div>
+            <div class="decision-item">
+              <div class="decision-item-title">
+                <span>✓</span> 開業前支出（開業費）の繰延資産化
+              </div>
+              <p class="decision-item-desc">
+                開業日前の支出（SWELL、Gemini、プリンター、交通費等）を「開業費」として集約。2年目以降の大きな黒字年度にまとめて経費化（任意償却）して強力に節税。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロジェクト進捗状況 -->
+    <section id="progress">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">📈</div>
+          <div>
+            <h3 class="section-title">分野別 進捗状況</h3>
+            <p class="section-subtitle">プロジェクト内のフォルダ・ドキュメント体系と進捗度</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-overview">
+        <div class="progress-grid">
+          <!-- 00_全体管理 -->
+          <div class="progress-item-box">
+            <div class="progress-box-top">
+              <span class="folder-tag">全体管理</span>
+              <span class="progress-percent">90%</span>
+            </div>
+            <div class="progress-box-title">創業総合マネジメント & 記録</div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 90%;"></div>
+            </div>
+            <ul class="progress-task-list">
+              <li><span class="task-check">✓</span> 総合ToDo・マイルストーン策定</li>
+              <li><span class="task-check">✓</span> 日報・作業経過ログ自動更新</li>
+              <li><span class="task-check">✓</span> フォルダ運用・ファイル命名ルール</li>
+            </ul>
+          </div>
+
+          <!-- 01_事業計画 -->
+          <div class="progress-item-box">
+            <div class="progress-box-top">
+              <span class="folder-tag">事業計画</span>
+              <span class="progress-percent">95%</span>
+            </div>
+            <div class="progress-box-title">メイン事業計画 & 販促制作</div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 95%;"></div>
+            </div>
+            <ul class="progress-task-list">
+              <li><span class="task-check">✓</span> メイン事業計画書策定（ビジョン・強み）</li>
+              <li><span class="task-check">✓</span> チラシ3パターン原稿＆指示書作成</li>
+              <li><span class="task-check">✓</span> チラシHTMLプレビュー検証完了</li>
+            </ul>
+          </div>
+
+          <!-- 02_資金・財務 -->
+          <div class="progress-item-box">
+            <div class="progress-box-top">
+              <span class="folder-tag">資金・財務</span>
+              <span class="progress-percent">85%</span>
+            </div>
+            <div class="progress-box-title">創業資金計画 & 信金プレゼン</div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 85%;"></div>
+            </div>
+            <ul class="progress-task-list">
+              <li><span class="task-check">✓</span> 5カ年収支計画・返済試算確定</li>
+              <li><span class="task-check">✓</span> 旭川信金融資プレゼン資料完成</li>
+              <li><span class="task-doing">▲</span> 開業前支出（開業費）の証憑集約中</li>
+            </ul>
+          </div>
+
+          <!-- 03_補助金・創業支援 -->
+          <div class="progress-item-box">
+            <div class="progress-box-top">
+              <span class="folder-tag">補助金支援</span>
+              <span class="progress-percent">85%</span>
+            </div>
+            <div class="progress-box-title">地域課題解決型起業支援金</div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 85%;"></div>
+            </div>
+            <ul class="progress-task-list">
+              <li><span class="task-check">✓</span> 補助金採択（交付申請390,000円）</li>
+              <li><span class="task-check">✓</span> 採択・執行管理シート整備</li>
+              <li><span class="task-doing">▲</span> 交付決定通知受領後の発注準備</li>
+            </ul>
+          </div>
+
+          <!-- 04_法務・行政手続き -->
+          <div class="progress-item-box">
+            <div class="progress-box-top">
+              <span class="folder-tag">法務・行政</span>
+              <span class="progress-percent">70%</span>
+            </div>
+            <div class="progress-box-title">開業届出 & 利用規約・保険</div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 70%;"></div>
+            </div>
+            <ul class="progress-task-list">
+              <li><span class="task-check">✓</span> 開業・税務ステップ一覧策定</li>
+              <li><span class="task-doing">▲</span> サービス利用規約・同意書ドラフト</li>
+              <li><span class="task-doing">▲</span> 開業届・青色申告申請書の提出準備</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ToDo・ネクストアクション管理ボード -->
+    <section id="todos">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">🎯</div>
+          <div>
+            <h3 class="section-title">これからやらないといけないこと（ToDo・優先アクション）</h3>
+            <p class="section-subtitle">開業前後に完了させる必要のあるタスク一覧（チェック状態はブラウザに自動保存されます）</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="todo-board">
+        <div class="todo-toolbar">
+          <div class="todo-filters">
+            <button class="filter-btn active" data-filter="all">すべて表示</button>
+            <button class="filter-btn" data-filter="high">最優先 (High)</button>
+            <button class="filter-btn" data-filter="tax">税務・行政</button>
+            <button class="filter-btn" data-filter="bank">資金・信金</button>
+            <button class="filter-btn" data-filter="subsidy">補助金</button>
+            <button class="filter-btn" data-filter="legal">法務・規約</button>
+            <button class="filter-btn" data-filter="sales">営業・Web</button>
+          </div>
+          <div class="todo-stats-bar">
+            完了: <strong id="completedCount">0</strong> / <span id="totalCount">0</span> タスク
+          </div>
+        </div>
+
+        <div class="todo-list-container" id="todoContainer"></div>
+      </div>
+    </section>
+
+    <!-- 開業前支出（開業費）証憑回収ステータス -->
+    <section>
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">🧾</div>
+          <div>
+            <h3 class="section-title">開業前支出（開業費）の証憑集めチェックリスト</h3>
+            <p class="section-subtitle">2年目以降の最強の節税資産！領収書・明細データが見つかり次第、受取フォルダへ</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col-grid">
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <h4 class="detail-card-title"><span>💻</span> IT・Web・サブスク費用</h4>
+            <span class="kpi-tag warning">証憑回収中</span>
+          </div>
+          <ul class="expense-list">
+            <li class="expense-item">
+              <div class="expense-item-info">
+                <span class="expense-item-name">SWELL（WordPressテーマ）</span>
+                <span class="expense-item-sub">購入完了メールまたはクレカ明細</span>
+              </div>
+              <span class="expense-item-price">¥17,600</span>
+            </li>
+            <li class="expense-item">
+              <div class="expense-item-info">
+                <span class="expense-item-name">Gemini Advanced / AIツール</span>
+                <span class="expense-item-sub">Google Play領収書PDFまたは明細</span>
+              </div>
+              <span class="expense-item-price">未確定</span>
+            </li>
+            <li class="expense-item">
+              <div class="expense-item-info">
+                <span class="expense-item-name">レンタルサーバー契約費用</span>
+                <span class="expense-item-sub">サーバー管理画面の請求書・領収書</span>
+              </div>
+              <span class="expense-item-price">未確定</span>
+            </li>
+            <li class="expense-item">
+              <div class="expense-item-info">
+                <span class="expense-item-name">X (旧Twitter) プレミアム</span>
+                <span class="expense-item-sub">Xからの決済領収メール</span>
+              </div>
+              <span class="expense-item-price">未確定</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-card-header">
+            <h4 class="detail-card-title"><span>🖨️</span> 備品・交通費・交際費</h4>
+            <span class="kpi-tag warning">証憑回収中</span>
+          </div>
+          <ul class="expense-list">
+            <li class="expense-item">
+              <div class="expense-item-info">
+                <span class="expense-item-name">事業用プリンター・インク・用紙</span>
+                <span class="expense-item-sub">店舗レシート写真またはAmazon領収書</span>
+              </div>
+              <span class="expense-item-price">未確定</span>
+            </li>
+            <li class="expense-item">
+              <div class="expense-item-info">
+                <span class="expense-item-name">RED北海道・ビジコン遠征交通費</span>
+                <span class="expense-item-sub">JR特急券・宿泊領収書・IC履歴</span>
+              </div>
+              <span class="expense-item-price">未確定</span>
+            </li>
+            <li class="expense-item">
+              <div class="expense-item-info">
+                <span class="expense-item-name">小規模事業者懇談会・交流会参加費</span>
+                <span class="expense-item-sub">当日発行の領収書・参加案内</span>
+              </div>
+              <span class="expense-item-price">未確定</span>
+            </li>
+            <li class="expense-item">
+              <div class="expense-item-info">
+                <span class="expense-item-name">名刺・チラシ試作印刷費</span>
+                <span class="expense-item-sub">印刷会社領収書・購入レシート</span>
+              </div>
+              <span class="expense-item-price">未確定</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 創業資金計画・5カ年収支シミュレーション -->
+    <section id="finance">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">💴</div>
+          <div>
+            <h3 class="section-title">創業資金計画 & 5カ年収支シミュレーション</h3>
+            <p class="section-subtitle">旭川信用金庫・支援機関提出済みの事業計画に基づく収支推移</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="finance-overview">
+        <div class="table-responsive">
+          <table class="finance-table">
+            <thead>
+              <tr>
+                <th>収支項目</th>
+                <th>1年目 (2026年度)</th>
+                <th>2年目 (2027年度)</th>
+                <th>3年目 (2028年度)</th>
+                <th>4年目 (2029年度)</th>
+                <th>5年目 (2030年度)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>目標顧客数（月平均）</strong></td>
+                <td><strong>8 名</strong></td>
+                <td><strong>15 名</strong></td>
+                <td><strong>30 名</strong></td>
+                <td><strong>40 名</strong></td>
+                <td><strong>50 名</strong></td>
+              </tr>
+              <tr>
+                <td>年間売上高（平均単価2.4万）</td>
+                <td>¥2,304,000</td>
+                <td>¥4,320,000</td>
+                <td>¥7,200,000</td>
+                <td>¥10,080,000</td>
+                <td>¥12,960,000</td>
+              </tr>
+              <tr>
+                <td>変動費（1件2,000円想定）</td>
+                <td>¥192,000</td>
+                <td>¥360,000</td>
+                <td>¥600,000</td>
+                <td>¥840,000</td>
+                <td>¥1,080,000</td>
+              </tr>
+              <tr>
+                <td>売上総利益（粗利）</td>
+                <td>¥2,112,000</td>
+                <td>¥3,960,000</td>
+                <td>¥6,600,000</td>
+                <td>¥9,240,000</td>
+                <td>¥11,880,000</td>
+              </tr>
+              <tr>
+                <td>年間固定費（※人件費・経費）</td>
+                <td>¥1,680,000</td>
+                <td>¥1,680,000</td>
+                <td>¥4,818,000</td>
+                <td>¥7,518,000</td>
+                <td>¥9,618,000</td>
+              </tr>
+              <tr class="highlight-row">
+                <td><strong>営業利益（年計）</strong></td>
+                <td class="profit-plus">¥432,000</td>
+                <td class="profit-plus">¥2,280,000</td>
+                <td class="profit-plus">¥1,782,000</td>
+                <td class="profit-plus">¥1,722,000</td>
+                <td class="profit-plus">¥2,262,000</td>
+              </tr>
+              <tr style="font-size:0.75rem; color:var(--text-muted);">
+                <td>体制・人員</td>
+                <td>代表＋家族</td>
+                <td>代表＋家族</td>
+                <td>代表＋パート看1</td>
+                <td>代表＋看2(介護タク)</td>
+                <td>代表＋看2＋事務1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="loan-callout">
+          <div class="loan-callout-text">
+            <h4>🏦 旭川信金 創業融資（150万円）返済試算</h4>
+            <p>金利2.0%、借入期間5年（60回）、元利均等返済の場合の毎月負担額と返済余力</p>
+          </div>
+          <div class="loan-stats">
+            <div class="loan-stat-item">
+              <div class="loan-stat-label">毎月の元利返済額</div>
+              <div class="loan-stat-val">約 26,300 円</div>
+            </div>
+            <div class="loan-stat-item">
+              <div class="loan-stat-label">2年目月平均営業利益</div>
+              <div class="loan-stat-val">約 190,000 円</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロジェクト内ドキュメント・リンク一覧（モーダル内蔵） -->
+    <section id="documents">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">📁</div>
+          <div>
+            <h3 class="section-title">プロジェクト管理ファイル・資料集</h3>
+            <p class="section-subtitle">クリックするとWebブラウザ上でそのまま内容を閲覧できます</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="docs-grid">
+        <!-- チラシプレビュー（別ページへリンク） -->
+        <a href="flyers.html" class="doc-link-card" target="_blank">
+          <div class="doc-icon">📑</div>
+          <div class="doc-content">
+            <div class="doc-title">チラシプレビュー（3パターン） <span>↗</span></div>
+            <div class="doc-desc">本人向け・協力会社向け・子供向けのA4印刷対応インタラクティブHTMLプレビュー</div>
+            <div class="doc-btn-view">📄 新しいタブで開く</div>
+          </div>
+        </a>
+
+        <!-- メイン事業計画書 -->
+        <div class="doc-link-card" onclick="openDocModal('plan')">
+          <div class="doc-icon">🎯</div>
+          <div class="doc-content">
+            <div class="doc-title">メイン事業計画書</div>
+            <div class="doc-desc">ビジョン、解決する地域課題、サービス内容、料金体系、競合優位性の確定版</div>
+            <div class="doc-btn-view">👁️ クリックして閲覧</div>
+          </div>
+        </div>
+
+        <!-- 旭川信金向け資料 -->
+        <div class="doc-link-card" onclick="openDocModal('bank')">
+          <div class="doc-icon">💼</div>
+          <div class="doc-content">
+            <div class="doc-title">旭川信金 創業融資相談用プレゼン資料</div>
+            <div class="doc-desc">150万円の借入相談概要、3大信頼性、返済計画、想定問答集・ヒアリングシート</div>
+            <div class="doc-btn-view">👁️ クリックして閲覧</div>
+          </div>
+        </div>
+
+        <!-- 補助金管理シート -->
+        <div class="doc-link-card" onclick="openDocModal('subsidy')">
+          <div class="doc-icon">🏛️</div>
+          <div class="doc-content">
+            <div class="doc-title">地域課題解決型起業支援金 管理シート</div>
+            <div class="doc-desc">北海道中小企業総合支援センター採択経費明細、証憑5点管理、執行ルール</div>
+            <div class="doc-btn-view">👁️ クリックして閲覧</div>
+          </div>
+        </div>
+
+        <!-- 開業・税務手続きステップ -->
+        <div class="doc-link-card" onclick="openDocModal('tax')">
+          <div class="doc-icon">📋</div>
+          <div class="doc-content">
+            <div class="doc-title">開業・税務手続きステップ一覧</div>
+            <div class="doc-desc">開業届・青色申告申請書、事業用口座、損害賠償保険、利用規約の手続きロードマップ</div>
+            <div class="doc-btn-view">👁️ クリックして閲覧</div>
+          </div>
+        </div>
+
+        <!-- サービス利用規約ドラフト -->
+        <div class="doc-link-card" onclick="openDocModal('terms')">
+          <div class="doc-icon">⚖️</div>
+          <div class="doc-content">
+            <div class="doc-title">サービス利用規約・同意書ドラフト</div>
+            <div class="doc-desc">医療行為の線引き、タクシー同乗ルール（白タク回避）、急変時トリアージ規定</div>
+            <div class="doc-btn-view">👁️ クリックして閲覧</div>
+          </div>
+        </div>
+
+        <!-- 創業総合ToDo・マイルストーン -->
+        <div class="doc-link-card" onclick="openDocModal('milestone')">
+          <div class="doc-icon">📌</div>
+          <div class="doc-content">
+            <div class="doc-title">創業総合ToDo・マイルストーン</div>
+            <div class="doc-desc">創業全体のガントチャート、受取資料精査結果、論点整理マスター</div>
+            <div class="doc-btn-view">👁️ クリックして閲覧</div>
+          </div>
+        </div>
+
+        <!-- 日報・作業経過ログ -->
+        <div class="doc-link-card" onclick="openDocModal('log')">
+          <div class="doc-icon">📝</div>
+          <div class="doc-content">
+            <div class="doc-title">日報・作業経過ログ</div>
+            <div class="doc-desc">毎回の作業内容、決定事項、重要な経緯を時系列で記録するAI管理ログ</div>
+            <div class="doc-btn-view">👁️ クリックして閲覧</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ドキュメント閲覧用モーダル -->
+  <div class="modal-overlay" id="docModal" onclick="closeDocModal(event)">
+    <div class="modal-container" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-header-title" id="modalTitle">資料閲覧</div>
+        <button class="modal-close-btn" onclick="closeDocModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- JSで内容を動的挿入 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <footer class="page-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <h3>ぴたっとナース（PitaNurse）プロジェクト管理ポータル</h3>
+        <p>代表者: 野村 由佳子（正看護師） | 所在地: 北海道旭川市神楽5条7丁目2番3号</p>
+        <p style="margin-top:2px;">公式HP: <a href="http://pitatto-nurse.com/" target="_blank" style="color:#38bdf8; text-decoration:none;">http://pitatto-nurse.com/</a></p>
+      </div>
+      <div class="footer-copy">
+        <p>Documented & Powered by AI Project Manager</p>
+        <p>© 2026 PitaNurse. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- インタラクティブ機能（ToDo管理・フィルタリング・モーダル閲覧） -->
+  <script>
+    // ToDoデータマスター
+    const initialTodos = [
+      {
+        id: "tax-1",
+        title: "個人事業の開業・廃業等届出書の提出",
+        priority: "high",
+        category: "tax",
+        catName: "税務・行政",
+        notes: "所轄税務署（旭川中/東税務署）へ提出。freee開業やマネーフォワード等で即時作成可能。",
+        deadline: "開業日（9/14）前後",
+        completed: false
+      },
+      {
+        id: "tax-2",
+        title: "所得税の青色申告承認申請書の提出（最大65万円控除）",
+        priority: "high",
+        category: "tax",
+        catName: "税務・行政",
+        notes: "開業日から2ヶ月以内。初年度の赤字繰越や開業費の任意償却を受けるために必須。",
+        deadline: "開業日から2ヶ月以内",
+        completed: false
+      },
+      {
+        id: "bank-1",
+        title: "旭川信用金庫 創業融資相談の面談予約＆プレゼン資料持参",
+        priority: "high",
+        category: "bank",
+        catName: "資金・信金",
+        notes: "完成したプレゼン資料（150万円希望・つなぎ＋運転資金）を持参し、信用保証協会付き創業融資を相談。",
+        deadline: "9月中旬〜下旬",
+        completed: false
+      },
+      {
+        id: "bank-2",
+        title: "事業用通帳（自己資金150万円）の記帳・残高確認",
+        priority: "high",
+        category: "bank",
+        catName: "資金・信金",
+        notes: "コツコツ貯蓄した経緯がわかる通帳原本を用意（金融機関審査で重要）。",
+        deadline: "信金面談前",
+        completed: false
+      },
+      {
+        id: "bank-3",
+        title: "開業前支出（開業費）の領収書・明細集約",
+        priority: "high",
+        category: "bank",
+        catName: "資金・信金",
+        notes: "SWELL、Gemini、サーバー、プリンター、交通費等の領収書・明細を受取フォルダへ配置。",
+        deadline: "随時",
+        completed: false
+      },
+      {
+        id: "legal-1",
+        title: "サービス利用規約・重要事項説明書・同意書の最終確定",
+        priority: "high",
+        category: "legal",
+        catName: "法務・規約",
+        notes: "医療行為の非提供、急変時トリアージ、移動時のタクシー同乗ルール（白タク回避）を明記。",
+        deadline: "初回サービス提供前",
+        completed: false
+      },
+      {
+        id: "legal-2",
+        title: "看護師賠償責任保険への加入手続き",
+        priority: "high",
+        category: "legal",
+        catName: "法務・規約",
+        notes: "院内での転倒や車いす接触事故等の万が一に備え、フリーランス看護師向け保険を契約。",
+        deadline: "開業時",
+        completed: false
+      },
+      {
+        id: "subsidy-1",
+        title: "地域課題解決型起業支援金 交付決定通知書の受領・日付確認",
+        priority: "medium",
+        category: "subsidy",
+        catName: "補助金",
+        notes: "※交付決定日前の発注・支払いは対象外となるため、通知書の日付を必ず確認。",
+        deadline: "通知受領時",
+        completed: false
+      },
+      {
+        id: "subsidy-2",
+        title: "補助対象経費の発注（バイタル機器・カメラマン撮影・ライナー広告）",
+        priority: "medium",
+        category: "subsidy",
+        catName: "補助金",
+        notes: "血圧計エレマーノ2、写真撮影、広告の「見積・注文・納品・請求・振込控」の5点を保管。",
+        deadline: "事業実施期間中",
+        completed: false
+      },
+      {
+        id: "subsidy-3",
+        title: "パート看護師の雇用契約書・出勤簿・賃金台帳の整備（人件費39万円）",
+        priority: "medium",
+        category: "subsidy",
+        catName: "補助金",
+        notes: "補助金実績報告に必要なタイムカード・台帳・振込控の運用体制を準備。",
+        deadline: "雇用開始時",
+        completed: false
+      },
+      {
+        id: "sales-1",
+        title: "公式ホームページ（pitatto-nurse.com）の修正反映",
+        priority: "medium",
+        category: "sales",
+        catName: "営業・Web",
+        notes: "税込総額表示への統一、ダミー電話番号の正式化、LINE相談ボタンのURL紐付け。",
+        deadline: "本番公開前",
+        completed: false
+      },
+      {
+        id: "sales-2",
+        title: "市内5大病院の地域連携室・居宅介護支援事業所への挨拶リスト整理",
+        priority: "medium",
+        category: "sales",
+        catName: "営業・Web",
+        notes: "ビジコン最優秀賞を明記したチラシ（協力会社向け）を持参し、ケアマネジャー等へ月10件訪問。",
+        deadline: "開業後順次",
+        completed: false
+      },
+      {
+        id: "tax-3",
+        title: "事業用銀行口座（屋号付き）および事業用クレカの開設",
+        priority: "low",
+        category: "tax",
+        catName: "税務・行政",
+        notes: "生活費と完全に分離し、クラウド会計（freeeやMF）と自動同期。",
+        deadline: "開業後1ヶ月以内",
+        completed: false
+      }
+    ];
+
+    // LocalStorageから状態を読み込み
+    const STORAGE_KEY = "pitanurse_todo_state_v1";
+    let savedState = {};
+    try {
+      savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    } catch(e) {
+      savedState = {};
+    }
+
+    let todos = initialTodos.map(t => ({
+      ...t,
+      completed: savedState[t.id] !== undefined ? savedState[t.id] : t.completed
+    }));
+
+    let currentFilter = "all";
+
+    function saveState() {
+      const state = {};
+      todos.forEach(t => state[t.id] = t.completed);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      updateStats();
+    }
+
+    function updateStats() {
+      const total = todos.length;
+      const completed = todos.filter(t => t.completed).length;
+      document.getElementById("totalCount").innerText = total;
+      document.getElementById("completedCount").innerText = completed;
+    }
+
+    function renderTodos() {
+      const container = document.getElementById("todoContainer");
+      container.innerHTML = "";
+
+      const filtered = todos.filter(t => {
+        if (currentFilter === "all") return true;
+        if (currentFilter === "high") return t.priority === "high";
+        return t.category === currentFilter;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:32px; color:var(--text-muted); font-size:0.9rem;">該当するタスクはありません</div>`;
+        return;
+      }
+
+      filtered.forEach(todo => {
+        const row = document.createElement("div");
+        row.className = `todo-row ${todo.completed ? "completed" : ""}`;
+        row.id = `row-${todo.id}`;
+
+        let prioClass = "p-medium";
+        let prioText = "中";
+        if (todo.priority === "high") { prioClass = "p-high"; prioText = "最優先"; }
+        if (todo.priority === "low") { prioClass = "p-low"; prioText = "低"; }
+
+        row.innerHTML = `
+          <input type="checkbox" class="todo-checkbox" id="chk-${todo.id}" ${todo.completed ? "checked" : ""}>
+          <div class="todo-body">
+            <div class="todo-header-line">
+              <span class="priority-badge ${prioClass}">${prioText}</span>
+              <span class="category-tag">${todo.catName}</span>
+              <span class="todo-title">${todo.title}</span>
+            </div>
+            <p class="todo-notes">${todo.notes}</p>
+            <div class="todo-meta">
+              <span>📅 目安期日: ${todo.deadline}</span>
+            </div>
+          </div>
+        `;
+
+        const chk = row.querySelector(`#chk-${todo.id}`);
+        chk.addEventListener("change", (e) => {
+          todo.completed = e.target.checked;
+          if (todo.completed) {
+            row.classList.add("completed");
+          } else {
+            row.classList.remove("completed");
+          }
+          saveState();
+        });
+
+        container.appendChild(row);
+      });
+
+      updateStats();
+    }
+
+    // フィルタボタン設定
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = btn.getAttribute("data-filter");
+        renderTodos();
+      });
+    });
+
+    // ドキュメント閲覧用モーダルデータ
+    const docData = {
+      plan: {
+        title: "🎯 メイン事業計画書（ぴたっとナース）",
+        content: `
+          <h2>事業基本情報</h2>
+          <p><strong>事業名称:</strong> ぴたっとナース<br>
+          <strong>代表者:</strong> 野村 由佳子（正看護師 / 臨床経験12年）<br>
+          <strong>事業コンセプト:</strong> 「看護師免許を持った、もう一人の家族」<br>
+          <strong>受賞実績:</strong> 2025道北ビジネスプランコンテスト 最優秀賞受賞（2026年2月21日） / RED北海道 地方大会入賞</p>
+
+          <h2>ビジョンと解決する地域課題</h2>
+          <p>離れて暮らす親を想う子ども世代の「罪悪感」を「安心感」に変え、親子の会話が再びつながる社会を実現する。「後悔のない別れ」を増やし、親孝行の新しいスタンダードを旭川から作ります。</p>
+          <ul>
+            <li><strong>距離の壁:</strong> 車で片道2時間などの物理的距離。</li>
+            <li><strong>時間の壁:</strong> 平日の仕事や家庭の都合で駆けつけられない現実。</li>
+            <li><strong>医療知識の壁:</strong> 診察室がブラックボックス化し、高齢の親が医師の説明を正確に理解・記憶できない問題。</li>
+          </ul>
+
+          <h2>核となる提供価値（医療通訳を伴うエスコート）</h2>
+          <p>単なるお出かけ付き添いではなく、正看護師が診察室に同席し、専門用語をわかりやすく噛み砕いて本人に伝え、診察直後にLINEで遠方家族へバイタルや医師の指示を迅速報告。</p>
+
+          <h2>月額料金プラン（税込）</h2>
+          <table>
+            <tr><th>プラン名</th><th>月額料金(税込)</th><th>回数</th><th>内容</th></tr>
+            <tr><td>ベーシック</td><td>15,000円</td><td>月1回(3h)</td><td>受診同行＋簡易報告＋健康相談</td></tr>
+            <tr><td><strong>スタンダード★人気</strong></td><td><strong>25,000円</strong></td><td><strong>月2回(各3h)</strong></td><td>受診同行＋医師連携＋詳細LINE報告＋健康相談</td></tr>
+            <tr><td>プレミアム</td><td>35,000円</td><td>月3回(各3h)</td><td>同行＋緊急駆けつけ＋各種代行＋健康相談無制限</td></tr>
+            <tr><td>初回お試し</td><td>5,000円</td><td>1回(3h)</td><td>初めての方向けの導入プラン</td></tr>
+          </table>
+
+          <h2>コンプライアンス（法令遵守）</h2>
+          <p><strong>白タク規制の回避:</strong> 1〜3年目は自家用車送迎を行わず、「一般タクシーまたは福祉タクシーへの同乗支援（運賃実費利用者負担）」を徹底。白タク規制（道路運送法）のリスクをゼロにします。</p>
+        `
+      },
+      bank: {
+        title: "💼 旭川信金 創業融資相談用プレゼン資料",
+        content: `
+          <h2>融資相談概要・希望条件</h2>
+          <table>
+            <tr><th>項目</th><th>希望内容</th></tr>
+            <tr><td>借入希望金額</td><td><strong>150万円（1,500,000円）</strong> ※100〜200万円で柔軟に対応</td></tr>
+            <tr><td>資金使途</td><td>① 採択済補助金のつなぎ資金（約78万円）<br>② 初期運転資金（約72万円）</td></tr>
+            <tr><td>返済期間</td><td>5年（60回）、据置6ヶ月〜1年希望</td></tr>
+            <tr><td>担保・保証</td><td>道信保「創業関連保証」（無担保・無保証人枠）希望</td></tr>
+            <tr><td>自己資金</td><td>150万円（自己資本比率50%の健全性）</td></tr>
+          </table>
+
+          <h2>3大信頼性（客観的評価・公的お墨付き）</h2>
+          <ol>
+            <li><strong>2025道北ビジネスプランコンテスト 最優秀賞受賞</strong>（2026年2月21日）</li>
+            <li><strong>2026年度 地域課題解決型起業支援事業 採択決定</strong>（補助金39万円・対象経費78.2万円）</li>
+            <li><strong>旭川産業創造プラザ 伴走支援</strong>（上西様による事業計画・収支計画の策定指導）</li>
+          </ol>
+
+          <h2>返済試算（金利2.0%想定・5年返済）</h2>
+          <p>毎月の返済元利金: <strong>約 26,300 円 / 月</strong><br>
+          初年度の営業利益（年計43.2万円）、2年目の営業利益（年計228万円）により、十分に余裕を持って返済可能です。</p>
+        `
+      },
+      subsidy: {
+        title: "🏛️ 地域課題解決型起業支援金 採択・執行管理シート",
+        content: `
+          <h2>採択基本情報</h2>
+          <p><strong>補助金名称:</strong> 2026年度 地域課題解決型起業支援事業（北海道中小企業総合支援センター）<br>
+          <strong>補助対象経費総額:</strong> 781,762 円<br>
+          <strong>補助金交付決定予定額:</strong> <strong>390,000 円</strong>（補助率 1/2 以内）<br>
+          <strong>事業実施期間:</strong> 交付決定日 〜 最長 2027年1月15日まで</p>
+
+          <h2>採択経費内訳</h2>
+          <table>
+            <tr><th>経費区分</th><th>内容</th><th>申請金額</th></tr>
+            <tr><td>① 人件費</td><td>パート看護師1名分（7〜12月想定）</td><td>390,000円</td></tr>
+            <tr><td>③ 設備費</td><td>血圧計エレマーノ2、パルスオキシメータ、バッグ、マグネット</td><td>102,262円</td></tr>
+            <tr><td>⑩ 委託費</td><td>プロカメラマン写真撮影（チラシ・HP用）</td><td>115,500円</td></tr>
+            <tr><td>⑫ 広報費</td><td>ライナーネットワーク広告掲載（2回）</td><td>174,000円</td></tr>
+            <tr><th>合計</th><th>対象経費総額</th><th>781,762円</th></tr>
+          </table>
+
+          <h2>執行・受給における重要ルール（5点セット）</h2>
+          <p>補助金は後払いの精算払いとなります。すべての経費について<strong>「見積書・発注書・納品書・請求書・振込控（通帳コピー）」</strong>の5点を確実に保管してください。原則すべて銀行振込が必須です。</p>
+        `
+      },
+      tax: {
+        title: "📋 開業・税務手続きステップ一覧",
+        content: `
+          <h2>開業前後のロードマップ</h2>
+          <ol>
+            <li><strong>税務署への届出（開業日より1〜2ヶ月以内）:</strong>
+              <ul>
+                <li><strong>個人事業の開業・廃業等届出書:</strong> 開業日から1ヶ月以内。freee開業等で作成・提出。</li>
+                <li><strong>所得税の青色申告承認申請書:</strong> 開業日から2ヶ月以内。最大65万円の青色申告特別控除、開業費の任意償却、赤字3年繰越のために必須。</li>
+              </ul>
+            </li>
+            <li><strong>事業用インフラ整備:</strong>
+              <ul>
+                <li>屋号付き銀行口座の開設（旭川信金等）</li>
+                <li>事業用クレジットカードの用意（経費専用）</li>
+                <li>クラウド会計ソフト（freee/マネーフォワード等）の導入</li>
+              </ul>
+            </li>
+            <li><strong>法務・リスク管理:</strong>
+              <ul>
+                <li>損害賠償責任保険（看護師賠償・フリーランス事業者保険）への加入</li>
+                <li>サービス利用規約・重要事項説明書・同意書の確定</li>
+              </ul>
+            </li>
+          </ol>
+        `
+      },
+      terms: {
+        title: "⚖️ サービス利用規約・同意書ドラフト",
+        content: `
+          <h2>重要条項の骨子</h2>
+          <h3>1. サービスの目的および性格</h3>
+          <p>本サービスは、利用者の医療機関等への通院・受診に看護師が同行し、受診前後の見守り、院内移動の介助、医師との円滑な対話支援（医療通訳）、受診結果のご家族への報告を行う自費（保険外）サービスです。</p>
+
+          <h3>2. 医療行為の不提供および線引き</h3>
+          <p>当社看護師は、医師の具体的な指示書がない限り、点滴、注射、投薬の指示等の医療行為は行いません。体調の確認（バイタル測定）、療養上の見守り、および緊急時の救急要請（トリアージ）に徹します。</p>
+
+          <h3>3. 移動・交通手段に関する規定（白タク回避）</h3>
+          <p>医療機関等への往復移動は、<strong>一般タクシーまたは福祉タクシー（介護タクシー）を利用者様と同乗利用</strong>するものとします。タクシー運賃の実費は利用者様のご負担となります。事業者の自家用車による有償運送は行いません。</p>
+
+          <h3>4. 緊急時の対応</h3>
+          <p>同行中に急変または事故が発生した場合は、看護師の判断により直ちに119番通報（救急要請）を行い、事前に指定された緊急連絡先および主治医へ速やかに連絡します。</p>
+        `
+      },
+      milestone: {
+        title: "📌 創業総合ToDo・マイルストーン",
+        content: `
+          <h2>全体マイルストーン</h2>
+          <ul>
+            <li><strong>2026-02-21:</strong> 道北ビジネスプランコンテスト 最優秀賞受賞（完了）</li>
+            <li><strong>2026-06-25:</strong> 地域課題解決型起業支援金 採択決定（完了）</li>
+            <li><strong>2026-09-09:</strong> 事業計画書・収支計画書・チラシ原稿確定（完了）</li>
+            <li><strong>2026-09-14:</strong> ぴたっとナース 開業日（Phase 1 開始）</li>
+            <li><strong>2026-09〜10:</strong> 税務届出・旭川信金融資相談</li>
+            <li><strong>2026-10〜12:</strong> 補助事業執行・証憑集約</li>
+            <li><strong>2027-01:</strong> 補助金実績報告・精算受給</li>
+          </ul>
+
+          <h2>受取資料の精査・確定事項</h2>
+          <p>・プラン名: 「プレミアム（35,000円）」に統一確定<br>
+          ・価格表示: すべて総額「税込表示」に確定<br>
+          ・送迎手段: 1〜3年目はタクシー同乗利用に確定（白タク完全回避）<br>
+          ・信金融資: 希望額150万円（つなぎ＋運転資金）に確定</p>
+        `
+      },
+      log: {
+        title: "📝 日報・作業経過ログ",
+        content: `
+          <h2>2026-09-22（火）</h2>
+          <p><strong>実施作業:</strong> プロジェクト全体のこれまでの歩み、決定事項、進捗、今後のToDo、資金計画、補助金、関連資料を網羅した「プロジェクト総合ポータル＆ダッシュボード」を構築。Web公開・フォルダ丸ごとアップロードに対応した単一パッケージ（portal_site）を整備。<br>
+          <strong>決定事項:</strong> チーム・関係者共有用として、ブラウザ単体でドキュメント閲覧からチラシ切り替え・ToDo保存まで完結するポータブル仕様を採用。</p>
+
+          <h2>2026-09-12（土）</h2>
+          <p><strong>実施作業:</strong> 公式HP（pitatto-nurse.com）の事前レビュー実施。チラシ3パターン（本人向け・協力会社向け・子供向け）の詳細原稿・デザインレイアウト作成、およびHTMLプレビュー実装・ブラウザ検証完了。<br>
+          <strong>決定事項:</strong> チラシ訴求軸の分離、プラン名・税込価格統一、白タク回避の徹底。</p>
+
+          <h2>2026-09-09（水）</h2>
+          <p><strong>実施作業:</strong> ドキュメント整理体系整備、受取資料精査、地域課題解決型補助金（39万円）採択シート作成、旭川信金向けプレゼン資料作成、税務署対応証憑フォルダ新設。</p>
+        `
+      }
+    };
+
+    function openDocModal(key) {
+      const data = docData[key];
+      if (!data) return;
+      document.getElementById("modalTitle").innerHTML = data.title;
+      document.getElementById("modalBody").innerHTML = data.content;
+      document.getElementById("docModal").classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDocModal(event) {
+      if (event && event.target !== event.currentTarget && !event.target.classList.contains("modal-close-btn")) {
+        return;
+      }
+      document.getElementById("docModal").classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    // ESCキーでモーダルを閉じる
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeDocModal();
+    });
+
+    // 初期実行
+    renderTodos();
+  </script>
+</body>
+</html>
