@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✅ 準備TODO ＆ パッキングリスト | ディズニー家族旅行 2026</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .progress-bar-container {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-full);
+      height: 14px;
+      overflow: hidden;
+      margin: 1.5rem 0 2rem;
+      border: 1px solid var(--border-card);
+    }
+    .progress-bar-fill {
+      background: var(--accent-gold-gradient);
+      height: 100%;
+      border-radius: var(--radius-full);
+      transition: width 0.5s ease;
+      box-shadow: 0 0 12px rgba(246, 211, 101, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="sparkle">✨</span> ディズニー家族旅行 2026
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">🏠 トップ</a>
+        <a href="shiori.html">🗺️ 旅のしおり</a>
+        <a href="land.html">🏰 ランド詳細</a>
+        <a href="sea.html">🌋 シー詳細</a>
+        <a href="todo.html" class="active">✅ 準備TODO</a>
+        <a href="album.html">📸 想い出</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <a href="index.html" class="btn-back">⬅ トップページへ戻る</a>
+
+    <section class="hero" style="padding-top: 1rem;">
+      <div class="hero-badge" style="color: #a55eea; border-color: rgba(165, 94, 234, 0.4);">Interactive Checklist</div>
+      <h1 class="hero-title">✅ 旅行前準備 TODO ＆ パッキングリスト</h1>
+      <p class="hero-subtitle">項目をタップしてチェックできます！（チェック状態はブラウザに自動保存されます）</p>
+
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 0.95rem;">
+          <span>主要手配 進捗状況</span>
+          <span style="color: var(--text-gold);">75% 完了（4/4 手配済）</span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" style="width: 75%;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 優先手配タスク -->
+    <div class="section-card">
+      <div class="section-header">
+        <span class="icon">🎯</span>
+        <h2>優先手配・予約タスク（完了＆今後の予定）</h2>
+      </div>
+
+      <div class="todo-group">
+        <div class="todo-group-title">🎉 【手配完了】すでに予約が完了した項目</div>
+        <ul class="todo-list">
+          <li class="todo-item checked" data-id="task_flight">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">飛行機チケット（ジェットスター往復）予約完了</div>
+              <div class="todo-sub">往路: 10/4 GK104 10:30新千歳➔12:10成田 / 復路: 10/7 GK115 14:45成田➔16:40新千歳（予約番号: <code>BUJCGE</code>・¥58,120）</div>
+            </div>
+          </li>
+          <li class="todo-item checked" data-id="task_hotel">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">ホテル予約（ＣＶＳ・ＢＡＹ　ＨＯＴＥＬ 本館）完了</div>
+              <div class="todo-sub">楽天トラベルにて3泊朝食付き予約・決済済（¥34,960 / 予約番号: <code>RYa0nf75tm</code> / 市川塩浜駅徒歩1分）</div>
+            </div>
+          </li>
+          <li class="todo-item checked" data-id="task_park">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">新千歳空港 駐車場予約（グッドパーク）受付＆時間確認完了</div>
+              <div class="todo-sub">10/4(日) 09:30送迎車発 〜 10/7(水) 3泊4日（¥2,000・※店舗確認済: 09:15〜09:20到着・受付でOK）</div>
+            </div>
+          </li>
+          <li class="todo-item checked" data-id="task_rental">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">初日レンタカー予約＆返却店舗（西船橋駅前店）変更完了</div>
+              <div class="todo-sub">10/4 13:00成田空港店 ➔ 17:15〜17:30西船橋駅前店返却（C2クラス・安心Wプラン・ジュニアシート1台・¥10,967）</div>
+            </div>
+          </li>
+          <li class="todo-item checked" data-id="task_cancel_old_hotel">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">旧ホテル（コンフォートスイーツ東京ベイ）キャンセル完了</div>
+              <div class="todo-sub">公式サイトにてキャンセル手続き完了（キャンセル料無料・二重予約解消済）</div>
+            </div>
+          </li>
+          <li class="todo-item checked" data-id="task_disney_tickets">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">パークチケット購入（ランド＆シー家族4名分）完了</div>
+              <div class="todo-sub">10/5(月) ディズニーランド ＆ 10/6(火) ディズニーシーの公式チケット購入完了！🎉</div>
+            </div>
+          </li>
+          <li class="todo-item checked" data-id="task_ps_horizon_bay">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">【PS予約完了！】10/6(火) ディズニーシー夕食：ホライズンベイ・レストラン（16:50枠）</div>
+              <div class="todo-sub">16:50予約完了！待たずに着席、グリル洋食＆アップルティーソーダを堪能後、鉄道でタートル・トーク＆ビリーヴへ直結！</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="todo-group">
+        <div class="todo-group-title" style="color: #fa8231;">⚠️ 【出発前対応】調整・連絡タスク</div>
+        <ul class="todo-list">
+          <li class="todo-item" data-id="task_cpap_notify">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">ジェットスターへ「CPAP機内持ち込み」の事前連絡</div>
+              <div class="todo-sub">公式チャットで予約番号 <code>BUJCGE</code> を伝え、「CPAPを手荷物で持ち込む（機内では不使用）」と申告。</div>
+            </div>
+          </li>
+          <li class="todo-item" data-id="task_land_dinner">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">10/5(月) ランド夕食：センターストリート・コーヒーハウス（PS枠挑戦 または ハングリーベアMO）</div>
+              <div class="todo-sub">PS枠が取れればセンターストリート（17:30頃）、またはハングリーベア・レストラン（朝のうちにアプリで17:30〜MO枠確保）でカレーディナー。</div>
+            </div>
+          </li>
+          <li class="todo-item" data-id="task_land_mo_waffle">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">【入園日朝イチ必須】10/5(月) グレートアメリカン・ワッフルカンパニーのモバイルオーダー確保</div>
+              <div class="todo-sub"><strong>完全モバイルオーダー制（並べません）</strong>！入園直後（8:30〜8:45）に14:45〜15:15枠を最優先で取得！</div>
+            </div>
+          </li>
+          <li class="todo-item" data-id="task_land_sparkling_drink">
+            <div class="todo-checkbox"></div>
+            <div class="todo-content">
+              <div class="todo-text">10/5(月) キャプテンフックス・ギャレー：スパークリングドリンク（ライチー＆パイナップル）GET</div>
+              <div class="todo-sub">パレード開始前（13:50頃）に受取！ライチゼリー＆パイナップル果肉、バタフライピーで色が変わる限定微炭酸（¥750）。</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- 往復宅急便パッキングリスト -->
+    <div class="section-card" style="border-top: 4px solid var(--accent-purple);">
+      <div class="section-header">
+        <span class="icon">📦</span>
+        <h2>往復宅急便＆手荷物 パッキング完全リスト</h2>
+      </div>
+
+      <!-- A. 行き -->
+      <div class="todo-group">
+        <div class="todo-group-title">📦 A. 【行き】往復宅急便（スーツケース）に入れるもの</div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+          ⚠️ <strong>発送日</strong>: 9月30日(水)〜10月1日(木) 午前中（ヤマト自宅集荷推奨 / 160サイズ往復: 7,160円）<br>
+          🏨 <strong>送り先</strong>: 〒272-0127 千葉県市川市塩浜2-33-1 ＣＶＳ・ＢＡＹ　ＨＯＴＥＬ 本館 フロント気付（備考: 10/4宿泊代表者名 / 予約番号 RYa0nf75tm）<br>
+          💡 <strong>コツ</strong>: スーツケースの片側は、帰りのお土産用に「ガラガラ（空っぽ）」にしておきます！
+        </p>
+        <ul class="todo-list">
+          <li class="todo-item" data-id="pack_clothes_land"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">2日目（ランド）の家族全員の服・下着・靴下（お揃いTシャツ等）</div></div></li>
+          <li class="todo-item" data-id="pack_clothes_sea"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">3日目（シー）の家族全員の服・下着・靴下</div></div></li>
+          <li class="todo-item" data-id="pack_clothes_return"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">4日目（帰路）の家族全員の服・下着・靴下</div></div></li>
+          <li class="todo-item" data-id="pack_clothes_spare"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">子供たちの予備の着替え（1〜2セット / 水濡れ・汚れた時用）</div></div></li>
+          <li class="todo-item" data-id="pack_pajama"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">家族分のパジャマ・部屋着</div></div></li>
+          <li class="todo-item" data-id="pack_warm_clothes"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">10月のディズニー用防寒具（夕方〜夜用の厚手パーカー・フリース等×4人分）</div></div></li>
+          <li class="todo-item" data-id="pack_cushion"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">100均のコンパクト折りたたみ座布団（家族4人分）＆レジャーシート</div></div></li>
+          <li class="todo-item" data-id="pack_ear"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">カチューシャ・ファンキャップ（事前購入分）</div></div></li>
+          <li class="todo-item" data-id="pack_autograph"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">サイン帳 ＆ 太めのノック式油性ペン（キャラクター用）</div></div></li>
+          <li class="todo-item" data-id="pack_skincare"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">洗面用具・スキンケア・ヘアアイロン・日焼け止め</div></div></li>
+          <li class="todo-item" data-id="pack_med_spare"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">子供用歯ブラシ・爪切り・絆創膏・綿棒・常備薬予備</div></div></li>
+          <li class="todo-item" data-id="pack_laundry_net"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">洗濯ネット（家族分3〜4枚 / 着た服を入れてそのまま帰りのスーツケースへ！）</div></div></li>
+          <li class="todo-item" data-id="pack_ziplock"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">予備のジッパー付き保存袋（ジップロック5枚程度）＆予備エコバッグ</div></div></li>
+          <li class="todo-item" data-id="pack_boston_bag"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">折りたたみ予備ボストンバッグ（万一お土産が入り切らなかった場合の保険）</div></div></li>
+        </ul>
+      </div>
+
+      <!-- B. 手荷物 -->
+      <div class="todo-group" style="margin-top: 2.5rem;">
+        <div class="todo-group-title" style="color: #ff6b81;">🎒 B. 【当日手荷物】リュックに入れるもの（※宅急便に入れてはいけないもの！）</div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+          ⚠️ <strong>航空機ルール</strong>: 機内持込は1人2個・合計7kgまで（※CPAPは別枠無料）。
+        </p>
+        <ul class="todo-list">
+          <li class="todo-item" data-id="hand_cpap"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">CPAP本体・コード一式・2〜3m延長コード（医療機器・手荷物携行必須）</div><div class="todo-sub">※加湿器タンクの水は完全に抜いて空にしておくこと！</div></div></li>
+          <li class="todo-item" data-id="hand_battery"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">大容量モバイルバッテリー ＆ 充電ケーブル（※航空法により預け入れ厳禁！）</div></div></li>
+          <li class="todo-item" data-id="hand_wallet"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">貴重品類: 現金（現地予備用 ※ホテル代は楽天カード決済済）、クレジットカード、運転免許証、健康保険証</div></div></li>
+          <li class="todo-item" data-id="hand_phones"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">スマートフォン（全員分）</div></div></li>
+          <li class="todo-item" data-id="hand_clothes_d1"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">1日目（当日）着ていく服 ＆ 薄手の上着（自宅から着用）</div></div></li>
+          <li class="todo-item" data-id="hand_snacks"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">子供用のおやつ（グミ・ラムネ等）＆ ペットボトル飲料</div></div></li>
+          <li class="todo-item" data-id="hand_wipes"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">携帯ウェットティッシュ ＆ ポケットティッシュ</div></div></li>
+          <li class="todo-item" data-id="hand_med_d1"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">初日に飲む常備薬・子供の酔い止め</div></div></li>
+        </ul>
+      </div>
+
+      <!-- C. 帰り -->
+      <div class="todo-group" style="margin-top: 2.5rem;">
+        <div class="todo-group-title" style="color: #1dd1a1;">📦 C. 【帰り】ホテルから自宅へ送るスーツケースに入れるもの</div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+          ⚠️ <strong>発送タイミング</strong>: 10月7日(水) 朝10:00 チェックアウト時（ホテル集荷または駅前デイリーヤマザキへ渡すだけ）
+        </p>
+        <ul class="todo-list">
+          <li class="todo-item" data-id="return_souvenir"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">ディズニーで買ったすべてのお土産！（チョコクランチ缶、箱菓子、ぬいぐるみ、グッズ）</div></div></li>
+          <li class="todo-item" data-id="return_used_clothes"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">1〜3日目に着用した家族全員の服（洗濯ネットごとスーツケースへ投入！）</div></div></li>
+          <li class="todo-item" data-id="return_pajama"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">ホテルで使ったパジャマ</div></div></li>
+          <li class="todo-item" data-id="return_park_goods"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">パークで使い終わった座布団・レジャーシート・カチューシャ・サイン帳</div></div></li>
+          <li class="todo-item" data-id="return_cosmetics"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">使い終わった洗面用具・スキンケア・ヘアアイロン等</div></div></li>
+          <li class="todo-item" data-id="return_slip"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">復路用伝票（自宅宛て）を貼付してフロント・宅配カウンターへお預け！</div></div></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- スマホ事前設定タスク -->
+    <div class="section-card">
+      <div class="section-header">
+        <span class="icon">⚙️</span>
+        <h2>入園前日までに完了させておく「スマホ・事前設定タスク」</h2>
+      </div>
+      <ul class="todo-list">
+        <li class="todo-item" data-id="setting_group"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">全員分のチケットをアプリで「グループ作成」</div><div class="todo-sub">パパとママでチケットを共有し、どちらのスマホからもパス状況を確認できるようにしておく。</div></div></li>
+        <li class="todo-item" data-id="setting_cc"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">ディズニーアカウントにクレジットカード情報を登録</div><div class="todo-sub">DPA購入時のカード番号手入力の手間を省く必須設定！※方針：DPAは<strong>Sランク厳選（ランド美女と野獣 2,500円、シーアナ雪 2,500円）のみ購入</strong>。DPA購入後は即座にモバイルオーダー（昼食枠確保）へ！</div></div></li>
+        <li class="todo-item" data-id="setting_ps"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">夕食のプライオリティ・シーティング（PS：事前受付）確保・キャンセル拾い</div><div class="todo-sub">ランド（10/5）: <strong>センターストリート・コーヒーハウス</strong>（17:15〜 / 洋食・ソファ席で足休め）<br>シー（10/6）: <strong>リストランテ・ディ・カナレット</strong>（17:30〜 / ピッツァ・ビリーヴ鑑賞エリア直結）<br>※一般夕食混雑（18:00〜19:30）の前に待たずに着席＆体力回復！アプリで前日20:59までのキャンセル拾い、または当日朝9:00〜のオンライン当日枠でGET！</div></div></li>
+        <li class="todo-item" data-id="setting_gps"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">アプリの位置情報（GPS）とプッシュ通知を「ON」にしておく</div></div></li>
+        <li class="todo-item" data-id="setting_photo"><div class="todo-checkbox"></div><div class="todo-content"><div class="todo-text">当日の朝、子供たちの全身写真をスマホで1枚撮っておく</div><div class="todo-sub">万一パーク内で迷子になった際、キャストに「今日この服を着ていました」と見せるのが最速・確実。</div></div></li>
+      </ul>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Disney Family Trip Portal. Designed with magic for our family.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
