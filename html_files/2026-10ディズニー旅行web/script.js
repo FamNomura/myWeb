@@ -42,4 +42,42 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // View Switchers (Timeline / Table, Table / Card)
+  const viewSwitchers = document.querySelectorAll('.view-switcher');
+  viewSwitchers.forEach(switcher => {
+    const buttons = switcher.querySelectorAll('.view-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const container = switcher.closest('.section-card') || document;
+        
+        // Update active button in this switcher
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Toggle target view panes
+        const panes = container.querySelectorAll('.view-pane');
+        panes.forEach(pane => {
+          if (pane.id === targetId) {
+            pane.classList.remove('hidden');
+          } else {
+            pane.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
+
+  // Automatically ensure scroll hints on all table wrappers
+  const tableWrappers = document.querySelectorAll('.table-wrapper, .table-responsive');
+  tableWrappers.forEach(wrapper => {
+    const prev = wrapper.previousElementSibling;
+    if (!prev || !prev.classList.contains('table-scroll-hint')) {
+      const hint = document.createElement('div');
+      hint.className = 'table-scroll-hint';
+      hint.innerHTML = '<span class="hint-icon">👈</span><span>横にスワイプして全体を確認できます</span><span class="hint-icon">👉</span>';
+      wrapper.parentNode.insertBefore(hint, wrapper);
+    }
+  });
 });

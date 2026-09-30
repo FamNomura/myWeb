@@ -134,28 +134,109 @@
         ディズニー・ハロウィーン 2026！美女と野獣、ベイマックス、ホーンテッドマンション“ホリデーナイトメアー”を満喫。
       </p>
       
-      <div class="table-wrapper">
-        <table class="data-table">
-          <thead>
-            <tr><th>時間</th><th>行程・スポット</th><th>詳細メモ</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>06:45</td><td>ホテル朝食</td><td>ホテル内バイキングでエネルギー補給</td></tr>
-            <tr><td>07:45</td><td>パークへ移動</td><td>市川塩浜駅 ➔ JR京葉線（たった2駅・6分！）➔ 舞浜駅</td></tr>
-            <tr><td>08:30</td><td><strong>ディズニーランド 入園</strong></td><td>開園待ち ➔ 入園ゲート通過直後スマホ操作（DPA美女と野獣・昼食ピザポートMO予約） ➔ <strong>朝イチ プーさんのハニーハントへ直行！</strong></td></tr>
-            <tr><td>午前</td><td>🍯 <strong>朝イチプーさん＆ファンタジー巡り</strong></td><td><strong>【ご希望】プーさんのハニーハント</strong> ➔ <strong>【ご希望】ピーターパン空の旅 または スモールワールド</strong> ➔ <strong>【ご希望】スター・ツアーズ</strong> ➔ <strong>【ご希望・DPA（Sランク）】美女と野獣 “魔法のものがたり”</strong></td></tr>
-            <tr><td>12:15</td><td>🍴 昼食（MO受取）</td><td><strong>パン・ギャラクティック・ピザ・ポート</strong>（カルツォーネ、リトルグリーンまん、アップルティーソーダ）</td></tr>
-            <tr><td>午後</td><td>🚂 <strong>パレード・鉄道・トゥーンタウン！</strong></td><td>朝乗らなかった方（スモールワールド/ピーターパン） ➔ <strong>パレード最速鑑賞（ライチー炭酸＆スモークターキー）</strong> ➔ <strong>【ご希望・新規追加】ウエスタンリバー鉄道</strong>（蒸気機関車で西部＆恐竜へ！） ➔ <strong>トゥーンタウン（ミッキー＆ミニーと撮影📸）</strong></td></tr>
-            <tr><td>16:45</td><td>🧥 防寒具着用・移動</td><td>ワールドバザールへ移動し、夕方の冷え込みに備えて上着を全員着用</td></tr>
-            <tr><td>17:15</td><td>🍴 早めの夕食</td><td><strong>【PS予約】センターストリート・コーヒーハウス</strong>（洋食） または <strong>ハングリーベア・レストラン</strong>（大型カレー店）</td></tr>
-            <tr><td>18:25</td><td>💦 <strong>【待ち時間半減！】スプラッシュ</strong></td><td><strong>スプラッシュ・マウンテン</strong>（夕食後のゴールデンタイムに30〜40分待ちで乗車！落差16m夜景ダイブ）</td></tr>
-            <tr><td>19:25</td><td>🌟 夜のハイライト</td><td>エレクトリカルパレード鑑賞（座布団使用） ➔ 閉園間際（ホーンテッドマンション等直行）＆お土産購入</td></tr>
-            <tr><td>21:00</td><td>退園・ホテル帰着</td><td>舞浜駅 ➔ JR京葉線でたった6分！バス待ち大行列なしで市川塩浜駅・ホテル帰着</td></tr>
-          </tbody>
-        </table>
+      <!-- 表示切替タブ -->
+      <div class="view-switcher">
+        <button type="button" class="view-btn active" data-target="day2-timeline">📱 タイムライン表示</button>
+        <button type="button" class="view-btn" data-target="day2-table">📊 一覧表表示</button>
       </div>
 
-      <a href="land.html" class="btn-back" style="margin-top: 0.5rem; background: var(--accent-land-gradient); color: #fff;">
+      <!-- タイムライン表示（スマホ向け） -->
+      <div id="day2-timeline" class="view-pane">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">06:45</div>
+            <div class="timeline-title">ホテル朝食</div>
+            <div class="timeline-desc">ホテル内バイキングでエネルギー補給</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">07:45</div>
+            <div class="timeline-title">パークへ移動</div>
+            <div class="timeline-desc">市川塩浜駅 ➔ JR京葉線（たった2駅・6分！）➔ 舞浜駅</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #ff4757;"></div>
+            <div class="timeline-time">08:30</div>
+            <div class="timeline-title">🏰 ディズニーランド 入園</div>
+            <div class="timeline-desc">開園待ち ➔ 入園ゲート通過直後スマホ操作（DPA美女と野獣・昼食ピザポートMO予約） ➔ <strong>朝イチ プーさんのハニーハントへ直行！</strong></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #f7b731;"></div>
+            <div class="timeline-time">午前</div>
+            <div class="timeline-title">🍯 朝イチプーさん＆ファンタジー巡り</div>
+            <div class="timeline-desc"><strong>【ご希望】プーさんのハニーハント</strong> ➔ <strong>【ご希望】ピーターパン空の旅 または スモールワールド</strong> ➔ <strong>【ご希望】スター・ツアーズ</strong> ➔ <strong>【ご希望・DPA（Sランク）】美女と野獣 “魔法のものがたり”</strong></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #ffbe76;"></div>
+            <div class="timeline-time">12:15</div>
+            <div class="timeline-title">🍴 昼食（MO受取）</div>
+            <div class="timeline-desc"><strong>パン・ギャラクティック・ピザ・ポート</strong>（カルツォーネ、リトルグリーンまん、アップルティーソーダ）</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #00d2d3;"></div>
+            <div class="timeline-time">午後</div>
+            <div class="timeline-title">🚂 パレード・鉄道・トゥーンタウン！</div>
+            <div class="timeline-desc">朝乗らなかった方（スモールワールド/ピーターパン） ➔ <strong>パレード最速鑑賞（ライチー炭酸＆スモークターキー）</strong> ➔ <strong>【ご希望・新規追加】ウエスタンリバー鉄道</strong>（蒸気機関車で西部＆恐竜へ！） ➔ <strong>トゥーンタウン（ミッキー＆ミニーと撮影📸）</strong></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">16:45</div>
+            <div class="timeline-title">🧥 防寒具着用・移動</div>
+            <div class="timeline-desc">ワールドバザールへ移動し、夕方の冷え込みに備えて上着を全員着用</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #ffbe76;"></div>
+            <div class="timeline-time">17:15</div>
+            <div class="timeline-title">🍴 早めの夕食</div>
+            <div class="timeline-desc"><strong>【PS予約】センターストリート・コーヒーハウス</strong>（洋食） または <strong>ハングリーベア・レストラン</strong>（大型カレー店）</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #00d2d3;"></div>
+            <div class="timeline-time">18:25</div>
+            <div class="timeline-title">💦 【待ち時間半減！】スプラッシュ</div>
+            <div class="timeline-desc"><strong>スプラッシュ・マウンテン</strong>（夕食後のゴールデンタイムに30〜40分待ちで乗車！落差16m夜景ダイブ）</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #f7b731;"></div>
+            <div class="timeline-time">19:25</div>
+            <div class="timeline-title">🌟 夜のハイライト</div>
+            <div class="timeline-desc">エレクトリカルパレード鑑賞（座布団使用） ➔ 閉園間際（ホーンテッドマンション等直行）＆お土産購入</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">21:00</div>
+            <div class="timeline-title">退園・ホテル帰着</div>
+            <div class="timeline-desc">舞浜駅 ➔ JR京葉線でたった6分！バス待ち大行列なしで市川塩浜駅・ホテル帰着</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 表形式表示 -->
+      <div id="day2-table" class="view-pane hidden">
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>時間</th><th>行程・スポット</th><th>詳細メモ</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>06:45</td><td>ホテル朝食</td><td>ホテル内バイキングでエネルギー補給</td></tr>
+              <tr><td>07:45</td><td>パークへ移動</td><td>市川塩浜駅 ➔ JR京葉線（たった2駅・6分！）➔ 舞浜駅</td></tr>
+              <tr><td>08:30</td><td><strong>ディズニーランド 入園</strong></td><td>開園待ち ➔ 入園ゲート通過直後スマホ操作（DPA美女と野獣・昼食ピザポートMO予約） ➔ <strong>朝イチ プーさんのハニーハントへ直行！</strong></td></tr>
+              <tr><td>午前</td><td>🍯 <strong>朝イチプーさん＆ファンタジー巡り</strong></td><td><strong>【ご希望】プーさんのハニーハント</strong> ➔ <strong>【ご希望】ピーターパン空の旅 または スモールワールド</strong> ➔ <strong>【ご希望】スター・ツアーズ</strong> ➔ <strong>【ご希望・DPA（Sランク）】美女と野獣 “魔法のものがたり”</strong></td></tr>
+              <tr><td>12:15</td><td>🍴 昼食（MO受取）</td><td><strong>パン・ギャラクティック・ピザ・ポート</strong>（カルツォーネ、リトルグリーンまん、アップルティーソーダ）</td></tr>
+              <tr><td>午後</td><td>🚂 <strong>パレード・鉄道・トゥーンタウン！</strong></td><td>朝乗らなかった方（スモールワールド/ピーターパン） ➔ <strong>パレード最速鑑賞（ライチー炭酸＆スモークターキー）</strong> ➔ <strong>【ご希望・新規追加】ウエスタンリバー鉄道</strong>（蒸気機関車で西部＆恐竜へ！） ➔ <strong>トゥーンタウン（ミッキー＆ミニーと撮影📸）</strong></td></tr>
+              <tr><td>16:45</td><td>🧥 防寒具着用・移動</td><td>ワールドバザールへ移動し、夕方の冷え込みに備えて上着を全員着用</td></tr>
+              <tr><td>17:15</td><td>🍴 早めの夕食</td><td><strong>【PS予約】センターストリート・コーヒーハウス</strong>（洋食） または <strong>ハングリーベア・レストラン</strong>（大型カレー店）</td></tr>
+              <tr><td>18:25</td><td>💦 <strong>【待ち時間半減！】スプラッシュ</strong></td><td><strong>スプラッシュ・マウンテン</strong>（夕食後のゴールデンタイムに30〜40分待ちで乗車！落差16m夜景ダイブ）</td></tr>
+              <tr><td>19:25</td><td>🌟 夜のハイライト</td><td>エレクトリカルパレード鑑賞（座布団使用） ➔ 閉園間際（ホーンテッドマンション等直行）＆お土産購入</td></tr>
+              <tr><td>21:00</td><td>退園・ホテル帰着</td><td>舞浜駅 ➔ JR京葉線でたった6分！バス待ち大行列なしで市川塩浜駅・ホテル帰着</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <a href="land.html" class="btn-back" style="margin-top: 1rem; background: var(--accent-land-gradient); color: #fff;">
         👉 ランド1日詳細スケジュール・朝イチ戦略を見る ➔
       </a>
     </div>
@@ -170,24 +251,99 @@
         話題の新エリア「ファンタジースプリングス（自由入場可・アナ雪）」と海底王国「マーメイドラグーン」の大冒険！
       </p>
 
-      <div class="table-wrapper">
-        <table class="data-table">
-          <thead>
-            <tr><th>時間</th><th>行程・スポット</th><th>詳細メモ</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>06:45</td><td>ホテル朝食</td><td>ホテル内バイキング</td></tr>
-            <tr><td>07:35</td><td>パークへ移動</td><td>市川塩浜駅 ➔ JR京葉線（6分）➔ 舞浜駅 ➔ リゾートラインでシーへ</td></tr>
-            <tr><td>08:30</td><td><strong>ディズニーシー 入園</strong></td><td>入園直後スマホ操作（DPAアナ雪・FSアレンデール城昼食MO） ➔ トイマニへ（※45分以上なら奥地先行へ即切替！）</td></tr>
-            <tr><td>午前</td><td>🎯 <strong>トイマニ対決 ＆ 水上ドライブ</strong></td><td>トイ・ストーリー・マニア！（※混雑時はアクアトピア＆ニモへワープ）、高架鉄道移動、アクアトピア</td></tr>
-            <tr><td>12:00</td><td>🏰 <strong>ファンタジースプリングス</strong></td><td>アレンデール城ランチ ➔ ❄️ <strong>【DPA】アナ雪</strong> ➔ 🏮 <strong>【通常スタンバイ】ラプンツェル</strong>（追加DPAなし・約60分待ちで乗船！）</td></tr>
-            <tr><td>午後</td><td>🧜‍♀️ <strong>海底王国で体力温存</strong></td><td>マーメイドラグーン（完全屋内・アリエル遊び場＆カフェ休憩で体力回復！） または シンドバッド</td></tr>
-            <tr><td>16:50</td><td>🍴 【PS予約確定済！】ディナー</td><td><strong>ホライズンベイ・レストラン</strong>（グリル洋食・アップルティーソーダ / 待たずにゆったり着席！）</td></tr>
-            <tr><td>17:55</td><td>🚊 鉄道移動＆二手に分かれて連携！</td><td>高架鉄道でアメフロ移動後、二手に分かれて行動！<br>・👨 <strong>パパ</strong>: 18:05アメフロ駅➔徒歩8分で<strong>ソアリン前大階段へ直行・18:15場所確保！</strong>（2〜3段目キープ・スマホ休憩）<br>・👩👧👦 <strong>ママ＆子供</strong>: 18:10〜18:40 <strong>タートル・トーク鑑賞</strong>（クラッシュと爆笑対話！）➔ 18:45ハーバーへ移動</td></tr>
-            <tr><td>18:55</td><td>🌟 <strong>大階段合流 ＆ ビリーヴ！鑑賞</strong></td><td><strong>【ソアリン前大階段】18:55 家族合流（開始20分前リミットクリア！）</strong><br>上着着用・おやつ待機 ➔ <strong>19:15〜20:00「ビリーヴ！〜シー・オブ・ドリームス〜」開演！</strong><br>完全なひな壇構造で子供の視界も100%確保！大感動フィナーレ！</td></tr>
-            <tr><td>21:00</td><td>退園・ホテル帰着</td><td>リゾートライン ＆ JR京葉線でホテルへ戻り荷造り（電車で最速帰着！）</td></tr>
-          </tbody>
-        </table>
+      <!-- 表示切替タブ -->
+      <div class="view-switcher">
+        <button type="button" class="view-btn active" data-target="day3-timeline">📱 タイムライン表示</button>
+        <button type="button" class="view-btn" data-target="day3-table">📊 一覧表表示</button>
+      </div>
+
+      <!-- タイムライン表示（スマホ向け） -->
+      <div id="day3-timeline" class="view-pane">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">06:45</div>
+            <div class="timeline-title">ホテル朝食</div>
+            <div class="timeline-desc">ホテル内バイキング</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">07:35</div>
+            <div class="timeline-title">パークへ移動</div>
+            <div class="timeline-desc">市川塩浜駅 ➔ JR京葉線（6分）➔ 舞浜駅 ➔ リゾートラインでシーへ</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #10ac84;"></div>
+            <div class="timeline-time">08:30</div>
+            <div class="timeline-title">🌋 ディズニーシー 入園</div>
+            <div class="timeline-desc">入園直後スマホ操作（DPAアナ雪・FSアレンデール城昼食MO） ➔ トイマニへ（※45分以上なら奥地先行へ即切替！）</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #00d2d3;"></div>
+            <div class="timeline-time">午前</div>
+            <div class="timeline-title">🎯 トイマニ対決 ＆ 水上ドライブ</div>
+            <div class="timeline-desc">トイ・ストーリー・マニア！（※混雑時はアクアトピア＆ニモへワープ）、高架鉄道移動、アクアトピア</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #a55eea;"></div>
+            <div class="timeline-time">12:00</div>
+            <div class="timeline-title">🏰 ファンタジースプリングス</div>
+            <div class="timeline-desc">アレンデール城ランチ ➔ ❄️ <strong>【DPA】アナ雪</strong> ➔ 🏮 <strong>【通常スタンバイ】ラプンツェル</strong>（追加DPAなし・約60分待ちで乗船！）</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #1dd1a1;"></div>
+            <div class="timeline-time">午後</div>
+            <div class="timeline-title">🧜‍♀️ 海底王国で体力温存</div>
+            <div class="timeline-desc">マーメイドラグーン（完全屋内・アリエル遊び場＆カフェ休憩で体力回復！） または シンドバッド</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #ffbe76;"></div>
+            <div class="timeline-time">16:50</div>
+            <div class="timeline-title">🍴 【PS予約確定済！】ディナー</div>
+            <div class="timeline-desc"><strong>ホライズンベイ・レストラン</strong>（グリル洋食・アップルティーソーダ / 待たずにゆったり着席！）</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #f7b731;"></div>
+            <div class="timeline-time">17:55</div>
+            <div class="timeline-title">🚊 鉄道移動＆二手に分かれて連携！</div>
+            <div class="timeline-desc">高架鉄道でアメフロ移動後、二手に分かれて行動！<br>・👨 <strong>パパ</strong>: 18:05アメフロ駅➔徒歩8分で<strong>ソアリン前大階段へ直行・18:15場所確保！</strong>（2〜3段目キープ・スマホ休憩）<br>・👩👧👦 <strong>ママ＆子供</strong>: 18:10〜18:40 <strong>タートル・トーク鑑賞</strong>（クラッシュと爆笑対話！）➔ 18:45ハーバーへ移動</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="border-color: #f7b731;"></div>
+            <div class="timeline-time">18:55</div>
+            <div class="timeline-title">🌟 大階段合流 ＆ ビリーヴ！鑑賞</div>
+            <div class="timeline-desc"><strong>【ソアリン前大階段】18:55 家族合流（開始20分前リミットクリア！）</strong><br>上着着用・おやつ待機 ➔ <strong>19:15〜20:00「ビリーヴ！〜シー・オブ・ドリームス〜」開演！</strong><br>完全なひな壇構造で子供の視界も100%確保！大感動フィナーレ！</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-time">21:00</div>
+            <div class="timeline-title">退園・ホテル帰着</div>
+            <div class="timeline-desc">リゾートライン ＆ JR京葉線でホテルへ戻り荷造り（電車で最速帰着！）</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 表形式表示 -->
+      <div id="day3-table" class="view-pane hidden">
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>時間</th><th>行程・スポット</th><th>詳細メモ</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>06:45</td><td>ホテル朝食</td><td>ホテル内バイキング</td></tr>
+              <tr><td>07:35</td><td>パークへ移動</td><td>市川塩浜駅 ➔ JR京葉線（6分）➔ 舞浜駅 ➔ リゾートラインでシーへ</td></tr>
+              <tr><td>08:30</td><td><strong>ディズニーシー 入園</strong></td><td>入園直後スマホ操作（DPAアナ雪・FSアレンデール城昼食MO） ➔ トイマニへ（※45分以上なら奥地先行へ即切替！）</td></tr>
+              <tr><td>午前</td><td>🎯 <strong>トイマニ対決 ＆ 水上ドライブ</strong></td><td>トイ・ストーリー・マニア！（※混雑時はアクアトピア＆ニモへワープ）、高架鉄道移動、アクアトピア</td></tr>
+              <tr><td>12:00</td><td>🏰 <strong>ファンタジースプリングス</strong></td><td>アレンデール城ランチ ➔ ❄️ <strong>【DPA】アナ雪</strong> ➔ 🏮 <strong>【通常スタンバイ】ラプンツェル</strong>（追加DPAなし・約60分待ちで乗船！）</td></tr>
+              <tr><td>午後</td><td>🧜‍♀️ <strong>海底王国で体力温存</strong></td><td>マーメイドラグーン（完全屋内・アリエル遊び場＆カフェ休憩で体力回復！） または シンドバッド</td></tr>
+              <tr><td>16:50</td><td>🍴 【PS予約確定済！】ディナー</td><td><strong>ホライズンベイ・レストラン</strong>（グリル洋食・アップルティーソーダ / 待たずにゆったり着席！）</td></tr>
+              <tr><td>17:55</td><td>🚊 鉄道移動＆二手に分かれて連携！</td><td>高架鉄道でアメフロ移動後、二手に分かれて行動！<br>・👨 <strong>パパ</strong>: 18:05アメフロ駅➔徒歩8分で<strong>ソアリン前大階段へ直行・18:15場所確保！</strong>（2〜3段目キープ・スマホ休憩）<br>・👩👧👦 <strong>ママ＆子供</strong>: 18:10〜18:40 <strong>タートル・トーク鑑賞</strong>（クラッシュと爆笑対話！）➔ 18:45ハーバーへ移動</td></tr>
+              <tr><td>18:55</td><td>🌟 <strong>大階段合流 ＆ ビリーヴ！鑑賞</strong></td><td><strong>【ソアリン前大階段】18:55 家族合流（開始20分前リミットクリア！）</strong><br>上着着用・おやつ待機 ➔ <strong>19:15〜20:00「ビリーヴ！〜シー・オブ・ドリームス〜」開演！</strong><br>完全なひな壇構造で子供の視界も100%確保！大感動フィナーレ！</td></tr>
+              <tr><td>21:00</td><td>退園・ホテル帰着</td><td>リゾートライン ＆ JR京葉線でホテルへ戻り荷造り（電車で最速帰着！）</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <a href="sea.html" class="btn-back" style="margin-top: 0.5rem; background: var(--accent-sea-gradient); color: #fff;">
@@ -274,30 +430,176 @@
         <span class="icon">💰</span>
         <h2>旅費・予算一覧（最新版）</h2>
       </div>
-      <div class="table-wrapper">
-        <table class="data-table">
-          <thead>
-            <tr><th>項目</th><th>内容・詳細</th><th>金額</th><th>手配ステータス</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>飛行機</td><td>ジェットスター往復（家族4名分）</td><td>¥58,120</td><td><span class="status-badge status-done">✅ 予約済 (BUJCGE)</span></td></tr>
-            <tr><td>宿泊費</td><td>CVS・BAY HOTEL 本館（3泊朝食付）</td><td>¥34,960</td><td><span class="status-badge status-done">✅ 楽天決済済（大幅節約！）</span></td></tr>
-            <tr><td>空港駐車場</td><td>新千歳 グッドパーク（4日間）</td><td>¥2,000</td><td><span class="status-badge status-done">✅ 予約・時間確認済（現地払）</span></td></tr>
-            <tr><td>レンタカー</td><td>トヨタレンタカー（西船橋駅前店返却・安心W・ジュニアシート）</td><td>¥10,967</td><td><span class="status-badge status-done">✅ 変更完了（現地払）</span></td></tr>
-            <tr><td>ガソリン代</td><td>レンタカー返却時満タン給油</td><td>¥2,000</td><td><span class="status-badge">当日</span></td></tr>
-            <tr><td>荷物配送</td><td>ヤマト往復宅急便（スーツケース160サイズ往復）</td><td>¥7,160</td><td><span class="status-badge">事前（発送時）</span></td></tr>
-            <tr><td>入園チケット</td><td>ディズニーパークチケット（大人＋小人×2日分）</td><td>¥60,000</td><td><span class="status-badge status-done">✅ 公式購入完了！</span></td></tr>
-            <tr><td>パーク内DPA</td><td><strong>Sランク厳選</strong>（ランド美女と野獣: ¥10,000 / シーアナ雪: ¥10,000）</td><td>¥20,000</td><td><span class="status-badge">当日アプリ購入（各¥2,500×4名）</span></td></tr>
-            <tr><td>現地交通費</td><td>高速道路・電車（市川塩浜⇔舞浜等）・バス</td><td>¥12,000</td><td><span class="status-badge">順次</span></td></tr>
-            <tr><td>食費</td><td>4日間分（1.5万円/日）</td><td>¥60,000</td><td><span class="status-badge">当日</span></td></tr>
-            <tr><td>お土産代</td><td>家族・子供・自分用</td><td>¥50,000</td><td><span class="status-badge">当日</span></td></tr>
-            <tr style="font-weight: 800; background: rgba(247, 183, 49, 0.1);">
-              <td colspan="2" style="color: var(--text-gold);">総合計</td>
-              <td style="color: var(--text-gold); font-size: 1.15rem;">¥317,207</td>
-              <td><span class="status-badge status-done">🌟 SランクDPA込みで目標達成！</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- 表示切替タブ -->
+      <div class="view-switcher">
+        <button type="button" class="view-btn active" data-target="budget-table">📊 一覧表表示</button>
+        <button type="button" class="view-btn" data-target="budget-cards">💳 カード表示</button>
+      </div>
+
+      <!-- 表形式表示 -->
+      <div id="budget-table" class="view-pane">
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>項目</th><th>内容・詳細</th><th>金額</th><th>手配ステータス</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>飛行機</td><td>ジェットスター往復（家族4名分）</td><td>¥58,120</td><td><span class="status-badge status-done">✅ 予約済 (BUJCGE)</span></td></tr>
+              <tr><td>宿泊費</td><td>CVS・BAY HOTEL 本館（3泊朝食付）</td><td>¥34,960</td><td><span class="status-badge status-done">✅ 楽天決済済（大幅節約！）</span></td></tr>
+              <tr><td>空港駐車場</td><td>新千歳 グッドパーク（4日間）</td><td>¥2,000</td><td><span class="status-badge status-done">✅ 予約・時間確認済（現地払）</span></td></tr>
+              <tr><td>レンタカー</td><td>トヨタレンタカー（西船橋駅前店返却・安心W・ジュニアシート）</td><td>¥10,967</td><td><span class="status-badge status-done">✅ 変更完了（現地払）</span></td></tr>
+              <tr><td>ガソリン代</td><td>レンタカー返却時満タン給油</td><td>¥2,000</td><td><span class="status-badge">当日</span></td></tr>
+              <tr><td>荷物配送</td><td>ヤマト往復宅急便（スーツケース160サイズ往復）</td><td>¥7,160</td><td><span class="status-badge">事前（発送時）</span></td></tr>
+              <tr><td>入園チケット</td><td>ディズニーパークチケット（大人＋小人×2日分）</td><td>¥60,000</td><td><span class="status-badge status-done">✅ 公式購入完了！</span></td></tr>
+              <tr><td>パーク内DPA</td><td><strong>Sランク厳選</strong>（ランド美女と野獣: ¥10,000 / シーアナ雪: ¥10,000）</td><td>¥20,000</td><td><span class="status-badge">当日アプリ購入（各¥2,500×4名）</span></td></tr>
+              <tr><td>現地交通費</td><td>高速道路・電車（市川塩浜⇔舞浜等）・バス</td><td>¥12,000</td><td><span class="status-badge">順次</span></td></tr>
+              <tr><td>食費</td><td>4日間分（1.5万円/日）</td><td>¥60,000</td><td><span class="status-badge">当日</span></td></tr>
+              <tr><td>お土産代</td><td>家族・子供・自分用</td><td>¥50,000</td><td><span class="status-badge">当日</span></td></tr>
+              <tr style="font-weight: 800; background: rgba(247, 183, 49, 0.1);">
+                <td colspan="2" style="color: var(--text-gold);">総合計</td>
+                <td style="color: var(--text-gold); font-size: 1.15rem;">¥317,207</td>
+                <td><span class="status-badge status-done">🌟 SランクDPA込みで目標達成！</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- カード形式表示（スマホに最適） -->
+      <div id="budget-cards" class="view-pane hidden">
+        <div class="budget-card-grid">
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">✈️ 飛行機</span>
+              <span class="budget-card-amount">¥58,120</span>
+            </div>
+            <div class="budget-card-desc">ジェットスター往復（家族4名分）</div>
+            <div class="budget-card-footer">
+              <span class="status-badge status-done">✅ 予約済 (BUJCGE)</span>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">🏨 宿泊費</span>
+              <span class="budget-card-amount">¥34,960</span>
+            </div>
+            <div class="budget-card-desc">CVS・BAY HOTEL 本館（3泊朝食付）</div>
+            <div class="budget-card-footer">
+              <span class="status-badge status-done">✅ 楽天決済済（大幅節約！）</span>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">🅿️ 空港駐車場</span>
+              <span class="budget-card-amount">¥2,000</span>
+            </div>
+            <div class="budget-card-desc">新千歳 グッドパーク（4日間）</div>
+            <div class="budget-card-footer">
+              <span class="status-badge status-done">✅ 予約・時間確認済（現地払）</span>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">🚗 レンタカー</span>
+              <span class="budget-card-amount">¥10,967</span>
+            </div>
+            <div class="budget-card-desc">トヨタレンタカー（西船橋駅前店返却・安心W・ジュニアシート）</div>
+            <div class="budget-card-footer">
+              <span class="status-badge status-done">✅ 変更完了（現地払）</span>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">⛽ ガソリン代</span>
+              <span class="budget-card-amount">¥2,000</span>
+            </div>
+            <div class="budget-card-desc">レンタカー返却時満タン給油</div>
+            <div class="budget-card-footer">
+              <span class="status-badge">当日</span>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">📦 荷物配送</span>
+              <span class="budget-card-amount">¥7,160</span>
+            </div>
+            <div class="budget-card-desc">ヤマト往復宅急便（スーツケース160サイズ往復）</div>
+            <div class="budget-card-footer">
+              <span class="status-badge">事前（発送時）</span>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">🎟️ 入園チケット</span>
+              <span class="budget-card-amount">¥60,000</span>
+            </div>
+            <div class="budget-card-desc">ディズニーパークチケット（大人＋小人×2日分）</div>
+            <div class="budget-card-footer">
+              <span class="status-badge status-done">✅ 公式購入完了！</span>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">⚡ パーク内DPA</span>
+              <span class="budget-card-amount">¥20,000</span>
+            </div>
+            <div class="budget-card-desc"><strong>Sランク厳選</strong>（ランド美女と野獣: ¥10,000 / シーアナ雪: ¥10,000）</div>
+            <div class="budget-card-footer">
+              <span class="status-badge">当日アプリ購入（各¥2,500×4名）</span>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">🚊 現地交通費</span>
+              <span class="budget-card-amount">¥12,000</span>
+            </div>
+            <div class="budget-card-desc">高速道路・電車（市川塩浜⇔舞浜等）・バス</div>
+            <div class="budget-card-footer">
+              <span class="status-badge">順次</span>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">🍽️ 食費</span>
+              <span class="budget-card-amount">¥60,000</span>
+            </div>
+            <div class="budget-card-desc">4日間分（1.5万円/日）</div>
+            <div class="budget-card-footer">
+              <span class="status-badge">当日</span>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title">🎁 お土産代</span>
+              <span class="budget-card-amount">¥50,000</span>
+            </div>
+            <div class="budget-card-desc">家族・子供・自分用</div>
+            <div class="budget-card-footer">
+              <span class="status-badge">当日</span>
+            </div>
+          </div>
+
+          <div class="budget-card budget-total-card">
+            <div class="budget-card-header">
+              <span class="budget-card-title" style="color: var(--text-gold);">💰 総合計</span>
+              <span class="budget-card-amount" style="font-size: 1.35rem; color: var(--text-gold);">¥317,207</span>
+            </div>
+            <div class="budget-card-desc">SランクDPA込みで家族全員の満足度最大化＆目標予算達成！</div>
+            <div class="budget-card-footer">
+              <span class="status-badge status-done">🌟 目標達成！</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
