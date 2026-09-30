@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>設計図①：自費通院支援 | ぴたっとナース 社内ポータル</title>
+  <link rel="stylesheet" href="blueprint_style.css">
+</head>
+<body>
+
+  <!-- 上部コンパクトヘッダー -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand-title">
+        <span>🩺</span>
+        <span>ぴたっとナース</span>
+        <span class="brand-badge">設計図①</span>
+      </div>
+      <a href="index.html" class="header-link-back">
+        <span>← 全体像</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- メインコンテナ -->
+  <main class="app-container">
+
+    <!-- ページ概要カード -->
+    <section class="page-intro-card">
+      <div class="intro-badge-row">
+        <span class="bp-indicator-badge bp1">【設計図①】現金エンジン</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted);">主担当：野村由佳子（旭川・現場）</span>
+      </div>
+      <h1 class="page-main-title">看護師による保険外（自費）通院支援</h1>
+      <p class="page-lead-text">
+        創業初月から即座に粗利約95%の現金を創出し、生活費と福祉用具入金遅延（2ヶ月）を支える命綱。
+        単なる付き添いではなく「医療通訳を伴うエスコート」。病院の待ち時間や車内で深い信頼を築き、生活課題を吸い上げます。
+      </p>
+
+      <!-- 要約KPI -->
+      <div class="quick-kpi-row">
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">推定粗利率</div>
+          <div class="kpi-mini-val">約95<small>%</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">キャッシュイン</div>
+          <div class="kpi-mini-val">即時<small>（当日/当月末）</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">目標件数（安定期）</div>
+          <div class="kpi-mini-val">20<small>回/月</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">月間創出粗利</div>
+          <div class="kpi-mini-val">約19<small>万円/月</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- アコーディオン一括開閉コントロール -->
+    <div class="accordion-controls">
+      <button class="btn-toggle-all" onclick="toggleAllAccordions()">すべて開く / 閉じる</button>
+    </div>
+
+    <!-- アコーディオングループ -->
+    <div class="accordion-group">
+
+      <!-- 項目1：本質的価値（3段階の医療アセスメント） -->
+      <div class="accordion-item is-open">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🩺</span>
+            <span class="acc-title">本質的価値：医療通訳を伴う3段階エスコート</span>
+          </div>
+          <span class="acc-tag">差別化の核</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">ヘルパーや便利屋には真似できない、臨床12年の正看護師による専門介入です。</p>
+
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">①【診察前】プロ目線のアセスメント ＆ 症状の言語化</strong>
+            <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 3px;">
+              自宅お迎え時にバイタル・歩行・顔色を確認。「最近夜眠れない」「足がむくむ」といった曖昧な訴えを医学的に整理し、医師へ伝えるべき優先メモを作成。
+            </p>
+          </div>
+
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">②【診察中】診察室同席 ＆ 医師との「医療通訳」</strong>
+            <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 3px;">
+              医師へ日常の服薬や体調変化を的確に伝達。医師からの専門用語や検査所見を、その場で分かりやすく噛み砕いて本人へ説明・納得を促す。
+            </p>
+          </div>
+
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">③【診察後】遠方子世代への「LINE詳細レポート」即日送信</strong>
+            <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 3px;">
+              薬局での処方薬確認と帰宅完了後、医師の診断内容・次回の検査予定・薬の変更点・当日の表情をまとめた詳細レポートを当日中に送信。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目2：ターゲット顧客と決裁心理（ビジコン最優秀賞ロジック） -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🎯</span>
+            <span class="acc-title">ターゲット顧客と決裁心理（経済的合理性）</span>
+          </div>
+          <span class="acc-tag">顧客インサイト</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="simple-box">
+            <strong style="font-size: 0.85rem; color: var(--text-main);">👤 利用者（親世代）：旭川・近郊の高齢者</strong>
+            <ul class="clean-list">
+              <li>総合病院への単独通院が不安だが、「遠くの子どもに迷惑をかけたくない」と我慢している</li>
+              <li>医師の説明が早口で聞き取れず、内容を家族に伝えられない</li>
+            </ul>
+          </div>
+
+          <div class="simple-box">
+            <strong style="font-size: 0.85rem; color: var(--c-bp1);">💳 支払者（決裁者）：東京・札幌等で働く40〜50代子世代</strong>
+            <ul class="clean-list">
+              <li>「平日に仕事を休んで旭川に帰れない」という強い罪悪感を抱えている</li>
+              <li>帰省コスト（航空券3〜5万円＋有給消費＋移動疲労）と比較し、月2.5万円前後の投資は極めて合理的</li>
+            </ul>
+          </div>
+
+          <div class="callout-mini tip">
+            💡 <strong>訴求の要点：</strong>「罪悪感を安心感に変える」。親孝行の新しいスタンダードとして提案。
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目3：料金体系（月額プラン ＆ スポット） -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">💰</span>
+            <span class="acc-title">料金プラン体系（月額プラン ＆ スポット）</span>
+          </div>
+          <span class="acc-tag">価格設定</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="clean-table-wrap">
+            <table class="clean-table">
+              <thead>
+                <tr>
+                  <th>プラン名</th>
+                  <th>月額料金</th>
+                  <th>回数（1回3h）</th>
+                  <th>内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>ベーシック</strong></td>
+                  <td>15,000円</td>
+                  <td>月1回</td>
+                  <td>同行 ＋ 簡易レポート ＋ 健康相談</td>
+                </tr>
+                <tr style="background: #f0fdf4;">
+                  <td style="color: #047857; font-weight: 700;"><strong>スタンダード<br><small>★一番人気</small></strong></td>
+                  <td style="color: #047857; font-weight: 800;">25,000円</td>
+                  <td style="color: #047857; font-weight: 700;">月2回</td>
+                  <td>同行 ＋ 医師連携 ＋ <strong>詳細LINEレポート</strong> ＋ 健康相談（月2回）</td>
+                </tr>
+                <tr>
+                  <td><strong>プレミアム</strong></td>
+                  <td>35,000円</td>
+                  <td>月3回</td>
+                  <td>同行 ＋ 詳細レポート ＋ <strong>緊急駆けつけ（月1回）</strong> ＋ 手続き同席</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="body-lead" style="font-size: 0.82rem; margin-top: 8px;">📌 スポット・助走期メニュー：</p>
+          <ul class="clean-list">
+            <li><strong>初回限定お試し：</strong>5,000円（1回3時間）※品質と人柄を知る導入枠</li>
+            <li><strong>時間制スポット（助走期）：</strong>1時間4,000円（以降30分ごとに2,000円）</li>
+            <li><strong>専門職会議同席：</strong>8,000円（1回2時間・ケアマネ担当者会議等）</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 項目4：道路運送法コンプライアンス（白タク完全防止策） -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">⚖️</span>
+            <span class="acc-title">道路運送法対策：白タクリスクの完全排除</span>
+          </div>
+          <span class="acc-tag" style="background: #fee2e2; color: #dc2626;">法務必須</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="callout-mini alert">
+            ⚠️ <strong>法的落とし穴：</strong>自家用車で高齢者を送迎し運賃をもらう行為は「道路運送法違反（白タク行為）」として処罰対象になります。
+          </div>
+
+          <p class="body-lead">ぴたっとナースの完全合法ルール：</p>
+          <ul class="clean-list">
+            <li>自家用車での送迎は<strong>絶対にやらない</strong>。</li>
+            <li>移動は<strong>「一般タクシーまたは福祉タクシーを利用者と一緒に同乗利用」</strong>する。</li>
+            <li>タクシー代実費は利用者が直接タクシー会社へ支払う。</li>
+            <li>ぴたっとナースが請求するのは<strong>「看護師による付き添い・医療通訳サポート料」のみ</strong>。</li>
+          </ul>
+
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 6px;">
+            ※将来展望（4年目〜）：利用者が急増した段階で二種免許取得・中古車両導入を行い「介護タクシー認可」を申請。
+          </p>
+        </div>
+      </div>
+
+      <!-- 項目5：他事業（福祉用具・改修）へのクロスセル導線 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🔀</span>
+            <span class="acc-title">他事業（福祉用具・住宅改修）への吸い上げ導線</span>
+          </div>
+          <span class="acc-tag">シナジー</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">通院支援は生活課題を誰よりも早く発見する「センサー」です。</p>
+
+          <div class="simple-box">
+            <strong style="font-size: 0.82rem; color: var(--text-main);">① 待ち時間での会話から ➜ 【設計図③・④へ】</strong>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 2px;">
+              「夜トイレに起きる時に壁に手をついて怖い」 ➜ ベッド脇手すり・ポータブルトイレ・廊下手すり工事を提案。
+            </p>
+          </div>
+
+          <div class="simple-box">
+            <strong style="font-size: 0.82rem; color: var(--text-main);">② 医師の病状説明から ➜ 【設計図③へ直結】</strong>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 2px;">
+              「膝関節症が進んでいるから歩行器を」 ➜ 看護師が同席しているため、即座に最適な歩行器を手配しケアマネへ理由書提出。
+            </p>
+          </div>
+
+          <div class="simple-box">
+            <strong style="font-size: 0.82rem; color: var(--text-main);">③ LINE報告時の家族相談から ➜ 【設計図⑤へ】</strong>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 2px;">
+              「実家の除雪が追いつかず母が外に出られない」 ➜ 提携便利屋による動線除雪サポートを即手配。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目6：実務ツール・資材チェックリスト -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🧰</span>
+            <span class="acc-title">必要ツール・資材・現場携行品</span>
+          </div>
+          <span class="acc-tag">実務準備</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="clean-list">
+            <li><strong>案内チラシ（A4・3パターン）：</strong>Canva作成済・印刷手配</li>
+            <li><strong>利用規約・重要事項説明書：</strong>免責条項・タクシー同乗ルール明記</li>
+            <li><strong>看護師賠償責任保険：</strong>事業者向け加入</li>
+            <li><strong>バイタル測定セット：</strong>血圧計・パルスオキシメーター・体温計</li>
+            <li><strong>スマホアプリ：</strong>スキャンアプリ（CamScanner等）、LINE WORKS</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ページ送りフッター -->
+    <div class="page-nav-footer">
+      <a href="index.html" class="page-nav-btn">← 全体像</a>
+      <a href="blueprint2_sns_marketing.html" class="page-nav-btn primary">② SNS代行を見る →</a>
+    </div>
+
+  </main>
+
+  <!-- スマホ固定ボトムナビ（Dock型バー） -->
+  <nav class="bottom-dock">
+    <div class="bottom-dock-inner">
+      <a href="index.html" class="dock-tab">
+        <span class="icon">🌐</span>
+        <span class="label">全体像</span>
+      </a>
+      <a href="blueprint1_transport.html" class="dock-tab is-active">
+        <span class="icon">①</span>
+        <span class="label">通院支援</span>
+      </a>
+      <a href="blueprint2_sns_marketing.html" class="dock-tab">
+        <span class="icon">②</span>
+        <span class="label">SNS代行</span>
+      </a>
+      <a href="blueprint3_fukushi_rental.html" class="dock-tab">
+        <span class="icon">③</span>
+        <span class="label">福祉用具</span>
+      </a>
+      <a href="blueprint4_equipment_renovation.html" class="dock-tab">
+        <span class="icon">④</span>
+        <span class="label">販売改修</span>
+      </a>
+      <a href="blueprint5_lifestyle_support.html" class="dock-tab">
+        <span class="icon">⑤</span>
+        <span class="label">除雪家具</span>
+      </a>
+      <a href="blueprint_risks_and_todos.html" class="dock-tab">
+        <span class="icon">⚡</span>
+        <span class="label">監査TODO</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- アコーディオン制御スクリプト -->
+  <script>
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      item.classList.toggle('is-open');
+    }
+
+    function toggleAllAccordions() {
+      const items = document.querySelectorAll('.accordion-item');
+      const anyClosed = Array.from(items).some(item => !item.classList.contains('is-open'));
+      items.forEach(item => {
+        if (anyClosed) {
+          item.classList.add('is-open');
+        } else {
+          item.classList.remove('is-open');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

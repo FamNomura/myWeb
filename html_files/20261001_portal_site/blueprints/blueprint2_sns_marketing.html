@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>設計図②：訪看・デイSNS代行 | ぴたっとナース 社内ポータル</title>
+  <link rel="stylesheet" href="blueprint_style.css">
+</head>
+<body>
+
+  <!-- 上部コンパクトヘッダー -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand-title">
+        <span>🩺</span>
+        <span>ぴたっとナース</span>
+        <span class="brand-badge">設計図②</span>
+      </div>
+      <a href="index.html" class="header-link-back">
+        <span>← 全体像</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- メインコンテナ -->
+  <main class="app-container">
+
+    <!-- ページ概要カード -->
+    <section class="page-intro-card">
+      <div class="intro-badge-row">
+        <span class="bp-indicator-badge bp2">【設計図②】最重要紹介導線</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted);">主担当：野村由佳子（取材） ＋ AI活用</span>
+      </div>
+      <h1 class="page-main-title">訪看・デイ向け HP/SNS運用代行</h1>
+      <p class="page-lead-text">
+        地域の事業所が最も苦しむ「採用難」をSNS・HP代行で解決し、管理者・経営者と強固なパイプを形成。
+        ケアマネへの飛び込み営業だけに頼らず、医療・デイ現場のトップから直接「逆指名」で福祉用具案件を獲得する仕組みです。
+      </p>
+
+      <!-- 要約KPI -->
+      <div class="quick-kpi-row">
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">月額報酬目安</div>
+          <div class="kpi-mini-val">3〜5<small>万円/社</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">初期目標契約数</div>
+          <div class="kpi-mini-val">2<small>社（月6万粗利）</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">1社あたり実働</div>
+          <div class="kpi-mini-val">月3〜4<small>時間</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">間接的創出価値</div>
+          <div class="kpi-mini-val">用具逆指名<small>獲得</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- アコーディオン一括開閉コントロール -->
+    <div class="accordion-controls">
+      <button class="btn-toggle-all" onclick="toggleAllAccordions()">すべて開く / 閉じる</button>
+    </div>
+
+    <!-- アコーディオングループ -->
+    <div class="accordion-group">
+
+      <!-- 項目1：なぜSNS代行が福祉用具の武器になるのか（逆指名パイプ） -->
+      <div class="accordion-item is-open">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🔄</span>
+            <span class="acc-title">戦略的意図：なぜSNS代行が最強の紹介パイプになるのか？</span>
+          </div>
+          <span class="acc-tag">逆指名の罠</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">従来の「ケアマネお願い営業」の壁を、BtoBの課題解決で突破します。</p>
+
+          <div class="simple-box" style="border-left: 3px solid #ef4444;">
+            <strong style="color: #991b1b; font-size: 0.82rem;">❌ 従来の福祉用具営業の限界</strong>
+            <p style="font-size: 0.78rem; color: #7f1d1d; margin-top: 2px;">
+              ケアマネにカタログを配って頭を下げても、既存大手（カクイックス等）の壁が厚く引き出しにしまわれて終了。案件が出るまで数ヶ月待つことに。
+            </p>
+          </div>
+
+          <div class="simple-box" style="border-left: 3px solid var(--c-bp2);">
+            <strong style="color: #6d28d9; font-size: 0.82rem;">✅ ぴたっとナースの「逆指名アプローチ」</strong>
+            <p style="font-size: 0.78rem; color: #5b21b6; margin-top: 2px;">
+              事業所の最大課題「採用難」を解決し、管理者・経営者と対等なパートナー関係に。取材で毎月訪問し、現場の利用者課題を直接耳にする。
+              <strong>「あの利用者のベッド、野村さんに頼もう」と管理者からケアマネへ逆指示</strong>してもらう。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目2：地域の訪看・デイが抱える切実なペイン -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">💔</span>
+            <span class="acc-title">顧客の切実なペイン（地域の医療介護事業所の悩み）</span>
+          </div>
+          <span class="acc-tag">ニーズの核心</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="clean-list">
+            <li><strong>深刻な採用難と紹介手数料の高騰：</strong>求人サイトや紹介会社に1人100万〜150万円払っても早期退職。求職者は求人票ではなく「職場のInstagram」を見て選ぶ時代なのにSNSを動かせない。</li>
+            <li><strong>日常業務に忙殺され更新停止：</strong>記録や訪問で手一杯。「アカウントは作ったが半年前で止まっている」「夜中に管理者が投稿を作るのは不可能」。</li>
+            <li><strong>一般の広告代理店では現場が伝わらない：</strong>外部業者だと「医療安全や個人情報保護が分かっていない」「お決まりのキラキラ写真ばかりで看護の専門性が伝わらない」。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 項目3：看護師が代行する圧倒的な優位性 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">✨</span>
+            <span class="acc-title">看護師（野村様）が代行する圧倒的な強み</span>
+          </div>
+          <span class="acc-tag">競合優位性</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">① 同業者（看護師）だから共感・理解できる</strong>
+            <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 2px;">
+              専門用語やケアの工夫、現場スタッフのやりがい・苦労を100%理解。スタッフが構えずに本音でインタビューに答えてくれる。
+            </p>
+          </div>
+
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">② 個人情報・医療広告ガイドラインに完全準拠</strong>
+            <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 2px;">
+              カルテの写り込みや患者プライバシーなど、医療者としての倫理観に基づき安心・安全な広報を徹底。
+            </p>
+          </div>
+
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">③ 地域医療を一緒に良くする同志になれる</strong>
+            <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 2px;">
+              ただの外注業者ではなく、「旭川・道北の在宅ケアを一緒に支える仲間」として経営者・管理者と生涯の信頼関係を築ける。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目4：提供メニュー ＆ AI×Canva超効率オペレーション -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">📋</span>
+            <span class="acc-title">提供メニュー ＆ 月3〜4時間圧縮オペレーション</span>
+          </div>
+          <span class="acc-tag">実務・価格</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="clean-table-wrap">
+            <table class="clean-table">
+              <thead>
+                <tr>
+                  <th>メニュー</th>
+                  <th>価格（税別）</th>
+                  <th>内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background: #f5f3ff;">
+                  <td style="color: #6d28d9; font-weight: 700;"><strong>採用特化型Instagram代行<br><small>主力</small></strong></td>
+                  <td style="color: #6d28d9; font-weight: 800;">月3〜5万円</td>
+                  <td>月1回取材写真撮影（1h）、月4〜6件投稿作成、スタッフインタビュー</td>
+                </tr>
+                <tr>
+                  <td><strong>簡易スマホHPリニューアル</strong></td>
+                  <td>初期10〜15万円</td>
+                  <td>ペライチ/Canvaによる1ページ完結型、スマホ最適化、採用導線新設</td>
+                </tr>
+                <tr>
+                  <td><strong>HP保守・更新</strong></td>
+                  <td>月1〜1.5万円</td>
+                  <td>サーバー維持管理、お知らせ・求人情報の随時差し替え</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout-mini tip">
+            ⚡ <strong>実務時間を月3〜4時間に圧縮する仕組み：</strong><br>
+            ① 訪問取材時にスマホで写真・ショート動画を10カット撮影＋簡単なメモ<br>
+            ② 生成AI（Claude/ChatGPT）にメモを入力し共感テキストを1分で生成<br>
+            ③ Canva定型テンプレートに当てはめて20分で画像完成！<br>
+            ➜ <strong>本業（現場・福祉用具）の時間を圧迫せず、高粗利とパイプを両立。</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目5：最初のアプローチ先候補 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🎯</span>
+            <span class="acc-title">最初のアプローチ対象先（旭川市内）</span>
+          </div>
+          <span class="acc-tag">アクション</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="clean-list">
+            <li><strong>小規模・新規オープンの訪問看護ステーション：</strong>看護師の採用が最重要課題の事業所。</li>
+            <li><strong>地域密着型通所介護（デイサービス）：</strong>利用者獲得と介護スタッフ採用の両方を求めている事業所。</li>
+            <li><strong>代表や管理者が元同僚・知人の事業所：</strong>信頼関係があり提案が通りやすい先。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ページ送りフッター -->
+    <div class="page-nav-footer">
+      <a href="blueprint1_transport.html" class="page-nav-btn">← ① 通院支援</a>
+      <a href="blueprint3_fukushi_rental.html" class="page-nav-btn primary">③ 福祉用具を見る →</a>
+    </div>
+
+  </main>
+
+  <!-- スマホ固定ボトムナビ（Dock型バー） -->
+  <nav class="bottom-dock">
+    <div class="bottom-dock-inner">
+      <a href="index.html" class="dock-tab">
+        <span class="icon">🌐</span>
+        <span class="label">全体像</span>
+      </a>
+      <a href="blueprint1_transport.html" class="dock-tab">
+        <span class="icon">①</span>
+        <span class="label">通院支援</span>
+      </a>
+      <a href="blueprint2_sns_marketing.html" class="dock-tab is-active">
+        <span class="icon">②</span>
+        <span class="label">SNS代行</span>
+      </a>
+      <a href="blueprint3_fukushi_rental.html" class="dock-tab">
+        <span class="icon">③</span>
+        <span class="label">福祉用具</span>
+      </a>
+      <a href="blueprint4_equipment_renovation.html" class="dock-tab">
+        <span class="icon">④</span>
+        <span class="label">販売改修</span>
+      </a>
+      <a href="blueprint5_lifestyle_support.html" class="dock-tab">
+        <span class="icon">⑤</span>
+        <span class="label">除雪家具</span>
+      </a>
+      <a href="blueprint_risks_and_todos.html" class="dock-tab">
+        <span class="icon">⚡</span>
+        <span class="label">監査TODO</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- アコーディオン制御スクリプト -->
+  <script>
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      item.classList.toggle('is-open');
+    }
+
+    function toggleAllAccordions() {
+      const items = document.querySelectorAll('.accordion-item');
+      const anyClosed = Array.from(items).some(item => !item.classList.contains('is-open'));
+      items.forEach(item => {
+        if (anyClosed) {
+          item.classList.add('is-open');
+        } else {
+          item.classList.remove('is-open');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

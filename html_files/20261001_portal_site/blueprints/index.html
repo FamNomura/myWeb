@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>全体構想・エコシステム | ぴたっとナース 社内ポータル</title>
+  <link rel="stylesheet" href="blueprint_style.css">
+</head>
+<body>
+
+  <!-- 上部コンパクトヘッダー -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand-title">
+        <span>🩺</span>
+        <span>ぴたっとナース</span>
+        <span class="brand-badge">社内共有用</span>
+      </div>
+      <a href="../index.html" class="header-link-back">
+        <span>← 総合ポータル</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- メインコンテナ -->
+  <main class="app-container">
+
+    <!-- ページ概要カード -->
+    <section class="page-intro-card">
+      <div class="intro-badge-row">
+        <span class="bp-indicator-badge hub">全体構想マスター</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted);">正看護師2名体制 × 5事業循環</span>
+      </div>
+      <h1 class="page-main-title">5つの事業モデル統合エコシステム</h1>
+      <p class="page-lead-text">
+        単一のサービスで勝負するのではなく、「正看護師2名体制」の医療知識をハブにして、5つの事業を相互に連結させる好循環構造。
+        通院支援で現金を確保し、SNS代行で紹介パイプを開拓し、福祉用具貸与で安定ストックを築きます。
+      </p>
+
+      <!-- 要約KPI -->
+      <div class="quick-kpi-row">
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">初期立ち上げ費用</div>
+          <div class="kpi-mini-val">約20<small>万円</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">初期月固定費（代表無給）</div>
+          <div class="kpi-mini-val">13.5<small>万円/月</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">損益分岐点</div>
+          <div class="kpi-mini-val">通院10<small>回</small>+用具6<small>名</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">安定期粗利（代表25万）</div>
+          <div class="kpi-mini-val">45.3<small>万円/月</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- アコーディオン一括開閉コントロール -->
+    <div class="accordion-controls">
+      <button class="btn-toggle-all" onclick="toggleAllAccordions()">すべて開く / 閉じる</button>
+    </div>
+
+    <!-- アコーディオングループ -->
+    <div class="accordion-group">
+
+      <!-- 項目1：5事業の相互循環ダイアグラム -->
+      <div class="accordion-item is-open">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🔄</span>
+            <span class="acc-title">5事業の相互循環フロー（エコシステム全体像）</span>
+          </div>
+          <span class="acc-tag">好循環</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">各事業が孤立せず、紹介・アップセル・キャッシュフローで弱点を補完し合います。</p>
+          
+          <div class="simple-box" style="border-left: 3px solid var(--c-bp2);">
+            <div style="font-size: 0.72rem; font-weight: 700; color: var(--c-bp2);">【BtoB：関係性構築 ＆ 逆指名フック】</div>
+            <div class="simple-box-title">② 近隣デイ・訪看向け HP/SNS運用代行</div>
+            <p style="font-size: 0.8rem; color: var(--text-sub);">
+              採用難に悩む事業所の広報を代行し管理者と強固なパイプを形成。ケアマネ営業頼みを脱却し、現場トップから福祉用具案件が逆指名で流れ込む仕組み。
+            </p>
+          </div>
+
+          <div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin: 4px 0;">▼ 優先紹介・在宅連携</div>
+
+          <div class="simple-box" style="border-left: 3px solid var(--c-bp1);">
+            <div style="font-size: 0.72rem; font-weight: 700; color: var(--c-bp1);">【現金エンジン：即金性・生活防衛】</div>
+            <div class="simple-box-title">① 看護師による保険外（自費）通院支援</div>
+            <p style="font-size: 0.8rem; color: var(--text-sub);">
+              初月から粗利95%の現金収入を生み、生活費と福祉用具入金遅延（2ヶ月）を支える。車内や待ち時間で家族と信頼関係を築き、生活課題を吸い上げる。
+            </p>
+          </div>
+
+          <div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin: 4px 0;">▼ 状態悪化・要介護認定時の移行</div>
+
+          <div class="simple-box" style="border-left: 3px solid var(--c-bp3);">
+            <div style="font-size: 0.72rem; font-weight: 700; color: var(--c-bp3);">【ストック収益：経営の土台】</div>
+            <div class="simple-box-title">③ 介護保険 福祉用具貸与事業（ベッド・車椅子・歩行器）</div>
+            <p style="font-size: 0.8rem; color: var(--text-sub);">
+              平均1.5〜2年の長期定額粗利。配送・組立・保管・消毒は大手卸（マルベリー等）へ全面委託し、自社は看護師のアセスメントと書類作成に特化。
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
+            <div class="simple-box" style="border-left: 3px solid var(--c-bp4); margin: 0;">
+              <div style="font-size: 0.68rem; font-weight: 700; color: var(--c-bp4);">【高単価スポット粗利】</div>
+              <div style="font-weight: 700; font-size: 0.8rem;">④ 特定用具販売・改修</div>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+                ポータブルトイレ卸直送販売、提携工務店施工の手すり工事。申請代行のみで1件数万円の粗利を上乗せ。
+              </p>
+            </div>
+            <div class="simple-box" style="border-left: 3px solid var(--c-bp5); margin: 0;">
+              <div style="font-size: 0.68rem; font-weight: 700; color: var(--c-bp5);">【差別化・成約フック】</div>
+              <div style="font-weight: 700; font-size: 0.8rem;">⑤ 家具移動・冬期除雪</div>
+              <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+                創業者は力仕事をせず便利屋等と提携。「タンス移動無料」で他社からの乗り換えを決定づける。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目2：各事業の役割とクイックリンク -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">📑</span>
+            <span class="acc-title">5つの設計図 詳細リンク一覧</span>
+          </div>
+          <span class="acc-tag">各ページ</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">各設計図をクリックすると詳細ページへ移動します：</p>
+          
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+            <a href="blueprint1_transport.html" class="simple-box" style="display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--c-bp1); text-decoration: none;">
+              <div>
+                <span class="bp-indicator-badge bp1">設計図①</span>
+                <strong style="margin-left: 6px; font-size: 0.88rem;">自費通院支援【現金エンジン】</strong>
+                <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">粗利率95%・即金性・医療通訳エスコート</div>
+              </div>
+              <span style="font-size: 0.85rem; color: var(--c-bp1); font-weight: bold;">開く →</span>
+            </a>
+
+            <a href="blueprint2_sns_marketing.html" class="simple-box" style="display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--c-bp2); text-decoration: none;">
+              <div>
+                <span class="bp-indicator-badge bp2">設計図②</span>
+                <strong style="margin-left: 6px; font-size: 0.88rem;">訪看・デイSNS代行【紹介導線】</strong>
+                <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">採用難解決・管理者パイプ・逆指名獲得</div>
+              </div>
+              <span style="font-size: 0.85rem; color: var(--c-bp2); font-weight: bold;">開く →</span>
+            </a>
+
+            <a href="blueprint3_fukushi_rental.html" class="simple-box" style="display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--c-bp3); text-decoration: none;">
+              <div>
+                <span class="bp-indicator-badge bp3">設計図③</span>
+                <strong style="margin-left: 6px; font-size: 0.88rem;">福祉用具貸与【ストック収益】</strong>
+                <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">卸全面委託（在庫ゼロ）・看護師選定理由書</div>
+              </div>
+              <span style="font-size: 0.85rem; color: var(--c-bp3); font-weight: bold;">開く →</span>
+            </a>
+
+            <a href="blueprint4_equipment_renovation.html" class="simple-box" style="display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--c-bp4); text-decoration: none;">
+              <div>
+                <span class="bp-indicator-badge bp4">設計図④</span>
+                <strong style="margin-left: 6px; font-size: 0.88rem;">特定用具販売 ＆ 住宅改修</strong>
+                <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">スポット粗利・卸直送・提携工務店完全外注</div>
+              </div>
+              <span style="font-size: 0.85rem; color: var(--c-bp4); font-weight: bold;">開く →</span>
+            </a>
+
+            <a href="blueprint5_lifestyle_support.html" class="simple-box" style="display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--c-bp5); text-decoration: none;">
+              <div>
+                <span class="bp-indicator-badge bp5">設計図⑤</span>
+                <strong style="margin-left: 6px; font-size: 0.88rem;">家具移動 ＆ 冬期除雪サポート</strong>
+                <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">地域密着フック・競合切り崩し・窓口特化</div>
+              </div>
+              <span style="font-size: 0.85rem; color: var(--c-bp5); font-weight: bold;">開く →</span>
+            </a>
+
+            <a href="blueprint_risks_and_todos.html" class="simple-box" style="display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--c-todo); text-decoration: none;">
+              <div>
+                <span class="bp-indicator-badge todo">総合管理</span>
+                <strong style="margin-left: 6px; font-size: 0.88rem;">懸念・確認・TODO・収支</strong>
+                <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">監査対策・ヒアリング票・収支試算・チェックリスト</div>
+              </div>
+              <span style="font-size: 0.85rem; color: var(--c-todo); font-weight: bold;">開く →</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目3：時間軸で見るポジショニングの優位性 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">⏳</span>
+            <span class="acc-title">ポジショニングの優位性（過去・現在・将来）</span>
+          </div>
+          <span class="acc-tag">差別化根拠</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="clean-table-wrap">
+            <table class="clean-table">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">時代</th>
+                  <th>業界の実態（競合）</th>
+                  <th>ぴたっとナースの強み</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>過去</strong></td>
+                  <td>カタログを配るだけの営業職が主流。専門的アセスメントは軽視。</td>
+                  <td>利用者の生活課題と病態に寄り添う構想を蓄積。</td>
+                </tr>
+                <tr>
+                  <td><strong>現在<br><small style="color: #ef4444;">（制度厳格化）</small></strong></td>
+                  <td>軽度者（要支援1〜介護1）の貸与見直し等。ケアマネ・病院は確かな選定理由書を渇望。</td>
+                  <td style="color: var(--primary-dark); font-weight: 700;">
+                    <strong>正看護師2名体制</strong>による医学的理由書。医師・ケアマネの信頼を総取り。
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>将来<br><small style="color: #0284c7;">（在宅医療増）</small></strong></td>
+                  <td>医療依存度の高い高齢者が急増。医学知識のない業者は敬遠される。</td>
+                  <td style="color: var(--primary-dark); font-weight: 700;">
+                    「医療と用具のハイブリッド拠点」として代替不可能な地域ポジションを確立。
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目4：母娘・外部パートナーの役割分担原則 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">👥</span>
+            <span class="acc-title">コア体制と日々の役割分担原則</span>
+          </div>
+          <span class="acc-tag">体制図</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="simple-box">
+            <span class="role-badge-pill founder">創業者：野村由佳子（旭川・現場専任）</span>
+            <ul class="clean-list">
+              <li>利用者・ケアマネ・病院との対面コミュニケーション</li>
+              <li>身体・環境の採寸、写真撮影、納品時の適合確認、営業活動</li>
+            </ul>
+          </div>
+
+          <div class="simple-box">
+            <span class="role-badge-pill mother">母親（遠軽・在宅リモート・非常勤役員）</span>
+            <ul class="clean-list">
+              <li>在宅PCにて介護ソフト（カイポケ等）を用いた計画書（原案）作成</li>
+              <li>看護師知見を活かした医学的選定理由の記述、卸へのWeb発注、毎月の国保連請求・実績送付</li>
+            </ul>
+          </div>
+
+          <div class="simple-box">
+            <span class="role-badge-pill partner">外部パートナー（実作業担当）</span>
+            <ul class="clean-list">
+              <li><strong>大手卸業者：</strong>大型用具の配送、組立設置、回収、洗浄消毒</li>
+              <li><strong>提携工務店：</strong>手すり等の取付工事、見積・図面作成補助</li>
+              <li><strong>提携便利屋：</strong>除雪作業、大型家具の移動</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目5：創業者の「リアルな1日」のタイムスケジュール -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">⏰</span>
+            <span class="acc-title">創業者の「リアルな1日」スケジュール例</span>
+          </div>
+          <span class="acc-tag">業務フロー</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="clean-table-wrap">
+            <table class="clean-table">
+              <thead>
+                <tr>
+                  <th style="width: 30%;">時間帯</th>
+                  <th>業務内容・現場アクション</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>08:30〜09:00</strong></td>
+                  <td>母親から上がってきた計画書ドラフトの確認、当日のスケジュール整理。</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--c-bp1);">09:00〜11:30</strong></td>
+                  <td><strong>【通院支援 1件目】</strong>自宅へ迎えに行き総合病院整形外科へ付き添い・医療通訳・薬局（売上約1万円）。</td>
+                </tr>
+                <tr>
+                  <td><strong>11:30〜12:30</strong></td>
+                  <td>移動・昼食。車内からスマホ（LINE WORKS等）で通院支援の生活変化メモを母親へ送信。</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--c-bp3);">13:00〜14:00</strong></td>
+                  <td><strong>【退院カンファレンス同行】</strong>回復期病院へ。退院支援看護師・MSW・ケアマネと同席しベッド選定。</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--c-bp3);">14:30〜15:30</strong></td>
+                  <td><strong>【福祉用具の納品】</strong>卸配送トラックと現地合流。組立横でマットレス硬さ・介助バー適合確認、署名受領。</td>
+                </tr>
+                <tr>
+                  <td><strong>15:30〜16:00</strong></td>
+                  <td>車内でスマホから環境写真・身体状況メモ・署名計画書を撮影し共有フォルダへ保存。</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--c-bp2);">16:00〜17:00</strong></td>
+                  <td><strong>【訪看・デイ訪問】</strong>SNS代行先へ。広報写真撮影と打ち合わせ（ついでに用具相談を受ける）。</td>
+                </tr>
+                <tr>
+                  <td><strong>17:00〜17:30</strong></td>
+                  <td>帰宅・日報整理。書類作成は母親が済ませているため夜遅くまでの事務作業はなし。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ページ送りフッター -->
+    <div class="page-nav-footer">
+      <a href="../index.html" class="page-nav-btn">← 総合ポータル</a>
+      <a href="blueprint1_transport.html" class="page-nav-btn primary">① 通院支援を見る →</a>
+    </div>
+
+  </main>
+
+  <!-- スマホ固定ボトムナビ（Dock型バー） -->
+  <nav class="bottom-dock">
+    <div class="bottom-dock-inner">
+      <a href="index.html" class="dock-tab is-active">
+        <span class="icon">🌐</span>
+        <span class="label">全体像</span>
+      </a>
+      <a href="blueprint1_transport.html" class="dock-tab">
+        <span class="icon">①</span>
+        <span class="label">通院支援</span>
+      </a>
+      <a href="blueprint2_sns_marketing.html" class="dock-tab">
+        <span class="icon">②</span>
+        <span class="label">SNS代行</span>
+      </a>
+      <a href="blueprint3_fukushi_rental.html" class="dock-tab">
+        <span class="icon">③</span>
+        <span class="label">福祉用具</span>
+      </a>
+      <a href="blueprint4_equipment_renovation.html" class="dock-tab">
+        <span class="icon">④</span>
+        <span class="label">販売改修</span>
+      </a>
+      <a href="blueprint5_lifestyle_support.html" class="dock-tab">
+        <span class="icon">⑤</span>
+        <span class="label">除雪家具</span>
+      </a>
+      <a href="blueprint_risks_and_todos.html" class="dock-tab">
+        <span class="icon">⚡</span>
+        <span class="label">監査TODO</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- アコーディオン制御スクリプト -->
+  <script>
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      item.classList.toggle('is-open');
+    }
+
+    function toggleAllAccordions() {
+      const items = document.querySelectorAll('.accordion-item');
+      const anyClosed = Array.from(items).some(item => !item.classList.contains('is-open'));
+      items.forEach(item => {
+        if (anyClosed) {
+          item.classList.add('is-open');
+        } else {
+          item.classList.remove('is-open');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

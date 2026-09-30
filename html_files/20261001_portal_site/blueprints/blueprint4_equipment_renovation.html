@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>設計図④：販売＆住宅改修 | ぴたっとナース 社内ポータル</title>
+  <link rel="stylesheet" href="blueprint_style.css">
+</head>
+<body>
+
+  <!-- 上部コンパクトヘッダー -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand-title">
+        <span>🩺</span>
+        <span>ぴたっとナース</span>
+        <span class="brand-badge">設計図④</span>
+      </div>
+      <a href="index.html" class="header-link-back">
+        <span>← 全体像</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- メインコンテナ -->
+  <main class="app-container">
+
+    <!-- ページ概要カード -->
+    <section class="page-intro-card">
+      <div class="intro-badge-row">
+        <span class="bp-indicator-badge bp4">【設計図④】スポット高単価粗利</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted);">提携：地域工務店 ＆ 卸直送</span>
+      </div>
+      <h1 class="page-main-title">特定福祉用具販売 ＆ 住宅改修</h1>
+      <p class="page-lead-text">
+        福祉用具貸与の契約時に発生する「ポータブルトイレ販売」や「手すり取付工事」。
+        自社で大工施工や在庫を抱えず、提携工務店へ施工を委託。自社は「看護師視点のアセスメント」「理由書作成」「受領委任払い申請代行」で1件数万円の粗利をノーリスクで回収します。
+      </p>
+
+      <!-- 要約KPI -->
+      <div class="quick-kpi-row">
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">住宅改修粗利/件</div>
+          <div class="kpi-mini-val">3〜5<small>万円</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">特定用具販売粗利</div>
+          <div class="kpi-mini-val">1〜2<small>万円/件</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">自社施工・在庫</div>
+          <div class="kpi-mini-val">完全ゼロ<small>（完全外注）</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">指定取得コスト</div>
+          <div class="kpi-mini-val">実質0<small>円（同時申請）</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- アコーディオン一括開閉コントロール -->
+    <div class="accordion-controls">
+      <button class="btn-toggle-all" onclick="toggleAllAccordions()">すべて開く / 閉じる</button>
+    </div>
+
+    <!-- アコーディオングループ -->
+    <div class="accordion-group">
+
+      <!-- 項目1：介護保険における2大スポット給付の仕組み -->
+      <div class="accordion-item is-open">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🛒</span>
+            <span class="acc-title">介護保険における2大スポット給付の仕組み</span>
+          </div>
+          <span class="acc-tag">制度解説</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="simple-box">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="color: var(--c-bp4); font-size: 0.85rem;">① 特定福祉用具販売</strong>
+              <span class="acc-tag">年間枠10万円（原則1〜3割負担）</span>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 3px;">
+              衛生上レンタルに適さない排泄・入浴用具を購入する枠組み。卸業者から利用者宅へ直送・納品代行。自社在庫ゼロ。
+            </p>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+              対象品目：腰掛便座（ポータブルトイレ）、入浴補助用具（シャワーチェア・浴槽手すり・浴槽台）、簡易浴槽、移動用リフトつり具、排泄予測支援機器
+            </div>
+          </div>
+
+          <div class="simple-box">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="color: #b45309; font-size: 0.85rem;">② 介護保険 住宅改修</strong>
+              <span class="acc-tag">生涯枠20万円（原則1〜3割負担）</span>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 3px;">
+              自宅での自立支援と転倒防止のための改修工事。
+            </p>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+              対象工事：手すり取付け（玄関・廊下・トイレ・浴室）、段差解消、滑り防止床材変更、引き戸取替え、洋式便器への取替え
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目2：完全外注・アライアンス型モデルの業務フロー -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🤝</span>
+            <span class="acc-title">完全外注モデル：自社施工をせず利益を出す手順</span>
+          </div>
+          <span class="acc-tag">業務フロー</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">自社は大工仕事のリスクを負わず、アセスメントと申請代行に専任します。</p>
+
+          <div class="simple-box">
+            <strong style="font-size: 0.82rem; color: var(--primary-dark);">1. 看護師視点での動線アセスメント（野村様）</strong>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 2px;">
+              起き上がり、トイレ動線、浴槽またぎ動作を計測。身長・麻痺側に合わせた手すりの高さ・位置をミリ単位で指示。
+            </p>
+          </div>
+
+          <div class="simple-box">
+            <strong style="font-size: 0.82rem; color: var(--primary-dark);">2. 提携工務店と現地確認 ＆ 見積図面作成</strong>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 2px;">
+              工務店が壁の下地間柱を確認し見積・図面作成。野村様は「看護師の指示書」を添えて工務店へ渡す。
+            </p>
+          </div>
+
+          <div class="simple-box">
+            <strong style="font-size: 0.82rem; color: var(--primary-dark);">3. 理由書作成 ＆ 旭川市へ事前申請（お母様・野村様）</strong>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 2px;">
+              お母様が「住宅改修理由書」を介護ソフトで作成。受領委任払いにより利用者の初期立替負担を解消。
+            </p>
+          </div>
+
+          <div class="simple-box">
+            <strong style="font-size: 0.82rem; color: var(--primary-dark);">4. 工務店施工 ➜ 完了検査 ➜ 事後申請代行</strong>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 2px;">
+              工務店が迅速施工。野村様が適合確認し写真撮影・事後申請。工務店から紹介手数料（または見積差益3〜5万円）確定。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目3：案件ごとの粗利インパクト（シミュレーション） -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">📈</span>
+            <span class="acc-title">案件ごとの粗利額 ＆ クロスセル試算</span>
+          </div>
+          <span class="acc-tag">利益試算</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="clean-table-wrap">
+            <table class="clean-table">
+              <thead>
+                <tr>
+                  <th>案件内容</th>
+                  <th>売上規模</th>
+                  <th>原価（外注/仕入）</th>
+                  <th>自社粗利</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>ポータブルトイレ販売</strong></td>
+                  <td>約40,000円</td>
+                  <td>約22,000円（卸仕入）</td>
+                  <td style="font-weight: 700; color: var(--c-bp4);">約18,000円</td>
+                </tr>
+                <tr>
+                  <td><strong>シャワーチェア・手すり</strong></td>
+                  <td>約35,000円</td>
+                  <td>約18,000円（卸仕入）</td>
+                  <td style="font-weight: 700; color: var(--c-bp4);">約17,000円</td>
+                </tr>
+                <tr style="background: #fef3c7;">
+                  <td style="color: #b45309; font-weight: 700;"><strong>住宅改修（手すり工事）</strong></td>
+                  <td>180,000円</td>
+                  <td>140,000円（工務店）</td>
+                  <td style="color: #b45309; font-weight: 800;">40,000円</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout-mini tip">
+            💡 <strong>貸与顧客からの自然発生：</strong><br>
+            福祉用具貸与で20〜30名の利用者を抱えると、毎月1〜2件の改修や用具購入が自然発生し、<strong>月5万〜8万円のスポット粗利</strong>が安定して上乗せされます。
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目4：行政手続きのポイント ＆ 工務店開拓 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">📌</span>
+            <span class="acc-title">行政手続き（同時申請） ＆ 提携工務店</span>
+          </div>
+          <span class="acc-tag">実務確認</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="clean-list">
+            <li><strong>特定福祉用具販売の指定：</strong>福祉用具貸与の申請時に「貸与」と「販売」を同時にチェックして提出すれば、余計な手間や追加手数料なしで同時取得可能。</li>
+            <li><strong>受領委任払い取扱登録：</strong>旭川市介護保険課へ届出書を提出。利用者の初期立替負担を1〜3割に抑え、成約率を大幅向上。</li>
+            <li><strong>提携工務店候補：</strong>介護リフォーム実績のある地元工務店、フットワークの軽い個人大工、マルベリーから紹介してもらう提携工務店。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ページ送りフッター -->
+    <div class="page-nav-footer">
+      <a href="blueprint3_fukushi_rental.html" class="page-nav-btn">← ③ 福祉用具</a>
+      <a href="blueprint5_lifestyle_support.html" class="page-nav-btn primary">⑤ 除雪・家具を見る →</a>
+    </div>
+
+  </main>
+
+  <!-- スマホ固定ボトムナビ（Dock型バー） -->
+  <nav class="bottom-dock">
+    <div class="bottom-dock-inner">
+      <a href="index.html" class="dock-tab">
+        <span class="icon">🌐</span>
+        <span class="label">全体像</span>
+      </a>
+      <a href="blueprint1_transport.html" class="dock-tab">
+        <span class="icon">①</span>
+        <span class="label">通院支援</span>
+      </a>
+      <a href="blueprint2_sns_marketing.html" class="dock-tab">
+        <span class="icon">②</span>
+        <span class="label">SNS代行</span>
+      </a>
+      <a href="blueprint3_fukushi_rental.html" class="dock-tab">
+        <span class="icon">③</span>
+        <span class="label">福祉用具</span>
+      </a>
+      <a href="blueprint4_equipment_renovation.html" class="dock-tab is-active">
+        <span class="icon">④</span>
+        <span class="label">販売改修</span>
+      </a>
+      <a href="blueprint5_lifestyle_support.html" class="dock-tab">
+        <span class="icon">⑤</span>
+        <span class="label">除雪家具</span>
+      </a>
+      <a href="blueprint_risks_and_todos.html" class="dock-tab">
+        <span class="icon">⚡</span>
+        <span class="label">監査TODO</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- アコーディオン制御スクリプト -->
+  <script>
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      item.classList.toggle('is-open');
+    }
+
+    function toggleAllAccordions() {
+      const items = document.querySelectorAll('.accordion-item');
+      const anyClosed = Array.from(items).some(item => !item.classList.contains('is-open'));
+      items.forEach(item => {
+        if (anyClosed) {
+          item.classList.add('is-open');
+        } else {
+          item.classList.remove('is-open');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

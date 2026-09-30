@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ぴたっとナース | チラシ3パターン・プレビュー</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #089c97;
+      --primary-dark: #056e6a;
+      --primary-light: #e0f5f4;
+      --primary-bg: #f4fbfb;
+      --accent-orange: #f7931e;
+      --accent-red: #e44141;
+      --text-main: #2d3748;
+      --text-sub: #4a5568;
+      --text-muted: #718096;
+      --border-color: #e2e8f0;
+      --font-body: 'Noto Sans JP', sans-serif;
+      --font-rounded: 'M PLUS Rounded 1c', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #2b3543;
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 24px 16px 60px;
+    }
+
+    /* 画面上部コントロールバー */
+    .toolbar {
+      max-width: 1000px;
+      margin: 0 auto 24px;
+      background: #ffffff;
+      padding: 16px 24px;
+      border-radius: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .toolbar-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      background: #edf2f7;
+      padding: 4px;
+      border-radius: 8px;
+    }
+    .tab-btn {
+      padding: 8px 16px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn.active {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .print-btn {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .print-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    /* チラシ用A4プレビュー用紙 */
+    .sheet-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .flyer-sheet {
+      display: none;
+      background: #ffffff;
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto 30px;
+      padding: 14mm 14mm 12mm;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+      background-size: cover;
+    }
+    .flyer-sheet.active {
+      display: block;
+    }
+
+    /* 各種ユーティリティ */
+    .badge-award {
+      display: inline-block;
+      background: linear-gradient(135deg, #f7931e, #fa8231);
+      color: #ffffff;
+      font-size: 11pt;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+    .brand-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .brand-logo {
+      font-family: var(--font-rounded);
+      font-size: 22pt;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    .brand-tagline {
+      font-size: 9.5pt;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    /* ========================================================
+       パターン①：本人向け（シニア向け親しみデザイン）
+       ======================================================== */
+    .p1-header {
+      background: linear-gradient(180deg, #e4f9f7 0%, #ffffff 100%);
+      padding: 16px 20px;
+      border-radius: 16px;
+      border: 2px solid #b8ebe7;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .p1-catch {
+      font-family: var(--font-rounded);
+      font-size: 20pt;
+      font-weight: 800;
+      color: #1a4f4c;
+      line-height: 1.35;
+      margin: 8px 0;
+    }
+    .p1-subcatch {
+      font-size: 11.5pt;
+      color: #3b5a58;
+      font-weight: 700;
+    }
+    .p1-problems {
+      background: #fff8eb;
+      border: 2px dashed #f5c77e;
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+    }
+    .p1-problems-title {
+      font-size: 12pt;
+      font-weight: 800;
+      color: #b86200;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .p1-problem-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+    }
+    .p1-problem-list li {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #4a3821;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .p1-problem-list li::before {
+      content: "✔";
+      color: #e44141;
+      font-weight: 900;
+    }
+    .p1-solutions {
+      margin-bottom: 16px;
+    }
+    .p1-sol-card {
+      display: flex;
+      gap: 14px;
+      background: #ffffff;
+      border: 1.5px solid #bde7e4;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .p1-sol-num {
+      background: var(--primary);
+      color: #ffffff;
+      font-family: var(--font-rounded);
+      font-weight: 800;
+      font-size: 13pt;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .p1-sol-content h4 {
+      font-size: 11pt;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 2px;
+    }
+    .p1-sol-content p {
+      font-size: 9.5pt;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
+    .p1-trial {
+      background: linear-gradient(135deg, #fff2dd, #ffe2bd);
+      border: 2px solid #f7931e;
+      border-radius: 12px;
+      padding: 14px 18px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .p1-trial-badge {
+      background: #f7931e;
+      color: #fff;
+      font-weight: 800;
+      font-size: 10pt;
+      padding: 3px 12px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .p1-trial-price {
+      font-size: 18pt;
+      font-weight: 900;
+      color: #b84e00;
+      margin: 4px 0;
+    }
+    .p1-contact {
+      background: var(--primary-dark);
+      color: #ffffff;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+    }
+    .p1-phone {
+      font-size: 26pt;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #ffeb99;
+      margin: 4px 0;
+    }
+
+    /* ========================================================
+       パターン②：協力会社向け（ケアマネ・病院連携室向け）
+       ======================================================== */
+    .p2-hero {
+      background: linear-gradient(135deg, #056e6a 0%, #089c97 100%);
+      color: #ffffff;
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+    .p2-catch {
+      font-size: 16pt;
+      font-weight: 800;
+      line-height: 1.35;
+      margin: 8px 0 4px;
+    }
+    .p2-subcatch {
+      font-size: 10.5pt;
+      opacity: 0.95;
+    }
+    .p2-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .p2-box {
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: #f8fafc;
+    }
+    .p2-box-title {
+      font-size: 10.5pt;
+      font-weight: 800;
+      color: var(--primary-dark);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+    }
+    .p2-features {
+      margin-bottom: 14px;
+    }
+    .p2-feature-item {
+      display: flex;
+      gap: 10px;
+      background: #ffffff;
+      border-left: 4px solid var(--primary);
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border-top: 1px solid #edf2f7;
+      border-right: 1px solid #edf2f7;
+      border-bottom: 1px solid #edf2f7;
+      border-radius: 0 6px 6px 0;
+    }
+    .p2-feature-title {
+      font-size: 10pt;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .p2-feature-desc {
+      font-size: 8.5pt;
+      color: var(--text-sub);
+    }
+    .p2-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9pt;
+      margin-bottom: 14px;
+    }
+    .p2-table th, .p2-table td {
+      border: 1px solid #cbd5e0;
+      padding: 6px 8px;
+      text-align: left;
+    }
+    .p2-table th {
+      background: #edf2f7;
+      color: #2d3748;
+      font-weight: 700;
+    }
+    .p2-compliance {
+      background: #e6fffa;
+      border: 1px solid #38b2ac;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 8.5pt;
+      color: #234e52;
+      margin-bottom: 14px;
+    }
+
+    /* ========================================================
+       パターン③：親を持つ子供向け（WEB連動・共感型デザイン）
+       ======================================================== */
+    .p3-hero {
+      background: linear-gradient(135deg, #e0f5f4 0%, #f0fbfb 100%);
+      border: 2px solid #99ded9;
+      border-radius: 16px;
+      padding: 18px 22px;
+      margin-bottom: 16px;
+    }
+    .p3-catch {
+      font-size: 19pt;
+      font-weight: 900;
+      color: #1a4f4c;
+      line-height: 1.35;
+      margin: 8px 0 6px;
+    }
+    .p3-highlight-orange {
+      color: #e67e22;
+      background: linear-gradient(transparent 60%, #ffeaa7 0%);
+    }
+    .p3-highlight-green {
+      color: #089c97;
+      background: linear-gradient(transparent 60%, #b8f0ed 0%);
+    }
+    .p3-walls {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .p3-wall-card {
+      background: #fff8eb;
+      border: 1.5px solid #f5cf8e;
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .p3-wall-title {
+      font-size: 10pt;
+      font-weight: 800;
+      color: #c05621;
+      margin-bottom: 4px;
+    }
+    .p3-wall-text {
+      font-size: 8.5pt;
+      color: #4a5568;
+      line-height: 1.4;
+    }
+    .p3-plans {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+      align-items: stretch;
+    }
+    .p3-plan-card {
+      border: 1.5px solid #cbd5e0;
+      border-radius: 10px;
+      padding: 12px 10px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+    .p3-plan-card.recommended {
+      border: 2.5px solid var(--primary);
+      background: #f4fbfb;
+      position: relative;
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(8,156,151,0.15);
+    }
+    .p3-recom-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-orange);
+      color: #fff;
+      font-size: 8pt;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+    .p3-plan-name {
+      font-size: 10.5pt;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    .p3-plan-price {
+      font-size: 14pt;
+      font-weight: 900;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+    .p3-plan-features {
+      list-style: none;
+      font-size: 8pt;
+      text-align: left;
+      color: var(--text-sub);
+      line-height: 1.4;
+      padding: 0 4px;
+    }
+    .p3-plan-features li {
+      margin-bottom: 4px;
+      display: flex;
+      gap: 4px;
+    }
+    .p3-plan-features li::before {
+      content: "・";
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .p3-steps {
+      background: #edf8f8;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+    }
+    .p3-steps-title {
+      font-size: 10pt;
+      font-weight: 800;
+      color: var(--primary-dark);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .p3-step-list {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .p3-step-item {
+      flex: 1;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 8px 6px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .p3-step-num {
+      background: var(--primary);
+      color: #fff;
+      font-size: 7.5pt;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+    .p3-step-label {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .p3-cta-box {
+      background: var(--primary-dark);
+      color: #ffffff;
+      border-radius: 14px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .p3-cta-text h3 {
+      font-size: 12pt;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .p3-cta-text p {
+      font-size: 8.5pt;
+      opacity: 0.9;
+    }
+    .p3-qr-box {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .qr-dummy {
+      width: 68px;
+      height: 68px;
+      background: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 7pt;
+      color: #2d3748;
+      font-weight: 700;
+      text-align: center;
+      padding: 4px;
+      border: 2px solid #e2e8f0;
+    }
+
+    /* 印刷スタイル */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .toolbar {
+        display: none !important;
+      }
+      .sheet-wrapper {
+        max-width: 100%;
+        margin: 0;
+      }
+      .flyer-sheet {
+        display: none !important;
+        box-shadow: none;
+        width: 100%;
+        min-height: auto;
+        padding: 8mm 10mm;
+        page-break-after: always;
+      }
+      .flyer-sheet.active {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- コントロールバー -->
+  <div class="toolbar">
+    <div class="toolbar-title">
+      <a href="index.html" style="text-decoration:none; color:inherit; display:flex; align-items:center; gap:6px; font-size:0.9rem; background:#f1f5f9; padding:6px 12px; border-radius:6px; margin-right:8px;">
+        <span>🏠 ポータルへ戻る</span>
+      </a>
+      <span>📄 ぴたっとナース チラシデザインプレビュー</span>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showFlyer(1)">① 本人向け（シニア）</button>
+      <button class="tab-btn" onclick="showFlyer(2)">② 協力会社向け（BtoB）</button>
+      <button class="tab-btn" onclick="showFlyer(3)">③ 親を持つ子供向け（ご家族）</button>
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      🖨️ このチラシを印刷 / PDF保存
+    </button>
+  </div>
+
+  <div class="sheet-wrapper">
+
+    <!-- ========================================================
+         パターン①：本人向けチラシ（シニア・高齢者ご本人）
+         ======================================================== -->
+    <div id="flyer-1" class="flyer-sheet active">
+      <div class="brand-header">
+        <div class="brand-logo">ぴたっとナース</div>
+        <div class="brand-tagline">旭川での通院付き添い・医療通訳サポート</div>
+        <div class="badge-award">🏆 道北ビジコン2025 最優秀賞受賞</div>
+      </div>
+
+      <div class="p1-header">
+        <p class="p1-subcatch">「子どもに頼むのは申し訳ない…」とお悩みのあなたへ</p>
+        <h1 class="p1-catch">
+          もう、がまんしないで大丈夫。<br>
+          あなたの通院に、看護師が家族のように寄り添います。
+        </h1>
+        <p style="font-size: 10.5pt; color: #2c5957; font-weight: 500; margin-top: 4px;">
+          経験12年の正看護師が、ご自宅から診察室の中まで笑顔でお供します
+        </p>
+      </div>
+
+      <div class="p1-problems">
+        <div class="p1-problems-title">こんなお悩み、抱えていらっしゃいませんか？</div>
+        <ul class="p1-problem-list">
+          <li>「最近足元が不安で、病院に行くのが億劫…」</li>
+          <li>「お医者さんの話が早口でよく聞き取れない…」</li>
+          <li>「子どもが忙しそうで、送り迎えを頼みづらい…」</li>
+          <li>「タクシーの乗り降りや広い院内を歩くのが大変…」</li>
+        </ul>
+      </div>
+
+      <div class="p1-solutions">
+        <div class="p1-sol-card">
+          <div class="p1-sol-num">1</div>
+          <div class="p1-sol-content">
+            <h4>正看護師（臨床12年）が最初から最後までずっと一緒！</h4>
+            <p>おうちのお迎えから病院の受付、待合室、診察室の中までずっと付き添います。急に体調が悪くなっても看護師がいるので安心です。</p>
+          </div>
+        </div>
+        <div class="p1-sol-card">
+          <div class="p1-sol-num">2</div>
+          <div class="p1-sol-content">
+            <h4>先生の言葉を分かりやすく「通訳」します！</h4>
+            <p>「先生に聞きたいこと」を事前に一緒に整理し、診察室でも先生の説明を分かりやすくご説明。離れて暮らすご家族にもきちんとご報告します。</p>
+          </div>
+        </div>
+        <div class="p1-sol-card">
+          <div class="p1-sol-num">3</div>
+          <div class="p1-sol-content">
+            <h4>お薬の受け取りや、帰りのお買い物も笑顔でお供！</h4>
+            <p>1回たっぷり3時間。「病院帰りにスーパーで買い出しをしたい」「薬局に寄りたい」といったご要望にも柔軟にお応えします。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p1-trial">
+        <div class="p1-trial-badge">まずは気軽にお試しいただけます</div>
+        <div class="p1-trial-price">初回お試し体験：1回 5,000円（税込・3時間）</div>
+        <p style="font-size: 9pt; color: #7a3e00;">
+          ※タクシー代等の移動実費はご負担となります。どんな看護師が来るのか、安心してお任せいただけるか相性をご確認ください。
+        </p>
+      </div>
+
+      <div class="p1-contact">
+        <p style="font-size: 11pt; font-weight: 700; margin-bottom: 2px;">「チラシを見た」とお気軽にお電話ください！</p>
+        <div class="p1-phone">000-0000-0000</div>
+        <p style="font-size: 9.5pt; opacity: 0.95;">
+          受付時間：平日 9:00〜16:00 / 代表：野村 由佳子（正看護師・旭川市）<br>
+          「こんなこと頼めるかしら？」というご質問だけでも大歓迎です。無理な勧誘は一切いたしません。
+        </p>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         パターン②：協力会社向け（ケアマネ・病院地域連携室向け）
+         ======================================================== -->
+    <div id="flyer-2" class="flyer-sheet">
+      <div class="brand-header">
+        <div class="brand-logo">ぴたっとナース</div>
+        <div class="brand-tagline">【事業者様向け】介護保険外（自費）通院同行・医療通訳サービス</div>
+        <div class="badge-award">🏆 道北ビジコン2025 最優秀賞</div>
+      </div>
+
+      <div class="p2-hero">
+        <p class="p2-subcatch">ケアマネジャー様・医療ソーシャルワーカー様・地域包括支援センター様へ</p>
+        <h1 class="p2-catch">
+          保険外の「受診同行・医療通訳」で<br>
+          在宅療養と多職種連携を強力にサポートします。
+        </h1>
+        <p style="font-size: 9.5pt; opacity: 0.9;">
+          臨床経験12年の正看護師が同行 ｜ 完全法令遵守（一般・介護タクシー同乗・白タク懸念ゼロ）
+        </p>
+      </div>
+
+      <div class="p2-grid">
+        <div class="p2-box">
+          <div class="p2-box-title">連携先様が抱えるこんな課題を解決</div>
+          <ul style="font-size: 8.5pt; color: var(--text-sub); list-style: square; padding-left: 16px; line-height: 1.45;">
+            <li>独居・高齢世帯で家族が遠方・就労のため通院同行ができない</li>
+            <li>介護保険では対応が難しい「院内待ち時間」「受診科複数の同行」</li>
+            <li>本人が病状や服薬指導を理解できず、ケアプランへの反映が困難</li>
+            <li>退院直後の通院体制が未確立で再入院リスクがある</li>
+          </ul>
+        </div>
+        <div class="p2-box">
+          <div class="p2-box-title">ぴたっとナースが提供する4つの価値</div>
+          <ul style="font-size: 8.5pt; color: var(--text-sub); list-style: square; padding-left: 16px; line-height: 1.45;">
+            <li><strong>医療通訳</strong>: 医師の診察に同席し病状・治療・処方を正確に把握</li>
+            <li><strong>情報共有</strong>: 受診結果を速やかにケアマネ様・ご家族へ報告</li>
+            <li><strong>急変トリアージ</strong>: 経験豊富な正看護師が安全を第一に判断・対応</li>
+            <li><strong>生活支援</strong>: 3時間枠で受診後の薬局・買い物・生活手続きも柔軟対応</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p2-compliance">
+        <strong>【重要・法令遵守について】</strong>
+        当社は自家用車による有償運送（白タク行為）は一切行いません。移動は全て「一般タクシーまたは福祉・介護タクシーに看護師が同乗」し、運賃はお客様の実費負担としております。法令リスクのない極めてクリーンな体制で安心してご紹介いただけます。
+      </div>
+
+      <div class="p2-box-title">ご利用料金体系（すべて税込・交通費実費別）</div>
+      <table class="p2-table">
+        <thead>
+          <tr>
+            <th>プラン名</th>
+            <th>月額費用</th>
+            <th>サービス内容</th>
+            <th>想定される利用者様</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>初回お試し</strong></td>
+            <td>5,000円/回</td>
+            <td>3時間同行＋アセスメント＋相性確認</td>
+            <td>サービスの質や相性を事前に確かめたい方</td>
+          </tr>
+          <tr>
+            <td><strong>ベーシック</strong></td>
+            <td>15,000円/月</td>
+            <td>月1回（3時間）＋ 簡易LINEレポート</td>
+            <td>月1回の定期通院・経過観察の方</td>
+          </tr>
+          <tr>
+            <td><strong>スタンダード</strong></td>
+            <td>25,000円/月</td>
+            <td>月2回（各3時間）＋ 詳細レポート ＋ 健康相談</td>
+            <td>複数科受診や隔週通院、健康相談を希望される方</td>
+          </tr>
+          <tr>
+            <td><strong>プレミアム</strong></td>
+            <td>35,000円/月</td>
+            <td>月3回（各3時間）＋ 包括見守り ＋ 緊急対応</td>
+            <td>手厚い見守り、介護・入院手続き同席を求める方</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="background: #edf2f7; border-radius: 8px; padding: 10px 14px; font-size: 8.5pt; margin-bottom: 12px;">
+        <strong>【ご紹介・連携の流れ】</strong><br>
+        ① ケアマネ様・ご家族よりお電話・WEBでご相談 → ② 看護師による初回アセスメント面談 → ③ ケアプラン方針に沿った同行支援 → ④ 受診結果・当日の状況を多職種へフィードバック
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid var(--primary); padding-top: 10px;">
+        <div>
+          <div style="font-size: 11pt; font-weight: 800; color: var(--primary-dark);">ぴたっとナース（代表 / 正看護師：野村 由佳子）</div>
+          <div style="font-size: 8.5pt; color: var(--text-sub);">北海道旭川市 ｜ 臨床経験12年 ｜ 看護師賠償責任保険加入済</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 12pt; font-weight: 800; color: var(--primary);">TEL: 000-0000-0000</div>
+          <div style="font-size: 8pt; color: var(--text-muted);">パンフレット送付・ご説明訪問のご依頼もお気軽にどうぞ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         パターン③：親を持つ子供向け（遠方・共働き家族）
+         ======================================================== -->
+    <div id="flyer-3" class="flyer-sheet">
+      <div class="brand-header">
+        <div class="brand-logo">ぴたっとナース</div>
+        <div class="brand-tagline">仕事が忙しくて親の通院に付き添えない方へ</div>
+        <div class="badge-award">🏆 道北ビジネスコンテスト2025 最優秀賞</div>
+      </div>
+
+      <div class="p3-hero">
+        <p style="font-size: 10pt; font-weight: 700; color: var(--primary-dark);">離れて暮らす親を想うあなたへ</p>
+        <h1 class="p3-catch">
+          親を想う<span class="p3-highlight-orange">「罪悪感」</span>を、<br>
+          確かな<span class="p3-highlight-green">「安心感」</span>に変える。
+        </h1>
+        <p style="font-size: 10pt; color: var(--text-sub);">
+          仕事で親の通院に駆けつけられないお悩みを、臨床経験12年の正看護師が「もう一人の家族」として解決します。
+        </p>
+      </div>
+
+      <div class="p3-walls">
+        <div class="p3-wall-card">
+          <div class="p3-wall-title">⏰ 時間の壁</div>
+          <div class="p3-wall-text">平日の重要な仕事や会議を休めず、親の通院にどうしても駆けつけられない…</div>
+        </div>
+        <div class="p3-wall-card">
+          <div class="p3-wall-title">🚗 距離の壁</div>
+          <div class="p3-wall-text">車で片道2時間以上。毎月の帰省は体力面でも金銭面でも限界を感じている…</div>
+        </div>
+        <div class="p3-wall-card">
+          <div class="p3-wall-title">🩺 医療知識の壁</div>
+          <div class="p3-wall-text">親に電話で聞いても「大丈夫」としか言わず、本当の病状や薬が分からず不安…</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 12px; text-align: center;">
+        <span style="font-size: 10.5pt; font-weight: 800; color: var(--primary-dark); background: var(--primary-light); padding: 4px 16px; border-radius: 20px;">
+          選べる3つの月額プラン（すべて税込表示・クレカ自動引落）
+        </span>
+      </div>
+
+      <div class="p3-plans">
+        <div class="p3-plan-card">
+          <div>
+            <div class="p3-plan-name">ベーシック</div>
+            <div class="p3-plan-price">15,000<span style="font-size: 9pt;">円/月</span></div>
+          </div>
+          <ul class="p3-plan-features">
+            <li>月1回の同行（3時間）</li>
+            <li>簡易LINEレポート</li>
+            <li>移動やお薬受取サポート</li>
+          </ul>
+        </div>
+
+        <div class="p3-plan-card recommended">
+          <div class="p3-recom-badge">★ 一番人気</div>
+          <div>
+            <div class="p3-plan-name">スタンダード</div>
+            <div class="p3-plan-price">25,000<span style="font-size: 9pt;">円/月</span></div>
+          </div>
+          <ul class="p3-plan-features">
+            <li>月2回の同行（各3時間）</li>
+            <li>詳細な医師説明LINEレポート</li>
+            <li>月2回の健康・生活相談</li>
+            <li>余った時間で買い物サポート</li>
+          </ul>
+        </div>
+
+        <div class="p3-plan-card">
+          <div>
+            <div class="p3-plan-name">プレミアム</div>
+            <div class="p3-plan-price">35,000<span style="font-size: 9pt;">円/月</span></div>
+          </div>
+          <ul class="p3-plan-features">
+            <li>月3回の同行（各3時間）</li>
+            <li>困った時の訪問サポート</li>
+            <li>介護申請や入院時サポート</li>
+            <li>回数無制限の健康相談</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p3-steps">
+        <div class="p3-steps-title">スマホで完結！ご利用までの4ステップ</div>
+        <div class="p3-step-list">
+          <div class="p3-step-item">
+            <span class="p3-step-num">Step 1</span>
+            <div class="p3-step-label">LINE無料相談</div>
+          </div>
+          <div class="p3-step-item">
+            <span class="p3-step-num">Step 2</span>
+            <div class="p3-step-label">オンライン面談</div>
+          </div>
+          <div class="p3-step-item">
+            <span class="p3-step-num">Step 3</span>
+            <div class="p3-step-label">当日サポート</div>
+          </div>
+          <div class="p3-step-item">
+            <span class="p3-step-num">Step 4</span>
+            <div class="p3-step-label">LINE即日レポート</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p3-cta-box">
+        <div class="p3-cta-text">
+          <h3>まずは、今のお悩みをお聞かせください</h3>
+          <p>「こんな些細なことでも頼めるの？」という方も大歓迎。初回お試し（5,000円）もご用意しています。</p>
+          <div style="font-size: 11pt; font-weight: 800; color: #ffeb99; margin-top: 4px;">
+            お電話：000-0000-0000（平日 9:00〜16:00）
+          </div>
+        </div>
+        <div class="p3-qr-box">
+          <div class="qr-dummy">
+            <span>LINE公式</span>
+            <div style="font-size: 16pt; margin: 2px 0;">📱</div>
+            <span>無料相談</span>
+          </div>
+          <div class="qr-dummy">
+            <span>WEBサイト</span>
+            <div style="font-size: 16pt; margin: 2px 0;">🌐</div>
+            <span>詳細を見る</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showFlyer(id) {
+      document.querySelectorAll('.flyer-sheet').forEach(sheet => {
+        sheet.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.getElementById('flyer-' + id).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>設計図⑤：家具移動＆除雪フック | ぴたっとナース 社内ポータル</title>
+  <link rel="stylesheet" href="blueprint_style.css">
+</head>
+<body>
+
+  <!-- 上部コンパクトヘッダー -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand-title">
+        <span>🩺</span>
+        <span>ぴたっとナース</span>
+        <span class="brand-badge">設計図⑤</span>
+      </div>
+      <a href="index.html" class="header-link-back">
+        <span>← 全体像</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- メインコンテナ -->
+  <main class="app-container">
+
+    <!-- ページ概要カード -->
+    <section class="page-intro-card">
+      <div class="intro-badge-row">
+        <span class="bp-indicator-badge bp5">【設計図⑤】競合切り崩しフック</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted);">提携：便利屋 ＆ シルバー人材 ＆ 工務店</span>
+      </div>
+      <h1 class="page-main-title">家具移動 ＆ 冬期除雪サポート</h1>
+      <p class="page-lead-text">
+        「重いタンスを動かせずベッドが入らない」「冬の雪で車椅子が玄関から出せない」。
+        旭川の高齢者が最も困り、大手業者が断る盲点を武器に変える「最後の決め手」。
+        創業者は力仕事をせず窓口に徹し、「タンス移動無料」で他社からの乗り換えを決定づけます。
+      </p>
+
+      <!-- 要約KPI -->
+      <div class="quick-kpi-row">
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">差別化効果</div>
+          <div class="kpi-mini-val">競合打破<small>（他社不可）</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">家具移動外注費</div>
+          <div class="kpi-mini-val">約0.5〜1<small>万円</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">費用回収期間</div>
+          <div class="kpi-mini-val">1.5<small>ヶ月（ベッド粗利）</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">ケアマネ訴求力</div>
+          <div class="kpi-mini-val">第一想起<small>獲得</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- アコーディオン一括開閉コントロール -->
+    <div class="accordion-controls">
+      <button class="btn-toggle-all" onclick="toggleAllAccordions()">すべて開く / 閉じる</button>
+    </div>
+
+    <!-- アコーディオングループ -->
+    <div class="accordion-group">
+
+      <!-- 項目1：旭川のリアルな現場課題と大手が断る盲点 -->
+      <div class="accordion-item is-open">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">❄️</span>
+            <span class="acc-title">旭川の現場課題 ＆ 大手競合が断る「盲点」</span>
+          </div>
+          <span class="acc-tag">地域課題</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="simple-box">
+            <strong style="color: var(--c-bp5); font-size: 0.85rem;">🛋️ 課題①：重い婚礼箪笥が動かせず、ベッドが入らない</strong>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 3px;">
+              昔ながらの重い箪笥が寝室を占拠。老々介護や離れて暮らす子どもには動かせない。<br>
+              <strong style="color: #991b1b;">【大手の対応】</strong>「床や壁に傷がついた際の補償ができないため、お客様側であらかじめ動かしておいてください」と断るのが業界の常識。
+            </p>
+          </div>
+
+          <div class="simple-box">
+            <strong style="color: #0284c7; font-size: 0.85rem;">⛄ 課題②：冬の積雪で玄関から道路に出られない</strong>
+            <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 3px;">
+              玄関先から道路までのわずか数メートルの雪かきが追いつかず、車椅子が閉じ込められデイ送迎車に乗れない。<br>
+              <strong style="color: #991b1b;">【大手の対応】</strong>「用具の貸与のみが業務ですので、除雪は介護保険外の専門業者へ」と突き放される。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目2：創業者は力仕事をしない「ワンストップ窓口」の仕組み -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🛡️</span>
+            <span class="acc-title">創業者は力仕事をしない「窓口特化」の体制</span>
+          </div>
+          <span class="acc-tag">業務体制</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">野村様自身が重い家具を運んだり除雪をする必要はありません。</p>
+
+          <div class="simple-box">
+            <span class="role-badge-pill founder">ぴたっとナース（相談窓口・ディレクション）</span>
+            <ul class="clean-list">
+              <li>下見時に「どの家具をどこへ動かせばベッドと動線が確保できるか」を医療目線で指示</li>
+              <li>提携パートナー（便利屋・シルバー人材等）への作業手配</li>
+              <li>お客様との免責確認書の事前受領、納品日時に合わせたスケジュール調整</li>
+            </ul>
+          </div>
+
+          <div class="simple-box">
+            <span class="role-badge-pill partner">提携パートナー（実作業担当）</span>
+            <ul class="clean-list">
+              <li>大型家具（箪笥・本棚等）の安全な移動、不要品の分別搬出補助</li>
+              <li>冬期の玄関前動線除雪・融雪剤散布</li>
+              <li>作業賠償責任保険への加入（万一の物損にも完全対応）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目3：驚異的な採算性ロジック（なぜ無料でできるのか？） -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">💡</span>
+            <span class="acc-title">採算性ロジック：なぜ「タンス移動無料」で儲かるのか？</span>
+          </div>
+          <span class="acc-tag">LTV戦略</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="simple-box">
+            <div style="font-size: 0.8rem; color: #991b1b; font-weight: 700;">💸 自社が支払う外注費（1回のみ）</div>
+            <div style="font-size: 1.1rem; font-weight: 800; color: #991b1b;">約 5,000〜10,000円</div>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">提携便利屋やシルバー人材への実費（2名作業・30分〜1h程度）</p>
+          </div>
+
+          <div class="simple-box">
+            <div style="font-size: 0.8rem; color: #047857; font-weight: 700;">💰 獲得できるベッドのストック粗利（長期継続）</div>
+            <div style="font-size: 1.1rem; font-weight: 800; color: #047857;">月 5,500円 × 平均20ヶ月 ＝ 約 110,000円</div>
+            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">介護ベッド一式（本体＋マット＋介助バー）の平均粗利</p>
+          </div>
+
+          <div class="callout-mini tip">
+            🎯 <strong>結論：</strong>わずか <strong>1.5ヶ月分のレンタル粗利で外注費を全額回収！</strong> 残り18ヶ月以上は純利益を生み続けます。
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目4：ケアマネ営業でのキラーフレーズ -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🗣️</span>
+            <span class="acc-title">ケアマネ営業でのキラーフレーズ（現場実況）</span>
+          </div>
+          <span class="acc-tag">トーク例</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="simple-box">
+            <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">ケアマネの悩み：</div>
+            <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 2px;">
+              「田中さんの家にベッドを入れたいんだけど、重いタンスがあって入らない。どこも動かせないって言うし困ったわ…」
+            </p>
+          </div>
+
+          <div class="simple-box" style="border-left: 3px solid var(--c-bp5);">
+            <div style="font-size: 0.75rem; font-weight: 700; color: var(--c-bp5);">野村様の提案：</div>
+            <p style="font-size: 0.82rem; color: var(--text-main); font-weight: 600; margin-top: 2px;">
+              「ケアマネさん、そのお悩み、ぴたっとナースに丸投げしてください！<br>
+              ベッドを当社でご契約いただければ、<strong>タンス移動も提携便利屋を使って無料で手配します！</strong><br>
+              看護師の私が立ち会って安全動線もミリ単位で設計しますよ！」
+            </p>
+          </div>
+
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 6px;">
+            ➜ ケアマネの未解決案件が一瞬で解決。「困ったらまず野村さん」の第一想起を獲得できます。
+          </p>
+        </div>
+      </div>
+
+      <!-- 項目5：事故防止ルール ＆ 提携パートナー候補 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🤝</span>
+            <span class="acc-title">提携パートナー候補 ＆ トラブル防止ルール</span>
+          </div>
+          <span class="acc-tag">リスク管理</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="clean-list">
+            <li><strong>提携先候補：</strong>旭川市シルバー人材センター、地元の便利屋さん（2〜3社）、提携工務店の大工さん。</li>
+            <li><strong>高価骨董品等の除外：</strong>美術品・精密機器は事前に対象外とする。</li>
+            <li><strong>免責確認書：</strong>家具移動に伴う事前合意書に署名をいただく。</li>
+            <li><strong>提携先保険：</strong>提携パートナーの損害賠償保険証写しを事前に取得。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ページ送りフッター -->
+    <div class="page-nav-footer">
+      <a href="blueprint4_equipment_renovation.html" class="page-nav-btn">← ④ 販売・改修</a>
+      <a href="blueprint_risks_and_todos.html" class="page-nav-btn primary">⚡ 懸念・TODOを見る →</a>
+    </div>
+
+  </main>
+
+  <!-- スマホ固定ボトムナビ（Dock型バー） -->
+  <nav class="bottom-dock">
+    <div class="bottom-dock-inner">
+      <a href="index.html" class="dock-tab">
+        <span class="icon">🌐</span>
+        <span class="label">全体像</span>
+      </a>
+      <a href="blueprint1_transport.html" class="dock-tab">
+        <span class="icon">①</span>
+        <span class="label">通院支援</span>
+      </a>
+      <a href="blueprint2_sns_marketing.html" class="dock-tab">
+        <span class="icon">②</span>
+        <span class="label">SNS代行</span>
+      </a>
+      <a href="blueprint3_fukushi_rental.html" class="dock-tab">
+        <span class="icon">③</span>
+        <span class="label">福祉用具</span>
+      </a>
+      <a href="blueprint4_equipment_renovation.html" class="dock-tab">
+        <span class="icon">④</span>
+        <span class="label">販売改修</span>
+      </a>
+      <a href="blueprint5_lifestyle_support.html" class="dock-tab is-active">
+        <span class="icon">⑤</span>
+        <span class="label">除雪家具</span>
+      </a>
+      <a href="blueprint_risks_and_todos.html" class="dock-tab">
+        <span class="icon">⚡</span>
+        <span class="label">監査TODO</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- アコーディオン制御スクリプト -->
+  <script>
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      item.classList.toggle('is-open');
+    }
+
+    function toggleAllAccordions() {
+      const items = document.querySelectorAll('.accordion-item');
+      const anyClosed = Array.from(items).some(item => !item.classList.contains('is-open'));
+      items.forEach(item => {
+        if (anyClosed) {
+          item.classList.add('is-open');
+        } else {
+          item.classList.remove('is-open');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

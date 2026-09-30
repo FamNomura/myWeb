@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>懸念・確認・TODO・収支 | ぴたっとナース 社内ポータル</title>
+  <link rel="stylesheet" href="blueprint_style.css">
+</head>
+<body>
+
+  <!-- 上部コンパクトヘッダー -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand-title">
+        <span>🩺</span>
+        <span>ぴたっとナース</span>
+        <span class="brand-badge">総合管理</span>
+      </div>
+      <a href="index.html" class="header-link-back">
+        <span>← 全体像</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- メインコンテナ -->
+  <main class="app-container">
+
+    <!-- ページ概要カード -->
+    <section class="page-intro-card">
+      <div class="intro-badge-row">
+        <span class="bp-indicator-badge todo">【総合管理】監査・収支・TODO</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted);">法的対策 ＆ リアルタイム試算</span>
+      </div>
+      <h1 class="page-main-title">懸念点・確認事項・収支・TODO</h1>
+      <p class="page-lead-text">
+        行政監査・税務社保・営業・オペレーションの「4大懸念」を事前に完全論破・無力化。
+        役所や卸へのヒアリング票、スマホで動かせる収支シミュレーター、進捗保存付きのフェーズ別TODOリストを集約しました。
+      </p>
+
+      <!-- 要約KPI -->
+      <div class="quick-kpi-row">
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">監査・人員基準</div>
+          <div class="kpi-mini-val" style="font-size: 0.95rem;">厚労省Vol.1237<small>準拠</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">初期投資総額</div>
+          <div class="kpi-mini-val">約20<small>万円</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">損益分岐点</div>
+          <div class="kpi-mini-val">通院10<small>回</small>+用具6<small>名</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">TODO進捗度</div>
+          <div class="kpi-mini-val" id="topProgressVal">0<small>%</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- アコーディオン一括開閉コントロール -->
+    <div class="accordion-controls">
+      <button class="btn-toggle-all" onclick="toggleAllAccordions()">すべて開く / 閉じる</button>
+    </div>
+
+    <!-- アコーディオングループ -->
+    <div class="accordion-group">
+
+      <!-- 項目1：4大懸念・想定リスクの総洗い出しと事前対策 -->
+      <div class="accordion-item is-open">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🛡️</span>
+            <span class="acc-title">4大懸念・想定リスクの総洗い出しと事前対策</span>
+          </div>
+          <span class="acc-tag" style="background: #fee2e2; color: #dc2626;">最重要</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">監査員や税務署から指摘されても即答できる鉄壁のロジックです。</p>
+
+          <!-- 懸念1 -->
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">⚖️ 懸念①：行政・監査（遠隔母の人員基準・名義貸し疑念）</strong>
+            <p style="font-size: 0.78rem; color: #7f1d1d; background: #fef2f2; padding: 6px 10px; border-radius: 4px; margin: 4px 0;">
+              「母親が遠軽在住なのに、常勤換算2.0人を満たしていると認められるか？ 名義貸しと疑われないか？」
+            </p>
+            <div style="font-size: 0.8rem; color: var(--text-sub); margin-top: 4px;">
+              <strong>✅ 事前対策：</strong>
+              <ol style="padding-left: 18px; margin-top: 2px; line-height: 1.6;">
+                <li><strong>実働ログ・タイムスタンプ保管：</strong>在宅PCで作成した計画書・アセスメント記録に作成者氏名と更新履歴を残す。</li>
+                <li><strong>テレワーク規程：</strong>就業規則に「テレワーク実施要綱」を添付し、厚労省ガイドライン（Vol.1237）準拠を明記。</li>
+                <li><strong>非常勤役員業務分担書：</strong>「医療アセスメント・計画書作成・後方事務」が職務であることを総会議事録で明文化。</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 懸念2 -->
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">💼 懸念②：税務・社会保険（強制加入・固定費高騰リスク）</strong>
+            <p style="font-size: 0.78rem; color: #78350f; background: #fffbeb; padding: 6px 10px; border-radius: 4px; margin: 4px 0;">
+              「母や代表の報酬で年金事務所から社保強制加入を指摘されないか？」
+            </p>
+            <div style="font-size: 0.8rem; color: var(--text-sub); margin-top: 4px;">
+              <strong>✅ 事前対策：</strong>
+              <ul class="clean-list" style="margin: 2px 0;">
+                <li><strong>母親：</strong>遠隔地居住、少額報酬（月3〜5万円）、経営権なしの非常勤性を担保し社保適用除外。</li>
+                <li><strong>代表：</strong>第1期は役員報酬0円（または最低限）で固定し初期資金流出を防ぐ。2期目から正式改定・社保加入。</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 懸念3 -->
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">🤝 懸念③：営業・案件獲得（既存大手のシェア崩し）</strong>
+            <p style="font-size: 0.78rem; color: #1e3a8a; background: #eff6ff; padding: 6px 10px; border-radius: 4px; margin: 4px 0;">
+              「地域の既存業者が強すぎてケアマネから紹介が出ないのではないか？」
+            </p>
+            <div style="font-size: 0.8rem; color: var(--text-sub); margin-top: 4px;">
+              <strong>✅ 事前対策（3つの迂回ルート）：</strong>
+              <ul class="clean-list" style="margin: 2px 0;">
+                <li>訪看・デイSNS代行で仲良くなった管理者からの「逆指定」。</li>
+                <li>通院支援利用者からの「アップセル指名」。</li>
+                <li>連休前や金曜夕方の「他社不可の駆け込み案件」を即日受けて強烈な貸しを作る。</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 懸念4 -->
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">⛄ 懸念④：身体・天候オペレーション（風邪・猛吹雪）</strong>
+            <p style="font-size: 0.78rem; color: #4c1d95; background: #f5f3ff; padding: 6px 10px; border-radius: 4px; margin: 4px 0;">
+              「創業者が体調不良の時や、猛吹雪の時に現場が止まらないか？」
+            </p>
+            <div style="font-size: 0.8rem; color: var(--text-sub); margin-top: 4px;">
+              <strong>✅ 事前対策：</strong>
+              <ul class="clean-list" style="margin: 2px 0;">
+                <li>利用規約に「警報発令時・猛吹雪時の運行中止基準」を事前明記。</li>
+                <li>卸業者の配送スタッフによる「代理納品オプション」の事前確認。</li>
+                <li>近隣の提携介護タクシーとの相互紹介ネットワーク。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目2：事前ヒアリングシート（確認事項） -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">📝</span>
+            <span class="acc-title">旭川市 ＆ 卸業者への事前ヒアリング確認事項シート</span>
+          </div>
+          <span class="acc-tag">ヒアリング票</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">Phase 1の面談でそのまま質問できるチェックリストです。</p>
+
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">🏛️ 旭川市（指導監査課）への確認事項</strong>
+            <ul class="clean-list">
+              <li>遠隔地（遠軽町）の非常勤役員（母親）がテレワークで計画書作成等を行う場合の、勤務形態一覧表の記載方法</li>
+              <li>正看護師免許による福祉用具専門相談員講習免除手続き（原本提示方法）</li>
+              <li>自宅兼事務所の独立性基準（パーテーション、鍵付き書庫配置）</li>
+              <li>「貸与」と「販売」の同時申請手順および手数料</li>
+              <li>住宅改修受領委任払い取扱事業者の登録手続き書類</li>
+            </ul>
+          </div>
+
+          <div class="simple-box">
+            <strong style="color: #0284c7; font-size: 0.85rem;">🏢 大手卸業者（マルベリー等）への確認事項</strong>
+            <ul class="clean-list">
+              <li>貸与商品の卸掛け率（特殊寝台、車椅子、歩行器）</li>
+              <li>特定福祉用具販売（ポータブルトイレ等）の直送・納品代行条件</li>
+              <li>指定申請時に必要な「業務委託証明書」「消毒体制証明書」の発行段取り</li>
+              <li>Web発注システム（e-Kaigo等）の遠隔（母親PC）利用可否</li>
+              <li>急ぎ案件時の当日・翌日配送体制および土日オプション</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目3：スマホ対応 リアルタイム収支シミュレーター -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">📊</span>
+            <span class="acc-title">スマホ対応 リアルタイム収支シミュレーター</span>
+          </div>
+          <span class="acc-tag">動的試算</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">スライダーを指で動かすと、月間粗利・固定費・純利益がリアルタイムに計算されます。</p>
+
+          <div class="sim-container">
+            <div class="sim-row">
+              <div class="sim-row-head">
+                <span>① 自費通院支援（粗利9,500円/回）</span>
+                <span class="sim-val-pill" id="valTrans">15 回</span>
+              </div>
+              <input type="range" min="0" max="40" value="15" class="sim-range" id="rangeTrans" oninput="calcSim()">
+            </div>
+
+            <div class="sim-row">
+              <div class="sim-row-head">
+                <span>③ 福祉用具貸与（月粗利6,800円/人）</span>
+                <span class="sim-val-pill" id="valRent">25 名</span>
+              </div>
+              <input type="range" min="0" max="60" value="25" class="sim-range" id="rangeRent" oninput="calcSim()">
+            </div>
+
+            <div class="sim-row">
+              <div class="sim-row-head">
+                <span>② 訪看・デイSNS代行（粗利3万円/社）</span>
+                <span class="sim-val-pill" id="valSns">2 社</span>
+              </div>
+              <input type="range" min="0" max="6" value="2" class="sim-range" id="rangeSns" oninput="calcSim()">
+            </div>
+
+            <div class="sim-row">
+              <div class="sim-row-head">
+                <span>代表（創業者）役員報酬</span>
+                <span class="sim-val-pill" id="valSalary">25 万円</span>
+              </div>
+              <input type="range" min="0" max="40" step="5" value="25" class="sim-range" id="rangeSalary" oninput="calcSim()">
+            </div>
+
+            <div class="sim-summary-box">
+              <div class="sim-summary-grid">
+                <div>
+                  <div class="sim-sum-label">月間総粗利</div>
+                  <div class="sim-sum-val" id="resGross" style="color: #6ee7b7;">¥372,500</div>
+                </div>
+                <div>
+                  <div class="sim-sum-label">月間固定費合計</div>
+                  <div class="sim-sum-val" id="resFixed" style="color: #cbd5e1;">¥422,500</div>
+                </div>
+              </div>
+              <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.15); display: flex; justify-content: space-between; align-items: baseline;">
+                <span class="sim-sum-label" style="color: white; font-weight: 700;">月間営業純利益：</span>
+                <span class="sim-sum-val minus" id="resNet" style="font-size: 1.3rem;">-¥50,000</span>
+              </div>
+            </div>
+
+            <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 8px;">
+              ※固定費内訳：基本固定費13.5万円（母報酬5万＋経費8.5万）＋ 代表報酬 ＋ 会社負担社保（報酬の約15%）
+            </p>
+          </div>
+
+          <!-- 初期投資明細 -->
+          <div class="simple-box">
+            <strong style="font-size: 0.82rem; color: var(--text-main);">💰 初期投資（約18.5万〜20万円）内訳</strong>
+            <div style="font-size: 0.78rem; color: var(--text-sub); margin-top: 4px; line-height: 1.6;">
+              合同会社設立実費 約6.5万 ＋ 旭川市指定申請手数料 約2.5万 ＋ 鍵付書庫・備品 約5万 ＋ チラシ・名刺 約1.5万 ＋ 事業者賠償保険 約3万
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目4：フェーズ別ロードマップ ＆ インタラクティブTODOリスト -->
+      <div class="accordion-item is-open">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">✅</span>
+            <span class="acc-title">フェーズ別ロードマップ ＆ TODOチェックリスト</span>
+          </div>
+          <span class="acc-tag">進捗保存</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">タップするとチェックが入り、ブラウザに自動保存されます。</p>
+
+          <!-- 進捗バー -->
+          <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 4px;">
+            <span>全体進捗率</span>
+            <span id="progressText" style="color: var(--primary);">0%</span>
+          </div>
+          <div style="background: #e2e8f0; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 16px;">
+            <div id="progressBar" style="background: var(--primary); height: 100%; width: 0%; transition: width 0.3s;"></div>
+          </div>
+
+          <!-- Phase 1 -->
+          <div style="margin-bottom: 16px;">
+            <div style="font-size: 0.85rem; font-weight: 800; color: var(--c-bp1); margin-bottom: 6px;">
+              【Phase 1：助走期】（個人事業主：1〜3ヶ月目）
+            </div>
+            <div id="p1Todos"></div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div style="margin-bottom: 16px;">
+            <div style="font-size: 0.85rem; font-weight: 800; color: var(--c-bp3); margin-bottom: 6px;">
+              【Phase 2：法人化・指定申請期】（合同会社：4〜5ヶ月目）
+            </div>
+            <div id="p2Todos"></div>
+          </div>
+
+          <!-- Phase 3 -->
+          <div>
+            <div style="font-size: 0.85rem; font-weight: 800; color: var(--c-todo); margin-bottom: 6px;">
+              【Phase 3：本稼働・黒字化期】（指定取得・6ヶ月目〜）
+            </div>
+            <div id="p3Todos"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ページ送りフッター -->
+    <div class="page-nav-footer">
+      <a href="blueprint5_lifestyle_support.html" class="page-nav-btn">← ⑤ 除雪・家具</a>
+      <a href="index.html" class="page-nav-btn primary">🌐 全体像へ戻る</a>
+    </div>
+
+  </main>
+
+  <!-- スマホ固定ボトムナビ（Dock型バー） -->
+  <nav class="bottom-dock">
+    <div class="bottom-dock-inner">
+      <a href="index.html" class="dock-tab">
+        <span class="icon">🌐</span>
+        <span class="label">全体像</span>
+      </a>
+      <a href="blueprint1_transport.html" class="dock-tab">
+        <span class="icon">①</span>
+        <span class="label">通院支援</span>
+      </a>
+      <a href="blueprint2_sns_marketing.html" class="dock-tab">
+        <span class="icon">②</span>
+        <span class="label">SNS代行</span>
+      </a>
+      <a href="blueprint3_fukushi_rental.html" class="dock-tab">
+        <span class="icon">③</span>
+        <span class="label">福祉用具</span>
+      </a>
+      <a href="blueprint4_equipment_renovation.html" class="dock-tab">
+        <span class="icon">④</span>
+        <span class="label">販売改修</span>
+      </a>
+      <a href="blueprint5_lifestyle_support.html" class="dock-tab">
+        <span class="icon">⑤</span>
+        <span class="label">除雪家具</span>
+      </a>
+      <a href="blueprint_risks_and_todos.html" class="dock-tab is-active">
+        <span class="icon">⚡</span>
+        <span class="label">監査TODO</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- スクリプト：アコーディオン ＆ シミュレーター ＆ TODO -->
+  <script>
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      item.classList.toggle('is-open');
+    }
+
+    function toggleAllAccordions() {
+      const items = document.querySelectorAll('.accordion-item');
+      const anyClosed = Array.from(items).some(item => !item.classList.contains('is-open'));
+      items.forEach(item => {
+        if (anyClosed) {
+          item.classList.add('is-open');
+        } else {
+          item.classList.remove('is-open');
+        }
+      });
+    }
+
+    // TODOデータ
+    const tasks = {
+      p1: [
+        { id: 't1_1', title: '税務署へ開業届・青色申告申請書の提出', desc: '費用0円。マイナンバーで即日作成。' },
+        { id: 't1_2', title: '通院支援の料金表・利用規約・重説の策定', desc: 'タクシー同乗ルール（白タク回避）や免責事項を明記。' },
+        { id: 't1_3', title: '看護師賠償保険 ＆ 事業者賠償保険の加入', desc: '万一の事故に備えた補償を確保。' },
+        { id: 't1_4', title: '案内チラシ（A4・3パターン）の印刷手配', desc: 'ラクスル等で各500〜1,000部。' },
+        { id: 't1_5', title: '大手卸業者（マルベリー等旭川営業所）と面談', desc: '掛け率、配送代行条件、指定申請用委託証明書の段取り。' },
+        { id: 't1_6', title: '近隣訪看・デイへ採用特化型SNS/HP代行の提案', desc: '1〜2社のテスト受託・逆指名パイプ作り。' }
+      ],
+      p2: [
+        { id: 't2_1', title: '合同会社の設立（定款作成・登記）', desc: '実費約6.5万円。事業目的に福祉用具・生活支援を網羅。' },
+        { id: 't2_2', title: '母親の非常勤役員就任 ＆ テレワーク規程策定', desc: '厚労省Vol.1237準拠の業務分担書・規程を作成。' },
+        { id: 't2_3', title: '法人銀行口座の開設', desc: '法務局登記完了後、ネット銀行等で開設。' },
+        { id: 't2_4', title: '自宅兼事務所の設備整備', desc: '鍵付き書庫、相談パーテーション、消毒設備。' },
+        { id: 't2_5', title: '旭川市指導監査課へ指定申請書提出（貸与＋販売同時）', desc: '開業希望月2ヶ月前までに事前相談・申請。' },
+        { id: 't2_6', title: '住宅改修受領委任払い取扱登録届出の提出', desc: '旭川市介護保険課へ提出。' },
+        { id: 't2_7', title: 'クラウド介護ソフト（カイポケ等）契約・母PC設定', desc: '国保連伝送請求の環境を整備。' }
+      ],
+      p3: [
+        { id: 't3_1', title: '旭川市より指定通知書受領 ＆ 卸と本契約締結', desc: '事業者番号取得・正式稼働開始。' },
+        { id: 't3_2', title: '通院支援顧客・ケアマネ・提携先へ指定取得アナウンス', desc: '用具取り扱い開始の案内。' },
+        { id: 't3_3', title: '提携工務店・便利屋との連携体制テスト', desc: 'タンス移動無料キャンペーン開始。' },
+        { id: 't3_4', title: '初期損益分岐点の突破（通院10回＋用具6名）', desc: '固定費13.5万円を完全相殺。' },
+        { id: 't3_5', title: '安定黒字化（通院20回＋SNS2社＋用具30名）', desc: '創業者報酬月25万円を安定確保。' }
+      ]
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTodos();
+      calcSim();
+      updateProgress();
+    });
+
+    function renderTodos() {
+      const saved = JSON.parse(localStorage.getItem('pitanurse_clean_todos') || '{}');
+      ['p1', 'p2', 'p3'].forEach(k => {
+        const c = document.getElementById(`${k}Todos`);
+        c.innerHTML = '';
+        tasks[k].forEach(t => {
+          const done = !!saved[t.id];
+          const d = document.createElement('div');
+          d.className = `todo-card-row ${done ? 'is-done' : ''}`;
+          d.id = `row_${t.id}`;
+          d.onclick = (e) => {
+            if (e.target.tagName !== 'INPUT') {
+              const cb = d.querySelector('input');
+              cb.checked = !cb.checked;
+              toggleTask(t.id, cb.checked);
+            }
+          };
+          d.innerHTML = `
+            <input type="checkbox" class="todo-check-input" ${done ? 'checked' : ''} onchange="toggleTask('${t.id}', this.checked)">
+            <div>
+              <div class="todo-title-text">${t.title}</div>
+              <div class="todo-desc-text">${t.desc}</div>
+            </div>
+          `;
+          c.appendChild(d);
+        });
+      });
+    }
+
+    function toggleTask(id, done) {
+      const saved = JSON.parse(localStorage.getItem('pitanurse_clean_todos') || '{}');
+      saved[id] = done;
+      localStorage.setItem('pitanurse_clean_todos', JSON.stringify(saved));
+      const el = document.getElementById(`row_${id}`);
+      if (el) {
+        if (done) el.classList.add('is-done');
+        else el.classList.remove('is-done');
+      }
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const saved = JSON.parse(localStorage.getItem('pitanurse_clean_todos') || '{}');
+      const total = tasks.p1.length + tasks.p2.length + tasks.p3.length;
+      let count = 0;
+      Object.keys(saved).forEach(k => { if (saved[k]) count++; });
+      const pct = Math.round((count / total) * 100);
+      document.getElementById('progressBar').style.width = `${pct}%`;
+      document.getElementById('progressText').textContent = `${pct}% (${count}/${total})`;
+      document.getElementById('topProgressVal').innerHTML = `${pct}<small>%</small>`;
+    }
+
+    function calcSim() {
+      const trans = parseInt(document.getElementById('rangeTrans').value, 10);
+      const rent = parseInt(document.getElementById('rangeRent').value, 10);
+      const sns = parseInt(document.getElementById('rangeSns').value, 10);
+      const salary = parseInt(document.getElementById('rangeSalary').value, 10) * 10000;
+
+      document.getElementById('valTrans').textContent = `${trans} 回`;
+      document.getElementById('valRent').textContent = `${rent} 名`;
+      document.getElementById('valSns').textContent = `${sns} 社`;
+      document.getElementById('valSalary').textContent = `${salary / 10000} 万円`;
+
+      const gross = (trans * 9500) + (rent * 6800) + (sns * 30000);
+      const baseFixed = 135000;
+      const shaho = salary > 0 ? Math.round(salary * 0.15) : 0;
+      const totalFixed = baseFixed + salary + shaho;
+      const net = gross - totalFixed;
+
+      document.getElementById('resGross').textContent = `¥${gross.toLocaleString()}`;
+      document.getElementById('resFixed').textContent = `¥${totalFixed.toLocaleString()}`;
+
+      const netEl = document.getElementById('resNet');
+      if (net >= 0) {
+        netEl.className = 'sim-sum-val plus';
+        netEl.textContent = `+¥${net.toLocaleString()}`;
+      } else {
+        netEl.className = 'sim-sum-val minus';
+        netEl.textContent = `-¥${Math.abs(net).toLocaleString()}`;
+      }
+    }
+  </script>
+
+</body>
+</html>

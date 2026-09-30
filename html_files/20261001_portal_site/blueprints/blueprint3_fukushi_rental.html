@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>設計図③：福祉用具貸与 | ぴたっとナース 社内ポータル</title>
+  <link rel="stylesheet" href="blueprint_style.css">
+</head>
+<body>
+
+  <!-- 上部コンパクトヘッダー -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand-title">
+        <span>🩺</span>
+        <span>ぴたっとナース</span>
+        <span class="brand-badge">設計図③</span>
+      </div>
+      <a href="index.html" class="header-link-back">
+        <span>← 全体像</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- メインコンテナ -->
+  <main class="app-container">
+
+    <!-- ページ概要カード -->
+    <section class="page-intro-card">
+      <div class="intro-badge-row">
+        <span class="bp-indicator-badge bp3">【設計図③】ストック収益コア</span>
+        <span style="font-size: 0.72rem; color: var(--text-muted);">体制：正看護師2名（野村現場 × 母リモート）</span>
+      </div>
+      <h1 class="page-main-title">介護保険 福祉用具貸与事業</h1>
+      <p class="page-lead-text">
+        一度契約すれば平均1.5〜2年にわたり毎月定額粗利が積み上がる会社の土台。
+        保管・配送・組立・消毒は大手卸（マルベリー等）へ全面委託し、倉庫・トラック・在庫を一切持たない経営を実現。
+        正看護師2名体制による医学的選定理由書で、ケアマネジャーと病院から絶大な信頼を獲得します。
+      </p>
+
+      <!-- 要約KPI -->
+      <div class="quick-kpi-row">
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">平均契約期間</div>
+          <div class="kpi-mini-val">1.5〜2<small>年</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">目標利用者数</div>
+          <div class="kpi-mini-val">25〜30<small>名</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">自社在庫・倉庫</div>
+          <div class="kpi-mini-val">完全ゼロ<small>（卸委託）</small></div>
+        </div>
+        <div class="kpi-mini-box">
+          <div class="kpi-mini-label">月間ストック粗利</div>
+          <div class="kpi-mini-val">約20<small>万円（30名時）</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- アコーディオン一括開閉コントロール -->
+    <div class="accordion-controls">
+      <button class="btn-toggle-all" onclick="toggleAllAccordions()">すべて開く / 閉じる</button>
+    </div>
+
+    <!-- アコーディオングループ -->
+    <div class="accordion-group">
+
+      <!-- 項目1：大手卸業者全面委託モデルの仕組み -->
+      <div class="accordion-item is-open">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🚚</span>
+            <span class="acc-title">「持たざる経営」：大手卸全面委託モデルの仕組み</span>
+          </div>
+          <span class="acc-tag">ローリスク</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">自社で倉庫・トラックを持たず、旭川に拠点のある大手卸（マルベリー等）のインフラをフル活用します。</p>
+
+          <div class="clean-table-wrap">
+            <table class="clean-table">
+              <thead>
+                <tr>
+                  <th>業務領域</th>
+                  <th>実務担当</th>
+                  <th>自社メリット</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>商品の仕入・保管</strong></td>
+                  <td>大手卸業者（巨大倉庫で管理）</td>
+                  <td>倉庫家賃ゼロ、不良在庫ゼロ</td>
+                </tr>
+                <tr>
+                  <td><strong>配送・搬入・組立</strong></td>
+                  <td>大手卸業者の配送スタッフ（2名体制）</td>
+                  <td>トラック維持費ゼロ、創業者への力仕事ゼロ</td>
+                </tr>
+                <tr>
+                  <td><strong>納品適合・調整</strong></td>
+                  <td style="color: var(--primary-dark); font-weight: 700;">野村由佳子（現場で微調整）</td>
+                  <td>「看護師が直接合わせてくれた」安心感</td>
+                </tr>
+                <tr>
+                  <td><strong>回収・消毒・洗浄</strong></td>
+                  <td>大手卸業者（オゾン消毒・高圧洗浄）</td>
+                  <td>感染リスクゼロ、衛生管理監査クリア</td>
+                </tr>
+                <tr>
+                  <td><strong>計画書作成・選定理由</strong></td>
+                  <td style="color: #b45309; font-weight: 700;">母親（遠隔・在宅PCで作成）</td>
+                  <td>創業者を営業・対面に専任させられる</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目2：母娘の完全分業プロトコル -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">👩‍⚕️</span>
+            <span class="acc-title">野村様（現場） × お母様（遠隔）の分業プロトコル</span>
+          </div>
+          <span class="acc-tag">実務手順</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="simple-box">
+            <span class="role-badge-pill founder">野村由佳子（旭川・現場・常勤管理者）</span>
+            <ul class="clean-list">
+              <li>利用者・家族・ケアマネとの対面面談</li>
+              <li>動線採寸（間口・段差）および環境写真撮影</li>
+              <li>納品日時に卸トラックと現地合流、身体へのフィッティング適合</li>
+              <li>契約書・計画書への署名受領、現場写真・メモをクラウドへアップ</li>
+            </ul>
+          </div>
+
+          <div class="simple-box">
+            <span class="role-badge-pill mother">母親（遠軽・在宅リモート・非常勤役員）</span>
+            <ul class="clean-list">
+              <li>共有フォルダの採寸データ・環境写真・身体状況メモを確認</li>
+              <li>介護ソフト（カイポケ等）で「福祉用具サービス計画書（原案）」作成</li>
+              <li>看護師知見を活かした医学的選定理由の記述（監査対策）</li>
+              <li>卸Web発注システムから納品発注登録</li>
+              <li>毎月1〜10日のケアマネ実績送付票発行・国保連伝送請求</li>
+            </ul>
+          </div>
+
+          <div class="callout-mini tip">
+            📲 <strong>データ連携の流れ：</strong><br>
+            訪問直後に車内からスマホで署名書類・部屋写真をGoogleドライブ等へアップ ➜ 母親が介護ソフトで計画書作成 ➜ 卸Web発注 ➜ 現地納品。
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目3：正看護師による医学的選定理由書の圧倒的威力 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">📝</span>
+            <span class="acc-title">制度改正（軽度者見直し）に勝つ選定理由書の威力</span>
+          </div>
+          <span class="acc-tag">監査対策</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <p class="body-lead">軽度者（要支援1・2、要介護1）のベッド・車椅子貸与は審査が厳格化。ケアマネが最も困っている部分です。</p>
+
+          <div class="simple-box" style="border-left: 3px solid #ef4444;">
+            <strong style="color: #991b1b; font-size: 0.82rem;">❌ 一般の営業マンの記載（返戻・減点リスク）</strong>
+            <p style="font-size: 0.78rem; color: #7f1d1d; margin-top: 2px;">
+              「足腰が弱くなって起き上がりが大変なため、特殊寝台を導入する。」<br>
+              ➜ 具体的疾患や病態、日常生活上の必然性が書かれていない。
+            </p>
+          </div>
+
+          <div class="simple-box" style="border-left: 3px solid var(--c-bp3);">
+            <strong style="color: #0369a1; font-size: 0.82rem;">✅ ぴたっとナース（正看護師）の記載（ケアマネ絶賛レベル）</strong>
+            <p style="font-size: 0.78rem; color: #075985; margin-top: 2px;">
+              「パーキンソン病の進行に伴うすくみ足および起立性低血圧を認め、自力起き上がり時の夜間転倒リスクが高い。背上げ機能およびスイングアーム介助バーにより起立動作を安定させ、骨折予防を図る。」<br>
+              ➜ ケアマネ・医師もそのままプランに引用可能。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目4：主要取扱品目と収益シミュレーション -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">📊</span>
+            <span class="acc-title">主要品目と月次ストック粗利（30名時 約20万円）</span>
+          </div>
+          <span class="acc-tag">収益シミュレーション</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <div class="clean-table-wrap">
+            <table class="clean-table">
+              <thead>
+                <tr>
+                  <th>貸与品目</th>
+                  <th>月額レンタル料目安</th>
+                  <th>粗利率目安</th>
+                  <th>1人月粗利</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>介護ベッド（特殊寝台）</strong></td>
+                  <td>8,000〜12,000単位</td>
+                  <td>約50〜55%</td>
+                  <td style="font-weight: 700; color: var(--primary-dark);">4,000〜6,500円</td>
+                </tr>
+                <tr>
+                  <td><strong>車椅子（自走・介助）</strong></td>
+                  <td>3,000〜6,000単位</td>
+                  <td>約55〜60%</td>
+                  <td style="font-weight: 700; color: var(--primary-dark);">1,800〜3,500円</td>
+                </tr>
+                <tr>
+                  <td><strong>歩行器・歩行車</strong></td>
+                  <td>2,000〜4,000単位</td>
+                  <td>約60%</td>
+                  <td style="font-weight: 700; color: var(--primary-dark);">1,200〜2,400円</td>
+                </tr>
+                <tr>
+                  <td><strong>置き型手すり</strong></td>
+                  <td>1,500〜3,000単位</td>
+                  <td>約60%</td>
+                  <td style="font-weight: 700; color: var(--primary-dark);">900〜1,800円</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="simple-box">
+            <strong style="color: var(--primary-dark); font-size: 0.85rem;">🎯 30名利用時のストック粗利規模</strong>
+            <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 2px;">
+              ベッド＋マットレス＋手すり等のセット（1人平均月粗利6,800円）の場合 ➜ <strong>月額 約203,000円の固定粗利が自動的に積み上がる</strong>計算です。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 項目5：旭川市の指定基準 ＆ 主要卸業者 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-wrap">
+            <span class="acc-icon">🏛️</span>
+            <span class="acc-title">指定基準クリア要件 ＆ 旭川拠点の卸業者</span>
+          </div>
+          <span class="acc-tag">行政基準</span>
+          <span class="acc-chevron">▼</span>
+        </div>
+        <div class="accordion-body">
+          <ul class="clean-list">
+            <li><strong>人員基準（常勤換算2.0名）：</strong>野村様（常勤管理者1.0）＋お母様（非常勤1.0）でクリア。看護師資格により専門相談員講習は免除。</li>
+            <li><strong>設備基準：</strong>自宅兼事務所内に鍵付き書庫、相談スペース用パーテーション、手指消毒設備。</li>
+            <li><strong>主要卸業者候補：</strong>株式会社マルベリー（北海道大手・手厚い配送）、日本ケアサプライ（業界最大手・Webシステム堅牢）、ニック株式会社。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ページ送りフッター -->
+    <div class="page-nav-footer">
+      <a href="blueprint2_sns_marketing.html" class="page-nav-btn">← ② SNS代行</a>
+      <a href="blueprint4_equipment_renovation.html" class="page-nav-btn primary">④ 販売・改修を見る →</a>
+    </div>
+
+  </main>
+
+  <!-- スマホ固定ボトムナビ（Dock型バー） -->
+  <nav class="bottom-dock">
+    <div class="bottom-dock-inner">
+      <a href="index.html" class="dock-tab">
+        <span class="icon">🌐</span>
+        <span class="label">全体像</span>
+      </a>
+      <a href="blueprint1_transport.html" class="dock-tab">
+        <span class="icon">①</span>
+        <span class="label">通院支援</span>
+      </a>
+      <a href="blueprint2_sns_marketing.html" class="dock-tab">
+        <span class="icon">②</span>
+        <span class="label">SNS代行</span>
+      </a>
+      <a href="blueprint3_fukushi_rental.html" class="dock-tab is-active">
+        <span class="icon">③</span>
+        <span class="label">福祉用具</span>
+      </a>
+      <a href="blueprint4_equipment_renovation.html" class="dock-tab">
+        <span class="icon">④</span>
+        <span class="label">販売改修</span>
+      </a>
+      <a href="blueprint5_lifestyle_support.html" class="dock-tab">
+        <span class="icon">⑤</span>
+        <span class="label">除雪家具</span>
+      </a>
+      <a href="blueprint_risks_and_todos.html" class="dock-tab">
+        <span class="icon">⚡</span>
+        <span class="label">監査TODO</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- アコーディオン制御スクリプト -->
+  <script>
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      item.classList.toggle('is-open');
+    }
+
+    function toggleAllAccordions() {
+      const items = document.querySelectorAll('.accordion-item');
+      const anyClosed = Array.from(items).some(item => !item.classList.contains('is-open'));
+      items.forEach(item => {
+        if (anyClosed) {
+          item.classList.add('is-open');
+        } else {
+          item.classList.remove('is-open');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
