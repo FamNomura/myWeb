@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ぴたっとナース 事業者向けチラシ（3パターン比較プレビュー）</title>
+<style>
+  :root {
+    /* デフォルト：パターンA（メディカル・トラスト型） */
+    --main-color: #1B365D;
+    --sub-color: #008080;
+    --accent-color: #D4AF37;
+    --bg-light: #F4F7FA;
+    --card-bg: #FFFFFF;
+    --text-color: #222222;
+    --border-radius: 4px;
+    --font-heading: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Meiryo", sans-serif;
+  }
+
+  /* パターンB：ケア・パートナー型（温もり・共生風） */
+  body.theme-warm {
+    --main-color: #2E6F40;
+    --sub-color: #E06D53;
+    --accent-color: #D9822B;
+    --bg-light: #FDFBF7;
+    --card-bg: #FFFFFF;
+    --text-color: #332D2B;
+    --border-radius: 14px;
+    --font-heading: "Hiragino Maru Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  }
+
+  /* パターンC：ビジネス・アライアンス型（企業提携・企画書風） */
+  body.theme-biz {
+    --main-color: #2C3E50;
+    --sub-color: #8E2822;
+    --accent-color: #B8860B;
+    --bg-light: #F2F4F4;
+    --card-bg: #FFFFFF;
+    --text-color: #1A1A1A;
+    --border-radius: 0px;
+    --font-heading: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: #555;
+    color: var(--text-color);
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Meiryo", sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+  }
+
+  /* パターン切替バー */
+  .switcher-bar {
+    position: sticky;
+    top: 10px;
+    z-index: 1000;
+    max-width: 900px;
+    margin: 0 auto 25px auto;
+    background: #222;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+  .switcher-bar span {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .btn-group {
+    display: flex;
+    gap: 10px;
+  }
+  .btn-group button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    transition: 0.2s;
+  }
+  .btn-a { background: #1B365D; color: #fff; }
+  .btn-b { background: #2E6F40; color: #fff; }
+  .btn-c { background: #8E2822; color: #fff; }
+  .btn-group button:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  /* チラシ用紙コンテナ */
+  .page {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    background: var(--bg-light);
+    padding: 36px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border-top: 10px solid var(--main-color);
+  }
+
+  .page-label {
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    font-size: 12px;
+    padding: 3px 10px;
+    margin-bottom: 12px;
+    border-radius: 3px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-heading);
+  }
+
+  /* 共通ヘッダー・権威バッジ */
+  .badge-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: var(--card-bg);
+    border: 2px solid var(--accent-color);
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 13px;
+    padding: 5px 14px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .badge::before {
+    content: "★";
+    color: var(--accent-color);
+  }
+
+  .hero {
+    background: var(--main-color);
+    color: #fff;
+    padding: 24px 28px;
+    border-radius: var(--border-radius);
+    margin-bottom: 24px;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: #ffd97d;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    font-size: 14px;
+    opacity: 0.95;
+  }
+
+  /* セクション見出し */
+  .sec-title {
+    font-size: 19px;
+    color: var(--main-color);
+    border-left: 6px solid var(--sub-color);
+    padding-left: 12px;
+    margin: 24px 0 14px 0;
+  }
+
+  /* 3カラムグリッド */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid #dce1e7;
+    border-top: 4px solid var(--sub-color);
+    border-radius: var(--border-radius);
+    padding: 16px;
+  }
+  .card h3 {
+    font-size: 16px;
+    color: var(--main-color);
+    margin-bottom: 8px;
+  }
+  .card p, .card li {
+    font-size: 13.5px;
+  }
+  .card ul {
+    padding-left: 18px;
+  }
+
+  /* 事例ボックス（ニシン漬けエピソード） */
+  .episode-box {
+    background: var(--card-bg);
+    border: 2px dashed var(--sub-color);
+    border-radius: var(--border-radius);
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .episode-tag {
+    background: var(--sub-color);
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 14px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    min-width: 120px;
+    font-size: 13px;
+  }
+
+  /* 料金表 */
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  .price-table th, .price-table td {
+    border: 1px solid #ccc;
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .price-table th {
+    background: var(--main-color);
+    color: #fff;
+  }
+  .price-highlight {
+    background: #fff9e6;
+    font-weight: bold;
+    color: var(--sub-color);
+  }
+
+  /* 双方向メリット矢印ボックス（裏面用） */
+  .alliance-box {
+    background: var(--card-bg);
+    border: 2px solid var(--main-color);
+    border-radius: var(--border-radius);
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .alliance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--bg-light);
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .alliance-header h3 {
+    color: var(--main-color);
+    font-size: 17px;
+  }
+  .tag-give-take {
+    background: var(--sub-color);
+    color: #fff;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  /* フッター・プロフィール */
+  .footer-profile {
+    background: var(--card-bg);
+    border-top: 3px solid var(--main-color);
+    padding: 20px;
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    border-radius: var(--border-radius);
+  }
+  .contact-box {
+    background: var(--bg-light);
+    padding: 14px;
+    border-radius: var(--border-radius);
+    border: 1px solid #ccc;
+    font-size: 13.5px;
+  }
+
+  @media (max-width: 768px) {
+    .grid-3, .grid-2, .footer-profile {
+      grid-template-columns: 1fr;
+    }
+    .episode-box {
+      flex-direction: column;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- デザインパターン切り替えバー -->
+<div class="switcher-bar">
+  <span>🎨 デザイン比較スイッチ（クリックで配色・雰囲気が変わります）：</span>
+  <div class="btn-group">
+    <button class="btn-a" onclick="document.body.className=''">パターンA：医療・公的信頼型</button>
+    <button class="btn-b" onclick="document.body.className='theme-warm'">パターンB：温もり・ケアマネ共生型</button>
+    <button class="btn-c" onclick="document.body.className='theme-biz'">パターンC：企業提携・企画書型</button>
+  </div>
+</div>
+
+<!-- ==================== 【表面】 ==================== -->
+<div class="page">
+  <div class="page-label">【表面】病院地域連携室・ケアマネジャー・関係機関様向け</div>
+
+  <div class="badge-row">
+    <div class="badge">北海道「地域課題解決型起業支援金」採択事業</div>
+    <div class="badge">道北ビジネスプランコンテスト 最優秀賞受賞</div>
+    <div class="badge">臨床経験12年の正看護師が専任対応</div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-sub">ケアマネジャー様・病院地域連携室様の「制度の隙間で困っている患者様」の受け皿に</div>
+    <h1>介護保険ではカバーできない「長時間の院内同行」と<br>遠方ご家族への「医療通訳」を正看護師が引き受けます</h1>
+    <p>『ぴたっとナース』は、既存の介護保険サービスと競合せず、制度外のサポートで地域医療・介護の質を底上げするパートナーです。</p>
+  </div>
+
+  <h2 class="sec-title">1. 単なる付き添いではない「医療通訳」3つのプロセス</h2>
+  <div class="grid-3">
+    <div class="card">
+      <h3>Step 1：診察前（情報整理）</h3>
+      <ul>
+        <li>ご自宅での生活状況・バイタルサインを看護視点でアセスメント</li>
+        <li>高齢者の曖昧な症状を言語化し、医師への伝達事項を事前に要約</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Step 2：診察中（医療通訳）</h3>
+      <ul>
+        <li>診察室へ同席し、医師の専門用語をご本人へ平易に翻訳</li>
+        <li>遠慮して言えない本音を代弁し、生活実態に即した治療プランを打診</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Step 3：診察後（即日家族報告）</h3>
+      <ul>
+        <li>その日のうちに遠方のご家族へLINEで詳細レポート・写真を送信</li>
+        <li>PTPシート単位での安全な服薬セットや、帰路の買い物・立ち寄りも対応</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="episode-box">
+    <div class="episode-tag">現場での介入事例<br>（ブラックボックス解消）</div>
+    <div>
+      <strong>【診察室での医師と患者様のすれ違いを防ぐ】</strong><br>
+      診察室で「血圧170、薬を増やしましょう」となった際、ご本人は原因が分からずただ頷くだけでした。しかし自宅環境を把握している看護師が<strong>「先生、原因は毎日の『ニシン漬け』です！」</strong>と介入したことで、不要な増薬を回避し「1日1切れの食事制限」へ変更。遠方の息子様にもLINE報告し、親子の会話と安心を取り戻しました。
+    </div>
+  </div>
+
+  <h2 class="sec-title">2. 専門職の皆様が安心してご紹介いただける「3層の防御壁（リスク管理）」</h2>
+  <div class="grid-3">
+    <div class="card">
+      <h3>① 法的範囲の厳守と緊急対応</h3>
+      <p>医療行為は一切行わず、法的範囲内の生活支援に徹します。急変時は臨床経験12年の判断力でトリアージを行い、主治医・救急へ迅速につなぎます。</p>
+    </div>
+    <div class="card">
+      <h3>② 同意書（責任分界）と賠償保険</h3>
+      <p>弁護士監修の利用規約・同意書により責任分界点を明確化。万が一の事故に備えた損害賠償責任保険にも加入済みです。</p>
+    </div>
+    <div class="card">
+      <h3>③ キャッシュレスと透明化</h3>
+      <p>遠方ご家族とのオンライン決済を導入し、高齢者様との直接的な現金のやり取りを極小化。レシート全保管・写真共有で金銭トラブルを防ぎます。</p>
+    </div>
+  </div>
+
+  <h2 class="sec-title">3. ご利用料金目安（入会金なし・税別）</h2>
+  <table class="price-table">
+    <thead>
+      <tr>
+        <th>プラン名</th>
+        <th>月額・単発料金</th>
+        <th>サービス内容（远方からの帰省交通費・有給消化コストより安価に安心を提供）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="price-highlight">
+        <td>まずは体験！初回お試し同行</td>
+        <td>5,000円 / 3時間</td>
+        <td>初回アセスメント＋通院または外出同行＋ご家族への詳細LINEレポート体験</td>
+      </tr>
+      <tr>
+        <td>あんしん基本プラン（月1回）</td>
+        <td>15,000円 / 月</td>
+        <td>月1回の通院同行、診察同席、簡易レポート共有（まずは試したい方向け）</td>
+      </tr>
+      <tr>
+        <td><strong>すこやか充実プラン（月2回・標準）</strong></td>
+        <td><strong>25,000円 / 月</strong></td>
+        <td><strong>月2回の通院同行、医師連携・調整、詳細LINEレポート（最も選ばれている核プラン）</strong></td>
+      </tr>
+      <tr>
+        <td>よくばりお任せプラン（月3回）</td>
+        <td>33,000〜35,000円 / 月</td>
+        <td>月3回の通院同行に加え、趣味・お墓参り・お買い物等の包括的な外出・QOL支援</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size: 12.5px;">※ケアマネジャー様・専門職様の担当者会議や面談への同席オプション（8,000円/回）もございます。</p>
+</div>
+
+<!-- ==================== 【裏面】 ==================== -->
+<div class="page">
+  <div class="page-label">【裏面】旭川信用金庫様・地域の事業者様向け（ビジネスマッチング・事業提携のご案内）</div>
+
+  <div class="hero">
+    <div class="hero-sub">地域の課題を「事業者間のアライアンス（相互送客）」で解決する</div>
+    <h1>旭川市内の各事業者様と「双方向の紹介・協力ネットワーク」を<br>構築したいと考えています</h1>
+    <p>当方からの案件発注・顧客紹介も含め、地域経済と高齢者支援をともに盛り上げてくださるパートナー企業様を探しています。</p>
+  </div>
+
+  <h2 class="sec-title">1. 【ぴたっとナース関連】相互送客・業務提携パートナー募集</h2>
+  <div class="grid-2">
+    <div class="alliance-box">
+      <div class="alliance-header">
+        <h3>① 居宅介護支援事業所・介護施設様</h3>
+        <span class="tag-give-take">相互にご紹介</span>
+      </div>
+      <p style="font-size: 13.5px;">
+        <strong>【貴社メリット】</strong> 介護保険では対応できない「長時間の院内介助」「冠婚葬祭・墓参り」「遠方家族への詳細報告」が必要な利用者様の受け皿になります。<br>
+        <strong>【当方からのご紹介】</strong> 家族様から直接相談が入った介護保険未申請の方や、ケアプラン見直しが必要な方を貴事業所へ優先的にご紹介いたします。
+      </p>
+    </div>
+
+    <div class="alliance-box">
+      <div class="alliance-header">
+        <h3>② タクシー会社・移動支援事業者様</h3>
+        <span class="tag-give-take">継続的な配車連携</span>
+      </div>
+      <p style="font-size: 13.5px;">
+        <strong>【貴社メリット】</strong> 通院同行・買い物同行時の移動手段として、継続的な配車依頼（売上）につながります。<br>
+        <strong>【連携イメージ】</strong> 看護師が同乗して健康観察を行うため、ドライバー様が安心して高齢者の送迎に専念できる協力体制を作れます。
+      </p>
+    </div>
+  </div>
+
+  <h2 class="sec-title">2. 【次期事業：福祉用具貸与・住宅改修】に向けた協力会社様募集</h2>
+  <p style="font-size: 14px; margin-bottom: 12px;">
+    次のステップとして、医療・看護の視点を活かした<strong>「福祉用具貸与・販売」および「高齢者向け住宅改修」を行う新法人（合同会社）の設立</strong>を準備しております。それに先立ち、以下のパートナー様との接点を探しています。
+  </p>
+  <div class="grid-2">
+    <div class="card">
+      <h3>③ 福祉用具の元請け・卸企業様（マルベリー様等）</h3>
+      <p>福祉用具貸与事業の立ち上げに向け、大手の福祉用具レンタル卸企業様との新規取引・仕入れルートの開拓を希望しております。ご担当者様をご紹介いただけますと幸いです。</p>
+    </div>
+    <div class="card">
+      <h3>④ 住宅改修を請け負っていただける一人親方・工務店様</h3>
+      <p>手すりの取り付けや段差解消など、高齢者の住環境整備（介護保険の住宅改修等）を小回り良く丁寧に施工してくださる一人親方の大工様・工務店様を探しています。継続的に施工案件をご相談・発注させていただきます。</p>
+    </div>
+  </div>
+
+  <h2 class="sec-title">3. 【地元企業様向け】WEBサイト構築・SNS運用・デジタル化支援</h2>
+  <div class="alliance-box" style="border-color: var(--sub-color);">
+    <div class="alliance-header">
+      <h3>⑤ ホームページ制作やSNS集客・求人でお困りの事業所様へ</h3>
+      <span class="tag-give-take">IT・広報支援</span>
+    </div>
+    <p style="font-size: 13.5px;">
+      当事業では、独自の業務報告アプリ（AppSheet）開発や、Instagram・TikTok・WEBサイト（LP）を活用したデジタル発信ノウハウを有しています。<br>
+      <strong>「介護事業所や自社のホームページを作りたい」「若い世代の採用や集客のためにSNS運用を始めたい」「紙の業務日報をスマホで効率化したい」</strong>といった地元事業者様がいらっしゃいましたら、企画から制作・運用まで親身にサポートいたします。
+    </p>
+  </div>
+
+  <!-- フッター・代表プロフィール -->
+  <div class="footer-profile">
+    <div>
+      <h3 style="color: var(--main-color); margin-bottom: 6px;">代表プロフィール：野村 由佳子（正看護師 / 臨床経験12年）</h3>
+      <p style="font-size: 13px;">
+        救急処置や病棟勤務、学生指導など12年間医療現場の最前線に従事。一方で、遠軽町に住む親の通院に「片道120kmの壁」で駆けつけられない無力さを痛感。「親孝行を自己犠牲にしない社会を作りたい」「医療の目と家族の心で寄り添う新しいインフラを旭川から作りたい」という決意のもと創業。
+      </p>
+    </div>
+    <div class="contact-box">
+      <strong>【ご紹介・提携のお問い合わせ窓口】</strong><br>
+      事業名：ぴたっとナース<br>
+      代表：野村 由佳子<br>
+      所在地：北海道旭川市神楽5条7丁目2番3号<br>
+      TEL：090-XXXX-XXXX（直通）<br>
+      E-mail：yukako0518@gmail.com<br>
+      営業時間：平日 9:00〜16:00（土日祝休）
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
