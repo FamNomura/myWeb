@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6畳間 商談・執務レイアウトシミュレーター | 1200mm vs 1500mm ＆ エディア収納</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    }
+    .blueprint-bg {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(203, 213, 225, 0.4) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(203, 213, 225, 0.4) 1px, transparent 1px);
+    }
+    .draggable-item {
+      cursor: grab;
+    }
+    .draggable-item:active {
+      cursor: grabbing;
+    }
+    .selected-outline {
+      filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.45));
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- ヘッダー -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap justify-between items-center gap-3">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-blue-600 text-white rounded-lg shadow-xs">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+            6畳間 商談・執務レイアウトシミュレーター
+            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">自由移動・1200/1500比較</span>
+          </h1>
+          <p class="text-xs text-slate-500">プラス U字型Tレッグテーブル ＆ コクヨ EDIA（エディア）2段ラテラルキャビネット</p>
+        </div>
+      </div>
+
+      <!-- ステータス・残幅インジケーター -->
+      <div class="flex flex-wrap items-center gap-2 text-xs">
+        <div class="px-3 py-1.5 bg-slate-50 rounded-lg border border-slate-200 flex items-center gap-2">
+          <span class="text-slate-500">テーブル右側の通路幅:</span>
+          <span id="header-aisle-width" class="font-bold text-sm text-emerald-700">1,410 mm</span>
+        </div>
+        <div id="collision-status" class="px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-semibold flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          動線・開閉干渉なし
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- 左カラム：インタラクティブ図面キャンバス（7カラム） -->
+    <div class="lg:col-span-7 flex flex-col gap-4">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden flex flex-col">
+        
+        <!-- キャンバス上部ツールバー -->
+        <div class="px-4 py-2.5 bg-slate-50 border-b border-slate-200 flex flex-wrap justify-between items-center gap-2 text-xs">
+          <div class="flex items-center gap-2 text-slate-600">
+            <span class="inline-flex items-center gap-1 font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded border border-blue-200">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
+              ドラッグで家具を移動 / クリックで選択＆回転
+            </span>
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="flex items-center gap-1.5 cursor-pointer text-slate-600 hover:text-slate-900">
+              <input type="checkbox" id="chk-wall-snap" checked class="rounded text-blue-600 focus:ring-blue-500">
+              <span>壁ピタ吸着 (50mm単位)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- SVG 2D フロアプラン (2610mm x 3520mm) -->
+        <div class="relative bg-slate-100 blueprint-bg p-3 sm:p-5 flex items-center justify-center min-h-[540px] select-none overflow-hidden">
+          <svg id="floorplan-svg" class="w-full h-auto max-h-[680px] drop-shadow-md"
+               viewBox="-280 -260 3170 4080" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- フローリング（ナチュラルオーク木目調） -->
+              <pattern id="wood-floor" width="145" height="440" patternUnits="userSpaceOnUse">
+                <rect width="145" height="440" fill="#f5ebe1" stroke="#e2d1c0" stroke-width="1.5"/>
+                <line x1="0" y1="220" x2="72.5" y2="220" stroke="#e2d1c0" stroke-width="1.5"/>
+                <line x1="72.5" y1="0" x2="72.5" y2="440" stroke="#e2d1c0" stroke-width="1.5"/>
+                <line x1="72.5" y1="360" x2="145" y2="360" stroke="#e2d1c0" stroke-width="1.5"/>
+                <!-- 繊細な木目ライン -->
+                <path d="M 20 0 Q 35 110 20 220" fill="none" stroke="#ebd9c8" stroke-width="1"/>
+                <path d="M 105 100 Q 95 230 110 360" fill="none" stroke="#ebd9c8" stroke-width="1"/>
+              </pattern>
+
+              <!-- ウォールナット木目天板（エディアロッカー用 BWUT-W9MV5NN） -->
+              <linearGradient id="walnut-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#5c4033"/>
+                <stop offset="50%" stop-color="#4a3228"/>
+                <stop offset="100%" stop-color="#3d281f"/>
+              </linearGradient>
+
+              <!-- 寸法矢印マーカー -->
+              <marker id="arrow-slate" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#64748b"/>
+              </marker>
+              <marker id="arrow-blue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#2563eb"/>
+              </marker>
+              <marker id="arrow-emerald" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#059669"/>
+              </marker>
+            </defs>
+
+            <!-- 1. 部屋床面（W2610 × D3520 フローリング） -->
+            <rect id="room-base" x="0" y="0" width="2610" height="3520" fill="url(#wood-floor)" stroke="#78716c" stroke-width="4"/>
+
+            <!-- 500mmピッチ 補助グリッド線 -->
+            <g id="layer-grid" opacity="0.25" pointer-events="none">
+              <line x1="500" y1="0" x2="500" y2="3520" stroke="#78716c" stroke-width="2" stroke-dasharray="10,10"/>
+              <line x1="1000" y1="0" x2="1000" y2="3520" stroke="#78716c" stroke-width="2" stroke-dasharray="10,10"/>
+              <line x1="1500" y1="0" x2="1500" y2="3520" stroke="#78716c" stroke-width="2" stroke-dasharray="10,10"/>
+              <line x1="2000" y1="0" x2="2000" y2="3520" stroke="#78716c" stroke-width="2" stroke-dasharray="10,10"/>
+              <line x1="0" y1="500" x2="2610" y2="500" stroke="#78716c" stroke-width="2" stroke-dasharray="10,10"/>
+              <line x1="0" y1="1000" x2="2610" y2="1000" stroke="#78716c" stroke-width="2" stroke-dasharray="10,10"/>
+              <line x1="0" y1="1500" x2="2610" y2="1500" stroke="#78716c" stroke-width="2" stroke-dasharray="10,10"/>
+              <line x1="0" y1="2000" x2="2610" y2="2000" stroke="#78716c" stroke-width="2" stroke-dasharray="10,10"/>
+              <line x1="0" y1="2500" x2="2610" y2="2500" stroke="#78716c" stroke-width="2" stroke-dasharray="10,10"/>
+              <line x1="0" y1="3000" x2="2610" y2="3000" stroke="#78716c" stroke-width="2" stroke-dasharray="10,10"/>
+            </g>
+
+            <!-- 2. 構造壁（周囲120mm厚） -->
+            <!-- 上壁（北短辺） -->
+            <rect x="-120" y="-120" width="2850" height="120" fill="#334155"/>
+            <!-- 下壁（南短辺：左側に扉） -->
+            <rect x="-120" y="3520" width="2850" height="120" fill="#334155"/>
+            <!-- 左壁（西長辺） -->
+            <rect x="-120" y="0" width="120" height="3520" fill="#334155"/>
+            <!-- 右壁（東長辺） -->
+            <rect x="2610" y="0" width="120" height="3520" fill="#334155"/>
+
+            <!-- 窓（上壁中央 W1600mm） -->
+            <g id="window-north">
+              <rect x="505" y="-125" width="1600" height="130" fill="#e2e8f0" stroke="#475569" stroke-width="3"/>
+              <line x1="505" y1="-60" x2="2105" y2="-60" stroke="#0284c7" stroke-width="5"/>
+              <text x="1305" y="-150" font-size="65" font-weight="600" fill="#64748b" text-anchor="middle">窓 (短辺・奥側)</text>
+            </g>
+
+            <!-- 3. 扉（短辺の左側：X = 120mm 〜 900mm、有効開口 780mm） -->
+            <g id="door-group">
+              <!-- 開口部白抜き -->
+              <rect id="door-opening" x="120" y="3515" width="780" height="130" fill="#f8fafc"/>
+              <!-- ドア枠 -->
+              <rect id="door-frame-l" x="100" y="3500" width="20" height="150" fill="#475569"/>
+              <rect id="door-frame-r" x="900" y="3500" width="20" height="150" fill="#475569"/>
+              <!-- 内開きドア軌跡と扉（左軸ヒンジ） -->
+              <g id="door-swing-visual">
+                <path id="door-arc" d="M 900 3520 A 780 780 0 0 0 120 2740 L 120 3520 Z" fill="#ef4444" fill-opacity="0.08" stroke="#f87171" stroke-width="4" stroke-dasharray="16,12"/>
+                <line id="door-panel" x1="120" y1="3520" x2="120" y2="2740" stroke="#dc2626" stroke-width="12" stroke-linecap="round"/>
+              </g>
+              <text id="door-label" x="510" y="3430" font-size="62" font-weight="700" fill="#dc2626" text-anchor="middle">入口扉 (短辺の左側)</text>
+            </g>
+
+            <!-- 車椅子回転チェックサークル（トグル表示） -->
+            <g id="layer-wheelchair-circle" class="hidden" pointer-events="none">
+              <circle id="wc-circle" cx="1950" cy="1950" r="700" fill="#10b981" fill-opacity="0.1" stroke="#059669" stroke-width="4" stroke-dasharray="18,12"/>
+              <text id="wc-text" x="1950" y="1960" font-size="60" font-weight="700" fill="#047857" text-anchor="middle">車椅子回転域 (φ1400mm)</text>
+            </g>
+
+            <!-- ========================================================== -->
+            <!-- 家具1：コクヨ EDIA（エディア）2段ラテラルロッカー (W900×D450) -->
+            <!-- ========================================================== -->
+            <g id="locker-item" class="draggable-item" data-id="locker">
+              <!-- 引き出し開閉クリアランス領域（手前 +420mm） -->
+              <g id="locker-drawer-zone">
+                <rect x="-450" y="225" width="900" height="420" rx="8" fill="#f59e0b" fill-opacity="0.22" stroke="#d97706" stroke-width="3" stroke-dasharray="12,8"/>
+                <!-- 引き出しを開いた状態のガイド線 -->
+                <line x1="-420" y1="225" x2="-420" y2="620" stroke="#d97706" stroke-width="2" stroke-dasharray="6,6"/>
+                <line x1="420" y1="225" x2="420" y2="620" stroke="#d97706" stroke-width="2" stroke-dasharray="6,6"/>
+                <text x="0" y="425" font-size="44" font-weight="700" fill="#b45309" text-anchor="middle">引き出し開閉スペース (D420mm)</text>
+                <text x="0" y="485" font-size="36" font-weight="600" fill="#d97706" text-anchor="middle">▼ 立ち位置・書類出し入れ ▼</text>
+              </g>
+
+              <!-- ロッカー本体 (W900 × D450、中心(0,0)基準で x:-450〜450, y:-225〜225) -->
+              <!-- ホワイト本体枠 + ブラウンウォールナット木目天板 (BWUT-W9MV5NN) -->
+              <rect id="locker-body" x="-450" y="-225" width="900" height="450" rx="8" fill="url(#walnut-grad)" stroke="#ffffff" stroke-width="8"/>
+              <rect x="-450" y="-225" width="900" height="450" rx="8" fill="none" stroke="#1e293b" stroke-width="5"/>
+
+              <!-- 正面（引き出し取っ手側：+Y側）のホワイトエッジ＆取っ手ディテール -->
+              <rect x="-435" y="190" width="870" height="28" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+              <!-- 鍵穴＆ラテラル取っ手バー -->
+              <rect x="-180" y="200" width="360" height="10" rx="3" fill="#94a3b8"/>
+              <circle cx="380" cy="204" r="7" fill="#dc2626"/>
+
+              <!-- ロッカー表記テキスト -->
+              <text x="0" y="-50" font-size="50" font-weight="700" fill="#ffffff" text-anchor="middle">KOKUYO エディア (鍵付)</text>
+              <text x="0" y="15" font-size="40" font-weight="500" fill="#fed7aa" text-anchor="middle">W900 × D450 (H782mm)</text>
+              <text x="0" y="75" font-size="34" fill="#e2e8f0" text-anchor="middle">2段ラテラル + 木目天板</text>
+              <!-- 正面向き矢印 -->
+              <path d="M -25 140 L 25 140 L 0 175 Z" fill="#fbbf24"/>
+            </g>
+
+            <!-- ========================================================== -->
+            <!-- 家具2：プラス U字型Tレッグテーブル (W1200 / W1500 × D800) -->
+            <!-- ========================================================== -->
+            <!-- 基準点(0,0)は「直線側の短辺中央」。X=0から+X方向へ1200または1500伸びる -->
+            <g id="table-item" class="draggable-item" data-id="table">
+
+              <!-- 椅子・引き代グループ（テーブルと連動して移動・回転） -->
+              <g id="table-chairs-group">
+                <!-- 1. 事業者席（上側 -Y 長辺：キャスター付タスクチェア） -->
+                <g id="staff-chair-unit" transform="translate(500, -560)">
+                  <!-- 引き代エリア -->
+                  <rect class="clearance-zone" x="-320" y="-220" width="640" height="580" rx="20" fill="#3b82f6" fill-opacity="0.12" stroke="#3b82f6" stroke-width="2" stroke-dasharray="10,8"/>
+                  <!-- 座面 -->
+                  <rect x="-240" y="-160" width="480" height="420" rx="26" fill="#2563eb" stroke="#1e3a8a" stroke-width="4"/>
+                  <!-- 背もたれ -->
+                  <rect x="-220" y="-210" width="440" height="80" rx="18" fill="#1e3a8a"/>
+                  <text x="0" y="30" font-size="44" font-weight="700" fill="#ffffff" text-anchor="middle">事業者・事務席</text>
+                  <text x="0" y="85" font-size="32" fill="#dbeafe" text-anchor="middle">(キャスター椅子)</text>
+                </g>
+
+                <!-- 2. 相談者席（アール先端側 +X、L字90度配置：回転ハーフアームチェア） -->
+                <g id="client-chair-unit" transform="translate(1320, 0) rotate(-90)">
+                  <!-- 引き代エリア -->
+                  <rect class="clearance-zone" x="-330" y="-240" width="660" height="580" rx="20" fill="#10b981" fill-opacity="0.14" stroke="#059669" stroke-width="2" stroke-dasharray="10,8"/>
+                  <!-- 回転脚ベース円 -->
+                  <circle cx="0" cy="0" r="250" fill="#cbd5e1" stroke="#64748b" stroke-width="4"/>
+                  <!-- 座面 -->
+                  <rect x="-250" y="-200" width="500" height="440" rx="32" fill="#10b981" stroke="#065f46" stroke-width="4"/>
+                  <!-- 背もたれ -->
+                  <rect x="-230" y="-250" width="460" height="85" rx="20" fill="#065f46"/>
+                  <!-- ハーフアーム -->
+                  <rect x="-275" y="-190" width="40" height="190" rx="12" fill="#047857"/>
+                  <rect x="235" y="-190" width="40" height="190" rx="12" fill="#047857"/>
+                  <text x="0" y="30" font-size="44" font-weight="700" fill="#ffffff" text-anchor="middle">相談者席 (90°)</text>
+                  <text x="0" y="85" font-size="32" fill="#d1fae5" text-anchor="middle">(回転ハーフ肘)</text>
+                </g>
+
+                <!-- 3. 家族・ケアマネ同行席（下側 +Y 長辺：オプション表示） -->
+                <g id="third-chair-unit" class="hidden" transform="translate(650, 560) rotate(180)">
+                  <rect class="clearance-zone" x="-300" y="-200" width="600" height="540" rx="20" fill="#a855f7" fill-opacity="0.12" stroke="#9333ea" stroke-width="2" stroke-dasharray="10,8"/>
+                  <rect x="-220" y="-150" width="440" height="380" rx="22" fill="#9333ea" stroke="#581c87" stroke-width="4"/>
+                  <rect x="-200" y="-195" width="400" height="75" rx="15" fill="#581c87"/>
+                  <text x="0" y="20" font-size="40" font-weight="700" fill="#ffffff" text-anchor="middle" transform="rotate(180)">同行・ケアマネ席</text>
+                </g>
+              </g>
+
+              <!-- 1200mm vs 1500mm 比較ゴースト表示（点線オーバーレイ） -->
+              <path id="table-ghost-1500" d="M 0 -400 L 1100 -400 A 400 400 0 0 1 1100 400 L 0 400 Z"
+                    fill="#3b82f6" fill-opacity="0.08" stroke="#2563eb" stroke-width="5" stroke-dasharray="18,12"/>
+              <text id="table-ghost-label" x="950" y="-430" font-size="46" font-weight="700" fill="#2563eb" text-anchor="middle">
+                ▲ 点線：W1500mmサイズ (+300mm拡張)
+              </text>
+
+              <!-- テーブル天板本体 (初期W1200: 直線800 + R400) -->
+              <path id="table-top-shape" d="M 0 -400 L 800 -400 A 400 400 0 0 1 800 400 L 0 400 Z"
+                    fill="#ffffff" stroke="#0f172a" stroke-width="8"/>
+
+              <!-- T字脚の床面ベース（破線表示） -->
+              <rect id="tleg-left" x="230" y="-320" width="60" height="640" rx="10" fill="#93c5fd" fill-opacity="0.45" stroke="#2563eb" stroke-width="3" stroke-dasharray="8,6"/>
+              <rect id="tleg-right" x="750" y="-320" width="60" height="640" rx="10" fill="#93c5fd" fill-opacity="0.45" stroke="#2563eb" stroke-width="3" stroke-dasharray="8,6"/>
+              <line id="tleg-beam" x1="260" y1="0" x2="780" y2="0" stroke="#cbd5e1" stroke-width="10"/>
+
+              <!-- 天板上の作業ゾーニング表示 -->
+              <g id="table-zoning-layer">
+                <!-- 執務・PCゾーン（壁側） -->
+                <rect id="zone-work-rect" x="20" y="-375" width="460" height="320" rx="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="3"/>
+                <text id="zone-work-title" x="250" y="-230" font-size="42" font-weight="700" fill="#1e40af" text-anchor="middle">PC・カタログ置き場</text>
+                <text id="zone-work-sub" x="250" y="-175" font-size="34" fill="#1d4ed8" text-anchor="middle">(幅460mm)</text>
+
+                <!-- 商談・共有確認ゾーン（アール側） -->
+                <path id="zone-meet-path" d="M 500 -360 L 760 -360 A 360 360 0 0 1 760 360 L 500 360 Z"
+                      fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+                <text id="zone-meet-title" x="660" y="-20" font-size="42" font-weight="700" fill="#15803d" text-anchor="middle">商談・署名エリア</text>
+                <text id="zone-meet-sub" x="660" y="35" font-size="34" fill="#166534" text-anchor="middle">(L字90°共有)</text>
+              </g>
+
+              <!-- テーブル中央寸法テキスト -->
+              <text id="table-main-label" x="420" y="260" font-size="52" font-weight="700" fill="#0f172a" text-anchor="middle">PLUS U字机 W1200</text>
+              <text id="table-sub-label" x="420" y="325" font-size="38" font-weight="600" fill="#475569" text-anchor="middle">奥行800 × 高695 (下肢653mm)</text>
+
+              <!-- 90°視線ライン -->
+              <g id="sightline-visual" pointer-events="none">
+                <line id="sight-staff" x1="500" y1="-380" x2="680" y2="0" stroke="#2563eb" stroke-width="4" stroke-dasharray="8,8"/>
+                <line id="sight-client" x1="1120" y1="0" x2="680" y2="0" stroke="#059669" stroke-width="4" stroke-dasharray="8,8"/>
+                <circle id="sight-node" cx="680" cy="0" r="14" fill="#2563eb"/>
+              </g>
+            </g>
+
+            <!-- ========================================================== -->
+            <!-- 動的寸法線レイヤー（テーブル端〜右壁の有効通路幅など） -->
+            <!-- ========================================================== -->
+            <g id="dynamic-dimensions" pointer-events="none">
+              <!-- テーブル横の残り通路幅ライン -->
+              <line id="dim-aisle-line" x1="1200" y1="1450" x2="2610" y2="1450" stroke="#059669" stroke-width="5" marker-start="url(#arrow-emerald)" marker-end="url(#arrow-emerald)"/>
+              <rect id="dim-aisle-bg" x="1550" y="1365" width="710" height="75" rx="12" fill="#ffffff" fill-opacity="0.9" stroke="#059669" stroke-width="2"/>
+              <text id="dim-aisle-text" x="1905" y="1418" font-size="54" font-weight="700" fill="#047857" text-anchor="middle">有効通路 1,410 mm</text>
+
+              <!-- 部屋全体寸法（外周固定） -->
+              <line x1="0" y1="3720" x2="2610" y2="3720" stroke="#64748b" stroke-width="4" marker-start="url(#arrow-slate)" marker-end="url(#arrow-slate)"/>
+              <text x="1305" y="3795" font-size="70" font-weight="700" fill="#475569" text-anchor="middle">短辺幅 2,610 mm (フローリング6畳)</text>
+
+              <line x1="-200" y1="0" x2="-200" y2="3520" stroke="#64748b" stroke-width="4" marker-start="url(#arrow-slate)" marker-end="url(#arrow-slate)"/>
+              <text x="-225" y="1760" font-size="70" font-weight="700" fill="#475569" text-anchor="middle" transform="rotate(-90, -225, 1760)">長辺奥行 3,520 mm</text>
+            </g>
+
+          </svg>
+
+          <!-- キャンバス左下・操作ヒント -->
+          <div class="absolute bottom-3 left-3 bg-white/95 backdrop-blur-xs px-3 py-2 rounded-xl border border-slate-200 shadow-xs text-[11px] text-slate-600 flex flex-col gap-1">
+            <div class="font-bold text-slate-800 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span> 図面内の家具は自由にドラッグ移動できます
+            </div>
+            <div>・テーブルまたはロッカーをクリックして選択し、右パネルで「90°回転」が可能</div>
+            <div>・橙色の点線枠は「ロッカーの引き出し開閉域（420mm）」を示します</div>
+          </div>
+        </div>
+
+        <!-- 下部メトリクス比較バー -->
+        <div class="p-3 bg-slate-50 border-t border-slate-200 grid grid-cols-3 gap-2.5 text-center text-xs">
+          <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+            <span class="text-slate-400 block text-[10px]">現在のテーブルサイズ</span>
+            <span id="metric-table-size" class="text-blue-700 font-bold text-sm">幅 1,200 × 奥行 800 mm</span>
+            <span id="metric-table-mode" class="text-[10px] text-slate-500 block">商談特化・省スペース</span>
+          </div>
+          <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+            <span class="text-slate-400 block text-[10px]">右側の残り通路幅</span>
+            <span id="metric-aisle-val" class="text-emerald-700 font-bold text-sm">1,410 mm</span>
+            <span id="metric-aisle-sub" class="text-[10px] text-emerald-600 block">車椅子すれ違い余裕 (基準800mm)</span>
+          </div>
+          <div class="p-2.5 bg-white rounded-xl border border-slate-200">
+            <span class="text-slate-400 block text-[10px]">エディアロッカー開閉余裕</span>
+            <span id="metric-locker-val" class="text-amber-700 font-bold text-sm">良好 (干渉なし)</span>
+            <span class="text-[10px] text-slate-500 block">本体D450 + 引出D420mm</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 右カラム：操作パネル＆比較検証コントロール（5カラム） -->
+    <div class="lg:col-span-5 flex flex-col gap-4">
+
+      <!-- 1. テーブル幅 1200mm vs 1500mm 切り替え＆比較カード -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-xs flex flex-col gap-3.5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+            1. テーブル幅の比較切り替え (1200 vs 1500)
+          </h2>
+          <span class="text-[11px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">差 +300mm</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <button id="btn-size-1200" class="flex flex-col text-left p-3 rounded-xl border-2 transition border-blue-600 bg-blue-50/70 ring-2 ring-blue-500/20">
+            <div class="flex items-center justify-between w-full mb-0.5">
+              <span class="text-xs font-bold text-blue-950">幅 1,200 mm</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-600 text-white font-semibold">商談用</span>
+            </div>
+            <span class="text-[11px] text-slate-600">通路幅 <strong>1,410mm</strong> 確保。毎回PCを片付けて商談に専念するスタイル。</span>
+          </button>
+
+          <button id="btn-size-1500" class="flex flex-col text-left p-3 rounded-xl border-2 transition border-slate-200 bg-white hover:border-slate-300">
+            <div class="flex items-center justify-between w-full mb-0.5">
+              <span class="text-xs font-bold text-slate-900">幅 1,500 mm</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-600 text-white font-semibold">事務兼商談</span>
+            </div>
+            <span class="text-[11px] text-slate-600">通路幅 <strong>1,110mm</strong> 確保。壁側にPCを常設したまま右半分で商談可能！</span>
+          </button>
+        </div>
+
+        <!-- 比較ゴースト表示チェック -->
+        <label class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer text-xs">
+          <span class="font-medium text-slate-700 flex items-center gap-2">
+            <span class="w-3.5 h-0.5 border-b-2 border-blue-600 border-dashed"></span>
+            1200mmと1500mmの差（30cm）を点線で重ねて表示
+          </span>
+          <input type="checkbox" id="chk-ghost-compare" checked class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+        </label>
+      </div>
+
+      <!-- 2. 選択中の家具の回転・配置プリセット -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-xs flex flex-col gap-3.5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            2. 家具の移動・回転 ＆ 配置プリセット
+          </h2>
+          <span id="selected-item-badge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800">
+            選択中：テーブル
+          </span>
+        </div>
+
+        <!-- 選択アイテム切り替え＆回転ボタン -->
+        <div class="grid grid-cols-3 gap-2 text-xs">
+          <button id="btn-select-table" class="py-2 px-3 rounded-lg font-semibold border border-blue-600 bg-blue-50 text-blue-800 transition">
+            机を選択
+          </button>
+          <button id="btn-select-locker" class="py-2 px-3 rounded-lg font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition">
+            ロッカーを選択
+          </button>
+          <button id="btn-rotate-selected" class="py-2 px-3 rounded-lg font-bold bg-slate-800 text-white hover:bg-slate-700 flex items-center justify-center gap-1 shadow-xs transition active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            90°回転する
+          </button>
+        </div>
+
+        <!-- ワンタッチ配置プリセット -->
+        <div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
+          <span class="text-xs font-semibold text-slate-600">おすすめ配置プリセット（クリックで即時配置）：</span>
+          <div class="grid grid-cols-1 gap-2 text-xs">
+            <button id="preset-1" class="p-2.5 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/40 text-left flex items-center justify-between transition group">
+              <div>
+                <div class="font-bold text-slate-800 group-hover:text-blue-700">案A：左壁にテーブル ＋ 奥壁（上）にロッカー</div>
+                <div class="text-[11px] text-slate-500">事業者席のすぐ後ろにロッカーがあり、座ったまま書類を取り出せる黄金配置</div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-1 rounded bg-blue-100 text-blue-700 shrink-0">一番人気</span>
+            </button>
+
+            <button id="preset-2" class="p-2.5 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/40 text-left flex items-center justify-between transition group">
+              <div>
+                <div class="font-bold text-slate-800 group-hover:text-blue-700">案B：左壁にロッカーとテーブルを縦一列に並べる</div>
+                <div class="text-[11px] text-slate-500">家具をすべて左壁に集約し、部屋の右半分と窓前を完全に空ける配置</div>
+              </div>
+              <span class="text-[10px] font-medium px-2 py-1 rounded bg-slate-100 text-slate-600 shrink-0">空間広々</span>
+            </button>
+
+            <button id="preset-3" class="p-2.5 rounded-xl border border-slate-200 hover:border-blue-400 hover:bg-blue-50/40 text-left flex items-center justify-between transition group">
+              <div>
+                <div class="font-bold text-slate-800 group-hover:text-blue-700">案C：右壁（奥側）にロッカー ＋ 左壁にテーブル</div>
+                <div class="text-[11px] text-slate-500">ロッカーを対面の右壁へ配置。天板(H782mm)を電話台や展示カウンターにも活用</div>
+              </div>
+              <span class="text-[10px] font-medium px-2 py-1 rounded bg-slate-100 text-slate-600 shrink-0">カウンター活用</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 添付見積書：コクヨ EDIA（エディア）ロッカー仕様詳細 -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-xs flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+            添付お見積書：コクヨ EDIA（鍵付き収納）の寸法検証
+          </h3>
+          <span class="text-[11px] font-semibold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">計 ¥114,620</span>
+        </div>
+
+        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200/80 text-xs flex flex-col gap-1.5">
+          <div class="flex justify-between">
+            <span class="text-slate-500">① 本体 (BWU-L2A39SAWNN)：</span>
+            <span class="font-semibold text-slate-800">2段ラテラル 鍵付 (W900×D450×H702)</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">② ベース (BWUB-S9SAW)：</span>
+            <span class="font-semibold text-slate-800">シングルベース (H60mm)</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">③ 天板 (BWUT-W9MV5NN)：</span>
+            <span class="font-semibold text-amber-900">木目ブラウンウォールナット (H20mm)</span>
+          </div>
+          <div class="pt-1.5 mt-1 border-t border-slate-200 flex justify-between items-center">
+            <span class="font-bold text-slate-700">組立後の総外寸：</span>
+            <span class="font-bold text-sm text-blue-700">幅 900 × 奥行 450 × 高さ 782 mm</span>
+          </div>
+        </div>
+
+        <p class="text-[11px] text-slate-600 leading-relaxed">
+          💡 <strong>配置のポイント：</strong>高さが<strong>782mm</strong>（机より約8.7cm高い腰高サイズ）で上品なウォールナット木目天板がついているため、圧迫感が全くありません。上部にプリンターや消毒液・カタログスタンドを置くサイドボードとしても非常に優秀です。ただし<strong>手前に約420mm引き出しが伸びる</strong>ため、椅子と重ならない位置に配置するのがコツです。
+        </p>
+
+        <!-- 表示オプション -->
+        <div class="pt-2 border-t border-slate-100 grid grid-cols-2 gap-2 text-xs">
+          <label class="flex items-center gap-1.5 cursor-pointer text-slate-600">
+            <input type="checkbox" id="chk-third-chair" class="rounded text-purple-600">
+            <span>3人目席（同行者）を表示</span>
+          </label>
+          <label class="flex items-center gap-1.5 cursor-pointer text-slate-600">
+            <input type="checkbox" id="chk-wc-circle" class="rounded text-emerald-600">
+            <span>車椅子旋回円 (φ1400)</span>
+          </label>
+          <label class="flex items-center gap-1.5 cursor-pointer text-slate-600">
+            <input type="checkbox" id="chk-door-top" class="rounded text-red-600">
+            <span>扉を上壁(北側)左に切替</span>
+          </label>
+          <label class="flex items-center gap-1.5 cursor-pointer text-slate-600">
+            <input type="checkbox" id="chk-hide-chairs" class="rounded text-slate-600">
+            <span>椅子引き代枠を隠す</span>
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- インタラクティブ制御スクリプト -->
+  <script>
+    const svg = document.getElementById('floorplan-svg');
+    const tableItem = document.getElementById('table-item');
+    const lockerItem = document.getElementById('locker-item');
+
+    // 状態管理オブジェクト
+    const state = {
+      roomW: 2610,
+      roomD: 3520,
+      snapToGrid: true,
+      selectedId: 'table', // 'table' or 'locker'
+      doorOnTop: false,
+      table: {
+        width: 1200, // 1200 or 1500
+        depth: 800,
+        x: 0,        // 左壁付け (X=0)
+        y: 1650,     // 部屋中央やや奥
+        rot: 0       // 0, 90, 180, 270
+      },
+      locker: {
+        w: 900,
+        d: 450,
+        x: 550,      // 中心X (左端100〜右端1000)
+        y: 225,      // 中心Y (上壁付け Y=225)
+        rot: 0       // 0=正面が下向き(+Y), 90=左向き(-X), 180=上向き(-Y), 270=右向き(+X)
+      }
+    };
+
+    // DOM参照
+    const btnSize1200 = document.getElementById('btn-size-1200');
+    const btnSize1500 = document.getElementById('btn-size-1500');
+    const chkGhostCompare = document.getElementById('chk-ghost-compare');
+    const chkWallSnap = document.getElementById('chk-wall-snap');
+    const btnSelectTable = document.getElementById('btn-select-table');
+    const btnSelectLocker = document.getElementById('btn-select-locker');
+    const btnRotateSelected = document.getElementById('btn-rotate-selected');
+    const selectedItemBadge = document.getElementById('selected-item-badge');
+
+    // テーブル形状更新 (1200mm vs 1500mm)
+    function updateTableGeometry() {
+      const w = state.table.width;
+      const straightLen = w - 400; // R400半円を除いた直線部長さ (800 or 1100)
+
+      const topShape = document.getElementById('table-top-shape');
+      topShape.setAttribute('d', `M 0 -400 L ${straightLen} -400 A 400 400 0 0 1 ${straightLen} 400 L 0 400 Z`);
+
+      // T字脚位置の調整
+      document.getElementById('tleg-right').setAttribute('x', straightLen - 50);
+      document.getElementById('tleg-beam').setAttribute('x2', straightLen - 20);
+
+      // 天板ゾーニングの更新
+      const zoneWorkRect = document.getElementById('zone-work-rect');
+      const zoneWorkTitle = document.getElementById('zone-work-title');
+      const zoneWorkSub = document.getElementById('zone-work-sub');
+      const zoneMeetPath = document.getElementById('zone-meet-path');
+      const zoneMeetTitle = document.getElementById('zone-meet-title');
+      const zoneMeetSub = document.getElementById('zone-meet-sub');
+
+      if (w === 1200) {
+        // 1200mmモード：商談専用
+        zoneWorkRect.setAttribute('width', '460');
+        zoneWorkTitle.setAttribute('x', '250');
+        zoneWorkTitle.textContent = 'PC・カタログ置場';
+        zoneWorkSub.setAttribute('x', '250');
+        zoneWorkSub.textContent = '(幅460mm)';
+
+        zoneMeetPath.setAttribute('d', `M 500 -360 L 760 -360 A 360 360 0 0 1 760 360 L 500 360 Z`);
+        zoneMeetTitle.setAttribute('x', '670');
+        zoneMeetTitle.textContent = '商談・署名エリア';
+        zoneMeetSub.setAttribute('x', '670');
+        zoneMeetSub.textContent = '(幅700mm)';
+
+        document.getElementById('staff-chair-unit').setAttribute('transform', 'translate(500, -560)');
+        document.getElementById('client-chair-unit').setAttribute('transform', 'translate(1320, 0) rotate(-90)');
+        document.getElementById('third-chair-unit').setAttribute('transform', 'translate(600, 560) rotate(180)');
+
+        document.getElementById('sight-staff').setAttribute('x1', '500');
+        document.getElementById('sight-staff').setAttribute('x2', '680');
+        document.getElementById('sight-client').setAttribute('x1', '1120');
+        document.getElementById('sight-client').setAttribute('x2', '680');
+        document.getElementById('sight-node').setAttribute('cx', '680');
+
+        document.getElementById('table-main-label').setAttribute('x', '430');
+        document.getElementById('table-main-label').textContent = 'PLUS U字机 W1200';
+        document.getElementById('table-sub-label').setAttribute('x', '430');
+
+        // ゴーストは1500mmを表示
+        document.getElementById('table-ghost-1500').setAttribute('d', 'M 0 -400 L 1100 -400 A 400 400 0 0 1 1100 400 L 0 400 Z');
+        document.getElementById('table-ghost-label').textContent = '▲ 点線：W1500mmにした場合の拡張分 (+300mm)';
+      } else {
+        // 1500mmモード：事務兼商談ハイブリッド
+        zoneWorkRect.setAttribute('width', '650');
+        zoneWorkTitle.setAttribute('x', '345');
+        zoneWorkTitle.textContent = '常設PC・事務執務ゾーン';
+        zoneWorkSub.setAttribute('x', '345');
+        zoneWorkSub.textContent = '(幅650mm・片付け不要)';
+
+        zoneMeetPath.setAttribute('d', `M 690 -360 L 1060 -360 A 360 360 0 0 1 1060 360 L 690 360 Z`);
+        zoneMeetTitle.setAttribute('x', '930');
+        zoneMeetTitle.textContent = '来客・商談ゾーン';
+        zoneMeetSub.setAttribute('x', '930');
+        zoneMeetSub.textContent = '(ゆったり幅810mm)';
+
+        document.getElementById('staff-chair-unit').setAttribute('transform', 'translate(680, -560)');
+        document.getElementById('client-chair-unit').setAttribute('transform', 'translate(1620, 0) rotate(-90)');
+        document.getElementById('third-chair-unit').setAttribute('transform', 'translate(850, 560) rotate(180)');
+
+        document.getElementById('sight-staff').setAttribute('x1', '680');
+        document.getElementById('sight-staff').setAttribute('x2', '950');
+        document.getElementById('sight-client').setAttribute('x1', '1420');
+        document.getElementById('sight-client').setAttribute('x2', '950');
+        document.getElementById('sight-node').setAttribute('cx', '950');
+
+        document.getElementById('table-main-label').setAttribute('x', '550');
+        document.getElementById('table-main-label').textContent = 'PLUS U字机 W1500 (兼用)';
+        document.getElementById('table-sub-label').setAttribute('x', '550');
+
+        // ゴーストは1200mmを表示
+        document.getElementById('table-ghost-1500').setAttribute('d', 'M 0 -400 L 800 -400 A 400 400 0 0 1 800 400 L 0 400 Z');
+        document.getElementById('table-ghost-label').textContent = '▲ 点線：W1200mmのライン (-300mm)';
+      }
+
+      // ボタンのアクティブ見た目更新
+      if (w === 1200) {
+        btnSize1200.className = "flex flex-col text-left p-3 rounded-xl border-2 transition border-blue-600 bg-blue-50/70 ring-2 ring-blue-500/20";
+        btnSize1500.className = "flex flex-col text-left p-3 rounded-xl border-2 transition border-slate-200 bg-white hover:border-slate-300";
+        document.getElementById('metric-table-size').textContent = "幅 1,200 × 奥行 800 mm";
+        document.getElementById('metric-table-mode').textContent = "商談特化・省スペース";
+      } else {
+        btnSize1500.className = "flex flex-col text-left p-3 rounded-xl border-2 transition border-blue-600 bg-blue-50/70 ring-2 ring-blue-500/20";
+        btnSize1200.className = "flex flex-col text-left p-3 rounded-xl border-2 transition border-slate-200 bg-white hover:border-slate-300";
+        document.getElementById('metric-table-size').textContent = "幅 1,500 × 奥行 800 mm";
+        document.getElementById('metric-table-mode').textContent = "事務机 兼 商談ハイブリッド";
+      }
+
+      renderPositionsAndMetrics();
+    }
+
+    // 家具の座標・回転・通路幅寸法のリアルタイム描画
+    function renderPositionsAndMetrics() {
+      // 1. テーブルの配置適用
+      tableItem.setAttribute('transform', `translate(${state.table.x}, ${state.table.y}) rotate(${state.table.rot})`);
+      // 2. ロッカーの配置適用
+      lockerItem.setAttribute('transform', `translate(${state.locker.x}, ${state.locker.y}) rotate(${state.locker.rot})`);
+
+      // 選択ハイライトの更新
+      if (state.selectedId === 'table') {
+        tableItem.classList.add('selected-outline');
+        lockerItem.classList.remove('selected-outline');
+        selectedItemBadge.textContent = '選択中：テーブル';
+        selectedItemBadge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800';
+        btnSelectTable.className = 'py-2 px-3 rounded-lg font-semibold border border-blue-600 bg-blue-50 text-blue-800 transition';
+        btnSelectLocker.className = 'py-2 px-3 rounded-lg font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition';
+      } else {
+        lockerItem.classList.add('selected-outline');
+        tableItem.classList.remove('selected-outline');
+        selectedItemBadge.textContent = '選択中：エディアロッカー';
+        selectedItemBadge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800';
+        btnSelectLocker.className = 'py-2 px-3 rounded-lg font-semibold border border-amber-600 bg-amber-50 text-amber-900 transition';
+        btnSelectTable.className = 'py-2 px-3 rounded-lg font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition';
+      }
+
+      // 3. テーブル右端から壁（またはロッカー）までの有効通路幅の計算
+      let tableRightEdge = state.table.x + state.table.width;
+      if (state.table.rot === 90 || state.table.rot === 270) {
+        tableRightEdge = state.table.x + 400;
+      } else if (state.table.rot === 180) {
+        tableRightEdge = state.table.x;
+      }
+
+      // 右壁(2610)までの距離を算出
+      let targetRightX = state.roomW;
+      // もしロッカーがテーブルと同Y帯の右側にある場合はロッカー左端までの距離を計算
+      const lockerHalfW = (state.locker.rot % 180 === 0) ? 450 : 225;
+      const lockerHalfD = (state.locker.rot % 180 === 0) ? 225 : 450;
+      const lockerLeft = state.locker.x - lockerHalfW;
+      const lockerTop = state.locker.y - lockerHalfD;
+      const lockerBottom = state.locker.y + lockerHalfD;
+
+      if (lockerLeft > tableRightEdge - 100 && Math.abs(state.locker.y - state.table.y) < 700) {
+        targetRightX = Math.min(state.roomW, lockerLeft);
+      }
+
+      const aisleWidth = Math.max(0, Math.round(targetRightX - tableRightEdge));
+      const dimLine = document.getElementById('dim-aisle-line');
+      const dimBg = document.getElementById('dim-aisle-bg');
+      const dimText = document.getElementById('dim-aisle-text');
+
+      const lineY = Math.min(3300, Math.max(300, state.table.y - 460));
+      dimLine.setAttribute('x1', tableRightEdge);
+      dimLine.setAttribute('y1', lineY);
+      dimLine.setAttribute('x2', targetRightX);
+      dimLine.setAttribute('y2', lineY);
+
+      const midX = (tableRightEdge + targetRightX) / 2;
+      dimBg.setAttribute('x', midX - 355);
+      dimBg.setAttribute('y', lineY - 85);
+      dimText.setAttribute('x', midX);
+      dimText.setAttribute('y', lineY - 32);
+      dimText.textContent = `有効通路 ${aisleWidth.toLocaleString()} mm`;
+
+      // ヘッダー＆下部カードの数値更新
+      document.getElementById('header-aisle-width').textContent = `${aisleWidth.toLocaleString()} mm`;
+      document.getElementById('metric-aisle-val').textContent = `${aisleWidth.toLocaleString()} mm`;
+      const metricSub = document.getElementById('metric-aisle-sub');
+      if (aisleWidth >= 1100) {
+        metricSub.textContent = '車椅子・すれ違い余裕 (基準800mm)';
+        metricSub.className = 'text-[10px] text-emerald-600 block';
+      } else if (aisleWidth >= 800) {
+        metricSub.textContent = '車椅子通過OK (800mm以上)';
+        metricSub.className = 'text-[10px] text-blue-600 block';
+      } else {
+        metricSub.textContent = 'やや狭め (車椅子は要注意)';
+        metricSub.className = 'text-[10px] text-amber-600 block';
+      }
+
+      // 4. 簡易干渉チェック（扉の開閉域 ＆ ロッカー引き出し域とテーブルの重なり）
+      checkInterference();
+    }
+
+    function checkInterference() {
+      const statusBadge = document.getElementById('collision-status');
+      const lockerMetric = document.getElementById('metric-locker-val');
+
+      // ロッカーの引き出し前方向の中心座標を計算
+      const rad = (state.locker.rot * Math.PI) / 180;
+      const drawerCenterX = state.locker.x - Math.sin(rad) * 435;
+      const drawerCenterY = state.locker.y + Math.cos(rad) * 435;
+
+      // テーブル天板の矩形領域（概算）
+      let tx1 = state.table.x, tx2 = state.table.x + state.table.width;
+      let ty1 = state.table.y - 400, ty2 = state.table.y + 400;
+      if (state.table.rot === 180) {
+        tx1 = state.table.x - state.table.width; tx2 = state.table.x;
+      } else if (state.table.rot === 90) {
+        tx1 = state.table.x - 400; tx2 = state.table.x + 400;
+        ty1 = state.table.y; ty2 = state.table.y + state.table.width;
+      } else if (state.table.rot === 270) {
+        tx1 = state.table.x - 400; tx2 = state.table.x + 400;
+        ty1 = state.table.y - state.table.width; ty2 = state.table.y;
+      }
+
+      // 引き出し開閉ポイントがテーブル天板または壁外に入っていないか
+      const drawerBlockedByTable = (drawerCenterX > tx1 - 150 && drawerCenterX < tx2 + 150 &&
+                                    drawerCenterY > ty1 - 150 && drawerCenterY < ty2 + 150);
+      const drawerBlockedByWall = (drawerCenterX < 100 || drawerCenterX > state.roomW - 100 ||
+                                   drawerCenterY < 100 || drawerCenterY > state.roomD - 100);
+
+      // ドア開閉域（左下の X:120〜900, Y:2740〜3520 または左上）との干渉
+      const doorYMin = state.doorOnTop ? 0 : 2740;
+      const doorYMax = state.doorOnTop ? 780 : 3520;
+      const tableHitsDoor = (tx1 < 900 && ty2 > doorYMin && ty1 < doorYMax);
+      const lockerHitsDoor = (state.locker.x - 450 < 900 && state.locker.y + 225 > doorYMin && state.locker.y - 225 < doorYMax);
+
+      if (drawerBlockedByWall) {
+        statusBadge.className = "px-3 py-1.5 bg-red-50 text-red-700 rounded-lg border border-red-200 font-semibold flex items-center gap-1.5";
+        statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> ロッカーの正面が壁に向いています（要回転）`;
+        lockerMetric.textContent = "開閉不可 (壁向き)";
+        lockerMetric.className = "text-red-600 font-bold text-sm";
+      } else if (tableHitsDoor || lockerHitsDoor) {
+        statusBadge.className = "px-3 py-1.5 bg-amber-50 text-amber-800 rounded-lg border border-amber-300 font-semibold flex items-center gap-1.5";
+        statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span> 入口ドアの開閉軌跡に家具が重なっています`;
+        lockerMetric.textContent = "ドア干渉に注意";
+        lockerMetric.className = "text-amber-600 font-bold text-sm";
+      } else if (drawerBlockedByTable) {
+        statusBadge.className = "px-3 py-1.5 bg-amber-50 text-amber-800 rounded-lg border border-amber-300 font-semibold flex items-center gap-1.5";
+        statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span> ロッカー引き出しと机が近接しています`;
+        lockerMetric.textContent = "机とやや近接";
+        lockerMetric.className = "text-amber-600 font-bold text-sm";
+      } else {
+        statusBadge.className = "px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-semibold flex items-center gap-1.5";
+        statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> 動線・引き出し・ドア干渉なし`;
+        lockerMetric.textContent = "良好 (開閉スムーズ)";
+        lockerMetric.className = "text-emerald-700 font-bold text-sm";
+      }
+    }
+
+    // ==========================================================
+    // SVG ドラッグ＆ドロップ処理（マウス ＆ タッチ対応）
+    // ==========================================================
+    let draggingId = null;
+    let dragOffset = { x: 0, y: 0 };
+
+    function getSVGCoords(evt) {
+      const pt = svg.createSVGPoint();
+      if (evt.touches && evt.touches.length > 0) {
+        pt.x = evt.touches[0].clientX;
+        pt.y = evt.touches[0].clientY;
+      } else {
+        pt.x = evt.clientX;
+        pt.y = evt.clientY;
+      }
+      return pt.matrixTransform(svg.getScreenCTM().inverse());
+    }
+
+    function startDrag(evt, id) {
+      evt.stopPropagation();
+      state.selectedId = id;
+      draggingId = id;
+      const coords = getSVGCoords(evt);
+      const targetObj = state[id];
+      dragOffset.x = coords.x - targetObj.x;
+      dragOffset.y = coords.y - targetObj.y;
+      renderPositionsAndMetrics();
+    }
+
+    function moveDrag(evt) {
+      if (!draggingId) return;
+      evt.preventDefault();
+      const coords = getSVGCoords(evt);
+      let newX = coords.x - dragOffset.x;
+      let newY = coords.y - dragOffset.y;
+
+      const step = state.snapToGrid ? 50 : 10;
+      newX = Math.round(newX / step) * step;
+      newY = Math.round(newY / step) * step;
+
+      if (draggingId === 'table') {
+        // 壁へのマグネット吸着（左壁 X=0 や 右壁 X=2610）
+        if (state.table.rot === 0) {
+          newX = Math.max(0, Math.min(state.roomW - state.table.width, newX));
+          if (state.snapToGrid && newX < 120) newX = 0; // 左壁ピタ吸着
+          newY = Math.max(400, Math.min(state.roomD - 400, newY));
+        } else if (state.table.rot === 180) {
+          newX = Math.max(state.table.width, Math.min(state.roomW, newX));
+          if (state.snapToGrid && newX > state.roomW - 120) newX = state.roomW; // 右壁ピタ吸着
+          newY = Math.max(400, Math.min(state.roomD - 400, newY));
+        } else {
+          newX = Math.max(400, Math.min(state.roomW - 400, newX));
+          newY = Math.max(0, Math.min(state.roomD - 400, newY));
+        }
+        state.table.x = newX;
+        state.table.y = newY;
+      } else if (draggingId === 'locker') {
+        const halfW = (state.locker.rot % 180 === 0) ? 450 : 225;
+        const halfD = (state.locker.rot % 180 === 0) ? 225 : 450;
+
+        newX = Math.max(halfW, Math.min(state.roomW - halfW, newX));
+        newY = Math.max(halfD, Math.min(state.roomD - halfD, newY));
+
+        // 四方の壁へのマグネット吸着
+        if (state.snapToGrid) {
+          if (newX - halfW < 90) newX = halfW;
+          if (state.roomW - (newX + halfW) < 90) newX = state.roomW - halfW;
+          if (newY - halfD < 90) newY = halfD;
+          if (state.roomD - (newY + halfD) < 90) newY = state.roomD - halfD;
+        }
+        state.locker.x = newX;
+        state.locker.y = newY;
+      }
+
+      renderPositionsAndMetrics();
+    }
+
+    function endDrag() {
+      draggingId = null;
+    }
+
+    // イベント登録
+    tableItem.addEventListener('mousedown', (e) => startDrag(e, 'table'));
+    lockerItem.addEventListener('mousedown', (e) => startDrag(e, 'locker'));
+    window.addEventListener('mousemove', moveDrag);
+    window.addEventListener('mouseup', endDrag);
+
+    tableItem.addEventListener('touchstart', (e) => startDrag(e, 'table'), { passive: false });
+    lockerItem.addEventListener('touchstart', (e) => startDrag(e, 'locker'), { passive: false });
+    window.addEventListener('touchmove', moveDrag, { passive: false });
+    window.addEventListener('touchend', endDrag);
+
+    // ==========================================================
+    // UIボタン・トグルイベント
+    // ==========================================================
+    btnSize1200.addEventListener('click', () => {
+      state.table.width = 1200;
+      updateTableGeometry();
+    });
+
+    btnSize1500.addEventListener('click', () => {
+      state.table.width = 1500;
+      updateTableGeometry();
+    });
+
+    chkGhostCompare.addEventListener('change', (e) => {
+      const ghost = document.getElementById('table-ghost-1500');
+      const label = document.getElementById('table-ghost-label');
+      ghost.style.display = e.target.checked ? 'block' : 'none';
+      label.style.display = e.target.checked ? 'block' : 'none';
+    });
+
+    chkWallSnap.addEventListener('change', (e) => {
+      state.snapToGrid = e.target.checked;
+    });
+
+    btnSelectTable.addEventListener('click', () => {
+      state.selectedId = 'table';
+      renderPositionsAndMetrics();
+    });
+
+    btnSelectLocker.addEventListener('click', () => {
+      state.selectedId = 'locker';
+      renderPositionsAndMetrics();
+    });
+
+    btnRotateSelected.addEventListener('click', () => {
+      const target = state[state.selectedId];
+      target.rot = (target.rot + 90) % 360;
+
+      // 回転後に部屋の壁外へはみ出さないよう補正
+      if (state.selectedId === 'locker') {
+        const halfW = (target.rot % 180 === 0) ? 450 : 225;
+        const halfD = (target.rot % 180 === 0) ? 225 : 450;
+        target.x = Math.max(halfW, Math.min(state.roomW - halfW, target.x));
+        target.y = Math.max(halfD, Math.min(state.roomD - halfD, target.y));
+      } else if (state.selectedId === 'table') {
+        if (target.rot === 0) target.x = 0;
+        if (target.rot === 180) target.x = state.roomW;
+        if (target.rot === 90 || target.rot === 270) target.x = Math.max(500, Math.min(state.roomW - 500, target.x));
+      }
+      renderPositionsAndMetrics();
+    });
+
+    // 配置プリセット
+    // 案A：左壁にテーブル ＋ 奥壁（上）にロッカー
+    document.getElementById('preset-1').addEventListener('click', () => {
+      state.table.x = 0;
+      state.table.y = 1750;
+      state.table.rot = 0;
+      state.locker.x = 550;
+      state.locker.y = 225;
+      state.locker.rot = 0; // 下向き開閉
+      renderPositionsAndMetrics();
+    });
+
+    // 案B：左壁にロッカーとテーブルを縦一列に並べる
+    document.getElementById('preset-2').addEventListener('click', () => {
+      state.locker.x = 225;
+      state.locker.y = 500;
+      state.locker.rot = 270; // 右（部屋内側）に向かって引き出し開閉
+      state.table.x = 0;
+      state.table.y = 1900;
+      state.table.rot = 0;
+      renderPositionsAndMetrics();
+    });
+
+    // 案C：右壁（奥側）にロッカー ＋ 左壁にテーブル
+    document.getElementById('preset-3').addEventListener('click', () => {
+      state.table.x = 0;
+      state.table.y = 1650;
+      state.table.rot = 0;
+      state.locker.x = 2610 - 225;
+      state.locker.y = 650;
+      state.locker.rot = 90; // 左（部屋内側）に向かって引き出し開閉
+      renderPositionsAndMetrics();
+    });
+
+    // 表示オプションチェックボックス
+    document.getElementById('chk-third-chair').addEventListener('change', (e) => {
+      document.getElementById('third-chair-unit').classList.toggle('hidden', !e.target.checked);
+    });
+
+    document.getElementById('chk-wc-circle').addEventListener('change', (e) => {
+      document.getElementById('layer-wheelchair-circle').classList.toggle('hidden', !e.target.checked);
+    });
+
+    document.getElementById('chk-hide-chairs').addEventListener('change', (e) => {
+      const zones = document.querySelectorAll('.clearance-zone');
+      zones.forEach(z => z.style.display = e.target.checked ? 'none' : 'block');
+    });
+
+    // 扉の位置切り替え（下壁の左側 ⇔ 上壁の左側）
+    document.getElementById('chk-door-top').addEventListener('change', (e) => {
+      state.doorOnTop = e.target.checked;
+      const doorOpening = document.getElementById('door-opening');
+      const frameL = document.getElementById('door-frame-l');
+      const frameR = document.getElementById('door-frame-r');
+      const doorArc = document.getElementById('door-arc');
+      const doorPanel = document.getElementById('door-panel');
+      const doorLabel = document.getElementById('door-label');
+      const winNorth = document.getElementById('window-north');
+
+      if (state.doorOnTop) {
+        doorOpening.setAttribute('y', '-125');
+        frameL.setAttribute('y', '-130');
+        frameR.setAttribute('y', '-130');
+        doorArc.setAttribute('d', 'M 900 0 A 780 780 0 0 1 120 780 L 120 0 Z');
+        doorPanel.setAttribute('y1', '0');
+        doorPanel.setAttribute('y2', '780');
+        doorLabel.setAttribute('y', '130');
+        winNorth.setAttribute('transform', 'translate(600, 0)');
+      } else {
+        doorOpening.setAttribute('y', '3515');
+        frameL.setAttribute('y', '3500');
+        frameR.setAttribute('y', '3500');
+        doorArc.setAttribute('d', 'M 900 3520 A 780 780 0 0 0 120 2740 L 120 3520 Z');
+        doorPanel.setAttribute('y1', '3520');
+        doorPanel.setAttribute('y2', '2740');
+        doorLabel.setAttribute('y', '3430');
+        winNorth.setAttribute('transform', 'translate(0, 0)');
+      }
+      renderPositionsAndMetrics();
+    });
+
+    // 初期描画
+    updateTableGeometry();
+  </script>
+</body>
+</html>
